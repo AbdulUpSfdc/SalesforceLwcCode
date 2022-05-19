@@ -1,0 +1,56 @@
+<template>
+      <lightning-layout multiple-rows="true"> 
+          <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+            <!--SPTSLSATT-1338 Changes starts-->
+            <lightning-card  title="Leads">
+              <template if:true={isARSM}>  
+                <a href='/lightning/n/Lead_Overview_ARSM' slot="actions">View Leads</a>
+              </template>
+              <template if:false={isARSM}>
+                <a href='/lightning/n/Lead_Overview' slot="actions">View Leads</a>
+              </template>
+            </lightning-card>
+            <!--SPTSLSATT-1338 Changes ends-->
+          </lightning-layout-item> 
+          <!--Sid Changes-->
+          <template if:false={isARSM}>
+              <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+                <lightning-button name="New Lead"  style="margin-top:5px;display:grid;width:100%;font-weight:bold;" label="New Lead" title="New Lead" icon-name="utility:add" onclick={gotoLeadForm}></lightning-button>
+              </lightning-layout-item>
+          </template>
+        <!--Abhilash Changes on MyStoreUrl-->       
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+              <lightning-button name="My Store URL"  style="margin-top:5px;display:grid;width:100%;font-weight:bold;" label="My Store URL" title="My Store URL" icon-name="utility:edit" onclick={showModal}></lightning-button>
+          </lightning-layout-item>
+          <!--  SPTSLSATT-1236--> 
+          <lightning-layout-item if:false={isARChannel} size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+              <lightning-button name="Submit USH Support Ticket"  style="margin-top:5px;display:grid;width:100%;font-weight:bold;" label="Submit USH Support Ticket" title="Submit USH Support Ticket"  onclick={showsubmitUSHModal}></lightning-button>
+          </lightning-layout-item>
+      </lightning-layout>
+    <template if:true={openModal} >  
+      <div class="slds-modal slds-fade-in-open slds-backdrop">  
+        <div class="slds-modal__container">  
+          <div class="slds-modal__header">  
+            <lightning-button-icon icon-name="utility:close" alternative-text="Close this window" size="large"  
+              variant="bare-inverse" onclick={closeModal} class="slds-modal__close">  
+            </lightning-button-icon>  
+                <h2 if:false={issubmitUSHSupportTicket}>My Store URL</h2><!--Sid Changes on Submit USH Support Ticket--> 
+                <h2 if:true={issubmitUSHSupportTicket}>Submit USH Support Ticket</h2><!--Sid Changes on Submit USH Support Ticket--> 
+          </div>  
+          <div class="slds-modal__content slds-p-around_medium">  
+            <div if:false={issubmitUSHSupportTicket} class="center"> <!--Sid Changes on Submit USH Support Ticket-->   
+        <a href={myStoreLink}>{myStoreLink}</a>
+            </div>  
+              <div if:true={issubmitUSHSupportTicket} class="center">  <!--Sid Changes on Submit USH Support Ticket-->  
+        <a href={submitUSHSupportTicket}>{submitUSHSupportTicket}</a>
+            </div>  
+          </div>
+          <div class="slds-modal__footer">  
+            <lightning-button icon-name="utility:close" label="close" variant="brand" onclick={closeModal}>  
+            </lightning-button>  
+          </div>  
+        </div>  
+      </div>  
+    </template> 
+  </template>
+  <!--Abhilash Chnage Ends-->

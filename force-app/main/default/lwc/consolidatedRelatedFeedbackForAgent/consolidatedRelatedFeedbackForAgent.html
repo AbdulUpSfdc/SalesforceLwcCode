@@ -1,0 +1,21 @@
+<template>
+    <lightning-card>
+        <span slot="title" class="slds-text-heading_small slds-p-top_small slds-p-left_xxx-small ">    
+            <strong><lightning-icon icon-name="standard:feedback"></lightning-icon>&nbsp;&nbsp;{relatedFedbackCount}</strong>
+        </span>
+        <div class="slds-p-horizontal_small">        
+            <lightning-datatable key-field="ID" 
+                                 data={artcileFeedbacks}
+                                 columns={columns}
+                                 hide-checkbox-column="true"
+                                 wrap-text-max-lines = "2"
+                                 enable-infinite-loading
+                                 onrowaction={handleMenuItem}></lightning-datatable>
+        </div>
+        <div slot="footer">
+            <template if:true={ismorethanthreeArticles}>
+                <lightning-button if:true={ismorethanthreeArticles} variant="base" label={btn_label} title={btn_label} onclick={handleViewAll} class="slds-m-left_x-small"></lightning-button>
+            </template>
+        </div>
+    </lightning-card>
+</template>

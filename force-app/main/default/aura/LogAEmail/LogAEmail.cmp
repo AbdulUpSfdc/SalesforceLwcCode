@@ -1,0 +1,21 @@
+<aura:component controller="LogACallController" implements="flexipage:availableForAllPageTypes,force:appHostable,force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:actionOverride,lightning:isUrlAddressable" access="global" >
+   <!--Custom Styles for Modal Header and Footer-->  
+   <aura:html tag="style">
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }       
+        .slds-modal__content{
+        overflow-y:scroll !important;
+        height:unset !important;
+        max-height:unset !important;
+        } 
+       
+    </aura:html>
+    <aura:attribute name="leadId" type="String"/> 
+    <lightning:navigation aura:id="navLink"/>
+    <c:emailLog name="Email Log" recordId="{!v.recordId}" onsubmitclicked="{!c.handleSubmit}" oncancelclicked="{!c.handleCancel}"/>  
+  
+</aura:component>

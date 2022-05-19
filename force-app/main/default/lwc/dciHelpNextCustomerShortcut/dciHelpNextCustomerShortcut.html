@@ -1,0 +1,9 @@
+<template>
+  <template if:true={showCustInfo}>	
+  <lightning-card>
+    
+    &nbsp; &nbsp; <lightning-icon icon-name="utility:warning" alternative-text="Warning!" variant="warning"></lightning-icon>  &nbsp;  You're still helping {custmerName}. Close out?  &nbsp;
+                  <lightning-button variant="Base" label="Yes, close out and click help next customer" onclick={viewRecord} value={CustId}></lightning-button>
+  </lightning-card>
+      </template>
+</template>

@@ -1,0 +1,15 @@
+<aura:component implements="flexipage:availableForAllPageTypes,lightning:availableForFlowScreens,force:appHostable,force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:actionOverride,lightning:isUrlAddressable" access="global" controller="MessageHistoryController">
+
+    <aura:attribute type="String" name="FlowComplete"/>
+    <aura:attribute type="Boolean" name="showSpinner" default="true"/>
+    <aura:attribute type="Boolean" name="flowNotCompleted" default="true" />
+    <div class="loading_wheel">
+        <aura:if isTrue="{!v.showSpinner}">
+             <lightning:spinner variant="brand" aura:id="spinner"  alternativeText="Please wait..." />
+        </aura:if>
+    </div>
+    <aura:renderIf isTrue="{!v.flowNotCompleted}">
+        <lightning:flow aura:id="flowMessage" onstatuschange="{!c.handleFlowComplete}" />
+    </aura:renderIf>
+    <aura:handler name="init" value="{!this}" action="{!c.handleRelease}"/>
+</aura:component>

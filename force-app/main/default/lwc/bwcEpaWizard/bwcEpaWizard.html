@@ -1,0 +1,210 @@
+<template>
+
+    <c-bwc-wizard steps={wizardSteps} default-title={wizardTitle} is-full-page is-quick-action onclose={handleWizardClose}>
+
+        <!-- Enroll Panel -->
+        <span slot="panel0">
+
+            <div data-name="enroll" class="slds-grid slds-grid_vertical panel">
+
+                <div if:false={paymentDetailsRetrieved} class="slds-grid slds-grid_vertical">
+                    <div class="slds-is-relative top-spinner">
+                        <lightning-spinner variant="brand" alternative-text="Retrieving Payment Details" size="large"></lightning-spinner>
+                    </div>
+                    <div class="slds-align_absolute-center slds-text-heading_medium">Retrieving Payment Details</div>
+                </div>
+
+                <div if:true={paymentDetailsRetrieved} class="slds-grid slds-grid_vertical">
+
+                    <!-- Agent Script -->
+                    <c-bwc-read-panel title="Read to the Customer:" collapsed-title="Enroll in Extended Payment Arrangement" text={label.enrollmentMessage}>
+                    </c-bwc-read-panel>
+
+                    <!-- Amounts -->
+                    <lightning-layout class="slds-p-top_x-small">
+                        <lightning-layout-item size="8" class="slds-text-align_left">
+                            <span class="slds-text-body_small">Payment Amount Due Today <lightning-formatted-date-time  class="element-value" year="numeric" month="2-digit" day="2-digit" time-zone="UTC" value={dueDate}
+                                ></lightning-formatted-date-time></span><br />
+                            <span class="slds-text-heading_medium heavy-bold">{paymentAmountDueToday}</span>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="2" class="slds-text-align_right">
+                            <span class="slds-text-body_small">Past Due Amount</span><br />
+                            <span class="slds-text-heading_medium">{pastDueAmount}</span>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="2" class="slds-text-align_right">
+                            <span class="slds-text-body_small">Total Due</span><br />
+                            <span class="slds-text-heading_medium">{totalDueAmount}</span>
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                    <!-- Account -->
+                    <div class="slds-grid slds-grid_vertical">
+
+                        <div class="slds-text-heading_small section-header">
+                            1. Installments
+                        </div>
+                        <div class="section-body">
+                            <div class="slds-grid">
+                                <lightning-combobox class="select-installments" data-name="selectNumberOfInstallments" name="selectNumberOfInstallments" label="Number of Monthly Installments" placeholder="Select" dropdown-alignment="auto"
+                                    required message-when-value-missing="Please select the number of monthly installments"
+                                    options={monthlyInstallmentOptions} value={selectedNoOfMonths} onchange={handleMonthlyInstallmentsChanged}>
+                                </lightning-combobox>
+                                <c-bwc-helptext content={label.monthlyInstallmentsHelpText}></c-bwc-helptext>
+                            </div>
+                            <template if:true={showMonthlyInstallments}>
+                                <div class="slds-p-top_x-small">
+                                    <lightning-datatable
+                                            key-field="id"
+                                            data={monthlyInstallmentsData}
+                                            columns={monthlyInstallmentsColumns}
+                                            hide-checkbox-column>
+                                    </lightning-datatable>
+                                </div>
+                            </template>
+                             
+
+                        </div>
+
+                    </div>
+
+                    <!-- Payment Method -->
+                    <template if:true={showPaymentMethods}>
+                        <div class="slds-grid slds-grid_vertical">
+
+                            <div class="slds-text-heading_small section-header">
+                                2. Payment Methods
+                            </div>
+                            <div class="section-body">
+                                <c-bwc-input-payment-method 
+                                    class="slds-m-bottom_small" 
+                                    interaction-id={recordId} 
+                                    ban={selectedBan}
+                                    context={inputPaymentContext}>
+                                </c-bwc-input-payment-method>
+                            </div>
+    
+                        </div>
+                    </template>
+
+                </div>
+
+            </div>
+
+        </span>
+
+        <!-- Review panel -->
+        <span slot="panel1">
+
+            <div class="slds-grid slds-grid_vertical">
+
+                <!-- Amounts -->
+                <lightning-layout class="slds-p-top_x-small slds-p-bottom_x-small">
+                    <lightning-layout-item size="12" class="slds-text-align_left">
+                        <span class="slds-text-heading_small">Amount Due Today: </span>
+                        <span class="slds-text-heading_small heavy-bold">{paymentAmountDueToday}</span>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+
+                <div class="slds-text-heading_small section-header">
+                    Payment Details
+                </div>
+
+                <div class="section-body">
+
+                    <c-bwc-payment-details payment-details={paymentDetails} spi-data={spiData}></c-bwc-payment-details>
+
+                </div>
+
+                <div class="slds-text-heading_small section-header">
+                    Payment Arrangement & Future Installment Details
+                </div>
+
+                <div class="section-body">
+                    <!-- Monthly Installments -->
+                    <div class="slds-p-top_x-small">
+                        <lightning-datatable
+                                key-field="id"
+                                data={futureInstallmentsData}
+                                columns={monthlyInstallmentsColumns}
+                                hide-checkbox-column>
+                        </lightning-datatable>
+                    </div>
+                </div>
+
+                <div class="slds-text-heading_small section-header">
+                    Disclosures
+                </div>
+
+                <div class="section-body">
+
+                    <c-bwc-read-panel text={epaEnrollmentDisclosureInfo} title="Information"></c-bwc-read-panel>
+                    
+                    <c-bwc-read-panel text={tncVerbiage} title="Terms & Conditions:"></c-bwc-read-panel>
+    
+                    <lightning-input data-name="agreeToTerms" type="checkbox" class="slds-p-top_xx-small slds-m-top_medium slds-m-bottom_xx-small"
+                        label={label.agreeToTerms}
+                        onchange={handleAgreeToTermsChange}>
+                    </lightning-input>
+    
+                </div>
+
+            </div>
+
+        </span>
+
+        <!-- Confirmation panel -->
+        <span slot="panel2">
+
+            <div class="slds-grid slds-grid_vertical">
+
+                <div class="slds-text-heading_small slds-m-top_small">
+                    <lightning-formatted-rich-text disable-linkify value={confirmationMessage}></lightning-formatted-rich-text>
+                </div>
+                <div class="slds-m-top_small">
+                    <lightning-formatted-rich-text disable-linkify value={label.epaEnrollmentSuccessMessage}></lightning-formatted-rich-text>
+                </div>
+
+                <div class="slds-text-heading_small section-header">
+                    Payment Details
+                </div>
+
+                <div class="section-body">
+
+                    <c-bwc-payment-details payment-details={paymentDetails} spi-data={spiData}></c-bwc-payment-details>
+
+                    <div class="slds-grid slds-var-m-top_x-large">
+
+                        <c-bwc-form-element label="Confirmation Number" class="slds-size_2-of-2">
+                            <span class="element-value decision-description">
+                                {confirmationNumber}
+                            </span>
+                        </c-bwc-form-element>
+            
+                    </div>
+
+                </div>
+
+                <div class="slds-text-heading_small section-header">
+                    Payment Arrangement & Future Installment Details
+                </div>
+
+                <div class="section-body">
+                    <!-- Monthly Installments -->
+                    <div class="slds-p-top_x-small">
+                        <lightning-datatable
+                                key-field="id"
+                                data={futureInstallmentsData}
+                                columns={monthlyInstallmentsColumns}
+                                hide-checkbox-column>
+                        </lightning-datatable>
+                    </div>
+                </div>
+
+            </div>
+
+        </span>
+
+    </c-bwc-wizard>
+
+</template>

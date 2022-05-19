@@ -1,0 +1,121 @@
+<template>
+   <lightning-card>
+      <lightning-layout multiple-rows>
+         <!--  <div class="slds-size_1-of-1 slds-align_absolute-center">
+            <lightning-button variant="brand" label="Help next customer" onclick={PerformMyAvailability} disabled={retailHelpNextCustomerProfile} ></lightning-button>
+            </div>  -->
+            <div class="slds-grid slds-grid_align-spread"></div>
+         <lightning-layout-item size="12" small-device-size="4" medium-device-size="4" large-device-size="3" padding="around-small" >
+            <!--  <div class="slds-grid slds-wrap"> --> 
+            <!--<div class="slds-col slds-size_1-of-1 slds-align_absolute-center ">
+            
+                  <lightning-button variant="brand" label="Help next customer" onclick={getCustomer} class="buttonclass"></lightning-button>-->
+                  <button class="slds-button slds-button_brand slds-button_stretch"  onclick={getCustomer}>Help next customer</button>
+            
+            <!--</div>-->
+            <span>
+               <template if:true={EmpIsCurrentlyAvailable}>
+                  <div class="slds-col slds-size_1-of-1 slds-align_absolute-center ">
+                     <template if:true={showCurrentLoggedInUser}>
+                        <div class="slds-col slds-size_1-of-1 slds-align_absolute-center ">
+                           <span>
+                           Next Assigned:
+                           </span>
+                        </div>
+                     </template>
+                  </div>
+                  <div class="slds-col slds-size_1-of-1 slds-align_absolute-center ">
+                     <template if:false={showCurrentLoggedInUser}>
+                        <div class="slds-col slds-size_1-of-1 slds-align_absolute-center ">
+                           <span>
+                           Up next in queue:
+                           </span>
+                        </div>
+                     </template>
+                  </div>
+                  <div class="slds-col slds-size_1-of-1 slds-align_absolute-center slds-p-left_small">
+                     <span>
+                     <small> <b> {nextPersoninQueue} </b></small> 
+                     </span> 
+                  </div>
+               </template>
+            </span>
+            <!--   </div> -->
+         </lightning-layout-item>
+         <lightning-layout-item size="12" small-device-size="4" medium-device-size="4" large-device-size="3" padding="around-small" >
+            <!--<div class="slds-align_absolute-center" style="width:max-content;">-->
+               <!--<lightning-button if:true={retailWalkinCustomerProfile} label="Help walk-in customer now" onclick={OpenNewCheckinForm} disabled={retailCheckinQueueExists} class="buttonclass" ></lightning-button>-->
+               <!--<lightning-button  label="Help walk-in customer now" onclick={OpenNewCheckinForm} class="buttonclass" ></lightning-button>-->
+               <button class="slds-button slds-button_neutral slds-button_stretch slds-p-left_none slds-p-right_none" onclick={OpenNewCheckinForm}>Help walk-in customer now</button>
+            <!--</div>-->
+         </lightning-layout-item>
+         <lightning-layout-item size="12" small-device-size="4" medium-device-size="4" large-device-size="3" padding="around-small" >
+            <div class="slds-grid slds-wrap">
+               <div class="slds-col slds-size_1-of-1 slds-align_absolute-center ">
+               
+                     <!--<lightning-button label="Add customer to queue" onclick={navigateToNewCheckin} class="buttonclass"></lightning-button>-->
+                     <button class="slds-button slds-button_neutral slds-button_stretch" onclick={navigateToNewCheckin}>Add customer to queue</button>
+               </div>
+               <div class="slds-col slds-size_1-of-1 slds-align_absolute-center ">
+                  <span>
+                  Current wait time:
+                  </span>
+               </div>
+               <div class="slds-col slds-size_1-of-1 slds-align_absolute-center slds-p-left_small">
+                  <span>
+                  <small><b>{StoreDetails.DCIEstimatedWaitTime__c} min </b></small>
+                  </span>
+               </div>
+            </div>
+         </lightning-layout-item>
+         <lightning-layout-item size="12" small-device-size="4" medium-device-size="4" large-device-size="3" padding="around-small">
+         <!--tapaswini-->
+         
+            <template if:true ={showcancelall}>
+              <!--<div class="slds-size_1-of-1 slds-align_absolute-center">-->
+               <!--<lightning-button name="CancelAllCheckins" disabled={showcancelcheckin}  label="Cancel all check-ins" title="Cancel All Checkins" icon-name="utility:clock" onclick={showModal} class="buttonclass"></lightning-button> -->
+               <!--<lightning-button name="CancelAllCheckins" label="Cancel all check-ins" title="Cancel All Checkins" icon-name="utility:clock" onclick={showModal} class="buttonclass"></lightning-button>-->
+               <!--<button class="slds-button slds-button_neutral slds-button_stretch" icon-name="utility:clock" onclick={showModal}>Cancel all check-ins</button> -->    
+               
+               <button class="slds-button slds-button_neutral slds-button_stretch" onclick={showModal}>
+              <lightning-icon icon-name="utility:clock" alternative-text="clock" title="Clock" size="x-small" class="clock slds-p-right_x-small"></lightning-icon>
+                  Cancel all check-ins</button>
+                  
+               <!--</div>-->
+            </template>  
+               <template if:true={openModal} >  
+                   <div class="slds-modal slds-fade-in-open slds-backdrop">  
+                   <div class="slds-modal__container">  
+                       <div class="slds-modal__header">  
+                       <lightning-button-icon icon-name="utility:close" alternative-text="Close this window" size="large"  
+                           variant="bare-inverse" onclick={closeModal} class="slds-modal__close">  
+                       </lightning-button-icon>  
+                           <h2>Cancel all of today's check-ins</h2>
+                       </div>  
+                       <div class="slds-modal__content slds-p-around_medium">  
+                           <lightning-combobox
+                           class = "cancelcombobox"
+                           name="CancellationReason"
+                           label="Reason for Cancellation"
+                           value={cancellationReason}
+                           placeholder="Cancellation Reason"
+                           options={options}
+                           onchange={handleChange}
+                           required
+                           ></lightning-combobox></br></br></br></br></br></br></br></br></br>
+                       </div>  
+                       <div class="slds-modal__footer">
+                       <lightning-button  label="Cancel" variant="neutral" onclick={closeModal}>  
+                       </lightning-button> &nbsp;&nbsp;
+                       <lightning-button label="Confirm" variant="brand" onclick={cancelAllCheckins} disabled={disableButton}>  
+                       </lightning-button>
+                       </div>  
+                   </div>  
+                   </div>   
+               </template>
+            
+         <!--tapaswini-->
+         </lightning-layout-item>
+      </lightning-layout>
+   </lightning-card>
+</template>

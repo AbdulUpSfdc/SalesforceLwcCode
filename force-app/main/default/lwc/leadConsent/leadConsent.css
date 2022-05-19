@@ -1,0 +1,42 @@
+.container {
+    font-size: 20px;
+}
+.section  {
+    background: white;
+}
+.slds-modal__header{
+    background: white;
+}
+.content {
+    background: white;
+}
+.combobox{
+    float:right;
+    width:45%;
+}
+
+.boldText{
+    font-weight: bolder;
+}
+
+.language {
+    opacity: 0.5;
+    padding: 0 5px;
+}
+.uiInput{
+    width: 95%;
+    font-weight: bolder;
+}
+/*@media (min-width: 320px) and (max-width: 480px) {
+    .boldText{
+        font-weight: bolder;
+        font-size: 100px;
+        color: #000000;
+    }
+
+    .uiInput{
+        width: 95%;
+        font-size: 100px;
+        color: #000000;
+    }
+  }*/

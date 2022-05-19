@@ -1,0 +1,17 @@
+<aura:component
+    implements="flexipage:availableForAllPageTypes"
+    description="Invisible component added to a flexipage to provide certain aura-only services to an LWC component."
+>
+    <!-- Cause these to be preloaded because they are dynamically created -->
+    <aura:dependency resource="markup://c:BWCModalHeader" />
+    <aura:dependency resource="markup://c:BWCModalFooter" />
+
+    <!-- Console API -->
+    <lightning:workspaceAPI aura:id="workspaceApi" />
+    <lightning:messageChannel type="BWC_ConsoleApi__c" onMessage="{!c.handleConsoleApi}"/>
+
+    <!-- Modals -->
+    <lightning:messageChannel type="BWC_ShowModal__c" onMessage="{!c.handleShowModalMessage}" />
+    <lightning:messageChannel aura:id="responseChannel" type="BWC_ModalResponse__c" />
+    <lightning:overlayLibrary aura:id="overlayLibrary" />
+</aura:component>

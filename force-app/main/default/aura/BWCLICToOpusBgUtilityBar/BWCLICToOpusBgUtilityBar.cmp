@@ -1,0 +1,48 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="BWC_LIC_OpusBgUtilController">
+
+    <!-- initialization handler -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!-- catch when a tab is created so I can watch for when a new interaction is opened/started -->
+    <aura:handler event="lightning:tabCreated" action="{!c.onTabCreated}" />
+    <!-- load the workspace API -->
+    <lightning:workspaceAPI aura:id="workspace" />
+
+    <!-- configuration values -->
+    <aura:attribute name="globalParam" type="Map"/>
+    <aura:attribute name="WorkSpaceApi" type="Object"/>
+    <aura:attribute name="listenerInit" type="Boolean" default="false"/>
+    <aura:attribute name="initComplete" type="Boolean" default="false" />
+    <aura:attribute name="canCloseTab" type="Boolean" default="false" />
+    <!-- OPUS LIC -->
+
+    <!-- Subscribe to the OPUS LIC Event -->
+    <!--aura:handler event="c:BWC_MsgToLIC" action="{!c.handleEventListener}"/ -->
+    <lightning:messageChannel type="BWC_MsgToLIC__c" onMessage="{!c.handleEventListener}"/>
+    <!-- TODO: add comments to items -->
+    <!--
+        OPUS STATUS
+        WAITING : Initial status of LIC
+        STARTED : This status when trigger 1 execute
+        LOADING : This status when OPUS receive ready message and still loading
+        READY : This status when we receive LIC-0001 opus ready.
+        FAILED : This status when LIC tried to max attempt and faile to Launch.
+    -->
+    <aura:attribute name="opusStatus" type="String" default="WAITING" description="possible values are WAITING,STARTED,LOADING,READY,FAILED"/>
+    <aura:attribute name="windowHandle" type="Object"/>
+    <aura:attribute name="currTab" type="String"/>
+    <aura:attribute name="currBan" type="String"/>
+    <aura:attribute name="trackingIdent" type="String"/>
+    <aura:attribute name="msgQueue" type="List"/>
+    <aura:attribute name="sfdcmsg" type="String"/>
+    <aura:attribute name="intRecId" type="String"/>
+    <aura:attribute name="keepaliveTIMER" type="Object"/>
+    <aura:attribute name="retryTIMER" type="Object"/>
+    <aura:attribute name="lastMsg" type="String"/>
+    <aura:attribute name="Attempt" type="Integer"/>
+    <aura:attribute name="opusResponseAttempts" type="Integer"/>
+    <aura:attribute name="opusResponse" type="String"/>
+    <aura:attribute name="tabIdQueue" type="List"/>
+    <aura:attribute name="launchFromEvent" type="Boolean" default="false"/>
+    <aura:attribute name="opusResponded" type="Boolean" default="false"/>
+    <aura:attribute name="waitForResponseTIMER" type="object"/>
+</aura:component>

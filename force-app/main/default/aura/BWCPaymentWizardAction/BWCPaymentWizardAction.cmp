@@ -1,0 +1,33 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader">
+
+    <lightning:messageChannel type="BWC_OpenSubTab__c" aura:id="openSubTabMC"/>
+    <aura:handler name="render" value="{!this}" action="{!c.init}"/>
+
+    <aura:attribute name="isRendered" type="Boolean"/>
+
+    <aura:html tag="style">
+        .slds-p-around--medium {
+            padding: 0 !important;
+        }
+
+        .slds-modal__content {
+            height: unset !important;
+        }
+	</aura:html>
+
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading" aria-modal="true" aria-describedby="modal-content" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container modal-container">
+            <header class="slds-modal__header">
+                <h2 class="slds-modal__title slds-hyphenate">Make a Payment</h2>
+            </header>
+            <div id="modal-content" class="slds-modal__content modal-content slds-is-relative">
+
+                <lightning:spinner variant="brand" size="large" alternative-text="Opening Subtab for Make Payment"></lightning:spinner>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</aura:component>

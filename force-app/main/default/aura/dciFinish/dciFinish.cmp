@@ -1,0 +1,9 @@
+<aura:component controller="DCIController" implements="flexipage:availableForAllPageTypes,force:appHostable,force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:actionOverride,lightning:isUrlAddressable" access="global">
+    <aura:attribute name="recordId" type="String"></aura:attribute>  
+    <aura:attribute type="Boolean" name="isValidStatus" default="false" /> 
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.reInit}" /> 
+    <!-- <aura:if isTrue="{!v.isValidStatus}"> -->
+        <c:dciFinishScreen recordId="{!v.recordId}" onsubmitaction="{!c.handleSubmit}" onclose="{!c.handleCancel}" onstatusengaged = "{!c.handleStatusEngaged}"></c:dciFinishScreen>
+    <!-- </aura:if>   -->
+</aura:component>

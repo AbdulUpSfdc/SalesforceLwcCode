@@ -1,0 +1,73 @@
+<template>
+    <div style="height:400px;">
+        <lightning-card>
+            <div class="slds-grid slds-box slds-theme_default">
+                <div class="slds-size_11-of-12 slds-p-right_medium slds-p-left_medium "> 
+                    <span style="font-size: medium;"> Set as manager on duty</span> 
+                </div>
+                <div class="slds-size_1-of-12"> 
+                    <template if:true={iconNameBackground}>
+                        <lightning-button-icon icon-name={iconName}  value={iconName} onclick={handleManagerOnDuty}
+                        class="slds-m-left_xx-small" variant="brand"  ></lightning-button-icon>
+                    </template>
+                    <template if:false={iconNameBackground}>
+                        <lightning-button-icon icon-name={iconName}  value={iconName} onclick={handleManagerOnDuty}
+                        class="slds-m-left_xx-small plus-icon"  ></lightning-button-icon>
+                    </template>
+                </div>    
+            </div>
+        </lightning-card>
+    </div>
+
+    <template if:true={setIsManagerOnDuty}>
+        <c-set-as-manager-on-duty-util-modal
+        show-modal={showModal} 
+        show-set-button={showSetButton}
+        show-button-name={showButtonName} 
+        show-cancel-button={showCancelButton}
+        oncancel={closeModal}
+        onset={handleSetIsManagerOnDuty}
+        onclose={closeModal}>
+        <div slot="header">
+            <h2 slot="header" id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{header}</h2>
+        </div>
+        <div slot="body">
+            <div class="slds-size_12-of-12">
+                <p>Set {repName} as manager on duty?</p><br/>
+                <lightning-icon icon-name="custom:custom65" title="custom65">
+                    
+                </lightning-icon>&nbsp;&nbsp;{repName}
+            </div>
+            
+        </div>
+        </c-set-as-manager-on-duty-util-modal>    
+
+
+    </template>
+
+    <template if:true={unSetIsManagerOnDuty}>
+        <c-set-as-manager-on-duty-util-modal
+        show-modal={showModal} 
+        show-un-set-button={showUnSetButton}
+        show-button-name={showButtonName} 
+        show-cancel-button={showCancelButton}
+        oncancel={closeModal}
+        onunset={handleUnSetIsManagerOnDuty}
+        onclose={closeModal}>
+        <div slot="header">
+            <h2 slot="header" id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">{header}</h2>
+        </div>
+        <div slot="body">
+            <div class="slds-size_12-of-12">
+                <p>Remove {repName} as manager on duty?</p><br/>
+                <lightning-icon icon-name="custom:custom65" title="custom65">
+                   
+                </lightning-icon>&nbsp;&nbsp; {repName}
+            </div>
+        </div>
+    </c-set-as-manager-on-duty-util-modal>    
+
+
+    </template>
+
+</template>

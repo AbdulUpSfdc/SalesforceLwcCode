@@ -1,0 +1,35 @@
+<aura:component implements="lightning:isUrlAddressable,flexipage:availableForAllPageTypes">
+
+    <aura:handler name="init" value="{!this}" action="{!c.refresh}"/>
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.refresh}" />
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="capabilities" type="String[]"/>
+    <aura:attribute name="disableDone" type="Boolean" default="true"/>
+    <aura:attribute name="disableCancel" type="Boolean" default="false"/>
+
+    <lightning:messageChannel type="BWC_Completion__c" aura:id="paymentMethodCompleteMC" scope="APPLICATION" />
+	<!--<lightning:button variant="brand" label="Test Message Channel" title="Brand action" onclick="{! c.handleTestMessageChannel }" />-->
+
+    <c:bwcSecurePaymentAgent caseId="{!v.recordId}" capabilities="{!v.capabilities}" oncompleted="{!c.handleCompleted}" />
+    <!-- SLDS scope -->
+    <div class="slds-p-top_medium slds-size--1-of-1 slds-clearfix">
+        <div class="slds-align_absolute-center">
+			<lightning:button class="slds-p-right_small slds-float_left" 
+								variant="brand"
+								type="submit" 
+								label="Done" 
+								title="Done" 
+								disabled="{!v.disableDone}" 
+								onclick="{!c.close}" />
+            
+			<lightning:button  variant="neutral" 
+								label="Cancel" 
+								title="Cancel" 
+								disabled="{!v.disableCancel}" 
+								onclick="{!c.close}"/><!---->
+        </div>
+    </div>
+    <!-- For closing subtab -->
+    <lightning:workspaceAPI aura:id="workspace" />    
+	<!--<lightning:button variant="brand" label="Test Close" title="Brand action" onclick="{!c.close}" />-->
+</aura:component>

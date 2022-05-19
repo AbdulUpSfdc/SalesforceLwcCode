@@ -1,0 +1,116 @@
+<template>
+    <div class="slds-theme_default">
+        <div class="slds-m-bottom_x-small slds-grid slds-grid_align-center">
+            <c-bwc-notifications></c-bwc-notifications>
+        </div>
+
+        <lightning-layout  horizontal-align="spread">
+            <lightning-layout-item size="12">
+        
+        <!-- entered Address-->
+        <div if:true={showenteredaddress} class="slds-m-around_medium">
+            You Entered <br>
+            <strong >
+                <lightning-formatted-text value={searchTerm} ></lightning-formatted-text>
+            </strong>
+
+            <br>
+            <br>
+            <div class='slds-grid slds-wrap'>
+                <div class="slds-col slds-size_3-of-12">
+            <lightning-button
+                if:true={showenteredaddress}
+                onclick={handleEditAddress}
+                label="Edit Address" >
+            </lightning-button></div>
+            <div class="slds-col slds-size_5-of-12 ">
+            <lightning-button
+            if:true={showNewAddress}
+            label="Search New Address"
+            onclick={handleSearchNewAddress}
+            ></lightning-button></div>
+            </div>
+        </div>
+    </lightning-layout-item>
+    </lightning-layout>
+
+        <!-- Address Form -->
+        <div if:false={showenteredaddress} class="slds-grid slds-wrap slds-m-around_medium" >
+            <div class="slds-col slds-size_7-of-12 slds-m-right_small">
+                <lightning-input
+                    label="Street Address"
+                    type="text"
+                    name="inputAddressLine1"
+                    onchange={handleInputChange}
+                    value={inputAddressLine1}
+                    required >
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-size_4-of-12">
+                <lightning-input
+                    label="Apt/Unit #"
+                    type="text"
+                    name="inputAddressLine2"
+                    value={inputAddressLine2}
+                    onchange={handleInputChange}
+                >
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-size_7-of-12 slds-m-right_small">
+                <lightning-input
+                    label="City"
+                    type="text"
+                    name="inputCity"
+                    value={inputCity}
+                    onchange={handleInputChange}
+                    required >
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-size_4-of-12">
+                <lightning-combobox
+                    label="State"
+                    options={stateValues}
+                    name="inputState"
+                    value={inputState}
+                    onchange={handleInputChange}
+                    required >
+                </lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_7-of-12">
+                <lightning-input
+                    label="Zip Code"
+                    type="text"
+                    name="inputZip"
+                    value={inputZip}
+                    onchange={handleInputChange}
+                    required >
+                </lightning-input>
+            </div>
+
+            <div class="slds-col slds-size_12-of-12 slds-m-vertical_small slds-align_absolute-center">
+                <lightning-button
+                    label="Submit Address"
+                    variant="brand"
+                    disabled={isSubmitButtonDisabled}
+                    onclick={submitForm}
+                ></lightning-button>
+                   
+            </div>
+        </div>
+        
+         <!-- Error message -->
+         <div if:true={isnomatch} class="slds-var-m-vertical_small slds-p-horizontal_small" >
+            <div class="slds-theme_shade slds-align_absolute-center slds-p-around_small">
+                <div class="slds-media " >
+                    <div class="slds-media__figure">
+                        <lightning-icon alternative-text="Error" icon-name="utility:error" size="small" ></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <p>Unable to validate the address, please re-enter the address to check availability.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</template>

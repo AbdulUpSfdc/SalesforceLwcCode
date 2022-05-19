@@ -1,0 +1,136 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <template if:true={labels}>
+    <form autocomplete="off">
+      <div class="ioform">
+        <template if:false={isSubset}>
+          <lightning-input
+            name="name-on-cc"
+            id="name-on-cc"
+            class="whole-row ccName"
+            type="text"
+            required
+            message-when-value-missing={labels.cardholderNameRequiredError}
+            label={labels.cardholderName}
+            placeholder={labels.cardholderName}
+            autocomplete="off"
+          ></lightning-input>
+
+          <c-bwc-input-card-number
+            name="num-on-cc"
+            id="num-on-cc"
+            class="whole-row ccNumber"
+            label={labels.cardNumber}
+            placeholder={labels.cardNumberPlaceHolder}
+            message-when-value-missing={labels.cardNumberMissing}
+            message-when-card-number-invalid={labels.cardNumberInvalid}
+            reenter-message={labels.cardNumberReenter}
+            autocomplete="off"
+            required="true"
+          ></c-bwc-input-card-number>
+
+          <lightning-input
+            name="exp-date"
+            id="exp-date"
+            type="text"
+            required
+            message-when-value-missing={labels.cardExpirationRequiredError}
+            class="ccExpiration"
+            label={labels.cardExpiration}
+            placeholder={labels.cardExpirationPlaceholder}
+            autocomplete="off"
+            pattern="^((0[1-9])|(1[0-2]))\/([2-9]\d)$"
+            message-when-pattern-mismatch={labels.cardexpirationPatternmismatch}
+            onchange={handleExpDateChange}
+            value={exp_date_value}
+          ></lightning-input>
+        </template>
+
+        <!-- <div class="slds-form-element sec-code-inp-wrapper">           -->
+        <div class={cvvClasses}>  
+          <label class="slds-form-element__label" for="sec-code-inp">
+            <abbr class="slds-required" title="required">* </abbr
+            >{labels.cardSecurityCode}
+          </label>
+          <div class="slds-form-element__icon">
+            <button
+              class="secCodeTooltipTrigger slds-button slds-button_icon"
+              onfocus={showSecCodeTooltip}
+              onblur={hideSecCodeTooltip}
+              onkeydown={closeIfEsc}
+              onmouseover={showSecCodeTooltip}
+              onmouseout={hideSecCodeTooltip}
+              onclick={focusSecCodeTrigger}
+              aria-describedby="secCodeHelp"
+              aria-disabled="true"
+            >
+              <lightning-icon
+                icon-name="utility:info"
+                alternative-text=""
+                title=""
+                size="xx-small"
+              ></lightning-icon>
+            </button>
+            <!-- Sec Code tooltip -->
+            <div
+              class="secCodeTooltip slds-popover slds-popover_tooltip slds-nubbin_bottom-left slds-fall-into-ground"
+              role="tooltip"
+              id="secCodeHelp"
+              onclick={ignore}
+              style="position: absolute; top: -80px; left: -13px; width: 100px"
+            >
+              <div class="slds-popover__body">
+                {labels.cardSecurityCodeHelp}
+              </div>
+            </div>
+          </div>
+          <div class="slds-form-element__control">
+            <input
+              type="password"
+              name="sec-code-inp"
+              id="sec-code-inp"
+              required
+              aria-describedby="error-message-security-code"
+              aria-invalid="true"
+              placeholder={labels.cardSecurityCodePlaceholder}
+              class="slds-input ccSecurityCode"
+              pattern="\d{3,4}"
+              autocomplete="off"
+              onblur={checkCCVError}
+            />
+            <template if:true={isRequiredError}>
+              <div
+                class="slds-form-element__help"
+                id="error-message-security-code"
+              >
+                {labels.cardSecurityCodeError}
+              </div>
+            </template>
+            <template if:true={isFormatError}>
+              <div
+                class="slds-form-element__help"
+                id="error-message-security-code-format"
+              >
+                {labels.cardSecurityCodeFormat}
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <template if:false={isSubset}>
+          <lightning-input
+            class="zip-whole-row ccZip"
+            type="text"
+            label={labels.cardZip}
+            required
+            message-when-value-missing={labels.cardZipCodeRequiredError}
+            message-when-pattern-mismatch={labels.cardInvalidZipErrorMsg}
+            placeholder={labels.cardZipPlaceholder}
+            pattern="^((\d{5})|([AaBbCcEeGgHhJjKkLlMmNnPpRrSsTtVvXxYy]\d[A-Za-z]\s?\d[A-Za-z]\d))$"
+            autocomplete="off"
+          ></lightning-input>
+        </template>
+      </div>
+    </form>
+  </template>
+</template>

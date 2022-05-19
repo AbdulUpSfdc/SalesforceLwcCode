@@ -1,0 +1,37 @@
+<template>
+    <lightning-card>
+        <lightning-spinner if:true={isLoading} alternative-text="loading"></lightning-spinner>
+        <div if:false={isCaseClosed} class="slds-m-horizontal_medium">
+            <lightning-record-edit-form
+                record-id={recordId}
+                onsubmit={handleSubmit}
+                object-api-name="Case">
+                <div>
+                <lightning-combobox 
+                    name="route" 
+                    label="Override Tier"
+                    placeholder="--None--"
+                    value={value} 
+                    options={queueOptions} 
+                    onchange={handleTypeChange}
+                    required> 
+               </lightning-combobox>  
+                </div>
+                <div> 
+                <lightning-input-field field-name="Comments" variant="standard"  required> </lightning-input-field>     
+             </div>
+             <div class="slds-grid slds-align_absolute-center slds-m-top_medium">
+                <lightning-button
+                    title="Save"
+                    label="Submit"
+                    type="submit"
+                    variant="brand">
+                </lightning-button>
+             </div>
+            </lightning-record-edit-form>
+        </div>
+        <div if:true={isCaseClosed} class="slds-align_absolute-center" style="height:5rem">
+            No Override Routing action available for closed or cancelled cases.
+        </div>
+    </lightning-card>
+</template>

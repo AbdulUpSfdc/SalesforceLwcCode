@@ -1,0 +1,13 @@
+.slds-popover.slds-nubbin_bottom-right{
+    position: absolute;
+    bottom: 32px;
+    left: -278px
+}
+.spins::after {
+    position: absolute;
+    content: 'This could take a while......';
+    width: 100%;
+    text-align: center;
+    top: calc(50% + 3em);
+    font-weight: bold;
+}

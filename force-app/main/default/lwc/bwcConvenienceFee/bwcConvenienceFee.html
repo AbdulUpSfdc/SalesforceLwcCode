@@ -1,0 +1,33 @@
+<template>
+
+    <c-bwc-read-panel text={message}></c-bwc-read-panel>
+
+    <div class="slds-grid">
+
+        <template if:true={isWaivable}>
+
+            <div class="slds-size_2-of-5">
+                <lightning-combobox name="waiveReason" variant="label-hidden" dropdown-alignment="auto" placeholder="Select Waive Reason"
+                    options={waiveReasonOptions} disabled={waiveReasonDisabled} value={_waiveReason} onchange={handleSelectWaiveReason}>
+                </lightning-combobox>
+            </div>
+
+            <div>
+                <lightning-button if:false={_isWaived} label="Waive Fee" class="slds-m-left_small" disabled={waiveFeeDisabled} onclick={handleWaiveFee}></lightning-button>
+                <lightning-button if:true={_isWaived} label="Fee Waived" class="slds-m-left_small" icon-name="utility:check" disabled={waiveFeeDisabled} onclick={handleUnwaiveFee}></lightning-button>
+            </div>
+
+        </template>
+
+        <div class="slds-col_bump-left">
+            <lightning-button if:false={_isAccepted} label="Accept Fee" variant="brand" disabled={acceptFeeDisabled} onclick={handleAcceptFee}></lightning-button>
+            <lightning-button if:true={_isAccepted} label="Fee Accepted" icon-name="utility:check" onclick={handleUnacceptFee}></lightning-button>
+        </div>
+
+    </div>
+
+    <div if:true={errorMessage} class="slds-m-top_x-small slds-text-color_error">
+        {errorMessage}
+    </div>
+
+</template>

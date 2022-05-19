@@ -1,0 +1,13 @@
+.THIS  .showheader {
+    background-color:#ffffff;
+    font-size: 18px;
+    border:1px solid;
+    border-color: #e6e0e0;
+    font-weight: bold;
+    cursor: pointer;
+    padding:1%;
+}
+
+.THIS  .whiteBackground {
+    background-color:#ffffff;
+}

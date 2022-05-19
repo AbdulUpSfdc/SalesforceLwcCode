@@ -1,0 +1,99 @@
+<template>
+    <lightning-card class="slds-card_boundary" title={title} icon-name="standard:knowledge">
+        <div class="slds-scrollable_y" style="max-height:315px;">
+            <div if:true={hasRecords}>
+                <div class="slds-m-around_medium">   
+                    <template for:each={articleLinks} for:item="rec">    
+                        <div key={rec.Id} class="slds-m-bottom_x-small slds-border_bottom">                         
+                            <p><lightning-formatted-url value={rec.nameUrl} label={rec.Name} target="_self" ></lightning-formatted-url></p>
+                            <div class="slds-grid">
+                                <div class="slds-col slds-text-color_weak slds-size_1-of-3">
+                                    <p><lightning-formatted-text value="Status:"></lightning-formatted-text></p>
+                                    <p><lightning-formatted-text value="Content Sponsor:"></lightning-formatted-text></p>
+                                    <p><lightning-formatted-text value="Link Type:"></lightning-formatted-text></p>
+                                </div>
+                                <div class="slds-col slds-size_2-of-3">
+                                    <p><lightning-formatted-text value={rec.Status__c}></lightning-formatted-text></p>
+                                    <p><lightning-formatted-text value={rec.ContentSponsor__c}></lightning-formatted-text></p>
+                                    <p><lightning-formatted-text value={rec.Type__c}></lightning-formatted-text></p>
+                                </div>
+                            </div>
+                        </div>                       
+                    </template>   
+                </div>   
+            </div>   
+        </div>
+       
+        <!--<template if:true={hasRecords}>
+            <template if:true={largeDevice}>
+                <div class="slds-p-horizontal_small" style="height: 300px">
+                    <lightning-datatable
+                            key-field="id"
+                            data={articleLinks}
+                            show-row-number-column
+                            hide-checkbox-column
+                            columns={columns}>
+                    </lightning-datatable>
+                </div>
+            </template>
+            <template if:true={smallDevice}>
+                <div class="slds-scrollable" style="max-height:330px;">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="" scope="col"></th>
+                                <th class="" scope="col">
+                                    <div title="ArticleLinkNumber">ArticleLinkNumber</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div title="Status">Status</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div title="Content Sponsor">Content Sponsor</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div title="Link Type">Link Type</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div title="Link URL">Link URL</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div title="Validation Message">Validation Message</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={articleLinks} for:item="link">
+                                <tr key={link.Id}>
+                                    <td scope="col">
+                                        <div>{link.count}</div>
+                                    </td>
+                                    <td scope="col">
+                                        <div>
+                                            <a href={link.nameUrl}>{link.Name}</a>
+                                        </div>
+                                    </td>
+                                    <td scope="col">
+                                        <div>{link.Status__c}</div>
+                                    </td>
+                                    <td scope="col">
+                                        <div>{link.ContentSponsor__c}</div>
+                                    </td>
+                                    <td scope="col">
+                                        <div>{link.Type__c}</div>
+                                    </td>
+                                    <td class="col-truncate" scope="col">
+                                        <div class="slds-truncate">{link.Link_URL__c}</div>
+                                    </td>
+                                    <td class="col-truncate" scope="col">
+                                        <div class="slds-truncate">{link.ValidationMessage__c}</div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+        </template>-->
+    </lightning-card>
+</template>

@@ -1,0 +1,8 @@
+section:focus {
+    outline-width: 0;
+}
+
+.modal-content {
+    min-height: 7rem;
+    overflow: visible;
+}

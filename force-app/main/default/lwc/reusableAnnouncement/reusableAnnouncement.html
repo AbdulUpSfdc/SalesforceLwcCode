@@ -1,0 +1,46 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div class="slds-card stylefordiv">
+        <lightning-layout class="slds-grid slds-wrap">
+            <lightning-layout-item padding="around-small" class="slds-size_8-of-12">
+                <h1>
+                    <img src={announcement_icon} alt="announcement" class="customicon">{announcementheader}
+                </h1>
+            </lightning-layout-item>
+            <template if:false={showLanguages}>
+                <lightning-layout-item padding="around-small" class="slds-size_4-of-12">
+                    <select class="slds-select" id="select-01"
+                     name ="optionSelect" onchange={changeHandler}>                    >
+                        <option value="EN">English</option>
+                        <option value="SP">Spanish</option>
+                    </select>
+                </lightning-layout-item>
+                
+            </template>
+        </lightning-layout>
+        <lightning-layout class="slds-grid slds-wrap customLayoutPosition">
+            <lightning-layout-item padding="around-small" class="slds-size_12-of-12">
+                <template for:each={announcements} for:item="announcement">
+                    <span key={announcement}>{announcement}</span><br key={announcement}/>
+                </template>
+                <!--<template if:true={announcements}>
+                    <br/>
+                </template>-->
+                <template for:each={announcementlink} for:item="mapKey">
+                    <tr key={mapKey.id}>
+                        <!--<td><a data-target-id={mapKey.id}
+                            onclick={handleSelectedLink}>{mapKey.name}</a></td>-->
+                            <td>
+                                <template if:false={langSelected}>
+                                    <a href={mapKey.address}>{mapKey.name}</a></template>
+                                <template if:true={langSelected}>            
+                                    <a href={mapKey.address}>{mapKey.name} </a>
+                                    </template>
+                            </td>
+        
+                    </tr>
+                </template>
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+</template>

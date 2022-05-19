@@ -1,0 +1,108 @@
+[
+    {
+        "accountHeader": {
+            "name": "ELVIS DIAZ MENDEZ",
+            "firstName": "ELVIS",
+            "lastName": "DIAZ MENDEZ",
+            "email": "qc_dummy@att.com",
+            "isEmployee": true,
+            "primaryProduct": "WIRELESS",
+			"ban": "534211605781"
+        },
+        "accountDetails": {
+            "globalProfile": "ELVIS DIAZ MENDEZ",
+            "globalId": "534211605781",
+            "address": [
+                {
+                    "type": "B",
+                    "streetName1": "3900 GEORGE BUSBEE PKWY NW APT 407",
+                    "locality": "KENNESAW",
+                    "stateOrProvince": "GA",
+                    "postcode": "30144-6677"
+                }
+            ],
+			"visuallyImpaired": true,
+			"enrolledInLargePrint": true,
+			"fanId": "12",
+			"fanName": "name",
+			"fanCategory": "cat",
+			"fanSubCategory1": "scat1",
+			"fanSubCategory2": "scat2",
+			"fanSubCategory3": "scat3",
+			"fanSubCategory4": "scat4",
+			"unifiedBan": "534211605781",
+			"wirelessBan": "534211605781",
+			"isUnified": true
+        },
+        "accounts": [
+          {
+                "ban": "534211605781",
+               "accountTypeLob": "WIRELESS",
+		"accountType": "Consumer",
+		"productName360": "wireless",
+                "address": [
+                    {
+                        "type": "B",
+                        "streetName1": "3900 GEORGE BUSBEE PKWY NW APT 407",
+                        "locality": "KENNESAW",
+                        "stateOrProvince": "GA",
+                        "postcode": "30144-6677"
+                    },
+					{
+						"type": "Service",
+						"streetName1": "3900 GEORGE BUSBEE PKWY NW APT 407",
+						"locality": "KENNESAW",
+						"stateOrProvince": "GA",
+						"postcode": "30144-6677"
+					},
+		     {
+"type": "ServiceSAG",
+"streetName1": "1298 FAVELL",
+"locality": "MEMPHIS",
+"stateOrProvince": "TN",
+"postcode": "38116-5114"
+},
+{
+"type": "Billing",
+"streetName1": "1298 FAVELL DR",
+"locality": "MEMPHIS",
+"stateOrProvince": "TN",
+"postcode": "38116-5114"
+},
+{
+"type": "ServiceUSPS",
+"streetName1": "1298 FAVELL",
+"locality": "MEMPHIS",
+"stateOrProvince": "TN",
+"postcode": "38116-5114"
+},
+{
+"type": "ServiceFSP",
+"streetName1": "1298 FAVELL",
+"locality": "MEMPHIS",
+"stateOrProvince": "TN",
+"postcode": "38116-5114"
+}
+                ],
+                "accountStatus": "O",
+                "languagePreference": "EN",
+                "serviceStartDate": "07/22/2018",
+                "firstName": "ELVIS",
+                "lastName": "DIAZ MENDEZ",
+                "email": "qc_dummy@att.com",
+                "isEmployee": true,
+                "customerId": "123",
+                "isPaperlessBill": false,
+                "isPrepaidCustomer": false,
+                "serviceDiscount": 0,
+                "securityLevel": "S",
+                "cpid": "534211605781",
+                "customerLiabilityType": "534211605781",
+                "fanNumber": "534211605781",
+                "fanName": "534211605781",
+                "subDiscount": "5",
+                "isDigitalLife": true
+            }
+        ]
+    }
+]

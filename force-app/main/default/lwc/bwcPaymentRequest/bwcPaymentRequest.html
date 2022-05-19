@@ -1,0 +1,82 @@
+<template>
+    <div class="slds-p-horizontal--small slds-p-bottom_small slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1 slds-grid slds-wrap">
+    <!--<div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">-->
+        <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label">{cashPaymentLabelText}</label>
+            <div class="slds-form-element__control slds-text-align_left">
+                <label class="slds-form-element">{cashPaymentButtonLabelText}</label>
+                <lightning-input type="toggle"
+                                class="slds-float_right"
+                                name="pmtTypeCashToggle"
+                                label=""
+                                disabled={isCashPmtDisabled}
+                                onchange={handleToggleChange}
+                                message-toggle-active="Yes"
+                                message-toggle-inactive="No"></lightning-input>
+            </div>
+        </div>
+    <!--</div>-->
+    <!--<div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">-->
+        <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" for="horizontal-input-id-02">
+                Payment Request
+                <lightning-button-icon
+                    icon-name="utility:info" size="x-small"
+                    alternative-text={paymentRequestAltText} tooltip={paymentRequestHelpText}>
+                </lightning-button-icon>
+            </label>
+            <div class="slds-form-element__control slds-p-top_x-small">
+                <template if:true={isChecked}>
+                    <template if:true={showRefund}>
+                        <div class="slds-text-color_weak">{collectPaymentRefundText}</div>
+                    </template>
+                    <template if:false={showRefund}>
+                        <div class="slds-text-color_weak">{collectPaymentText}</div>
+                    </template>
+                </template>
+                <template if:false={isChecked}>
+                    <template if:false={isSuccess}>
+                        <template if:true={showRefund}>
+                            <a href="#" onclick={handleCollectPaymentMethod}>{collectPaymentRefundText}</a>
+                        </template>
+                        <template if:false={showRefund}>
+                            <a href="#" onclick={handleCollectPaymentMethod}>{collectPaymentText}</a>
+                        </template>
+                    </template>
+                </template>
+                <template if:true={isSuccess}>
+                    <div class="slds-text-color_success">
+                        <lightning-icon class="slds-text-color_success"
+                                        icon-name="utility:success"
+                                        alternative-text="Success"
+                                        variant="success"
+                                        title="Success" size="xx-small"></lightning-icon>
+                        <template if:true={showRefund}>
+                            {paymentMethodRefundSubmittedText}
+                        </template>
+                        <template if:false={showRefund}>
+                            {paymentMethodSubmittedText}
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </div>
+    <!--</div>-->
+        <template if:true={showRefund}>
+            <!--<div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">-->
+                <div class="slds-form-element slds-form-element_horizontal">
+                    <label class="slds-form-element__label" for="horizontal-input-id-02">
+                        Case Action Based Request
+                        <lightning-button-icon
+                            icon-name="utility:info" size="x-small"
+                            alternative-text={caseActionBasedRequestAltText} tooltip={caseActionBasedRequestHelpText}>
+                        </lightning-button-icon>
+                    </label>
+                    <div class="slds-form-element__control slds-p-top_x-small">
+                        <label class="slds-form-element slds-text-title_bold">Refund Requested</label>
+                    </div>
+                </div>
+            <!--</div>-->
+        </template>
+    </div>
+</template>

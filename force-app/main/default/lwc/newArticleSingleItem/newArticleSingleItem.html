@@ -1,0 +1,60 @@
+<template >
+    <lightning-card class="box">
+        
+        <div if:true={aticleData.urgentFlag}>
+            <div if:false={aticleData.urgentArticleReaded}>
+                <div class="ribbon ribbon-top-right-bellow"><span>Urgent</span></div>
+            </div>
+        </div>
+        <div if:false={aticleData.articleReaded}>
+            <div class="ribbon ribbon-top-right"><span>New</span></div>
+        </div>
+        <div if:true={aticleData.urgentArticleReaded}>
+            <div class="ribbon2 ribbon-top-right"><span>Urgent</span></div>
+        </div>
+        <div class="slds-p-horizontal_small">
+            <div style="height:200px; text-align: center;" onclick={handleClick}>
+                <img src={aticleData.previewImage} style="max-height:200px" alt={aticleData.title} />
+            </div><br/>
+            <div>
+            <strong style="color:#00a2df">{aticleData.title}</strong><br/><br/>
+            <p style="color:grey">
+            <lightning-formatted-rich-text value={aticleData.summary}>
+            </lightning-formatted-rich-text>
+            </p>
+            </div>
+        </div>
+        <p slot="footer">
+            <lightning-layout>
+                <lightning-layout-item flexibility="auto" >
+                    <lightning-icon 
+                        icon-name="utility:preview" 
+                        alternative-text="Preview" 
+                        title="Preview" 
+                        size="x-small">
+                    </lightning-icon>
+                    &nbsp;&nbsp;{aticleData.previewCount}
+                </lightning-layout-item>
+                <lightning-layout-item flexibility="auto" >
+                    <lightning-icon 
+                        icon-name="utility:quick_text" 
+                        alternative-text="Message" 
+                        title="Message" 
+                        size="x-small">
+                    </lightning-icon>
+                    &nbsp;&nbsp;{aticleData.likeCount}
+                </lightning-layout-item>
+                <lightning-layout-item flexibility="auto" >
+                    <lightning-icon 
+                        icon-name="utility:like" 
+                        alternative-text="Preview" 
+                        title="Likes" 
+                        size="x-small">
+                    </lightning-icon>
+                     
+                        &nbsp;&nbsp;{aticleData.messageCount}
+                </lightning-layout-item>
+            </lightning-layout>
+        </p>
+    </lightning-card>
+</template>

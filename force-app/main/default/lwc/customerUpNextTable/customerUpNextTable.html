@@ -1,0 +1,77 @@
+<template>
+    <template if:true={showComponent}>
+        <lightning-card title="Customers up next">
+            <div style="height: 20%;">
+                <table class="slds-table_bordered table-layout"
+                aria-labelledby="element-with-table-label other-element-with-table-label">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col" style="padding: 5px;">
+                            <div class="slds-truncate" style="padding-left: 1rem;">Name</div>
+                        </th>
+                        <th class="" scope="col" style="padding: 5px;">
+                            <div class="slds-truncate">Est. wait time</div>
+                        </th>
+                        <th class="" scope="col" style="padding: 5px;">
+                            <div class="slds-truncate">Waiting</div>
+                        </th>
+                        <th class="" scope="col" style="padding: 5px;">
+                            <div class="slds-truncate">Assigned rep</div>
+                        </th>
+                        <th class="" scope="col" style="padding: 5px;">
+                            <div class="slds-truncate">Check-in type</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={data} for:item="queue">
+                        <tr class="slds-hint-parent" key={queue.Id} style={queue.stylecls}> <!--Add by MA SPTSLSATT-1464-->
+                            <td style="padding: 5px;">
+                                <div class="slds-truncate" style="display: flex;">
+                                    <!--Start by MA SPTSLSATT-1464-->
+                                    
+                                        <template if:true={queue.spanish}>
+                                        <div class="spanishcls">
+                                            {queue.spanish}
+                                        </div>
+                                        <div>{queue.Name}</div>
+                                        </template>
+                                    
+                                    <template if:false={queue.spanish}>
+                                    <div style="padding-left: 1rem;">
+                                        {queue.Name}
+                                    </div>
+                                </template>
+
+
+                                </div>
+                                <!--End by MA SPTSLSATT-1464-->
+                            </td>
+                            <td style="padding: 5px;">
+                                <div class="slds-truncate" >{queue.EstimatedWaitTimeWithMin__c}</div>
+                            </td>
+                            <td style="padding: 5px;">
+                                <div class="slds-truncate" ><lightning-formatted-rich-text value={queue.WaitTimeStatus__c}></lightning-formatted-rich-text> {queue.DCITimeWaiting__c}</div>
+                            </td>
+                            <td style="padding: 5px;">
+                                <div class="slds-truncate" >{queue.CustomerRequestedRep__c}</div>
+                            </td>
+                            <td style="padding: 5px;">
+                                <div class="slds-truncate" >{queue.DCICheckinType__c}</div>
+                            </td>
+                            
+                        </tr>
+                    </template>
+                   
+                </tbody>
+            </table>
+            </div>
+            <div slot="footer" class="slds-p-bottom_medium">
+                <p class="slds-float_left">{showing}</p>
+                <template if:true={showViewMore}>
+                    <a class="slds-float_right" variant="base" onclick={handleclick}>{showMoreOrLessLabel}</a>
+                </template>
+            </div>
+        </lightning-card>
+    </template>
+</template>

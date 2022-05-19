@@ -1,0 +1,31 @@
+<template>
+  <div class="slds-grid">
+    <div class="slds-m-around_medium slds-box slds-theme_default">
+      <div class="column">
+        <div class="originalval" if:true={originalvalue}>
+          <s> <h1 class="slds-text-heading_medium">{originalvalue}</h1></s>
+        </div>
+
+        <div class="newval" if:true={newvalue}>
+          <div> <h3 class="slds-text-heading_large">{newvalue}</h3> </div>
+          <!--<div class="month"><label>/mo.</label></div>-->
+        </div>
+
+        <div>
+            <template iterator:it={displaylist}>
+              <div key={it.value}>
+                <h1 class="slds-text-heading_small">{it.value}</h1>
+              </div>
+            <!--<div class="display" key={it.value} if:false={it.last}>
+              <h1 class="slds-text-heading_small">{it.value}</h1>
+            </div>-->
+            <!--<div class="discount" key={it.value} if:true={it.last} >
+              <h1 class="slds-text-heading_small">{it.value}</h1>
+            </div>-->
+          </template>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>

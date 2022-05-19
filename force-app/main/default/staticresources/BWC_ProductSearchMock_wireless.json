@@ -1,0 +1,109 @@
+{
+    "accounts": [
+        {
+            "accountType": "Wireless",
+            "ban": "423432423",
+            "plans": [
+                {
+                    "planName": "Mobile Share Value 4GB with Rollover Data",
+                    "monthlyCost": 115.0,
+                    "numberOfLines": "2",
+                    "featureCodePrice": "MMSDG04GB",
+                    "featureCode": "MMSDG04GB",
+                    "featureEffectiveDate": "2019-04-27 00:00:00",
+                    "pricePlanDescription": "MS Value 4GB",
+                    "productDescription": "MS Value 4GB"
+                }
+            ],
+            "equipments": [
+                {
+                    "phone": "3038880714",
+                    "user": "CINDY AUE",
+                    "device": "Samsung Galaxy S8+",
+                    "installments": "0 Remaining",
+                    "installmentAmount": 0,
+                    "isPrimary": false,
+                    "bundleDiscExists": "N",
+ 		   "equipmentType": "device",
+		   "receiverModel":"some model",
+		"receiverType":"some model",
+		"room":"some model",
+		"serialNumber":"some model",
+		"technology":"some model",
+		"warranty":"some model",
+		"type":"some type",
+		"upgrade":true,
+		"deviceProtection":true,
+		"subStatus":"Active"
+                },
+                {
+                    "phone": "3038985870",
+                    "user": "CINDY AUE",
+                    "device": "LG X venture",
+                    "installments": "0 Remaining",
+                    "installmentAmount": 0,
+                    "isPrimary": true,
+                    "bundleDiscExists": "N",
+		     "equipmentType": "connectedCar",
+		     "vMake":"Ford Car",
+		     "vModel": "elantra",
+		     "vYear" : "2012"	
+
+
+
+                },
+ 		{
+                    "phone": "3038880714",
+                    "user": "CINDY AUE",
+                    "device": "Samsung Galaxy S8+",
+                    "installments": "0 Remaining",
+                    "installmentAmount": 0,
+                    "isPrimary": false,
+                    "bundleDiscExists": "N"
+                },
+				{
+"status": "Active",
+"equipmentId": "104340",
+"equipmentType": "RG",
+"equipmentAttrDesc": "Network Access Device needed for all types of products.",
+"manufacturer": "Motorola.",
+"modelNumber": "NVG589",
+"purchaseTerms": "Rent"
+},
+{
+"status": "Active",
+"equipmentType": "STBSDHDDVR",
+"equipmentId": "2000040",
+"equipmentAttrDesc": "U-verse TV Receiver -- Standard Definition/High Definition with DVR and without RF",
+"isReceiver": "true",
+"isDVR": "true",
+"isHD": "true",
+"iswholeHomeDVR": "false",
+"manufacturer": "Motorola",
+"modelNumber": "VIP2250",
+"isFreeReceiver": "Y",
+"purchaseTerms": "Rent"
+}
+
+            ],
+			"subscribers": [
+                {
+                    "subscriberId": "3038880714",
+                    "subscriberName": "ELVIS DIAZ MENDEZ",
+                    "subscriberSince": "2020-01-11 00:00:00",
+                    "subscriberStatus": "Active",
+                    "contractLength": 0,
+                    "contractStart": "2019-05-12 00:00:00",
+                    "contractEnd": "2021-11-12 00:00:00",
+                    "etfAmount": 0.0
+                },
+                {
+                    "subscriberId": "4704600138",
+                    "subscriberName": "ELVIS DIAZ MENDEZ",
+                    "subscriberSince": "2019-08-21 00:00:00",
+                    "subscriberStatus": "Cancelled"
+                }
+			]
+        }
+    ]
+}

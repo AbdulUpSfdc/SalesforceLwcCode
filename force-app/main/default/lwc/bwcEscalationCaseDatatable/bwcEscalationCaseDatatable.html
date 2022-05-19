@@ -1,0 +1,26 @@
+<template>
+
+    <lightning-spinner if:true={isLoading} alternative-text="Loading"></lightning-spinner>
+    <div class="slds-m-bottom_x-small slds-grid slds-grid_align-center">
+        <c-bwc-notifications></c-bwc-notifications>
+    </div>
+    <template if:true={noRecentCases}>
+        <div class="slds-text-align_center">
+            <span>There are no recent escalation cases for this customer.</span>
+        </div>
+    </template>
+    <template if:false={noRecentCases}>
+        <c-bwc-datatable
+            class="slds-max-medium-table_stacked adjustments-grid"
+            key-field="Id"
+            columns={columns}
+            data={filteredCases}
+            wrap-text-max-lines="3"
+            column-widths-mode="fixed"
+            min-column-width="50"
+            resize-column-disabled="true"
+            hide-checkbox-column="true"
+            show-row-number-column="true"
+        ></c-bwc-datatable>
+    </template>
+</template>

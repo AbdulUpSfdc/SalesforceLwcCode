@@ -1,0 +1,95 @@
+<template>
+  <div class="redaction-data-container __slds-grid __slds-wrap">
+    <!--div
+      class="empty-cell __slds-medium-size_6-of-12 __slds-large-size_6-of-12"
+      style="background-color: aquamarine"
+    ></div-->
+
+    <div
+      if:true={isCashICPswitchVisible}
+      class="cash-icp-switch-container __slds-size_1-of-1 __slds-medium-size_6-of-12 __slds-large-size_6-of-12"
+    >
+      <div>
+        <lightning-input
+          type="toggle"
+          label="Cash/ICP"
+          name="cashICP"
+          class="cash-icp"
+          onchange={handleCashICPChange}
+        ></lightning-input>
+      </div>
+    </div>
+
+    <div
+      if:true={isRedactionMessageVisible}
+      class="redaction-msg-container slds-var-p-horizontal_large slds-var-p-bottom_large __slds-medium-size_6-of-12 __slds-large-size_6-of-12"
+      role="status"
+    >
+      <!--div class="slds-scoped-notification slds-theme_info"-->
+      <div class={redactionClasses}>
+        <div class="slds-media__body">
+          {redactionMessage}
+        </div>
+      </div>
+    </div>
+
+    <div
+      if:true={isRedactionUrlVisible}
+      class="redaction-url-container slds-var-p-horizontal_small __slds-medium-size_6-of-12 __slds-large-size_6-of-12 slds-align_absolute-center"
+    >
+      <a href="#" onclick={startRedaction}>Start Redaction Process</a>
+    </div>
+
+    <div
+      if:true={isPaymentTypeDetailsVisible}
+      class="payment-type-details-container slds-var-p-horizontal_small __slds-size_1-of-1 ___slds-medium-size_6-of-12 ___slds-large-size_6-of-12"
+    >
+      <div class="slds-form-element slds-form-element_horizontal">
+        <lightning-input
+          class="payment-type"
+          type="text"
+          label="Payment Type"
+          placeholder=""
+          disabled
+        ></lightning-input>
+      </div>
+      <div
+        class="slds-form-element slds-form-element_horizontal"
+      >
+        <lightning-input
+          class="payment-name-on-acc"
+          type="text"
+          label="Name on the Payment Acc"
+          placeholder=""
+          disabled
+        ></lightning-input>
+      </div>
+    </div>
+
+    <div
+      if:true={isRefundTypeDetailsVisible}
+      class="refund-type-details-container slds-var-p-horizontal_small __slds-size_1-of-1 __slds-medium-size_6-of-12 __slds-large-size_6-of-12"
+    >
+      <div class="slds-form-element slds-form-element_horizontal">
+        <lightning-input
+          class="refund-type"
+          type="text"
+          label="Refund Type"
+          placeholder=""
+          disabled
+        ></lightning-input>
+      </div>
+      <div
+        class="slds-form-element slds-form-element_horizontal"
+      >
+        <lightning-input
+          class="refund-name-on-acc"
+          type="text"
+          label="Name on the Refund Acc"
+          placeholder=""
+          disabled
+        ></lightning-input>
+      </div>
+    </div>
+  </div>
+</template>

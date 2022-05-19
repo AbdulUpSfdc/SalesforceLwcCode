@@ -1,0 +1,7 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,lightning:isUrlAddressable" access="global" >
+	<lightning:workspaceAPI aura:id="workspace" />
+    <aura:handler name="init" value="{!this}" action="{!c.init}"></aura:handler>
+    <aura:attribute name="recId" type="String"/>
+    <c:BWCOpenSubTab></c:BWCOpenSubTab>
+    <c:bwcDirectoryTool recId="{!v.recId}"></c:bwcDirectoryTool>
+</aura:component>

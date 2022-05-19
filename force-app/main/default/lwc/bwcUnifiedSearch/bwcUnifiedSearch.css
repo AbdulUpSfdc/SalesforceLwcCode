@@ -1,0 +1,11 @@
+div.main {
+    padding: 1.5rem 2.5rem 2.5rem 2.5rem;
+}
+
+div.heading {
+    color: #2B2826;
+}
+
+div.inputs {
+    max-width: 500px;
+}

@@ -1,0 +1,30 @@
+<template>
+    <div class="slds-page-header">
+        <div class="slds-page-header__row">
+            <div class="slds-page-header__col-title">
+                <lightning-icon size="small" icon-name="action:new_note" alternative-text="New note" title="New note"></lightning-icon>
+                <template if:true={showTable}>
+                    <strong>&nbsp;My Notifications</strong>
+                </template>
+                <template if:false={showTable}>
+                    <strong>&nbsp;No Notifications</strong>
+                </template>
+            </div>
+        </div>
+    </div>
+    <template if:true={showTable}>
+    <lightning-datatable
+            key-field="id"
+            columns={columns}
+            data={data}
+            hide-checkbox-column
+            default-sort-direction={defaultSortDirection}
+            sorted-direction={sortDirection}
+            sorted-by={sortedBy}
+            onsort={onHandleSort}
+            onrowaction={handleRowAction}>
+    </lightning-datatable>
+    </template>
+</template>
+
+</template>

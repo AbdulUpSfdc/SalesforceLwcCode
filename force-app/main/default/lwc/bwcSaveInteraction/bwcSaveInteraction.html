@@ -1,0 +1,64 @@
+<template>
+    <header class="slds-modal__header">
+        <h2 id="modal-heading" class="slds-modal__title slds-hyphenate">One &amp; Done Actions</h2>
+    </header>
+
+    <div class="slds-var-p-around_medium slds-is-relative">
+        <lightning-spinner if:true={isBusy} variant="brand" alternative-text="Loading"></lightning-spinner>
+
+        <c-bwc-notifications></c-bwc-notifications>
+
+        <!-- Checkbox Group -- custom to allow multiple columns and css fix on label span -->
+        <fieldset class="slds-form-element">
+            <legend class="slds-form-element__legend slds-form-element__label">Actions Taken</legend>
+            <div class="slds-form-element__control activity-type">
+                <template for:each={activityTypes} for:item="activityType">
+                    <div key={activityType.key} class="slds-checkbox">
+                        <input type="checkbox" checked={activityType.checked} disabled />
+                        <label class="slds-checkbox__label" for="checkbox-unique-id-725">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label checkbox-label">{activityType.label}</span>
+                        </label>
+                    </div>
+                </template>
+            </div>
+        </fieldset>
+
+        <lightning-textarea class="slds-var-m-top_small" label="Notes" max-length="1024"></lightning-textarea>
+
+        <div if:true={caseCountGT0}>
+            <lightning-icon
+                icon-name="utility:info"
+                alternative-text="Info"
+                title="Info"
+                size="x-small"
+            ></lightning-icon
+            >&nbsp;{caseEscalationMessage}
+        </div>
+    </div>
+
+    <!-- Footer Buttons -->
+    <footer class="slds-modal__footer">
+        <lightning-button
+            label="Cancel"
+            class="slds-float_left"
+            variant="destructive-text"
+            onclick={closeQuickAction}
+        ></lightning-button>
+        <lightning-button
+            class="slds-var-m-left_x-small"
+            data-name="transferButton"
+            label="Transfer Call"
+            variant="brand"
+            disabled={disableTransferCall}
+            onclick={handleTransfer}
+        ></lightning-button>
+        <lightning-button
+            class="slds-var-m-left_x-small"
+            data-name="saveButton"
+            label="Complete Call"
+            variant="brand"
+            onclick={handleSave}
+        ></lightning-button>
+    </footer>
+</template>

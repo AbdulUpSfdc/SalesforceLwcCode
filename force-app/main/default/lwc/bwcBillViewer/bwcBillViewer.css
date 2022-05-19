@@ -1,0 +1,20 @@
+.top-div {
+    border-radius: .25rem;
+    width: 100%;
+    max-width: 60rem;
+    min-height: 100%;
+    background-color: var(--lwc-colorBackgroundAlt);
+}
+
+.main-spinner {
+    max-width: 60rem;
+    background-image: unset !important;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.combo {
+    max-width: 14rem;
+}

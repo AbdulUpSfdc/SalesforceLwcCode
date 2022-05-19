@@ -1,0 +1,22 @@
+<template>
+    <template if:true={isLoading1}>
+        <div class="slds-is-relative">
+            <lightning-spinner alternative-text="Loading.." size="large"></lightning-spinner>
+        </div>
+    </template>
+    <template if:true={error}>
+        <strong>
+            <div class="slds-card slds-align_absolute-center message" data-aura-rendered-by="1:2800;a">No related lists
+                to display</div>
+        </strong>
+    </template>
+    <template if:true={data}>
+        <lightning-card title='Services Summary' icon-name='standard:lead_list'>
+            <lightning-datatable key-field="id" data={data} columns={columns} hide-checkbox-column="true">
+            </lightning-datatable>
+        </lightning-card>
+    </template>
+
+    <c-bwc-modal b-show-modal={showModal} modal-header={modalHeader} modal-message={modalMessage}></c-bwc-modal>
+
+</template>

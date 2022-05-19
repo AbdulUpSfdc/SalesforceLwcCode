@@ -1,0 +1,11 @@
+section:focus {
+    outline-width: 0;
+}
+
+.activity-type {
+    column-count: 2;
+}
+
+.checkbox-label {
+    display: inline-block !important;
+}

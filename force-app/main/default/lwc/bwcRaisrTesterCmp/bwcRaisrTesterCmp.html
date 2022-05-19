@@ -1,0 +1,74 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <div class="io-test-form slds-form slds-var-p-around_medium" style="background-color: AliceBlue;">
+
+    <div class="slds-form-element  slds-form-element_stacked">
+      <lightning-input type="toggle" label="Simulator" onchange={simulatorSwitch} checked>
+      </lightning-input>
+    </div>
+
+    <template if:true={isSimulator}>
+
+      <div class="slds-form-element  slds-form-element_stacked">
+        <label class="slds-form-element__label" for="simulatorUrl">
+          <abbr class="slds-required" title="required">* </abbr>Select RAISR Simulator URL:</label>
+        <div class="slds-form-element__control">
+          <div class="slds-select_container">
+            <select class="slds-select" id="select-01" onchange={onSelectSimulator} required="">
+              <option value="-1">Select Simulator...</option>
+              <option value={defaultSimulatorUrl}>Default Simulator: {defaultSimulatorUrl}</option>
+              <option value="">Enter Different URL for Simulator</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <template if:true={doWeNeedCustomSimulatorUrl}>
+        <div class="slds-form-element  slds-form-element_stacked">
+          <label for="simulatorUrl">RAISR Simulator URL:</label>
+          <div class="slds-form-element__control">
+            <input type="url" id="simulatorUrl" required value={simulatorUrl} class="slds-input"></input>
+          </div>
+        </div>
+        <div class="slds-form-element slds-form-element_stacked">
+          <lightning-button label="Open Simulator" title="Open Simulator" onclick={openSimulator}
+            style="display: grid; width: 100%">
+          </lightning-button>
+        </div>
+      </template>
+
+      <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-2">
+          <lightning-input class="crn" label="Call Reference Number" required
+            pattern="\d{16,16}" 
+            message-when-pattern-mismatch="Call Reference Number must have 16 digits"
+          ></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+          <lightning-input class="ban" label="BAN"></lightning-input>
+        </div>
+        <div class="slds-col slds-size_2-of-2">
+          <lightning-button name="startTest" label="Start Test" title="Start Test" onclick={startTest}
+            style="display: grid; width: 100%">
+          </lightning-button>
+        </div>
+      </div>
+    </template>
+
+    <template if:false={isSimulator}>
+
+      <lightning-button-group>
+        <lightning-button-stateful selected={recordSessionState} label-when-off="Record Session"
+          label-when-on="Recording Session" label-when-hover="Stop Recording" icon-name-when-off=""
+          icon-name-when-on="utility:check" icon-name-when-hover="utility:close" onclick={handleRecordSession}>
+        </lightning-button-stateful>
+        <lightning-button-stateful selected={playSessionState} label-when-off="Play Session"
+          label-when-on="Playing Session" label-when-hover="Stop Playing" icon-name-when-off=""
+          icon-name-when-on="utility:check" icon-name-when-hover="utility:close" onclick={handlePlaySession}>
+        </lightning-button-stateful>
+      </lightning-button-group>
+
+    </template>
+  </div>
+
+</template>

@@ -1,0 +1,231 @@
+<template>
+    <c-bwc-promotion-details-modal title='Promotion Details'>
+        
+        <template if:true={promoDetails}>
+            <div class="promotionDetailsClass">
+                <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+                    <lightning-accordion-section name="A" label="Promotion & Contract Details">
+                        <div class="slds-text-color_weak slds-text-body_small">Promotion Name</div>
+                        <div class="slds-text-body_small bold">{promoDetails.promotionName}</div>
+    
+                        <div class="slds-text-color_weak slds-m-top_medium slds-text-body_small">Promotion Description</div>
+                        <div class="slds-text-body_small">{promoDetails.promotionDesc}</div>
+    
+                        <template if:false={isGroupLevel}>
+                        <template if:true={isWireless}>
+                            <div class="slds-grid slds-wrap slds-m-vertical_small slds-m-top_medium">
+                                <div class="slds-col slds-size_6-of-12">
+                                    <div class="slds-text-color_weak slds-text-body_small">Contract End Date</div>
+                                    <div class="slds-text-body_small bold slds-text-body_small">{endDate}
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_6-of-12">
+                                    <div class="slds-text-color_weak slds-text-body_small">Contract Months Remaining</div>
+                                    <div class="slds-text-body_small bold slds-text-body_small">
+                                        {promoDetails.promotionContractMonths}
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="slds-text-color_weak slds-m-top_medium">Contract Estimated ETF</div>
+                            <div class="slds-text-body_small bold">{promoDetails.promotionContractETF}
+                            </div>
+                        </template>
+                        </template>
+                    </lightning-accordion-section>
+    
+                    <lightning-accordion-section name="B" label="Compliance Rule">
+                        <!-- Compliance Rules -->
+                        <div class="slds-grid slds-wrap slds-m-vertical_small">
+                            <template for:each={complianceRules} for:item="cr">
+                                <div key={cr.id} class="slds-col slds-size_12-of-12">
+                                    <ul class="slds-list_dotted slds-p-left_small">
+                                        <template if:false={cr.indented}>
+                                        <li>{cr.rule}</li>
+                                        </template>    
+                                        <template if:true={cr.indented}>
+                                            <ul class="slds-list_dotted slds-p-left_small">
+                                                <li class="slds-var-m-left_large">{cr.rule}</li>
+                                            </ul>
+                                        </template>
+                                    </ul>
+                            </div>
+                            </template>
+                        </div>
+                        
+                        <lightning-accordion allow-multiple-sections-open
+                            active-section-name={activeSections}>
+                            <!-- Subsciber Level -->
+                            <template if:false = {isGroupDataExists}>
+                                <template if:true={showSdfs}>
+                                    <lightning-accordion-section name="C" label={sdfsLabel}>
+                                        <div class="slds-grid slds-wrap slds-m-vertical_small">
+                                            <template for:each={wirelessSdfs} for:item="sr">
+                                                <div key={sr.id} class="slds-col slds-size_6-of-12">
+                                                    <ul class="slds-list_dotted">
+                                                        <li>{sr.rule}</li>
+                                                    </ul>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </lightning-accordion-section>
+                                    </template>
+            
+                                    <template if:true={showSdgs}>
+                                    <lightning-accordion-section name="D" label={sdgsLabel}>
+                                        <div class="slds-grid slds-wrap slds-m-vertical_small">
+                                            <template for:each={wirelessSdgs} for:item="sr">
+                                                <div key={sr.id} class="slds-col slds-size_6-of-12">
+                                                    <ul class="slds-list_dotted">
+                                                        <li>{sr.rule}</li>
+                                                    </ul>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </lightning-accordion-section>
+                                    </template>
+                                    <template if:true={showSkus}>
+                                    <lightning-accordion-section name="E" label={skuLabel}>
+                                        <div class="slds-grid slds-wrap slds-m-vertical_small">
+                                            <template for:each={ElligibleSKus} for:item="sr">
+                                                <div key={sr.id} class="slds-col slds-size_6-of-12">
+                                                    <ul class="slds-list_dotted">
+                                                        <li>{sr.rule}</li>
+                                                    </ul>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </lightning-accordion-section>
+                                    </template>
+                            </template>
+    
+                            <!-- Group Level -->
+                            <template if:true = {isGroupDataExists}>
+                                <lightning-accordion-section name = 'Z' label={groupLabel}>
+                                    <!-- Group Criteria -->
+                                    <div class="slds-grid slds-wrap slds-m-vertical_small">
+                                        <template for:each={groupCompliance} for:item="cr">
+                                            <div key={cr.id} class="slds-col slds-size_6-of-12">
+                                                <ul class="slds-list_dotted">
+                                                    <li>{cr.rule}</li>
+                                                </ul>
+                                            </div>
+                                        </template>
+                                    </div>
+    
+                                    <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+                                        <template if:true={showGroupSdfs}>
+                                            <lightning-accordion-section name="F" label={sdfsLabel}>
+                                                <div class="slds-grid slds-wrap slds-m-vertical_small">
+                                                    <template for:each={groupSdfs} for:item="sr">
+                                                        <div key={sr.id} class="slds-col slds-size_6-of-12">
+                                                            <ul class="slds-list_dotted">
+                                                                <li>{sr.rule}</li>
+                                                            </ul>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </lightning-accordion-section>
+                                        </template>
+                                        <template if:true={showGroupSdgs}>
+                                        <lightning-accordion-section name="G" label={sdgsLabel}>
+                                            <div class="slds-grid slds-wrap slds-m-vertical_small">
+                                                <template for:each={groupSdgs} for:item="sr">
+                                                    <div key={sr.id} class="slds-col slds-size_6-of-12">
+                                                        <ul class="slds-list_dotted">
+                                                            <li>{sr.rule}</li>
+                                                        </ul>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </lightning-accordion-section>
+                                        </template>
+                                        <template if:true={showGroupSkus}>
+                                        <lightning-accordion-section name="H" label={skuLabel}>
+                                            <div class="slds-grid slds-wrap slds-m-vertical_small">
+                                                <template for:each={groupSkus} for:item="sr">
+                                                    <div key={sr.id} class="slds-col slds-size_6-of-12">
+                                                        <ul class="slds-list_dotted">
+                                                            <li>{sr.rule}</li>
+                                                        </ul>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </lightning-accordion-section>
+                                        </template>
+                                    </lightning-accordion>
+                                </lightning-accordion-section>
+                            </template>
+
+                            <!-- Bogos -->
+                            <template if:true = {showBogos}>
+                                <lightning-accordion-section name = 'I' label={bogoLabel}>
+                                    
+                                    <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+                                        <!-- Bogo Qualifiers -->
+                                        <lightning-accordion-section name = "L" label={bogoQualifierLabel}>
+                                            <!-- Only Bogos -->
+                                            <div class="slds-grid slds-wrap slds-m-vertical_small">
+                                                <template for:each={bogoQualifiers} for:item="cr">
+                                                    <div key={cr.id} class="slds-col slds-size_6-of-12">
+                                                        <ul class="slds-list_dotted">
+                                                            <li>{cr.rule}</li>
+                                                        </ul>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                            <!-- Bogos Skus -->
+                                            <template if:true={showBogoQualifiersSkus}>
+                                                <lightning-accordion-section name="J" label={skuLabel}>
+                                                    <div class="slds-grid slds-wrap slds-m-vertical_small">
+                                                        <template for:each={bogoQualifiersSkus} for:item="sr">
+                                                            <div key={sr.id} class="slds-col slds-size_6-of-12">
+                                                                <ul class="slds-list_dotted">
+                                                                    <li>{sr.rule}</li>
+                                                                </ul>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+                                                </lightning-accordion-section>
+                                            </template>
+                                        </lightning-accordion-section>
+
+                                        <!-- Bogo Benificiaries -->
+                                        <lightning-accordion-section  name = "M" label={bogoBenificiaryLabel}>
+                                            <!-- Only Bogos -->
+                                            <div class="slds-grid slds-wrap slds-m-vertical_small">
+                                                <template for:each={bogoBeneficiaries} for:item="cr">
+                                                    <div key={cr.id} class="slds-col slds-size_6-of-12">
+                                                        <ul class="slds-list_dotted">
+                                                            <li>{cr.rule}</li>
+                                                        </ul>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                            <!-- Bogos Skus -->
+                                            <template if:true={showBogoBeneficiariesSkus}>
+                                                <lightning-accordion-section name="K" label={skuLabel}>
+                                                    <div class="slds-grid slds-wrap slds-m-vertical_small">
+                                                        <template for:each={bogoBeneficiariesSkus} for:item="sr">
+                                                            <div key={sr.id} class="slds-col slds-size_6-of-12">
+                                                                <ul class="slds-list_dotted">
+                                                                    <li>{sr.rule}</li>
+                                                                </ul>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+                                                </lightning-accordion-section>
+                                            </template>
+                                        </lightning-accordion-section>
+                                    </lightning-accordion>
+                                </lightning-accordion-section>
+                            </template>
+                        </lightning-accordion>
+                    </lightning-accordion-section>
+                </lightning-accordion>
+            </div>
+            </template>
+
+    </c-bwc-promotion-details-modal>
+    <div class="stylebox"></div>
+</template>

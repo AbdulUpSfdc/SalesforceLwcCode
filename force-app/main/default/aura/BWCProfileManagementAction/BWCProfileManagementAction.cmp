@@ -1,0 +1,20 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader">
+    <aura:html tag="style">
+        .slds-p-around--medium {
+            padding: 0;
+            border: 0;
+
+
+        }
+
+        .slds-modal__content {
+            height: unset !important;
+            overflow: visible;
+        }
+        .forceChatterBasePublisher :not(.PHONE).cuf-content {
+             padding: 0;
+        }
+	</aura:html>
+<c:bwcServiceAction recordId="{!v.recordId}" serviceAction="Profile Management" onclose="{!c.close}"></c:bwcServiceAction>
+
+</aura:component>

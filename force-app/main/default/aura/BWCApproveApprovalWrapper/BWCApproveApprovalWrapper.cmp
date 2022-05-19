@@ -1,0 +1,16 @@
+<aura:component
+    controller="BWC_AdjustmentCasesController"
+    implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader"
+    access="global"
+>
+    <aura:attribute name="hasPermission" type="Boolean" default="false" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:if isTrue="{!v.hasPermission}">
+        <c:bwcApproveAdjustment
+            hasPermission="{!v.hasPermission}"
+            fromParent="{!v.recordId}"
+            onclosemodal="{!c.handleModalClose}"
+        />
+    </aura:if>
+</aura:component>

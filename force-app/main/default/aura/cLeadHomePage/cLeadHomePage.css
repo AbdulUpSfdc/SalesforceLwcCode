@@ -1,0 +1,113 @@
+.THIS .fixedheight {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+}
+
+.THIS.box {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 2;
+    flex-direction: row;
+}
+
+.THIS .fixedheight:hover {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    border: 2px solid rgba(0, 95, 178, 1);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.THIS .custombox {
+    padding: var(--lwc-spacingMedium, 1rem);
+    border-radius: var(--lwc-borderRadiusMedium, 0.25rem);
+    border: 0.5px solid lightgrey;
+}
+
+.THIS .mobilewidth {
+    width: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+    .THIS .fixedheight {
+        height: 100%;
+        width: 100%;
+    }
+    .THIS .fixedheight:hover {
+        height: 100%;
+        width: 100%;
+    }
+    .THIS .mobilewidth {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .THIS .fixedheight {
+        height: 100%;
+        width: 100%;
+    }
+    .THIS .mobilewidth {
+        width: 50%;
+    }
+}
+
+@media (min-width: 48em) {
+    .THIS .slds-medium-size_4-of-12 {
+        width: 25% !important;
+    }
+    .THIS .slds-medium-size--4-of-12 {
+        width: 25% !important;
+    }
+}
+
+.THIS .Tile-Title {
+    height: 18px;
+    width: 69px;
+    color: rgba(23, 50, 77, 100);
+    font-family: "SalesforceSans-Light.woff2";
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: NaNpx;
+    font-weight: "bold";
+}
+
+.THIS .Tile-Text {
+    height: 15px;
+    width: 97px;
+    color: rgba(23, 50, 77, 100);
+    font-family: "SalesforceSans-Light.woff2";
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: NaNpx;
+}
+
+.THIS .Lead-Count {
+    height: 54px;
+    width: 26px;
+    color: rgba(23, 50, 77, 100);
+    font-size: 42px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: NaNpx;
+}
+
+.THIS .lead-count-all-past {
+    height: 54px;
+    width: 26px;
+    color: rgba(194, 57, 52, 1);
+    font-size: 42px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: NaNpx;
+}
+
+.THIS .all-past-title {
+    color: rgba(194, 57, 52, 1);
+}
+
+.THIS .all-past-title-text {
+    color: rgba(194, 57, 52, 1);
+}

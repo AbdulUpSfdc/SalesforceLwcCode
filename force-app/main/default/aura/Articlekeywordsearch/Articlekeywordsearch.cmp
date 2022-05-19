@@ -1,0 +1,34 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="callArticleKeywodSearchBatch" >
+    
+    <aura:attribute name="SearchText" type="String" />
+    <aura:attribute name="Attuid" type="String" />
+    <aura:attribute name="show" type="boolean" default="true"/>
+    <aura:attribute name="progress" type="Integer" default="0"/>
+    <aura:attribute name="apexJob" type="AsyncApexJob"/>
+    <aura:attribute name="responseMsg" type="string" default="00"/>
+    <aura:handler name="init" value="this" action="{!c.doInit}"/>
+        <!--lightning:card    class="slds-size_medium slds-align_absolute-center "  -->
+        <lightning:card><br/><br/><br/>
+            <div class="slds-align_absolute-center">
+                <div class="slds-align_absolute-center slds-p-top_large slds-p-bottom_large">
+                    <p class="slds-p-horizontal_small">     
+                        <div class="slds-grid slds-wrap"> 
+                            <div class="slds-col slds-size_1-of-1">
+                                <div class="slds-text-heading_large slds-align_absolute-center">Keyword Report</div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning:input aura:id="Keyword" label="SearchText" type="text" placeholder="Enter keyword" value="{!v.SearchText}" required="true" messageWhenBadInput="Please enter value" fieldLevelHelp="Please enter Search keyword to generate report"/>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning:input aura:id="Attid" label="Attuid" type="text" placeholder="Enter Your Attid" value="{!v.Attuid}"  required="true" messageWhenBadInput="Please enter value" fieldLevelHelp="Please enter Search keyword to generate report"/>
+                            </div>
+                            <!--aura:if isTrue="{!v.show}"--><div class="slds-align_absolute-center slds-p-top_large"><lightning:button class="slds-align_absolute-center" name="Submit" label="Generate Report" variant="brand" onclick="{!c.doAction}" />
+                            </div><!--/aura:if-->
+                        </div> 
+                    </p> 
+                </div>
+            </div><br/><br/><br/>
+        </lightning:card>
+        
+        
+    </aura:component>

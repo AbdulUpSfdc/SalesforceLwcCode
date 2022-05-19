@@ -1,0 +1,8 @@
+.THIS .modal-container {
+    margin: unset !important;
+    min-width: 800px;
+}
+
+.THIS .modal-content {
+    min-height: 100px;
+}

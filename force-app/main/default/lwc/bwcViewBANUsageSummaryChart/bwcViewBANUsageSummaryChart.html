@@ -1,0 +1,34 @@
+<template>
+
+    <div class="slds-box slds-box_xx-small slds-p-around_small">
+    
+        <div class ="slds-theme_default custom-background slds-p-around_medium">
+
+            <!-- Usage Chart -->
+            <div class="chart-container slds-p-bottom_medium">
+                <div class="chart-internal-text-container">
+                    <span class="plan-total-label">Plan Total</span><br />
+                    <span class="plan-total-value">{planTotalUsage} {planUom}</span><br />
+                </div>
+                <canvas class="data-usage-chart" width="400" height="350" lwc:dom="manual"></canvas>
+            </div>
+
+            <!-- Chart Legends-->
+            <div if:true={showLegends} class="slds-m-bottom_large">
+                <lightning-layout class="slds-align-middle" vertical-align="center" multiple-rows>
+                    <lightning-layout-item class="slds-text-align_left legend-title" size="12">Lines</lightning-layout-item>
+                    <template for:each={chartLegends} for:item="legend">
+                        <lightning-layout-item key={legend.elementKey} class="slds-text-align_left" size="6" small-device-size="12" medium-device-size="6" large-device-size="6" style="padding: 5px 0;"><span class="legend-dot" style={legend.color}></span>{legend.name}</lightning-layout-item>
+                    </template>
+                </lightning-layout>
+            </div>
+
+            <!-- Chart disclaimer -->
+            <div class="slds-m-bottom_medium">
+                <lightning-icon icon-name="utility:info" alternative-text="Disclaimer" title="Disclaimer" size="xx-small"></lightning-icon>&nbsp;<lightning-formatted-rich-text disable-linkify value={labels.usageSummaryDisclaimer}></lightning-formatted-rich-text>
+            </div>
+
+        </div>
+    </div>
+    
+</template>

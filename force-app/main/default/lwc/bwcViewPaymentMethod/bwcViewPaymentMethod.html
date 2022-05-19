@@ -1,0 +1,43 @@
+<template>
+
+    <div if:true={paymentMethod} class="slds-grid">
+
+        <template if:true={isTypeCard}>
+
+            <c-bwc-form-element label="Payment Method" class="slds-size_1-of-4">
+                <span class="element-value">{paymentMethodName}</span>
+            </c-bwc-form-element>
+
+            <c-bwc-form-element label="Ending In" class="slds-size_1-of-4">
+                <span class="element-value">{cardLast4}</span>
+            </c-bwc-form-element>
+
+        </template>
+
+        <template if:true={isTypeBankAccount}>
+
+            <c-bwc-form-element label="Payment Method" class="slds-size_1-of-4">
+                <span class="element-value">{paymentMethodName}</span>
+            </c-bwc-form-element>
+
+            <c-bwc-form-element label="Ending In" class="slds-size_1-of-4">
+                <span class="element-value">{bankAccountLast4}</span>
+            </c-bwc-form-element>
+
+        </template>
+
+        <template if:true={isTypePromiseToPay}>
+
+            <c-bwc-form-element label="Payment Method" class="slds-size_1-of-4">
+                <span class="element-value">{paymentMethodName}</span>
+            </c-bwc-form-element>
+
+            <c-bwc-form-element label="Type" class="slds-size_1-of-4">
+                <span class="element-value">{promiseToPayMethodLabel}</span>
+            </c-bwc-form-element>
+
+        </template>
+
+    </div>
+
+</template>

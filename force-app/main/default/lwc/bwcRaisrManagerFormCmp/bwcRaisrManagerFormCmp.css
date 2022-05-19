@@ -1,0 +1,45 @@
+.container {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* padding: 0px;
+  margin: 0px; */
+  row-gap: 0.8em;
+}
+
+.spacer {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.enabler {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.raisr-helper {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row: 2;
+  background-color: lightgray;
+  border: 1px solid grey;
+}
+
+.override-container {
+  grid-column: 1 / 3;
+  grid-row: 3;
+}
+
+.disable-btn-container {
+  grid-column: 1 / 3;
+  grid-row: 4;
+}
+
+.button-stretch {
+  display: grid;
+  min-width: 100%;
+}
+
+.override-text {
+  color: red;
+}

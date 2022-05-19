@@ -1,0 +1,28 @@
+<!-- sldsValidatorIgnore -->
+<template>
+
+  <template if:false={hasVoiceRedaction}>
+    <c-bwc-read-panel title="Smart-Fields" variant="info" text="You don't have rights to use Smart-Fields">
+    </c-bwc-read-panel>
+  </template>
+
+  <template if:true={hasVoiceRedaction}>
+    
+    <div if:true={isTester}>
+      <c-bwc-raisr-tester-cmp
+        onteststart={startTest}
+        ondimensionchanged={testFormDimensionChanged}
+      ></c-bwc-raisr-tester-cmp>
+    </div>  
+
+    <c-bwc-raisr-manager-form-cmp
+      ondimensionchanged={raisrControlFormDimensionChanged}
+    ></c-bwc-raisr-manager-form-cmp>
+
+    <c-bwc-raisr-msg-pub-sub-cmp 
+    parent-id="bwcRaisrManagerCmp"
+    onraisrevent={handleRaisrChannelEvent}
+    ></c-bwc-raisr-msg-pub-sub-cmp>
+  </template>
+
+</template>

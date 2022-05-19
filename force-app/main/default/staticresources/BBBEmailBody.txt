@@ -1,0 +1,56 @@
+Account Number: 260492838
+Customer Name: Jamesk Maples
+Address: 333 Old hickory rd
+City: Decatur
+State: AL
+Zip: 35603
+Email Address: luvscubs1908@aol.com
+Phone Number: 355-5018256
+CallBack Name:
+BBB CaseNo:  27767431
+Rebuttal: N
+BBB Url: https://atlanta.app.bbb.org/complaint/view/27767431/b/*vn7i3w2*
+Date Received: 8/13/2020
+Complainant Name: Jamesk Maples
+Complainant Phone number: 9999999999
+Complainant Email address: complaint@example.com
+Day Phone: 778888889
+Reached Phone (Alternate): 213213872331
+Reached Phone (Alternate) : Residential
+
+Case Information:
+
+
+COMPLAINT ACTIVITY REPORT  Case # 27767431      Better Business Bureau, Inc.
+
+
+Location Involved:      (Same as above)
+
+Consumer's Original Complaint :
+Service Type: Residential Service
+Account: 260492838
+Account: 260492838
+Reached: 256-280-1063Ext:
+Day Phone: Impacted Phone: 256-280-1063
+Accept Agreement : 1
+
+AT&T has started charging me $9.99 a month for a Regional Sports Fee. They are telling me it is part of my contract that I signed in 1997 but they can not provide me a copy of the contract or any paperwork that shows anything about the fee. They have not been charging me the fee since 1997. It just appeared on my bill about a year ago. I have contacted them several times about this issue and I can not get a straight answer. Also in May of 2020 we wanted to have a wired box added to one of our bedrooms. We confirmed with AT&T over the phone that there would not be a charge to install the box and it would not lock us into a contract. When the guy showed up to install the box he said it would be hard to install a wired box because of paneling walls. He wanted to install a wireless box but told us it would be $100.00 to install the wireless. We refused to pay the $100 so he called his manager and they told him to install it at no charge. We never agreed to start a new contract with AT&T and neve agreed to pay a $100 installation fee. Since May of this year AT&T went up on our bill, could not provide proof as to why we are getting charged $9.99 Regional Sports Fee so we decided to cancel our service with them. I have been a loyal customer since 1997 but they are now impossible to deal with. AT&T sent me a final bill saying I am locked into a contract and they are charging me a disconnect fee of $230.00 plus taxes and fees for a total of $237.89. Product_Or_Service: Direct TV Account_Number: 260492838
+
+Consumer's Desired Resolution:
+DesiredSettlementID: Billing AdjustmentI would like a refund of the $9.99 Regional Sports Fee for each month that they have been charging me and would like the early termination fee removed.
+
+BBB Processing
+
+07/22/2020        web   BBB     Case Received by BBB
+07/22/2020        web   BBB     AT&T Case Reviewed by BBB
+07/22/2020        OttO  EMAIL   Send Acknowledgement to Consumer
+07/22/2020        OttO  EMAIL   Notify AT&T of Dispute
+07/23/2020        WEB   BBB     RECEIVE BUSINESS RESPONSE : The AT&T Office of the President contacted the consumer regarding a notice received from the Better Business Bureau. AT&T communicated with the consumer and shared the details of the resolution reached. AT&T provided contact information for additional questions, requests, and/or correspondence specific to the consumer's concerns. The consumer indicated they were satisfied.
+07/23/2020        kd    EMAIL   Forward Business response to Consumer
+07/23/2020        WEB   BBB     CONSUMER REBUTTAL TO BUSINESS RESPONSE : (The consumer indicated he/she DID NOT accept the response from the business.)
+       AT&T said they would not charge me the disconnect fee so I not have a zero balance with them. I am happy about that.  I am still needing information as to why they were charging me $9.99 a month for a regional sports fee. I have asked for documentation of the contract and proof that my area is in the zone for the fee. I would like proof that this is a legitimate fee or I would like a refund for every month AT&T charged me the $9.99 regional sports fee.
+07/23/2020        kd    EMAIL   Forward Consumer Rebuttal to Business
+07/28/2020        WEB   BBB     RECEIVED BUSINESS'  REBUTTAL RESPONSE : AT&T Office of the President received a consumer rebuttal notice.  The notice contained no information that required further review.  As such, AT&T's position remains unchanged.
+07/28/2020        kd    EMAIL   Send Business Rebuttal - No New Offer - Answered
+07/28/2020        Otto  BBB     Inform Business - Case Answered
+07/28/2020        Otto  BBB     Case CLOSED ANSWERED

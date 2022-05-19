@@ -1,0 +1,10 @@
+.shadow{
+box-shadow: 0.05px 0.05px 0.05px lightgray}
+
+.la{
+    border-bottom: 1px solid lightgrey; padding: 10px;
+}
+
+.la:last-child {
+    border-bottom: 0px lightgrey;
+  }

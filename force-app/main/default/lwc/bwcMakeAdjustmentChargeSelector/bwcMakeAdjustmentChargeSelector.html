@@ -1,0 +1,20 @@
+<template>
+    <div class="slds-section slds-is-open">
+        <h3 class="slds-section__title slds-text-heading_small slds-var-p-vertical_small slds-theme_shade">
+            <span class="slds-var-p-left_small" title="Select Line Items for Adjustment (10 Max.)">Select Line Items for Adjustment (10 Max.)</span>
+        </h3>
+        <div class="top-div top-div slds-grid slds-grid_vertical">
+            <div class="slds-col slds-grow slds-var-m-top_small slds-is-relative">
+
+                <c-bwc-read-panel title="Only the line items below are eligible for adjustment for this billing period. You can select up to 10 items." variant="info"></c-bwc-read-panel>
+
+                <lightning-datatable
+                        key-field="id"
+                        columns={statementColumns}
+                        data={statementRows}
+                        onrowselection={handleSelectedRow}>
+                </lightning-datatable>
+            </div>
+        </div>
+    </div>
+</template>

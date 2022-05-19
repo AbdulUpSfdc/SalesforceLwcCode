@@ -1,0 +1,9 @@
+<aura:component implements="lightning:backgroundUtilityItem" controller="BWC_SessionResetController">
+
+    <aura:handler event="lightning:tabUpdated" action="{!c.onTabUpdated}" /> 
+
+    <aura:attribute name="isInitialized" type="Boolean"/>
+
+    <lightning:workspaceAPI aura:id="workspace" />
+
+</aura:component>

@@ -1,0 +1,153 @@
+<template>
+    
+    <!-- Top controls -->
+    <div class="slds-grid slds-grid_vertical">
+
+        <c-bwc-message-bar if:true={hasL0Bans} class="slds-m-bottom_x-small" variant="" texture="alert">
+            <div class="slds-grid">
+                <lightning-button-icon class="slds-m-right_small" icon-name="utility:unlock" onclick={handleStepUp}></lightning-button-icon>
+                <!-- Embedded action link -->
+                <div>
+                    {authMessageLeft}<a onclick={handleStepUp}>{labels.authRemaining}</a>{authMessageRight}
+                </div>
+            </div>
+        </c-bwc-message-bar>
+
+        <div class="slds-grid">
+            <div class="slds-col_bump-left">
+                <lightning-button-icon icon-name="utility:filterList" alternative-text="Filter" tooltip="Filter" disabled={isBusy} onclick={displayfiltermodal}></lightning-button-icon>
+                <lightning-button class="slds-m-left_x-small" label={expandCollapseText} title={expandCollapseText} disabled={isBusy} onclick={handleExpandCollapseAll}></lightning-button>
+                <lightning-button-icon class="slds-m-left_x-small" icon-name="utility:refresh" alternative-text="Refresh" tooltip="Refresh" disabled={isBusy} onclick={handleRefresh}></lightning-button-icon>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- These tabs just work as controls to filter the single activity timeline. The tabs themselves have no content. -->
+    <lightning-tabset>
+
+        <lightning-tab label="Agent-Generated" class="tab" value="Agent" onactive={handleTabActive}></lightning-tab>
+        <lightning-tab label="System-Generated" class="tab" value="System" onactive={handleTabActive}></lightning-tab>
+        <lightning-tab label="All Notes" class="tab" value="All" onactive={handleTabActive}></lightning-tab>
+
+    </lightning-tabset>
+
+    <div class="notes-div">
+
+        <!-- Spinner -->
+        <lightning-spinner if:true={isBusy} alternative-text="Loading"></lightning-spinner>
+
+        <!-- Errors -->
+        <c-bwc-error-reports class="slds-m-top_small"></c-bwc-error-reports>
+
+        <!-- Nothing to Show -->
+        <div if:true={noResults} class="slds-align_absolute-center slds-p-vertical_x-large">
+
+            No items to display.
+
+        </div>
+
+        <!-- Activity Timeline -->
+        <ul if:true={showResults} class="slds-timeline slds-m-top_small">
+
+            <!-- Iterate each note -->
+            <template for:each={displayedNotes} for:item="note" for:index="index">
+
+                <li key={note.id}>
+
+                    <div data-note-index={index} class="slds-timeline__item_expandable">
+
+                        <span class="slds-assistive-text">Note</span>
+                        <div class="slds-media">
+                            <div class="slds-media__figure">
+                                <lightning-button-icon data-note-index={index} icon-name="utility:chevronright" variant="bare" onclick={handleSwitchClick}></lightning-button-icon>
+                                <lightning-icon icon-name={note.iconName} size="small" class="slds-timeline__icon" title={note.iconTitle}></lightning-icon>
+                            </div>
+                            <div class="slds-media__body">
+                                <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                    <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                        <span class="slds-m-right_small slds-p-horizontal_xx-small source-system">{note.appId}</span>
+                                        <h3 class="slds-truncate" title={note.title} >
+                                            <lightning-formatted-rich-text value={note.title}></lightning-formatted-rich-text>
+                                        </h3>
+                                    </div>
+                                    <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                        <p class="slds-timeline__date">{note.formattedUserDatetime}</p>
+                                    </div>
+                                </div>
+                                <article class="slds-box slds-timeline__item_details slds-theme_shade slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium" aria-hidden="false">
+                                    <ul class="slds-list_horizontal slds-wrap">
+                                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                                        <span class="slds-text-title slds-p-bottom_x-small">{labels.account}</span>
+                                        <span class="slds-text-body_medium slds-truncate" title={note.ban}>
+                                            {note.ban}
+                                        </span>
+                                    </li>
+                                    <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                                        <span class="slds-text-title slds-p-bottom_x-small">Category</span>
+                                        <span class="slds-text-body_medium slds-truncate" title={note.category}>
+                                            {note.category}
+                                        </span>
+                                    </li>
+                                    </ul>
+                                    <div>
+                                        <div class="slds-text-title slds-p-bottom_x-small">Description</div>
+                                        <lightning-formatted-rich-text value={note.noteBody}></lightning-formatted-rich-text>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </li>
+
+            </template>
+
+        </ul>
+
+        <div if:true={isLoadingMore} class="slds-is-relative loading-more">
+            <lightning-spinner alternative-text="Loading More Notes" size="medium"></lightning-spinner>
+        </div>        
+        <div if:true={showLoadMore} class="slds-m-top_small slds-align_absolute-center">
+            <a href="javascript:void(0)" onclick={handleLoadMore}>Load More Notes</a>
+        </div>
+
+    </div>
+    
+    <c-bwc-step-up></c-bwc-step-up>
+
+    <div if:true={openfilter}>
+        <div class="filter-box slds-box" style={boxClass}>
+            <div>
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"
+                    onclick={hidefiltermodal}>
+                    <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small">
+                    </lightning-icon>
+                </button>
+            </div>
+            <c-bwc-checkbox-list title="Filter By Ban's" options={banOptions} selected = {noteFilterParams.bans} onselected={onBanSelected}>
+            </c-bwc-checkbox-list>
+            <div class="slds-p-around_x-small">
+                <p class= 'slds-text-title_bold slds-m-bottom_x-small'>Filter By Date</p>
+                <span>
+                    <lightning-input type="date" value={noteFilterParams.createdTimeStart} name="startDate"
+                        label="Start date" placeholder="Select Date" onchange={handleChange} data-id="startDate">
+                    </lightning-input>
+                </span>
+                <span>
+                    <lightning-input type="date" name="endDate" label="End date" value={noteFilterParams.createdTimeEnd}
+                        placeholder="Select Date" onchange={handleChange} data-id="endDate">
+                    </lightning-input>
+                </span>
+            </div>
+
+            <c-bwc-checkbox-list title='Source(s)' options={sourceOptions} selected = {noteFilterParams.appIds} onselected={onSourceSelected}>
+            </c-bwc-checkbox-list>
+
+            <lightning-button variant="brand" title = "Filter Notes" onclick={handleSearch} label="Save Filters"></lightning-button>
+            <lightning-button variant="brand-outline" label="Clear Filter" title="Will Deselect all the filters." onclick={clearFilters} class="slds-m-left_x-small clear-button"></lightning-button>
+        </div>
+    </div>
+
+</template>

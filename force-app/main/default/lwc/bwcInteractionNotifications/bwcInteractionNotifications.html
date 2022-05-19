@@ -1,0 +1,12 @@
+<template>
+
+    <!-- Message to make user aware that notifications are not loaded yet. -->
+    <c-bwc-notification if:false={isLoaded} hide-icon message="Checking for notifications...">
+        <div class="slds-is-relative slds-var-m-left_large">
+            <lightning-spinner size="small" alternative-text="Checking for notifications..."></lightning-spinner>
+        </div>
+    </c-bwc-notification>
+
+    <c-bwc-notifications if:true={isLoaded} notifications={notifications} onactionclick={handleActionClick}></c-bwc-notifications>
+
+</template>

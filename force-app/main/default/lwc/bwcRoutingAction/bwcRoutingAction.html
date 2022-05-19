@@ -1,0 +1,92 @@
+<template>
+    <lightning-card >
+        <lightning-spinner if:true={isLoading} alternative-text="Loading" ></lightning-spinner>
+        <div if:false={isCaseClosed} class="slds-m-horizontal_medium">
+            <lightning-record-edit-form
+                record-id={recordId}
+                onsubmit={handleSubmit}
+                object-api-name="Case">
+                <div>
+                    <lightning-input-field
+                        field-name="Type"
+                        disabled
+                        value={caseTypeValue}></lightning-input-field>
+                    <lightning-input-field
+                        field-name="CaseAction__c"
+                        disabled
+                        onchange={handleCaseAction}
+                        value={caseActionValue}></lightning-input-field>
+                    <lightning-combobox
+                        variant="label-inline"
+                        name="route"
+                        label="Routing Action"
+                        field-level-help="Number of routing options presented are determined on a line of business level for this case type"
+                        value={caseRoutingActionValue}
+                        options={routeActionOptions}
+                        onchange={handleRouteAction}
+                        required ></lightning-combobox>
+                    <!-- <lightning-input-field field-name="RoutingAction__c"></lightning-input-field> -->
+                    <!-- <lightning-input-field
+                        field-name="Tier2__c"
+                        value={caseTier2Value}
+                        disabled={disabledTier2}
+                        required={requiredTier2}
+                        onchange={handleTier2}></lightning-input-field> -->
+                    <div if:true={showTier2}>
+                        <lightning-combobox
+                            variant="label-inline"
+                            name="Tier2"
+                            label="Tier 2"
+                            value={tier2}
+                            disabled={disabledTier2}
+                            options={tier2Options}
+                            onchange={handleTier2}
+                            required={requiredTier2} >
+                        </lightning-combobox>
+                    </div>
+                    <!-- <lightning-input-field
+                        field-name="Tier3__c"
+                        value={caseTier3Value}
+                        disabled={disabledTier3}
+                        required={requiredTier3}
+                        onchange={handleTier3}></lightning-input-field> -->
+                    <div if:true={showTier3}>
+                        <lightning-combobox
+                            variant="label-inline"
+                            name="Tier3"
+                            label="Tier 3"
+                            value={tier3}
+                            options={tier3Options}
+                            disabled={disabledTier3}
+                            onchange={handleTier3}
+                            required={requiredTier3} >
+                        </lightning-combobox>
+                    </div>
+                    <lightning-input-field
+                        required
+                        field-name="Comments"
+                        value={caseCommentsValue}></lightning-input-field>
+                    <lightning-input-field
+                        field-name="Resolution__c"
+                        required={resolutionRequired}
+                        value={caseResolutionValue}></lightning-input-field>
+                    <lightning-input-field
+                        field-name="Resolution2__c"
+                        value={caseResolution2Value}></lightning-input-field>
+                </div>
+                <div class="slds-grid slds-align_absolute-center slds-m-top_medium">
+                    <lightning-button
+                        title="Save"
+                        label="Save"
+                        type="submit"
+                        variant="brand"
+                    ></lightning-button>
+                </div>
+
+            </lightning-record-edit-form>
+        </div>
+        <div if:true={isCaseClosed} class="slds-align_absolute-center" style="height:5rem">
+            No Routing action available for closed or cancelled cases.
+        </div>
+    </lightning-card>
+</template>

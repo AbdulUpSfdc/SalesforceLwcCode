@@ -1,0 +1,31 @@
+<aura:component implements="lightning:utilityItem">
+
+    <aura:attribute name="supportsPopOut" type="Boolean" default="false" />
+
+    <lightning:utilityBarAPI aura:id="utilitybar" />
+
+    <lightning:messageChannel type="BWC_InteractionComplete__c" aura:id="lmsBWCInteractionComplete" onMessage="{!c.onInteractionComplete}"/>
+
+    <div class="slds-grid slds-grid_vertical" style="height: 100%;">
+
+        <div class="slds-grow slds-p-around_small">
+            <textarea aura:id="notetext" class="text-area" maxlength="1200" placeholder="Enter a note..."></textarea>
+        </div>
+
+        <div class="slds-text-color_destructive slds-p-horizontal_small slds-p-bottom_small">
+            {!$Label.c.BWC_ScratchPadConfidential}
+        </div>
+
+        <div class="slds-grid slds-theme_shade slds-p-around_small">
+
+            <div class="slds-grow-none">
+                <lightning:button label="Clear" variant="destructive-text" onclick="{!c.handleClear}"></lightning:button>
+            </div>
+            <div class="slds-col_bump-left slds-grow-none">
+                <lightning:button label="Copy All Text" onclick="{!c.handleCopy}"></lightning:button>
+            </div>
+        </div>
+
+    </div>
+
+</aura:component>

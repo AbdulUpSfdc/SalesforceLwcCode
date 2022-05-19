@@ -1,0 +1,320 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading..." size="large" variant="brand"></lightning-spinner>
+    </template>
+    <div class="userDetails">
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid" style="padding: 0px; margin-bottom: -8px;">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate cardHeader">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-account" title="User Information">
+                        <svg class="slds-icon slds-icon_large slds-icon_container slds-icon-standard-people" aria-hidden="true">
+                        <use xlink:href="/apexpages/slds/latest/assets/icons/standard-sprite/svg/symbols.svg#user"></use>
+                        </svg>
+                        <span class="slds-assistive-text">User Information</span>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                            <div class="slds-truncate">
+                                <span style="font-weight: 400;">User Information</span><br/>
+                                <span style="font-size: 20px;">{userName}</span>
+                            </div>
+                    </h2>
+                </div>
+                <div class="slds-no-flex">
+                    <button class="slds-button slds-button_neutral headerBtn" onclick={openAdminPage}>Admin</button>
+                    <template if:false={feedBackDisabled}>
+                        <button class="slds-button slds-button_neutral headerBtn" onclick={toggleFeedBack}>Feedback</button>
+                    </template>
+                    <button class="slds-button slds-button_neutral headerBtn" onclick={toggleEditSettings}>Edit Settings</button>
+                </div>
+            </header>
+        </div>
+        <footer class="slds-card__footer">
+            <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-12 userDetailCol">
+                    <span class="userDetailHeader">AT&amp;T ID</span><br/>
+                    <span class="userDetail">{attid} </span>
+                </div>
+                <div class="slds-col slds-size_1-of-12 userDetailCol">
+                    <span class="userDetailHeader">Default Channel</span><br/>
+                    <span class="userDetail">{defaultChannel} </span>
+                </div>
+                <template if:true={defaultRole}>
+                <div class="slds-col slds-size_1-of-12 userDetailCol">
+                    <span class="userDetailHeader">Default Role</span><br/>
+                    <span class="userDetail">{defaultRole}</span> 
+                </div>
+                </template>
+                <div class="slds-col slds-size_1-of-12 userDetailCol">
+                    <span class="userDetailHeader">State</span><br/>
+                    <span class="userDetail">{state}</span> 
+                </div>
+                <div class="slds-col slds-size_1-of-12 userDetailCol">
+                    <span class="userDetailHeader">Location</span><br/>
+                    <span class="userDetail">{location}</span> 
+                </div>
+            </div>
+        </footer>
+    </article>
+
+
+    <template if:true={isEditSettings}>
+        <!-- Edit-Settings Section starts here -->
+        <section role="dialog" tabindex="-1" aria-labelledby="Edit-Settings" aria-modal="true" aria-describedby="Edit-Settings" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-spinner alternative-text="Loading..." size="large" variant="brand" if:true={isLoading}></lightning-spinner>
+                <!-- Edit-Settings header here -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={toggleEditSettings}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Edit Settings</h2>
+                </header>
+                <!-- Edit-Settings body starts here -->
+                <div class="slds-modal__content slds-p-around_medium" id="Edit-Settings">
+                    
+                    <!--Edit Location Card Start-->
+                    <div class="modalContainer">
+                        <article class="slds-card" style="margin-bottom:3%">
+                            <div class="slds-card__header slds-grid" style="padding: 0px">
+                                <header class="slds-media slds-media_center slds-has-flexi-truncate searchHeader">
+                                    <div class="slds-media__figure">
+                                        <span class="slds-icon_container slds-icon-standard-account" title="User Information">
+                                            <svg class="slds-icon slds-icon_medium slds-icon_container slds-icon-standard-brand" aria-hidden="true">
+                                            <use xlink:href="/apexpages/slds/latest/assets/icons/standard-sprite/svg/symbols.svg#service_territory_member"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">User Information</span>
+                                        </span>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <h2 class="slds-card__header-title">
+                                            <div class="slds-truncate">
+                                                <span style="font-size: 15px;">Edit Location</span>
+                                            </div>
+                                        </h2>
+                                    </div>
+                                    
+                                </header>
+                            </div>
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_1-of-12"></div>
+                                <div class="slds-col slds-size_4-of-12">
+                                    <div class="slds-form-element__control">
+                                        <lightning-combobox
+                                            name="Choose State"
+                                            label="Choose State"
+                                            value={stateSelected}
+                                            placeholder="Select State"
+                                            options={stateOptions}
+                                            onchange={handleStateChange} 
+                                            required="true"
+                                            class="validate">
+                                        </lightning-combobox>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_2-of-12"></div>
+                                <div class="slds-col slds-size_4-of-12">
+                                    <div class="slds-form-element__control">
+                                        <lightning-combobox
+                                            name="Choose Location"
+                                            label="Choose Location"
+                                            value={locationSelected}
+                                            placeholder="Select Location"
+                                            options={locationOptions}
+                                            onchange={handleLocationChange} 
+                                            required="true"
+                                            class="validate">
+                                        </lightning-combobox>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-12"></div>
+                                
+                            </div>
+                        </article>
+                    </div>
+                    <!--Edit Location Card End-->
+
+
+                    <!--QuickList Modal Start-->
+                    <div class="modalContainer">
+                        <article class="slds-card" style="margin-bottom:3%">
+                            <div class="slds-card__header slds-grid" style="padding: 0px">
+                                <header class="slds-media slds-media_center slds-has-flexi-truncate searchHeader">
+                                    <div class="slds-media__figure">
+                                        <span class="slds-icon_container slds-icon-standard-account" title="User Information">
+                                            <svg class="slds-icon slds-icon_medium slds-icon_container slds-icon-standard-brand" aria-hidden="true">
+                                            <use xlink:href="/apexpages/slds/latest/assets/icons/standard-sprite/svg/symbols.svg#task"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Quick List</span>
+                                        </span>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <h2 class="slds-card__header-title">
+                                            <div class="slds-truncate">
+                                                <span style="font-size: 15px;">Quick List</span>
+                                            </div>
+                                        </h2>
+                                    </div>
+                                    
+                                </header>
+                            </div>
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_1-of-12"></div>
+                                <div class="slds-col slds-size_11-of-12 text">
+                                    <p>You can determine which Quick Lists will display when you open the Directory Tool by setting this preference. 
+                                        If you do not set a preference, the first Quick List assigned to your location will display by default.</p>
+                                </div>
+                            </div>
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_1-of-12"></div>
+                                <div class="slds-col slds-size_11-of-12 text">
+                                    <p>The Quick Lists shown below are the lists available for your location.</p>
+                                </div>
+                            </div>
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_1-of-12"></div>
+                                <div class="slds-col slds-size_6-of-12">
+                                    <div class="slds-form-element__control">
+                                        <lightning-combobox
+                                            name="Default Quick List"
+                                            label="Default Quick List"
+                                            value={dqlSelected}
+                                            placeholder="Select Default Quick List"
+                                            options={defaultQuickListOptions}
+                                            onchange={handledqlChange} 
+                                            class="validate">
+                                        </lightning-combobox>
+                                    </div>
+                                </div>   
+                            </div>
+                        </article>
+                    </div>
+                    <!--QuickList Modal Card End-->
+                    <!--Save Changes Button Start-->
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_9-of-12">
+
+                        </div>
+                        <div class="slds-col slds-size_3-of-12">
+                            <button class="slds-button slds-button_brand" style="float: right;margin-bottom:3%" onclick={SaveSettings} title="OK">Save Changes</button>
+                        </div>
+                    </div>
+                    <!--Save Changes Button End-->
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!--Feedback Modal Start-->
+    
+    <template if:true={enableFeedbackPopup}>
+        <section role="dialog" tabindex="-1" aria-labelledby="add-feedback" aria-modal="true" aria-describedby="add-feedback" class="slds-modal slds-fade-in-open">
+            <template if:true={isLoadingFeedbackModal}>
+                <lightning-spinner alternative-text="Loading..." size="large" variant="brand"></lightning-spinner>
+            </template>
+            <div class="slds-modal__container">
+                
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={cancelFeedback}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-feedback" class="slds-text-heading_medium slds-hyphenate">Add Feedback</h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium" id="addfeedback">
+                    <div class="slds-grid slds-wrap">
+
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                            User ID : <strong>{attid}</strong>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                            User Name : <strong>{userName}</strong>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                            Location : <strong>{locationName}</strong>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                            Location ID : <strong>{locationId}</strong> 
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                            Channel : <strong>{channelName}</strong>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                            Channel ID : <strong>{channelId}</strong>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                            Contact Name : <strong>{contactname}</strong>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                            Contact ID : <strong>{contactId}</strong> 
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                            <lightning-textarea 
+                                placeholder="Enter feedback here..." 
+                                name="feedbackInput"
+                                required 
+                                label="Feedback" 
+                                maxlength="2000"
+                                value={feedback}
+                                onchange={feedbackHandler}>
+                            </lightning-textarea>
+                        </div>                       
+
+                    </div>
+                    
+                    <!--Save Changes Button Start-->
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_6-of-12">
+                        </div>
+
+                        <div class="slds-col slds-size_3-of-12">
+                            <button class="slds-button slds-button_neutral feedbackBtn" onclick={cancelFeedback} title="OK">Cancel</button>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12">
+                            <button class="slds-button slds-button_brand feedbackBtn" onclick={saveFeedback} title="OK">Save Changes</button>
+                        </div>
+                    </div>
+                    <!--Save Changes Button End-->
+
+
+                </div>
+
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!--Feedback modal ends here-->
+   <!--Feedback Cancel Modal starts-->
+    <div class = "cancelpopupwindow">
+        <template if:true={enableCancelPopup}> 
+             <section role="alertdialog" tabindex="0" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt slds-modal_small" aria-modal="true">
+                <div class="slds-modal__container ">
+                    <header class="slds-modal__header">
+                         <h2  class="slds-modal__title slds-hyphenate">Discard all changes?</h2>
+                    </header>
+                    <div class="slds-modal__footer">
+                        <button class="slds-button slds-button_brand" aria-label="Ok" onclick={closeFeedbackPopup} title="Ok">Ok</button>
+                        <button class="slds-button slds-button_neutral" onclick={openFeedBackPopup} title="Cancel">Cancel</button>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </div>
+    <!--Feedback Cancel Modal Ends-->
+</div>
+</template>

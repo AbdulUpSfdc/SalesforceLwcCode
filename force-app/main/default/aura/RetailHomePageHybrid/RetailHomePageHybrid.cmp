@@ -1,0 +1,35 @@
+<aura:component implements="force:appHostable,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,force:hasRecordId">
+    <div class="c-container">
+        <lightning:layout>
+            <lightning:layoutItem size="6" class="retailSection" >
+                <lightning:layout multipleRows="true">
+                    <lightning:layoutItem size="12" class="slds-p-around_xx-small">
+                        <c:retailHomePageLinks/>
+                    </lightning:layoutItem> 
+                    <lightning:layoutItem size="12" class="slds-p-around_xx-small">
+                        <c:cLeadHomePage hideRecordTablePanel="true"/>
+                    </lightning:layoutItem> 
+               </lightning:layout>
+            </lightning:layoutItem>
+
+            <lightning:layoutItem size="6" class="kmSection">
+                <lightning:layout multipleRows="true">
+                    <lightning:layoutItem size="12" class="slds-p-around_xx-small">
+                        <c:retailKmHomePageLinks/>
+                    </lightning:layoutItem> 
+                    <lightning:layoutItem size="12" class="slds-p-around_xx-small">
+                        <c:todaysNews/>
+                    </lightning:layoutItem> 
+                    <lightning:layoutItem size="12" class="slds-p-around_xx-small">
+                        <lightning:layout multipleRows="true">
+                            <lightning:layoutItem size="12">
+                                <c:retailLinkCenterHome/>
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        
+                    </lightning:layoutItem> 
+               </lightning:layout>
+            </lightning:layoutItem>         
+        </lightning:layout>
+    </div>
+</aura:component>

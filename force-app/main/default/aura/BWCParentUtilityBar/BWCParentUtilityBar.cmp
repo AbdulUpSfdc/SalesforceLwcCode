@@ -1,0 +1,16 @@
+<aura:component implements="flexipage:availableForAllPageTypes">
+<lightning:workspaceAPI aura:id="workspace" />
+<aura:attribute name="WorkSpaceObj" type="object" />
+<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!--this is BWCIntTrackUtilityBar-->
+    <c:BWCInteractionActivityUtilityBar WorkSpaceApi="{!v.WorkSpaceObj}"/>
+    <!--this is BWCLicOpusBgUtil-->
+    <c:BWCLICToOpusBgUtilityBar  WorkSpaceApi="{!v.WorkSpaceObj}"/>
+    <!--this is BWCUtilityBar-->
+    <c:BWCInteractionUtilityBar WorkSpaceApi="{!v.WorkSpaceObj}"/>
+    <!--this is BWCLaunchWFEBgUtilityBar-->
+    <c:BWCLaunchWFEBgUtilityBar WorkSpaceApi="{!v.WorkSpaceObj}"/>
+
+    <c:BWCNewCustomer />
+
+</aura:component>

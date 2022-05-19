@@ -1,0 +1,26 @@
+{
+    "transactionId": "TDATA-dfd03572-cf65-45b6-91c6-d4698d8829bb",
+    "timeStamp": "2021-08-04 11:19:09.533",
+    "accountNumber": "821822322",
+    "overallCDEStatus": "Rejected",
+    "overallCDERequestedAmount": "95000.00",
+    "overallCDEApprovedAmount": "19600.00",
+    "decisionOverrideProfiles": "a3Q7c0000019yd2EAA,a3Q7c0000019ydlEAA,a3Z0U000000dRziUAE,a3Q7c0000019yd7EAA,a3Q7c0000019yg6EAA",
+    "displayTextForCustomer": "Mr./Mrs. Customer,  I have submitted the credit request.  I do not have the ability to credit $19600.00 so this will need to be processed by a Manager.",
+    "displayTextForReps": "Credit request is over SOA.  Credit will be routed to management for review and approval.",
+    "overrideProfileType": "TLG",
+    "product": [
+        {
+            "isGoodwill": "Y",
+            "chargeType": "Goodwill",
+            "sequenceNumber": "0",
+            "productLevelId": "1",
+            "decisionStatus": "ApprovedWithCondition",
+            "requestCreditAmount": "95000.00",
+            "approvedAmount": "19600.00",
+            "displayTextForCustomer": "Mr./Mrs. Customer, the credit of $19600.00 to your account.",
+            "displayTextForReps": "The requested credit will be applied. Recommended $ amounts for Courtesy and Goodwill should be followed. ",
+            "rulesApplied": "CDER-100074"
+        }
+    ]
+}

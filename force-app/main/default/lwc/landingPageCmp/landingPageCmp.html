@@ -1,0 +1,85 @@
+<template>
+    <template if:true={error}>
+        <div class="slds-var-m-vertical_small">
+            <span class="slds-text-color_destructive">
+                {friendlyErrorMessage}
+                <a onclick={handleShowErrorDetailsClick}> Show details.</a>
+            </span>
+            <template if:true={viewDetails}>
+                <p class="slds-text-body_regular" key={message}>
+                    Error: {error}
+                    Info: {stack}
+                </p>
+            </template>
+        </div>
+    </template>
+    <template if:false={error}>
+        <div class="main-container ">
+            <!-- <div style={searchFormPosition} class="search-form" me="tlu"> -->
+                <div style={searchFormPosition} class="search-form">
+                <c-search-articles-form-cmp onsearch={searchArticles} onsort={sortArticles} onfilter={filterArticles}
+                    onfiltervisible={filterVisible} onfilterfirstload={filterFirstLoad} onlayout={layoutArticles} onviewas={setviewaslayout}
+                    onviewasfilterapplied={handleViewAsFilterApplied}>
+                    
+                </c-search-articles-form-cmp>
+            <!--
+                <lightning-button variant="brand" label="displayit" title="displayit" class="slds-m-left_x-small"
+                    onclick={displayit}>
+                </lightning-button>
+            -->                
+
+            </div>
+            <div class="scroll-container2">
+                <lightning-layout multiple-rows="true" style={frontlinePosition} class="landing-container">
+                    <template if:false={showResults}>
+                        <lightning-layout-item size="7" small-device-size="7" medium-device-size="7"
+                            large-device-size="7">
+                            <c-frontline-article-component></c-frontline-article-component>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="5" small-device-size="5" medium-device-size="5"
+                            large-device-size="5">
+
+                            <!--<c-pinned-articles-component></c-pinned-articles-component>-->
+
+                            <c-assigned-articles-component></c-assigned-articles-component>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="12">
+                            <c-trending-articles-cmp></c-trending-articles-cmp>
+                        </lightning-layout-item>
+                    </template>
+                    <lightning-layout-item id="Test" class="search-results" size="12" small-device-size="12"
+                        medium-device-size="12" large-device-size="12">
+                        <template if:true={isLoading}>
+                            <lightning-spinner alternative-text="Loading" size="medium" variant="brand">
+                            </lightning-spinner>
+                        </template>
+
+
+                        <template if:false={viewasopen}>
+
+
+                            <div data-id="topofsearchresults" style="position: absolute; top: -100px; left: 0"></div>
+
+<div data-id="searchresults2" class="scroll-container">
+</div>     
+                        <c-search-articles-results-cmp onloading={handleLoading} ondoneloading={handleDoneLoading}
+                            onremovefilter={handleRemoveFilter} onsearchrendered={searchRendered}
+                            onbacktotop={closeResults}></c-search-articles-results-cmp>
+                            <!-- The following br's are needed to correct search result scroll into view-->
+                            <br><br><br><br><br>
+                            <br><br><br><br><br>
+                            <br><br><br><br><br>
+                            <br><br><br><br><br>
+                        </template> 
+
+
+
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+        </div>
+    </template>
+
+
+</template>

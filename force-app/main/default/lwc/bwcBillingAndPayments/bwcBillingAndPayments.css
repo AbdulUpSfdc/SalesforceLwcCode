@@ -1,0 +1,12 @@
+.slds-modal__container {
+    max-width: 80rem !important;
+    width: 80% !important;
+}
+
+.payments-grid thead tr th:nth-child(8){
+    display:none !important;
+}
+
+.payments-grid tbody tr th:nth-child(8){
+    display:none !important;
+}

@@ -1,0 +1,5 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+    <lightning:workspaceAPI aura:id="workspace" />
+    <lightning:messageChannel type="BWC_MsgToLIC__c" aura:id="lmsBWCMsgToLIC"/>
+    <lightning:button label="Authenticate" onclick="{!c.clickAdd}"/>
+</aura:component>

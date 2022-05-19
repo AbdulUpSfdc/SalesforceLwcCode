@@ -1,0 +1,19 @@
+<template>
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <div class="slds-media__body">
+                <h2 class="slds-card__header-title">
+                    <span>{header}</span>
+                </h2> 
+            </div>
+        </div>
+        <div style ="margin:1rem;">
+            <c-reusable-announcement announcementheader={announcement_header} 
+            announcements={announcements} 
+            announcementlink={announcement_link}
+            ongenericlinkevent={handleGenericLineCardLinkEvent}></c-reusable-announcement>
+           
+            <lightning-input label={disclosureMessage} type="checkbox" checked={checkboxVal} onchange={handleChange}></lightning-input>
+        </div>
+    </article>
+</template>

@@ -1,0 +1,38 @@
+<template>
+
+    <template if:true={recordDetails}>
+        <template if:true={hasData}>
+            <template for:each={recordDetails} for:item='details'>
+                <c-bwc-expandable-section key={details.recordId} title={details.planName}>
+
+                    <template if:true={details.isLoading}>
+                        <lightning-spinner alternative-text="Loading" variant="brand"></lightning-spinner>
+                    </template>
+
+                    <lightning-record-form
+                        record-id={details.recordId}
+                        object-api-name='Plan__c'
+                        fields={details.fields}
+                        columns="2"
+                        mode="readOnly">
+                    </lightning-record-form>
+
+                    <div slot="actions">
+                        <lightning-button-menu if:true={showEscalateButton} variant="bare" menu-alignment="right" data-item={details.recordId} onselect={handleActionMenuSelect}>
+                            <lightning-menu-item label="Escalate Service" value="escalateService"></lightning-menu-item>
+                        </lightning-button-menu>
+                    </div>
+                </c-bwc-expandable-section>
+
+            </template>
+        </template>
+
+        <template if:true={showNoRows}>
+            <strong>
+                <div class="slds-card message slds-align_absolute-center" data-aura-rendered-by="1:2800;a">No related lists to display</div>
+            </strong>
+        </template>
+
+    </template>
+
+</template>

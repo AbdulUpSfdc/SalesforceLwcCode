@@ -1,0 +1,46 @@
+<template>
+    <template if:true={isOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading" aria-modal="true"
+            aria-describedby="modal-content" class="slds-modal slds-fade-in-open" onkeydown={handleModalKeydown}>
+            <div class="slds-modal__container modal-container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon data-name="closeButton" icon-name="utility:close" variant="bare-inverse"
+                        size="large" class="slds-modal__close" alternative-text="Close" onclick={handleClose}
+                        onkeydown={handleButtonKeydown}>
+                    </lightning-button-icon>
+                    <h2 id="modal-heading" class="slds-modal__title slds-hyphenate">{title}</h2>
+                </header>
+                <div
+                    class="slds-modal__content slds-scrollable slds-is-relative slds-p-around_medium modal-content slds-grid slds-grid_vertical">
+                    <div class="slds-grid slds-grid_vertical slds-is-relative" style="align-items: center;">
+                        <c-bwc-notifications></c-bwc-notifications>
+                        <div if:true={isBusy}>
+                            <lightning-spinner alternative-text="Loading..." size="large"></lightning-spinner>
+                        </div>
+                        <div class="content-panel">
+                            <lightning-layout>
+                                <lightning-layout-item size="12">
+                                    <lightning-combobox class="slds-var-m-bottom_x-small" label={labels.account}
+                                        placeholder="Select Billing Account" dropdown-alignment="auto" required
+                                        message-when-value-missing="Please select a Billing Account"
+                                        options={billingAccountOptions} value={selectedBillingAccountId}
+                                        onchange={handleBillingAccountSelected}>
+                                    </lightning-combobox>
+                                </lightning-layout-item>
+                            </lightning-layout>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer Buttons -->
+                <footer class="slds-modal__footer">
+                    <lightning-button  class="slds-var-p-right_small" data-name="Cancel" label="Cancel" 
+                        onclick={close}></lightning-button>
+                    <lightning-button data-name="launchWFE" label="Launch WFE" variant="brand"
+                        onclick={handleLaunchWFE} onkeydown={handleButtonKeydown}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

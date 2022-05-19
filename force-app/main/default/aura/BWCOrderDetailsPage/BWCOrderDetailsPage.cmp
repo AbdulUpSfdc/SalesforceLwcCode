@@ -1,0 +1,10 @@
+<aura:component implements="lightning:isUrlAddressable,flexipage:availableForAllPageTypes">
+
+    <div class="slds-p-bottom_small">
+        <c:bwcbillingAccountHighlightPanel/>
+    </div>
+    <div>
+        <c:bwcOrderDetails />
+    </div>
+
+</aura:component>

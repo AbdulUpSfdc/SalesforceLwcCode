@@ -1,0 +1,137 @@
+<template>
+    <lightning-layout>
+        <!-- Using a simple if:true to show hide the image. The alternative to have layout item size dynamic by changing everything to divs had some formatting issues -->
+        <template if:true={article.previewImage}>
+            <lightning-layout-item size="3" small-device-size="3" medium-device-size="3" large-device-size="3">
+                <a href={url} onclick={navigateToArticle} >
+                <div style={backgroundStyle} class="article-image"></div>
+                </a>
+            </lightning-layout-item>
+            <lightning-layout-item size="9" small-device-size="9" medium-device-size="9" large-device-size="9"
+                class="article-tile" padding="around-small">
+                <div class="slds-grid slds-has-flexi-truncate slds-grid_align-spread slds-p-bottom_xx-small slds-p-horizontal_small">
+                    <div class={titleCss}>
+                        <a href={url} onclick={navigateToArticle} style="color: #101820;">{article.title}</a>
+                    </div>
+                    <div class={badgeCss}>
+                        <div class="slds-float_right slds-p-top-small">
+                            <template if:false={article.isRead}>
+                                <lightning-badge label="Unread" class="article-badge-unread"></lightning-badge>
+                            </template>
+                            <template if:true={article.isUrgent}>
+                                <lightning-badge label="Urgent" class="article-badge-urgent"></lightning-badge>
+                            </template>
+                            <template if:true={article.recommended}>
+                                <lightning-badge label="Recommended" class="article-badge-recommended"></lightning-badge>
+                            </template>
+                    
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="slds-col slds-wrap slds-size-1-of-1 article-summary slds-line-clamp_medium slds-p-horizontal_small">
+                    <lightning-formatted-rich-text value={article.summary}></lightning-formatted-rich-text>
+                </div>
+                <div class="slds-grid slds-grid_align-spread slds-border_top slds-p-horizontal_small">
+                    <div class="slds-col slds-size-6-of-12 slds-p-vertical_x-small article-footer">
+                        <template if:true={article.myCspName}>
+                            &nbsp;{article.myCspName}&nbsp;&nbsp;
+                        </template>
+                        
+                        <div class="bold-items">Published:</div> {article.lastPublishedDateString}
+                        &nbsp;&nbsp;
+                    <!--    <div class="bold-items">Valid:</div> {article.validDates} -->
+
+                    </div>
+                    <div class="slds-col slds-size-6-of-12 slds-p-vertical_x-small article-footer">
+                        <div class="slds-grid slds-grid_align-spread">
+                            <div class="slds-col">
+                                <lightning-icon icon-name="utility:preview" alternative-text="Preview" title="Preview"
+                                    size="x-small"></lightning-icon>
+                                &nbsp;&nbsp;{article.viewCount}&nbsp;&nbsp;&nbsp;&nbsp;
+
+                            </div>
+                            <div class="slds-col slds-p-left_small">
+                                <lightning-icon icon-name="utility:quick_text" alternative-text="Message" title="Message"
+                                    size="x-small"></lightning-icon>
+                                &nbsp;&nbsp;{article.commentCount}&nbsp;&nbsp;&nbsp;&nbsp;
+
+                            </div>
+                            <div class="slds-col slds-p-left_small">
+                                <lightning-icon icon-name="utility:like" alternative-text="Like" title="Like"
+                                    size="x-small"></lightning-icon>
+                                &nbsp;&nbsp;{article.likeCount}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </template>
+
+        <template if:false={article.previewImage}>
+           
+            <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12"
+                class="article-tile" padding="around-small">
+                <div
+                    class="slds-grid slds-has-flexi-truncate slds-grid_align-spread slds-p-bottom_xx-small slds-p-horizontal_small">
+                    <div class={titleCss}>
+                        <a href={url} onclick={navigateToArticle} style="color: #101820;">{article.title}</a>
+                    </div>
+                    <div class={badgeCss}>
+                        <div class="slds-float_right slds-p-top-small">
+                            <template if:false={article.isRead}>
+                                <lightning-badge label="Unread" class="article-badge-unread"></lightning-badge>
+                            </template>
+                            <template if:true={article.isUrgent}>
+                                <lightning-badge label="Urgent" class="article-badge-urgent"></lightning-badge>
+                            </template>
+                            <template if:true={article.recommended}>
+                                <lightning-badge label="Recommended" class="article-badge-recommended"></lightning-badge>
+                            </template>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-wrap slds-size-1-of-1 article-summary slds-line-clamp_medium slds-p-horizontal_small">
+                    <lightning-formatted-rich-text value={article.summary}></lightning-formatted-rich-text>
+                </div>
+                <div class="slds-grid slds-grid_align-spread slds-border_top slds-p-horizontal_small">
+                    <div class="slds-col slds-size-6-of-12 slds-p-vertical_x-small article-footer">
+                        <template if:true={article.myCspName}>
+                            &nbsp;{article.myCspName}&nbsp;&nbsp;
+                        </template>
+        
+                        <div class="bold-items">Published:</div> {article.lastPublishedDateString}
+                        &nbsp;&nbsp;
+                    <!--    <div class="bold-items">Valid:</div> {article.validDates} -->
+        
+                    </div>
+                    <div class="slds-col slds-size-6-of-12 slds-p-vertical_x-small article-footer">
+                        <div class="slds-grid slds-grid_align-spread">
+                            <div class="slds-col">
+                                <lightning-icon icon-name="utility:preview" alternative-text="Preview" title="Preview"
+                                    size="x-small"></lightning-icon>
+                                &nbsp;&nbsp;{article.viewCount}&nbsp;&nbsp;&nbsp;&nbsp;
+        
+                            </div>
+                            <div class="slds-col slds-p-left_small">
+                                <lightning-icon icon-name="utility:quick_text" alternative-text="Message" title="Message"
+                                    size="x-small"></lightning-icon>
+                                &nbsp;&nbsp;{article.commentCount}&nbsp;&nbsp;&nbsp;&nbsp;
+        
+                            </div>
+                            <div class="slds-col slds-p-left_small">
+                                <lightning-icon icon-name="utility:like" alternative-text="Like" title="Like" size="x-small">
+                                </lightning-icon>
+                                &nbsp;&nbsp;{article.likeCount}
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </template>
+
+    </lightning-layout>
+</template>

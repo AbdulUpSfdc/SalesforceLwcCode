@@ -1,0 +1,4 @@
+<aura:component controller ="BWArticlePublishPlatformEventHelper" implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <aura:attribute name="errors" type="Object"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+</aura:component>

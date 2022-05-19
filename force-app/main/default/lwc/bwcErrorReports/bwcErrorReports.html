@@ -1,0 +1,9 @@
+<template>
+    <div class="slds-grid slds-grid_align-center">
+        <div>
+            <template for:each={errors} for:item="error">
+                <c-bwc-error-report error={error} key={error.key} variant="icon"></c-bwc-error-report>
+            </template>
+        </div>
+    </div>
+</template>

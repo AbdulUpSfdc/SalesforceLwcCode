@@ -1,0 +1,11 @@
+<template>
+  <template if:true={recordDetails}>
+<lightning-record-form
+        record-id={recordId}
+        object-api-name='Billing_Account__c'
+        fields={col}
+        columns="2"
+        mode="readonly">
+</lightning-record-form>
+</template>
+</template>

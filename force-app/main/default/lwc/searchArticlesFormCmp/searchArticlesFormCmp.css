@@ -1,0 +1,493 @@
+:host {
+    display: block;
+    background: #009FDB;
+    min-height: 3rem;
+
+}
+.button-apply {
+    --sds-c-button-color-background: white;
+    --sds-c-button-color-text: #1E5876;
+    --sds-c-button-radius-border: 2rem;
+    font-size: 13px;
+    color: #1E5876;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 30px;
+}
+.button-dropdown {
+    --sds-c-button-color-background: #009FDB;
+    --sds-c-button-color-text: white;
+    --sds-c-button-radius-border: 2rem;
+    background: #009FDB;
+    color: white;
+    font-size: 1.125rem;
+
+  font-weight: var(--lwc-fontWeightBold);
+    padding-top: 1px;
+}
+.button-dropdown-clicked {
+    --sds-c-button-color-background: white;
+    --sds-c-button-color-text: #009FDB;
+    background: white;
+    color: #009FDB;
+    --sds-c-button-radius-border: 2rem;
+    font-size: 1.125rem;
+  font-weight: var(--lwc-fontWeightBold);
+    padding-top: 1px;
+}
+.button-submit-color{
+    --sds-c-button-color-background: #009FDB !important;
+    --sds-c-button-brand-color-background: #009FDB !important;
+    --sds-c-button-color-text: white;
+    --sds-c-button-radius-border: 2rem;
+    background: #009FDB !important;
+    color: white;
+    font-size: 1.125rem;
+    padding-right: 10px;
+    font-weight: var(--lwc-fontWeightBold);
+    padding-bottom: 5px;
+}
+
+.viewas-button-dropdown {
+    --sds-c-button-color-background: #009FDB;
+    --sds-c-button-color-text: white;
+    --sds-c-button-radius-border: 2rem;
+    background: #009FDB;
+    color: white;
+    font-size: 1.125rem;
+
+  font-weight: var(--lwc-fontWeightBold);
+    padding-top: 1px;
+}
+.viewas-button-dropdown-clicked {
+
+    --sds-c-button-brand-color-border:none;
+    --sds-c-button-brand-color-border-hover: none;
+
+    --sds-c-button-color-background:#fbb765;
+    --sds-c-button-color-text: black;
+    background: #fbb765;
+    color: black;
+    --sds-c-button-radius-border: 0px;
+    font-size: 1.125rem;
+  font-weight: var(--lwc-fontWeightBold);
+    padding-top: 1px;
+
+    --lwc-shadowButtonFocus:  0 0 0px #fbb765;
+
+}
+
+.buttonViewAsIconCssUpIcon{
+    --lwc-colorTextIconInverse:black;
+}
+
+
+button:focus {outline:0;}
+
+.button-pad {
+    padding-top: 2px;
+}
+a:link {
+    color:white;
+    background: #009FDB;
+}
+a:hover {
+    background-color: #0086B8;
+}
+.checkbox-group {
+
+  font-weight: var(--lwc-fontWeightBold);
+    font-size: 0.875rem;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    line-height: 1.3125rem;
+    background: #009FDB;
+}
+.checkbox-label {
+font-size: 0.8125rem;
+color: #FFFFFF;
+letter-spacing: 0;
+line-height: 1.625rem;
+    background: #009FDB;
+}
+.menu-item {
+    font-size: 0.75rem;
+    color: #FFFFFF;
+    letter-spacing: 0;
+        background: #009FDB;
+}
+.unselected-button {
+    color: rgba(255, 255, 255, 0.5); 
+}
+.selected-icon {
+    --sds-c-icon-color-foreground: white;
+}
+.selected-icon-clicked {
+     --sds-c-icon-color-foreground: #009FDB; 
+}
+.unselected-icon {
+    --sds-c-icon-color-foreground: rgba(255, 255, 255, 0.5); 
+}
+.mainLayout{
+    padding: 24px!important;
+    height: 80px;
+}
+
+.filter-div-group{
+    max-height: 210px; 
+    /* 8 items, scroll bar blue background, scroll bar color itself to match grid view */
+}
+
+
+.filter-div-group-desktop{
+    max-height: 210px; 
+    /* 8 items, scroll bar blue background, scroll bar color itself to match grid view */
+}
+
+
+.filter-div-group-IPAD{
+/*    max-height: 810px;  */
+    /* 8 items, scroll bar blue background, scroll bar color itself to match grid view */
+}
+
+
+.ipad-type
+{
+     
+}
+
+.ipad-market
+{
+     
+}
+
+.ipad-category
+{
+     
+}
+
+.ipad-status
+{
+     
+}
+
+.submenu_button_noborder{
+    background: transparent;
+    border: none;
+    margin: 0px;
+    padding:0px;
+    font-size: 20px;
+    outline: none;
+    color:white;
+}
+
+
+.submenu_button_unselected
+{
+    background: transparent;
+    border: none;
+    margin: 0px;
+    padding:0px;
+    font-size: 20px;
+    outline: none;
+    color:white;
+}
+
+.submenu_button_selected
+{
+    background: transparent;
+    border: none;
+    margin: 0px;
+    padding:0px;
+    font-size: 20px;
+    outline: none;
+    border-bottom: 2px solid white;
+    color:white;
+}
+
+
+.submenu_div_bottom_border
+{
+	border-bottom: 1px solid white;
+/*	width: 300px; */
+	padding:0px;
+	margin:0px;
+    color:white;
+}
+
+.numberCircle {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+
+    background: #ECEBEA;
+    /*border: 2px solid #666;*/
+    color: #000;
+    text-align: center;
+
+   /* font: 32px Arial, sans-serif; */
+
+   font-size: 32px;
+}
+
+.quantity_circle {
+    height: 25px;
+    width: 25px;
+    background-color: #ECEBEA;
+    border-radius: 50%;
+    display: inline-block;
+    font-size: 14px;
+    color:black;
+    position: relative;
+    top: -5px;    
+  }
+
+  .quantity_value
+  {
+      display: inline-block;
+      position: relative;
+      top:2px;
+      color:black;
+  }
+
+.hide_quantity
+{
+    display: none;
+}
+
+.show_quantity 
+{
+    display: inline-block;
+}
+
+
+.hide_this_button
+{
+    display: none;
+}
+
+.show_this_button
+{
+    display: inline-block;
+}
+
+
+
+button:focus {
+    border: none;
+}
+
+.viewas_div_container
+{
+    color:black;
+    width:100%;
+    background-color:#fbb765 ;
+}
+
+/* iPad */
+@media only screen and (min-device-width: 0px) and (max-device-width: 1024px) and (orientation:portrait) 
+{
+
+     .slds-border_left
+    {
+        border-color:#009FDB;
+    }
+    
+
+    .filter-div-group-notused{
+    /*        max-height: 420px; */
+        max-height: 100%; 
+        /* 8 items, scroll bar blue background, scroll bar color itself to match grid view */
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+
+    /* top, right bottom left */
+    .ipad-type
+    {
+        /*border-top: 1px solid white;          
+        margin: 0 15px 0 0; 
+        padding: 15px 0 0 15px; */
+    }
+    
+    .ipad-market
+    {
+        /*border-top: 1px solid white;          
+        margin: 0 30px 0 0; 
+        padding: 15px 0 0 15px;*/ 
+    }
+    
+    .ipad-category
+    {
+        /*border-top: 1px solid white;   
+        margin: 0 15px 0 15px;        
+        padding: 15px 0 0 15px; */
+    }
+    
+    .ipad-status
+    {
+        /*border-top: 1px solid white;          
+        margin: 0 30px 0 0; 
+        padding: 15px 0 0 15px; */
+    }
+
+
+    .searchInput{
+        font-size: 15px;
+        color: #706E6B;    
+        border-radius:4px !important;
+    }
+    
+    .filter-div-group{
+        font-size: 8px !important;
+        line-height:110%;
+    }
+
+    .searchInput .slds-form-element__control {
+        background: #FFFFFF;
+        border: 1px solid #DDDBDA;
+        height:10px !important;
+        color: #706E6B;
+        border-radius:4px !important;
+    }
+
+    .filter-button{
+        font-size: 16px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        font-weight: bold;
+    }
+
+    .sortButton{ 
+        font-size: 16px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        font-weight: bold;
+    }
+
+    .mainLayout{
+        /*
+        padding: 9px !important;
+        height: 62px;
+        */
+        padding: 15px !important;
+        height: 75px;
+
+    }
+
+    .iPadPadding{
+        padding-top: 10px;
+    }
+
+    /* the row container*/
+    .slds-checkbox{
+        /*border: 2px solid #ffffff;*/
+        height:30px;
+        padding:0px;
+        margin:auto;
+        white-space: nowrap;
+    }
+
+    /* the check box  */
+    .slds-checkbox_faux{
+        width: 10px;
+        height: 10px;
+        /*
+        position:relative;
+        top:-12px;
+         */
+        vertical-align: middle;
+        padding: 0px;
+        margin:0px;
+        /*line-height: 50%; */
+        /*font-size: .6046rem;   */    
+        /*font-size:8px;*/
+        /*border: 1px solid #000000;*/
+        font-size: .015rem;
+        line-height: .0175rem;  
+
+    }
+
+    /* the text */ 
+    .checkbox-label .slds-form-element__label 
+    {
+        display: inline;
+        vertical-align: middle;
+        /*font-size:8px;*/
+        font-size: .015rem;
+        line-height: .0175rem;  
+        /*line-height:0; */         
+        padding:0px;
+        margin:0px;
+        /*border: 1px solid #ff00ff;*/
+        overflow:hidden;
+        white-space: nowrap;
+    } 
+
+    /* this centered the rows content */
+    .slds-checkbox__label
+    {
+        position:relative;
+        top:-10px;
+        font-size: .015rem;
+        line-height: .0175rem;          
+    }
+ 
+    /* this ultimately controled font size */
+    .slds-checkbox__label .slds-form-element__label 
+    {
+        font-size: .6046rem;
+        overflow:hidden;
+        white-space: nowrap;
+    } 
+
+
+}
+  
+@media only screen and (min-device-width: 0px) and (max-device-width: 1024px) and (orientation:landscape) {
+    .searchDiv{
+        height: 32px; 
+        font-size: 14px;
+        color: #706E6B;
+    }
+
+    .filter-button{
+        font-size: 16px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        font-weight: bold;
+    }
+
+    .checkbox-label {
+            font-size: 0.65rem;
+    }
+    
+
+    .sortButton{ 
+        font-size: 16px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        font-weight: bold;
+    }
+
+    .mainLayout{
+        padding: 8px !important;
+        height: 60px;  
+    }
+
+    .iPadPadding{
+        padding-top: 10px;
+    }
+
+    .dateInput .slds-form-element__label{
+        color: #FFFFFF;
+    }
+    
+    .slds-form-element__label
+    {
+        color: white;
+    }
+
+}

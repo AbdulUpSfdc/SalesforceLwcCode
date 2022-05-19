@@ -1,0 +1,82 @@
+.userDetails{
+    width: 100%;
+    margin : auto;
+    border-radius: 5px;
+}
+
+.seacrhCard{
+    width: 99%;
+    margin: 1% auto;
+    border: 1px solid #d9d7d7;
+    min-height: 500px;
+    border-radius: 10px;
+}
+
+.searchHeader{
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+.quickList{
+    width: 50%;
+    border-right: 2px solid #ccc;
+    min-height: 250px;
+    margin-top: 2%;
+}
+
+.searchDir{
+    width: 50%;
+    margin-top: 2%;
+}
+
+.quickLinks{
+    font-size : 15px;
+    margin-bottom: 4%;
+    font-weight: bold;
+}
+
+.quickLinkSelected{
+    text-decoration: none; 
+    cursor: default; 
+    color: black;
+}
+
+.inputMargin{
+    margin-left : 1%;
+}
+
+.text{
+    font-size: 14px;
+    line-height: 2;
+    margin-bottom: 2%;
+}
+
+.searchResults{
+    border : 1px solid #ccc;
+    border-radius : 10px;
+    width: 95%;
+    margin: 3% auto 2% auto;
+}
+
+.lastUpdated{
+    font-size: 14px;
+    padding: 25px;
+}
+
+table{
+    border-top: 1px solid #ccc;
+    width: 98%;
+    margin: 1% auto;
+}
+
+th{
+    background-color: #ccc;
+    padding : 10px;
+}
+
+td{
+    padding: 10px;
+    border-bottom: 1px solid #9b97978a;
+    font-size: 14px;
+}

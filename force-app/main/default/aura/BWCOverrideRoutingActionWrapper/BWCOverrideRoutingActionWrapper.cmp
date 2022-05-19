@@ -1,0 +1,10 @@
+<aura:component implements="force:lightningQuickAction,force:hasRecordId">
+    <aura:attribute name ="recordId" type="String" />
+    <aura:attribute name ="isLoading" type="Boolean" default="false" />
+
+    <c:bwcOverrideRoutingAction
+        recordId="{!v.recordId}"
+        oncaseupdated="{!c.handleCaseUpdated}"
+        onupdatespinner="{!c.handleUpdateSpinner}"
+        />
+</aura:component>

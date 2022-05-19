@@ -1,0 +1,57 @@
+<template>
+        <lightning-layout style="background-color: white;">
+            <lightning-layout-item size="4"></lightning-layout-item>
+            <lightning-layout-item size="4">
+                <div style="width: 550px;">
+        <lightning-tabset>
+            <lightning-tab label="Activity Stream" title="Activity Stream">
+                <lightning-layout>
+                   <!-- <lightning-layout-item size="3">
+                        <lightning-combobox
+                            name="sort"
+                            value={value}
+                            options={options}
+                            variant="label-hidden">
+                        </lightning-combobox>
+                    </lightning-layout-item>-->
+                    <lightning-layout-item size="11">
+                        </lightning-layout-item>
+                    <lightning-layout-item size="1">
+                        <div style="display:flex;">
+                            <lightning-button-icon
+                                icon-name="utility:apps"
+                                size="large"
+                                variant="bare"
+                                alternative-text="Grid"
+                                class="slds-align_absolute-center"
+                                onclick={handleGridViewClick}>
+                            </lightning-button-icon>
+                            <lightning-button-icon
+                                icon-name="utility:list"
+                                size="large"
+                                variant="bare"
+                                alternative-text="List"
+                                class="slds-align_absolute-center"
+                                onclick={handleListViewClick}>
+                            </lightning-button-icon>
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-tab>
+            <lightning-tab label="Bookmarks" title="Bookmarks">
+            </lightning-tab>
+            <lightning-tab label="Link Central" title="Link Central">
+            </lightning-tab>
+            <lightning-tab label="Trending Now" title="Trending Now">
+            </lightning-tab>
+            <lightning-tab label="Quick Setting" title="Quick Setting">
+            </lightning-tab>
+        </lightning-tabset>
+    </div>
+    </lightning-layout-item>
+        <lightning-layout-item size="4"></lightning-layout-item>
+</lightning-layout>
+    <!--GRID VIEW-->
+    <c-article-list-item isgrid-view={isGridArticleView}></c-article-list-item>
+
+</template>

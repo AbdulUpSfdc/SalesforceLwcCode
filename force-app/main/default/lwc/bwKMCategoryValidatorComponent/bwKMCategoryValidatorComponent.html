@@ -1,0 +1,9 @@
+<template>
+    <p>Please Enter Linked Article Id for validation</p>
+    <div>
+    <lightning-input type="text" label="Linked Article Id" onchange={handleTextChange}></lightning-input>
+    <lightning-button variant="brand" label="Validate" title="Validate" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+    <p>Data Categories Comparison Result</p>
+    <p><lightning-formatted-text value={comparisonResult}></lightning-formatted-text></p>
+    </div>
+</template>

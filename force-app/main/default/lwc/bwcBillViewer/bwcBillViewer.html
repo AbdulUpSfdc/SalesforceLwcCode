@@ -1,0 +1,66 @@
+<template>
+
+    <lightning-spinner if:true={isBusy} class="main-spinner" variant="brand" size="large" alternative-text="Loading"></lightning-spinner>
+
+    <div class="top-div top-div slds-p-around_small slds-grid slds-grid_vertical">
+
+        <c-bwc-error-report></c-bwc-error-report>
+
+        <div class="slds-var-p-bottom_xx-large">
+
+            <div class="slds-text-heading_small slds-m-bottom_medium">Viewing Bill for {labels.account}: <span class="bold">{ban}</span></div>
+
+            <div class="slds-grid slds-grid_vertical-align-end">
+            
+                <lightning-combobox class="slds-col combo" label="Select Bill Date" options={statementOptions} value={selectedStatementId}
+                    onchange={handleStatementChange}>
+                </lightning-combobox>
+
+                <div class="slds-col slds-m-left_x-small">
+                    <lightning-button class="slds-m-left_x-small" label="View Bill PDF" icon-name="utility:file" onclick={viewPdf}></lightning-button>
+                    <template if:true={allowEscalation}><lightning-button class="slds-m-left_x-small" label="Escalate" onclick={escalate}></lightning-button></template>
+                </div>
+
+                <div class="slds-col_bump-left">
+                    <lightning-button label="Refresh" icon-name="utility:refresh" onclick={refresh}></lightning-button>
+                    <lightning-button class="slds-m-left_x-small" label={toggleToolTip} onclick={handleToggleButtonClick}></lightning-button>
+                </div>
+                <div class="slds-m-left_xx-small" >
+                    <lightning-button-menu alternative-text="Show menu">
+
+                    <template for:each={menuItems} for:item="menuvalue" >  
+                        <lightning-menu-item 
+                            label={menuvalue.label}
+                            value={menuvalue.value}
+                            key={menuvalue.value}
+                            onclick={handleMenuButtonSelection}>
+                        </lightning-menu-item>
+                    </template>
+                    </lightning-button-menu>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="slds-var-p-top_xx-large slds-var-p-bottom_large slds-border_top">
+            <div class="slds-col slds-text-align_right">
+                <template if:true={hasCreditAdjustmentsPermission}>
+                    <lightning-button class="slds-var-m-left_small" label="Goodwill Adjustment" onclick={handleGoodwillAdjustment}></lightning-button>
+                    <lightning-button class="slds-var-m-left_small" label="Make Adjustment" onclick={handleMakeAdjustment} disabled={noAdjustableCharges}></lightning-button>
+                </template>
+            </div>
+        </div>
+        <div class="slds-col slds-grow slds-m-top_small slds-is-relative">
+
+            <lightning-tree-grid
+                hide-checkbox-column
+                columns={statementColumns}
+                data={statementRows}
+                key-field="id"
+            ></lightning-tree-grid>
+
+        </div>
+
+    </div>
+
+</template>

@@ -1,0 +1,30 @@
+<aura:component controller="DaysToClose" implements="flexipage:availableForAllPageTypes,force:hasRecordId">
+    <aura:attribute name="recordId" type="String" />
+
+    <aura:attribute name="customerCaseCount" type="Integer" default="0" />
+                    
+    <aura:attribute name="caseRecord" type="Object"  />
+    <force:recordData aura:id="caseRecordData" 
+                      fields="Id,DaysToClose__c,Account.Name,Billing_Account__c"
+                      recordId="{!v.recordId}" 
+                      targetFields="{!v.caseRecord}"                   
+                      recordUpdated="{!c.recordUpdated}" />
+    
+    <div class="slds-text-align_center">
+        <lightning:card class="slds-text-title_bold" title="Days To Close">
+            <div class="slds-text-heading_medium">
+                <aura:if isTrue="{!lessthan(v.caseRecord.DaysToClose__c, 0)}">
+                    <lightning:formattedNumber class="slds-text-color_error" value="{!v.caseRecord.DaysToClose__c}" />
+                    <aura:set attribute="else">
+                   		<lightning:formattedNumber value="{!v.caseRecord.DaysToClose__c}" />
+                    </aura:set>
+                </aura:if>
+            </div>
+        </lightning:card>
+        <lightning:card class="slds-text-title_bold" title="Other Recent Cases">
+            <div class="slds-text-heading_medium">
+                <lightning:formattedNumber value="{!v.customerCaseCount}" />
+            </div>
+        </lightning:card>
+    </div>
+</aura:component>

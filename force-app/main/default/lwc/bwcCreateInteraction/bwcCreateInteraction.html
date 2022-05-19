@@ -1,0 +1,19 @@
+<template>
+
+  <!-- Spinner -->
+  <div if:true={showLoadingSpinner}>
+    <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+  </div>
+
+  <lightning-card title="Customer Search">
+    <div class="slds-grid slds-p-around_small">
+      <div class="slds-grow">
+        <lightning-combobox label="Interaction Type" variant="label-hidden" required options={interactionTypeOptions}></lightning-combobox>
+      </div>
+      <div>
+        <lightning-button variant="brand" label="Search Customer" title="Search Customer" onclick={handleSearchCustomer} class="slds-m-left_x-small"></lightning-button>
+      </div>
+    </div>
+  </lightning-card>
+
+</template>

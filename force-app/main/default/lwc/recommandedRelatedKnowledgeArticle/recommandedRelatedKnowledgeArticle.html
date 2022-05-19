@@ -1,0 +1,36 @@
+<template>
+    <lightning-card title="Recommended Related Articles" class="slds-p-horizontal_small slds-m-left_small">       
+        <template if:true={knowledgeList}>
+            <ul class="slds-list_horizontal slds-has-dividers_left slds-has-block-links_space slds-m-bottom_x-small slds-p-horizontal_small slds-m-left_small">
+                <li class="slds-item">
+                    <p  class="slds-m-bottom_x-small">{knowledgeList.length}&nbsp;Results</p>
+                </li>
+                <template if:true={resultObj.data.isSuccess}>
+                <li class="slds-item">
+                    <p class="slds-m-bottom_x-small">Sorted by Relevance</p>
+                </li>
+                </template>
+            </ul>       
+            <template for:each={knowledgeList} for:item="kw">
+                <h1 class="slds-p-horizontal_small" key={kw.knowledge.Id}>
+                    <a class="slds-border_bottom" href={kw.recordURL} >{kw.knowledge.Title}</a><br/>
+                    <ul class="slds-list_horizontal slds-has-dividers_left slds-has-block-links_space slds-border_bottom slds-m-bottom_x-small">
+                        <li class="slds-item">
+                        <p style="font-size: smaller;" class="slds-m-bottom_x-small">{kw.knowledge.ArticleNumber}</p>
+                        </li>
+                        <li class="slds-item">
+                        <p style="font-size: smaller;" class="slds-m-bottom_x-small">{kw.knowledge.ValidationStatus}</p>
+                        </li>
+                        <li class="slds-item">
+                        <p style="font-size: smaller;" class="slds-m-bottom_x-small">
+                            <lightning-formatted-date-time value={kw.knowledge.LastPublishedDate}></lightning-formatted-date-time>
+                            <span>,</span>&nbsp;
+                            <lightning-formatted-time value={kw.timeFormat}></lightning-formatted-time>
+                        </p>  
+                        </li>
+                    </ul>       
+                </h1>
+            </template>
+        </template>
+    </lightning-card>
+</template>

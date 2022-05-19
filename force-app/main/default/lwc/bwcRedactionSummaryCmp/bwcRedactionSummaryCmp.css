@@ -1,0 +1,28 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-columns: auto;
+  row-gap: 4px;
+  column-gap: 4px;
+}
+
+.payment-method {
+  grid-column: 1/3;
+  background-color: lightgrey;
+}
+
+.label {
+/**
+  border-width: 1px;
+  border-color: limegreen;
+  background-color:mediumspringgreen;
+**/
+}
+
+.value {
+/**  
+  border-width: 1px;
+  border-color: magenta;
+  background-color: bisque;
+**/
+}

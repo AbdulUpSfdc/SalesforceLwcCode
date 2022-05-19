@@ -1,0 +1,21 @@
+<template>
+    
+    <lightning-card title="Lead Lists"  >
+        <template for:each={listviewArray} for:item="listview">
+            <div key={listview.viewLabel} data-listview={listview.viewId} class="la">
+                <lightning-icon class="slds-p-horizontal_xx-small" icon-name="utility:list" size="x-small" alternative-text="list"
+                    title="list" data-listview={listview.viewId} onclick={redirecttoListview}></lightning-icon>
+               
+                <span data-listview={listview.viewId} onclick={redirecttoListview}>
+                    <span class="slds-p-horizontal_xxx-small" data-listview={listview.viewId}> {listview.viewLabel}</span>
+                    <span class="slds-p-horizontal_xxx-small" data-listview={listview.viewId}> ( {listview.viewCount} )</span>
+                </span>
+
+            </div>
+
+
+        </template>
+
+    </lightning-card>
+
+</template>

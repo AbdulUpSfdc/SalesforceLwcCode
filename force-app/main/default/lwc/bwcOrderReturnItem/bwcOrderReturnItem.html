@@ -1,0 +1,48 @@
+<template>
+
+    <div class="slds-box slds-box_xx-small">
+
+        <lightning-card variant="narrow">
+
+            <h3 slot="title" class="slds-text-title_bold">
+                <lightning-icon
+                    icon-name="standard:product"
+                    size="small"
+                    class="slds-m-right_small"
+                ></lightning-icon>
+                {returnItem.data.itemDescription}
+            </h3>
+
+            <span slot="actions">
+                <lightning-button
+                    class="slds-m-left_x-small"
+                    label={expandButtonText}
+                    title={expandButtonText}
+                    onclick={handleExpandAll}
+                ></lightning-button>
+            </span>
+
+            <div class="slds-m-horizontal_small slds-grid slds-grid_vertical">
+
+                <!-- path -->
+                <c-bwc-return-item-tracker 
+                    item-status={returnItem.data.itemStatus} >
+                </c-bwc-return-item-tracker>
+                <c-bwc-expandable-section onexpand={handleExpand} title="Device / Assets Details">
+
+                    <c-bwc-order-fields columns=2 fields={fields}></c-bwc-order-fields>
+
+                </c-bwc-expandable-section>
+
+                <c-bwc-expandable-section onexpand={handleExpand} title="Return Details">
+
+                    <c-bwc-order-fields columns=2 fields={returnFields}></c-bwc-order-fields>
+
+                </c-bwc-expandable-section>
+
+            </div>
+
+        </lightning-card>
+    </div>
+
+</template>

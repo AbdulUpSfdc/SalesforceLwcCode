@@ -1,0 +1,134 @@
+[
+    {
+        "accountHeader": {
+            "name": "ELVIS DIAZ MENDEZ",
+            "firstName": "ELVIS",
+            "lastName": "DIAZ MENDEZ",
+            "email": "qc_dummy@att.com",
+            "isEmployee": true,
+            "primaryProduct": "WIRELESS"
+        },
+        "accountDetails": {
+            "globalProfile": "ELVIS DIAZ MENDEZ",
+            "globalId": "534211605781",
+            "address": [
+                {
+                    "type": "B",
+                    "streetName1": "3900 GEORGE BUSBEE PKWY NW APT 407",
+                    "locality": "KENNESAW",
+                    "stateOrProvince": "GA",
+                    "postcode": "30144-6677"
+                }
+            ]
+        },
+        "accounts": [
+            {
+                "ban": "534211605781",
+               "accountTypeLob": "WIRELESS",
+		"accountType": "Consumer",
+		"productName360": "wireless",
+                "address": [
+                    {
+                        "type": "B",
+                        "streetName1": "3900 GEORGE BUSBEE PKWY NW APT 407",
+                        "locality": "KENNESAW",
+                        "stateOrProvince": "GA",
+                        "postcode": "30144-6677"
+                    },
+		     {
+"type": "ServiceSAG",
+"streetName1": "1298 FAVELL",
+"locality": "MEMPHIS",
+"stateOrProvince": "TN",
+"postcode": "38116-5114"
+},
+{
+"type": "Billing",
+"streetName1": "1298 FAVELL DR",
+"locality": "MEMPHIS",
+"stateOrProvince": "TN",
+"postcode": "38116-5114"
+},
+{
+"type": "ServiceUSPS",
+"streetName1": "1298 FAVELL",
+"locality": "MEMPHIS",
+"stateOrProvince": "TN",
+"postcode": "38116-5114"
+},
+{
+"type": "ServiceFSP",
+"streetName1": "1298 FAVELL",
+"locality": "MEMPHIS",
+"stateOrProvince": "TN",
+"postcode": "38116-5114"
+}	
+                ],
+                "accountStatus": "O",
+                "languagePreference": "EN",
+                "serviceStartDate": "07/22/2018",
+                "firstName": "ELVIS",
+                "lastName": "DIAZ MENDEZ",
+                "email": "qc_dummy@att.com",
+                "isEmployee": true,
+                "customerId": "123",
+                "isPaperlessBill": false,
+                "isPrepaidCustomer": false,
+                "serviceDiscount": 0,
+                "securityLevel": "S",
+                "cpid": "534211605781"
+            }
+        ]
+    },
+    {
+        "accountHeader": {
+            "name": "ELVIS DIAZ MENDEZ",
+            "firstName": "ELVIS",
+            "lastName": "DIAZ MENDEZ",
+            "email": "qc_dummy@att.com",
+            "isEmployee": true,
+            "primaryProduct": "WIRELESS"
+        },
+        "accountDetails": {
+            "globalProfile": "ELVIS DIAZ MENDEZ",
+            "globalId": "534211605781",
+            "address": [
+                {
+                    "type": "B",
+                    "streetName1": "3900 GEORGE BUSBEE PKWY NW APT 407",
+                    "locality": "KENNESAW",
+                    "stateOrProvince": "GA",
+                    "postcode": "30144-6677"
+                }
+            ]
+        },
+        "accounts": [
+            {
+                "ban": "534211605781",
+                "accountType": "WIRELESS",
+                "address": [
+                    {
+                        "type": "B",
+                        "streetName1": "3900 GEORGE BUSBEE PKWY NW APT 407",
+                        "locality": "KENNESAW",
+                        "stateOrProvince": "GA",
+                        "postcode": "30144-6677"
+                    }
+                ],
+                "accountStatus": "O",
+                "languagePreference": "EN",
+                "serviceStartDate": "07/22/2018",
+                "firstName": "ELVIS",
+                "lastName": "DIAZ MENDEZ",
+                "email": "qc_dummy@att.com",
+                "isEmployee": true,
+                "customerId": "123",
+                "isPaperlessBill": false,
+                "isPrepaidCustomer": false,
+                "serviceDiscount": 0,
+                "securityLevel": "S",
+                "cpid": "534211605781"
+            }
+        ]
+    }    
+]

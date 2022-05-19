@@ -1,0 +1,49 @@
+<template>
+
+    <template if:true={isOpen}>
+
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading" aria-modal="true"
+            aria-describedby="modal-content" class="slds-modal slds-fade-in-open" onkeydown={handleModalKeydown}>
+            <div class="slds-modal__container modal-container">
+                <header class="slds-modal__header">
+
+                    <lightning-button-icon data-name="closeButton" icon-name="utility:close" variant="bare-inverse" size="large"
+                        class="slds-modal__close" alternative-text="Close" onclick={close} onkeydown={handleButtonKeydown}>
+                    </lightning-button-icon>
+                    <h2 id="modal-heading" class="slds-modal__title slds-hyphenate">Add a New Authorized User</h2>
+
+                </header>
+                <div class="slds-modal__content slds-scrollable slds-is-relative slds-p-around_medium modal-content slds-grid slds-grid_vertical"
+                    id="modal-content">
+
+                    <lightning-spinner if:true={isBusy} variant="brand" alternative-text="Loading"></lightning-spinner>
+
+                    <c-bwc-error-report></c-bwc-error-report>
+
+                    <div data-name="inputPanel" class="slds-grid">
+
+                        <lightning-input name="firstName" data-name="firstName" class="slds-size_2-of-6 slds-p-right_x-small" label="First Name" required oncommit={handleInputCommit}></lightning-input>
+                        <lightning-input name="middleName" class="slds-size_1-of-6 slds-p-right_x-small" label="Middle Initial" oncommit={handleInputCommit}></lightning-input>
+                        <lightning-input name="lastName" class="slds-size_2-of-6 slds-p-right_x-small" label="Last Name" required oncommit={handleInputCommit}></lightning-input>
+                        <lightning-combobox name="suffix" class="slds-size_1-of-6" label="Suffix" placeholder="" options={suffixOptions} onchange={handleInputCommit}></lightning-combobox>
+
+                    </div>
+
+                </div>
+
+                <!-- Footer Buttons -->
+                <footer class="slds-modal__footer">
+
+                    <lightning-button data-name="cancelButton" label="Cancel" onclick={close} disabled={isBusy}></lightning-button>
+                    <lightning-button data-name="saveButton" label="Save" class="slds-m-left_x-small" variant="brand" disabled={isBusy} onkeydown={handleButtonKeydown} onclick={handleSave}></lightning-button>
+
+                </footer>
+            </div>
+
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open"></div>
+
+    </template>
+
+</template>

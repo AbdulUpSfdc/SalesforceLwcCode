@@ -1,0 +1,41 @@
+<template>
+
+  <template if:false={label}>
+
+    <p class="slds-box cell">
+      <template if:true={image}>
+        <lightning-icon
+        icon-name="utility:check"
+        size="xx-small"
+        alternative-text="checkmark"
+        class="slds-align_absolute-center check"
+        >
+        </lightning-icon>
+      </template>
+      
+      <template if:false={image}>
+      {display}
+      </template>
+
+      <template if:true={nullcheck}>
+        &nbsp;
+      </template>
+    </p> 
+
+  </template>  
+
+  <template if:true={label}>
+
+      <p class="slds-border_bottom slds-border_top slds-p-around_medium cell">
+        
+        <template if:false={image}>
+        {display}
+        </template>
+    
+        <template if:true={nullcheck}>
+          &nbsp;
+        </template>
+      </p> 
+
+    </template>
+</template>

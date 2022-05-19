@@ -1,0 +1,116 @@
+{
+    "content": {
+        "responseCode": "1",
+        "message": "SUCCESS",
+        "termsAndAgreements": [
+            {
+                "tncId": "108",
+                "tncKey": "CC_OA_20200715_TEST",
+                "paySources": [
+                    {
+                        "paySource": "IDPCSR",
+                        "payLocation": "CS",
+                        "sourceCategory": "C"
+                    }
+                ],
+                "paymentEvents": [
+                    {
+                        "paymentEventType": "OA",
+                        "paymentEventDescription": "Payment and AutoPay Authorizations"
+                    }
+                ],
+                "tncVerbiage": "<p><strong>PAYMENT AUTHORIZATION TERMS AND CONDITIONS</strong></p><p><br></p><p>TEST</p><p><br></p><p>You authorize Us to charge to the Payment Method You provided today, if any, or another previously stored Payment Method You designated the payment amount You specified today. Your Payment Method could be charged as early as today or on the date You have specified for payment.&nbsp;</p><p><br></p><p>You may revoke Your payment authorization by calling the customer care number provided with Your bill, which revocation will take effect when AT&amp;T has had a reasonable opportunity to act on it.</p><p><br></p><p><br></p><p><strong>AUTOPAY AUTHORIZATION</strong></p><p><br></p><p>You authorize Us to store the Payment Method information.&nbsp; You also authorize Us to automatically charge to the Payment Method the amount of Your monthly bill due each month on the date indicated on Your monthly bill, including any late fees.&nbsp; In addition, You authorize Us to charge to the Payment Method any amounts outstanding if Your AT&amp;T service is terminated, including any applicable cancellation fees and equipment non-return fees.&nbsp;&nbsp;</p><p><br></p><p>This automatic payment or \"AutoPay\" authorization and the AT&amp;T AutoPay service will remain in effect until revoked by You, Your financial institution, or AT&amp;T.&nbsp; You may revoke Your AutoPay authorization by logging into your online account or by calling the customer care number provided with Your bill, which revocation will take effect when AT&amp;T has had a reasonable opportunity to act on it.&nbsp;&nbsp;</p><p><br></p><p>Please confirm Your agreement to both of the terms I read by saying \"Yes.\"&nbsp;</p>"
+            },
+            {
+                "tncId": "109",
+                "tncKey": "CC_AP_20200715_TEST",
+                "paySources": [
+                    {
+                        "paySource": "IDPCSR",
+                        "payLocation": "CS",
+                        "sourceCategory": "C"
+                    }
+                ],
+                "paymentEvents": [
+                    {
+                        "paymentEventType": "AP",
+                        "paymentEventDescription": "AutoPay and Storage of Payment Method Authorizations"
+                    }
+                ],
+                "tncVerbiage": "<p><strong>AUTOPAY AND STORAGE OF PAYMENT METHOD AUTHORIZATIONS TERMS AND CONDITIONS</strong></p><p><br></p><p><strong>test</strong></p><p><br></p><p><strong>AutoPay Authorization</strong></p><p><br></p><p>You authorize Us to store the Payment Method information.&nbsp;You also authorize Us to automatically charge to the Payment Method the amount of Your monthly bill due each month on the date indicated on Your monthly bill, including any late fees.&nbsp;In addition, You authorize Us to charge to the Payment Method any amounts outstanding if Your AT&amp;T service is terminated, including any applicable cancellation fees and equipment non-return fees.&nbsp;&nbsp;</p><p><br></p><p>This automatic payment or \"AutoPay\" authorization and the AT&amp;T AutoPay service will remain in effect until revoked by You, Your financial institution, or AT&amp;T.&nbsp;You may revoke Your AutoPay authorization by logging into your online account or by calling the customer care number provided with Your bill, which revocation will take effect when AT&amp;T has had a reasonable opportunity to act on it.&nbsp;</p><p><br></p><p><br></p><p><strong>Storage of Payment Method Authorization</strong></p><p><br></p><p>You authorize Us to store the Payment Method information.&nbsp;You also authorize Us to charge to the Payment Method the payment amount You specified today.</p><p><br></p><p>You certify that You are the owner of the Payment Method or have authorization to use the Payment Method information You provided, and are authorized to make charges to and permit Us to store the Payment Method You provided.&nbsp;</p><p><br></p><p>You may revoke Your payment or storage authorizations by calling the customer care number provided with Your bill, which revocation will take effect when AT&amp;T has had a reasonable opportunity to act on it.&nbsp;</p><p><br></p><p>Please confirm Your agreement to both of the terms I read by saying \"Yes.\"</p>"
+            },
+            {
+                "tncId": "110",
+                "tncKey": "CC_TP_20200715_TEST",
+                "paySources": [
+                    {
+                        "paySource": "IDPCSR",
+                        "payLocation": "CS",
+                        "sourceCategory": "C"
+                    }
+                ],
+                "paymentEvents": [
+                    {
+                        "paymentEventType": "TP",
+                        "paymentEventDescription": "TXT-2-PAY Authorization"
+                    }
+                ],
+                "tncVerbiage": "<p><strong>TXT-2-PAY Authorizations Terms and Conditions</strong></p><p><br></p><p>You authorize Us to store Your bank account, credit or debit card or other payment method (\"Payment Method\") information You provided to Us today.</p><p><br></p><p>You certify that You are the owner of the Payment Method or have authorization to use the Payment Method information You provided, and are authorized to make charges to and permit Us to store the Payment Method You provided.</p><p><br></p><p>You authorize Us to initiate charges to the Payment Method You provided today.</p><p><br></p><p>You may revoke Your storage or payment authorization online by logging into Your online account or by calling the customer care number provided with Your bill, which revocation will take effect when AT&amp;T has had a reasonable opportunity to act on it.</p><p><br></p><p>Please confirm Your agreement to these authorization terms by saying \"Yes.\"</p>"
+            },
+            {
+                "tncId": "106",
+                "tncKey": "CC_OP_20200715_TEST",
+                "paySources": [
+                    {
+                        "paySource": "IDPCSR",
+                        "payLocation": "CS",
+                        "sourceCategory": "C"
+                    }
+                ],
+                "paymentEvents": [
+                    {
+                        "paymentEventType": "OP",
+                        "paymentEventDescription": "Storage of Payment Method and Payment Authorizations"
+                    }
+                ],
+                "tncVerbiage": "<p><strong>STORAGE OF PAYMENT METHOD AND PAYMENT AUTHORIZATIONS</strong></p><p><br></p><p>TEST</p><p><br></p><p><strong>Storage of Payment Method Authorization</strong></p><p>You authorize Us to store the bank account, credit or debit card or other Payment Method information You provided today.&nbsp;</p><p><br></p><p>You certify that You are the owner of the Payment Method or have authorization to use the Payment Method information You provided, and are authorized to make charges to and permit Us to store the Payment Method You provided.</p><p><br></p><p>You may revoke Your authorization by calling the customer care number provided with Your bill, which revocation will take effect when AT&amp;T has had a reasonable opportunity to act on it.&nbsp;</p><p><br></p><p><strong>Payment Authorization</strong></p><p>You authorize Us to charge to the Payment Method You provided today, if any, or another previously stored Payment Method You designated the payment amount You specified today. Your Payment Method could be charged as early as today or on the date You have specified for payment.&nbsp;</p><p><br></p><p>You may revoke Your payment authorization by calling the customer care number provided with Your bill, which revocation will take effect when AT&amp;T has had a reasonable opportunity to act on it.</p><p><br></p><p>Please confirm Your agreement to both of the authorization terms I read by saying \"Yes.\"</p>"
+            },
+            {
+                "tncId": "116",
+                "tncKey": "CC_PP_20200730_TEST",
+                "paySources": [
+                    {
+                        "paySource": "IDPCSR",
+                        "payLocation": "CS",
+                        "sourceCategory": "C"
+                    }
+                ],
+                "paymentEvents": [
+                    {
+                        "paymentEventType": "PP",
+                        "paymentEventDescription": "Storage of Payment Method Authorization"
+                    }
+                ],
+                "tncVerbiage": "<p><strong>STORED PAYMENT METHOD AUTHORIZATION</strong></p><p><br></p><p>TEST</p><p><br></p><p>You authorize Us to store the bank account, credit or debit card or other Payment Method information You provided today.&nbsp;</p><p><br></p><p>You certify that You are the owner of the Payment Method or have authorization to use the Payment Method information You provided, and You are authorized, and have authority to authorize Us, to make charges to and permit Us to store the Payment Method You provided.</p><p><br></p><p>You may revoke Your authorization by calling the customer care number provided with Your bill, which revocation will take effect when AT&amp;T has had a reasonable opportunity to act on it.&nbsp;</p><p><br></p><p>Please confirm Your agreement to these authorization terms by saying \"Yes.\"</p>"
+            },
+            {
+                "tncId": "134",
+                "tncKey": "CC_AE_20200908_TEST",
+                "paySources": [
+                    {
+                        "paySource": "IDPCSR",
+                        "payLocation": "CS",
+                        "sourceCategory": "C"
+                    }
+                ],
+                "paymentEvents": [
+                    {
+                        "paymentEventType": "AE",
+                        "paymentEventDescription": "AutoPay Authorization"
+                    }
+                ],
+                "tncVerbiage": "<p><strong>AUTOPAY AUTHORIZATION</strong></p><p><br></p><p>TEST&nbsp;</p><p><br></p><p>You authorize AT&amp;T to store the Payment Method information You may have provided today.&nbsp; You also authorize Us to automatically charge the amount of each monthly bill on the date indicated on the bill to the Payment Method you provided or a Stored Payment Method You chose today. &nbsp;This amount may include any late fees, outstanding amounts if service is terminated, early termination fees and equipment non-return fees. If You chose a Stored Payment Method, You authorize AT&amp;T to make and store a copy of it.&nbsp; AT&amp;T will use the copy for this AutoPay authorization, even if You update or change the Stored Payment Method, or AT&amp;T or You remove or cancel it.&nbsp; AT&amp;T may receive updated Payment Method information from your financial institution. &nbsp;This AutoPay authorization and service will remain in effect until cancelled.&nbsp; Canceling your AT&amp;T account does not cancel the AutoPay authorization.&nbsp; The AutoPay authorization may be cancelled by contacting AT&amp;T Customer Care, which will take effect if AT&amp;T can act on it before payment is processed.&nbsp;</p><p><br></p><p>Please confirm Your agreement to these authorization terms by saying \"Yes.\"</p><p><br></p>"
+            }
+        ]
+    }
+}

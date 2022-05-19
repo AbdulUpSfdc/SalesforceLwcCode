@@ -1,0 +1,614 @@
+<template>
+	<lightning-layout class='mainLayout' >
+			<lightning-layout-item 
+			size="4" medium-device-size="4" large-device-size="4">
+
+			<div class={searchTextInput} style="">
+				<template if:false={isKeyPressSearchEnabled}>
+					<lightning-input type="search" class="searchInput" value={searchText} variant="label-hidden" data-id="searchInput" placeholder="Search for Articles">
+					</lightning-input>
+									
+				</template>
+				<template if:true={isKeyPressSearchEnabled}>
+					<lightning-input type="search" class="searchInput" value={searchText} 
+									 variant="label-hidden" data-id="searchInput" 
+									 placeholder="Search for Articles" onkeypress={handleSearchOnKeyPress}>
+					</lightning-input>
+				</template>
+			</div>
+
+		</lightning-layout-item>
+		<lightning-layout-item class="slds-p-left_medium slds-col_bump-right"
+			 size={searchBarWidth} medium-device-size={searchBarWidth} large-device-size={searchBarWidth}>
+			<!-- <lightning-button variant="base" label="Filter By" title="Filter By" icon-name="utility:down"
+icon-position="right" onclick={toggleFilterDiv}></lightning-button> -->
+			<template if:true={isExplicitSearchEnabled}>
+				<lightning-button variant="brand" label="Submit" class="button-submit-color" icon-name="utility:search" icon-position="right" 
+					onclick={handleSearchKeyChange}>
+				</lightning-button>
+			</template>
+
+		<template if:true={IS_DESKTOP}> <!-- Desktop  (prod mode)-->
+				<span class={showFilterBy}>
+					<button class={buttonFilterCss} title="Filter By" onclick={toggleFilterDiv}> Filter By &nbsp;
+					<template if:false={showFilters}>
+						<lightning-icon icon-name="utility:down" alternative-text="open" variant="inverse" size="x-small" class={buttonFilterIconCss}>
+						</lightning-icon>
+						
+					</template>
+					<template if:true={showFilters}>
+						<lightning-icon icon-name="utility:up" alternative-text="close" variant="inverse" size="x-small" class={buttonFilterIconCss}>
+						</lightning-icon>
+					</template>
+				</button>
+				</span>
+
+				<!-- Viewas -->
+				<template if:true={hasViewAsPermission}>
+
+					<span class={showViewAs}>
+						<!-- <button data-id="viewas_div_container"  key={viewas_div_container} class={buttonViewAsCss} title="View As" onclick={toggle_viewas_div_container}> View As&nbsp; -->
+							<button class={buttonViewAsCss} style={buttonViewAsStyle} title="View As" onclick={toggle_viewas_div_container}> 
+							
+							<div style={viewasTabStyle}> View As &nbsp;
+								<template if:false={ViewAsOpen}>
+								<lightning-icon icon-name="utility:down" alternative-text="open" variant="inverse" size="x-small" class={buttonViewAsIconCss}>
+								</lightning-icon>
+								</template>
+								
+							<!--
+								<template if:true={ViewAsOpen}>
+								<lightning-icon icon-name="utility:up" alternative-text="close" variant="inverse" size="x-small"  class={buttonViewAsIconCssUpIcon}>
+								</lightning-icon>
+								</template>
+							-->
+							</div>  
+
+
+						</button>
+					</span>	
+
+				</template>
+ 
+			</template>
+
+
+		<template if:false={IS_DESKTOP}> <!-- IPDAD (prod mode)-->
+
+					<button data-id="filter_div_container"  key={filter_div_container} class={buttonFilterCss} title="Filter By" onclick={toggle_filter_div_container}> Filter By &nbsp;
+						<template if:false={showFilters}>
+						<lightning-icon icon-name="utility:down" alternative-text="open" variant="inverse" size="x-small" class={buttonFilterIconCss}>
+						</lightning-icon>
+						
+					</template>
+
+					<template if:true={showFilters}>
+						<lightning-icon icon-name="utility:up" alternative-text="close" variant="inverse" size="x-small" class={buttonFilterIconCss}>
+						</lightning-icon>
+					</template>
+				</button>
+				
+			</template>		
+
+
+		</lightning-layout-item>
+
+		<lightning-layout-item  
+			size="4"  medium-device-size="4" large-device-size="4">
+
+			<div class={showsortby}> 
+
+			<!-- This section has strange positioning logic that needs to be fixed. Both sort and list/grid divs float right. However, I needed to put list/grid html first to get it to work! -->
+			<div class="iPadPadding slds-float_right slds-p-top_xx-small">
+				<lightning-icon icon-name="utility:apps" variant="inverse" alternative-text="Grid" title="Grid"
+					size="small" onclick={handleGridView} class={iconGridCss}></lightning-icon>
+				<lightning-icon icon-name="utility:list" variant="inverse" alternative-text="List"
+					title="List" size="small" onclick={handleListView} class={iconListCss}></lightning-icon>
+			</div>
+
+
+				<div class="sort-div slds-dropdown-trigger slds-dropdown-trigger_click slds-button_last slds-is-closed slds-float_right slds-p-right_small">
+					<button class={buttonSortCss} title="Sort By" onclick={toggleSortDiv}> Sort By &nbsp;
+						<template if:false={showSort}>
+							<lightning-icon icon-name="utility:down" alternative-text="open" variant="inverse" size="x-small"
+								class={buttonSortIconCss}></lightning-icon>
+						</template>
+						<template if:true={showSort}>
+							<lightning-icon icon-name="utility:up" alternative-text="close" variant="inverse" size="x-small"
+								class={buttonSortIconCss}></lightning-icon>
+						</template>
+					</button>
+					<div class=" slds-dropdown slds-dropdown_right slds-dropdown_actions menu-item">
+						<ul class="slds-dropdown__list" role="menu">
+							<li class="slds-dropdown__item" role="presentation">
+								<a href="javascript:void(0);" role="menuitem" tabindex="-1" data-id="recommended" onclick={handleSort}>
+									<span class="slds-truncate" title="Most Popular">Most Popular</span>
+								</a>
+							</li>
+							<li class="slds-dropdown__item" role="presentation">
+								<a href="javascript:void(0);" role="menuitem" tabindex="-1" data-id="latest" onclick={handleSort}>
+									<span class="slds-truncate" title="Latest">Latest</span>
+								</a>
+							</li>
+							<li class="slds-dropdown__item" role="presentation">
+								<a href="javascript:void(0);" role="menuitem" tabindex="-1" data-id="az" onclick={handleSort}>
+									<span class="slds-truncate" title="A > Z">A > Z</span>
+								</a>
+							</li>
+							<li class="slds-dropdown__item" role="presentation">
+								<a href="javascript:void(0);" role="menuitem" tabindex="-1" data-id="za" onclick={handleSort}>
+									<span class="slds-truncate" title="Z > A">Z > A</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+
+		</lightning-layout-item>
+
+
+	</lightning-layout>
+
+		<!-- Viewas start  -->
+		<template if:true={userCanUseViewAs}>
+
+
+				<div class={viewasDivDontainerClass}  > 
+
+
+			<div class="slds-grid slds-gutters">
+			
+
+				<div class="slds-col">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</div>
+
+				<div class="slds-col">
+
+					<lightning-combobox
+						name="role"
+						label="Role"
+						value={RoleValue}
+						placeholder="Select Role"
+						options={RoleValueoptions}
+						onchange={handleChangeRoleValue} >
+					</lightning-combobox>
+
+				</div>
+
+				<div class="slds-col">
+
+				  <lightning-combobox
+					name="employeetype"
+					label="Employee Type"
+					value={EmployeeTypeValue}
+					placeholder="Select Employee Type"
+					options={EmployeeTypeoptions}
+					onchange={handleChangeEmployeeTypeValue} >
+				   </lightning-combobox>
+
+				</div>
+
+				<div class="slds-col">
+
+				  <lightning-combobox
+					name="primarymarket"
+					label="Primary Market"
+					value={PrimaryMarketValue}
+					placeholder="Select Primary Market"
+					options={PrimaryMarketoptions}
+					onchange={handleChangePrimaryMarket} >
+				   </lightning-combobox>
+				</div>
+
+				<div class="slds-col">
+
+					<lightning-combobox
+					  name="primarychannel"
+					  label="Primary Channel"
+					  value={PrimaryChannelValue}
+					  placeholder="Select Primary Channel"
+					  options={PrimaryChanneloptions}
+					  onchange={handleChangePrimaryChannel} >
+					 </lightning-combobox>
+				  </div>
+				
+				  <div class="slds-col">
+					<span></span>
+
+				   <!--<button class={buttonSmallCss} style={selectallbuttonSmallStyle} onclick={toggle_viewas_div_container} ><u>Close</u></button>&nbsp;-->
+				   <button class={buttonSmallCss} style={selectallbuttonSmallStyleviewas} onclick={toggle_viewas_div_container} ><u>Close</u></button>&nbsp;
+				   
+				   <!-- <button class="button-apply slds-button_full-width"  style="width: 65px; color:rgb( 256, 256, 256); padding: 1px 1px  1px 16px; background-color:transparent; border: 1px color:rgb( 256, 256, 256);  border-color: #4CAF50; border-radius: 1.25rem;"  onclick={toggle_viewas_div_container}>Close</button> -->
+
+				   <br>
+				   <button class="button-apply slds-button_full-width"  style="width: 65px; color:rgb( 145, 145, 145); padding: 1px 1px  1px 16px; background-color:white; border: 1px color:rgb( 145, 145, 145); border-color: #4CAF50; border-radius: 1.25rem;"  onclick={applyViewas}>Apply</button>
+					<br>
+					<br>
+
+
+				  </div>					  
+				  
+
+			  </div>
+
+			<!--
+			  <lightning-layout>
+				<lightning-layout-item class="slds-align_absolute-center slds-p-vertical_large" size="1">
+					<button class="button-apply slds-button_full-width"  style="color:#ADC2CD; padding-top:5px; padding-right:16px; padding-bottom:5px; padding-left:16px; background-color:white;border:none; border-radius:1.25rem;"  onclick={applyViewas}>Apply2</button>
+				</lightning-layout-item>
+			</lightning-layout>
+			-->
+
+            <!--
+			   <br/>
+				<div style="text-align: center;" >
+					<button class="button-apply slds-button_full-width"  style="width: 65px; color:rgb( 145, 145, 145); padding: 1px 1px  1px 16px; background-color: white; border: none; border-radius: 1.25rem;"  onclick={applyViewas}>Apply</button>
+				</div>
+				<br/>
+			-->
+
+
+			   </div>
+
+	   </template>     
+	<!-- end of viewas-->
+
+	<!-- top of the filter div -->
+
+	<!-- ############################## -->    
+	<!-- IPAD display, IS_Desktop=false -->    
+	<!-- ############################## -->    
+	<template if:false={IS_DESKTOP}> <!-- IPDA (prod mode)-->
+
+		<div class="filter_div_container slds-is-collapsed ">
+
+		<!-- this div needs to present, on desktop it contains the menu and is show noshow when Apply pressed-->
+		<div class="filter-div">
+		</div>
+
+
+		<div class="submenu_div_bottom_border">
+			<!--<button data-id="type" class ={type_class} onclick={select_this_action}>Type{number_of_type_selected} &nbsp;&nbsp;</button> -->
+			<!-- <button data-id="type" class ={type_class} onclick={select_this_action}>Type<span class='show_antity'><span class='quantity_circle'>{number_of_type_selected}</span></span> &nbsp;&nbsp;</button>-->
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span class ={type_class} > <button data-id="type" class ="submenu_button_noborder" onclick={select_this_action}>TYPE<span class={type_quantity_class}><span class='quantity_circle'><span class='quantity_value' style=' color:black;'>&nbsp;&nbsp;{number_of_type_selected}</span></span></span> </button>  </span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span class ={market_class} > <button data-id="market" class ="submenu_button_noborder" onclick={select_this_action}>MARKET<span class={market_quantity_class}><span class='quantity_circle'><span class='quantity_value' style=' color:black;'>{number_of_market_selected}</span></span></span>  </button></span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span class ={category_class} > <button data-id="category" class ="submenu_button_noborder" onclick={select_this_action}>CATEGORY<span class={category_quantity_class}><span class='quantity_circle'><span class='quantity_value' style=' color:black;'>{number_of_category_selected}</span></span></span>  </button></span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span class ={status_class} > <button data-id="status" class ="submenu_button_noborder" onclick={select_this_action}>STATUS<span class={status_quantity_class}><span class='quantity_circle'><span class='quantity_value' style=' color:black;'>{number_of_status_selected}</span></span></span>  </button></span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span class ={daterange_class} > <button data-id="daterange" class ="submenu_button_noborder" onclick={select_this_action}>DATE<span class={daterange_quantity_class}><span class='quantity_circle'><span class='quantity_value' style=' color:black;'>{date_range_set}</span></span></span></button></span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			
+			<button data-id="mainclearall" class ={buttonSmallCss} style={clearallbuttonSmallStyle} onclick={select_this_action}>CLEAR ALL &nbsp;&nbsp;</button>
+		    </br></br>
+		</div>
+		<br/>
+
+		<!--
+			<lightning-button-group>
+				<lightning-button  data-id="type_filter_div"  key={type_filter_div}  label={typelabel} title="Set Type" onclick={toggleDiv} class="slds-m-left_x-small"> </lightning-button> 
+				<lightning-button  data-id="market_filter_div"  key={market_filter_div}  label="Market" title="Set Market" onclick={toggleDiv} class="slds-m-left_x-small"></lightning-button>
+				<lightning-button  data-id="category_filter_div"  key={category_filter_div}  label="Category" title="Set Category" onclick={toggleDiv} class="slds-m-left_x-small"></lightning-button>
+				<lightning-button  data-id="status_filter_div"  key={status_filter_div}  label="Status" title="Set Status" onclick={toggleDiv} class="slds-m-left_x-small"></lightning-button>
+				<lightning-button  data-id="daterange_filter_div"  key={daterange_filter_div}  label="Date" title="Set Date Range" onclick={toggleDiv} class="slds-m-left_x-small"></lightning-button>
+				<lightning-button  data-id="daterange_filter_div"  key={daterange_filter_div} label="Clear All" title="Clear All" onclick={clearall} class="slds-m-left_x-small"></lightning-button>
+			</lightning-button-group>
+		-->
+
+		<!-- <lightning-layout horizontal-align="spread"> -->
+			<lightning-layout multiple-rows slds-grid_align-center>			
+				<lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12" class="slds-p-left_x-large">
+					<fieldset class="slds-form-element ipad-type type_filter_div slds-is-collapsed">
+						<!-- <legend class="slds-form-element__legend slds-form-element__label checkbox-group">Type</legend> -->
+						<button class={buttonSmallCss} style={selectallbuttonSmallStyle} onclick={mkr_all_type} ><u>Select All</u></button>&nbsp;
+						<button class={buttonSmallCss} style={clearbuttonSmallStyle} onclick={unmkr_all_type} ><u>Clear</u></button>
+
+						<div class="slds-form-element__control filter-div-group-IPAD ">
+							<template for:each={typeFilters} for:item="filter">
+								<div class="slds-checkbox" key={filter.value}>
+									<input data-id="checkbox-filter" data-group="type" data-value={filter.value}
+										data-label={filter.label} type="checkbox" name="options" id={filter.value}
+										value={filter.value}  checked={filter.checked} onclick={handleFilterClick}/>
+									<label class="slds-checkbox__label" for={filter.value}>
+										<span class="slds-checkbox_faux"></span>
+										<span class="slds-form-element__label checkbox-label">{filter.label}</span>
+									</label>
+								</div>
+							</template>
+						</div>
+					</fieldset>
+				</lightning-layout-item>
+				<lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12" class="slds-p-left_x-large">
+					<fieldset class="slds-form-element ipad-market market_filter_div slds-is-collapsed">
+						<!--<legend class="slds-form-element__legend slds-form-element__label checkbox-group">Market</legend>-->
+
+						<button class={buttonSmallCss} style={selectallbuttonSmallStyle} onclick={mkr_all_market} ><u>Select All</u></button>&nbsp;
+						<button class={buttonSmallCss} style={clearbuttonSmallStyle} onclick={unmkr_all_market} ><u>Clear</u></button>
+
+
+						<div class="slds-form-element__control filter-div-group-IPAD ">
+							<template for:each={marketFilters} for:item="filter">
+								<div class="slds-checkbox " key={filter.value}>
+									<input data-id="checkbox-filter" data-group="market" data-value={filter.value}
+										data-label={filter.label} type="checkbox" name="options" id={filter.value}
+										value={filter.value} checked={filter.checked} onclick={handleFilterClick}/>
+									<label class="slds-checkbox__label " for={filter.value}>
+										<span class="slds-checkbox_faux"></span>
+										<span class="slds-form-element__label checkbox-label">{filter.label}</span>
+									</label>
+								</div>
+							</template>
+						</div>
+					</fieldset>
+				</lightning-layout-item>
+				<lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12"  class="slds-p-left_medium">
+					<fieldset class="slds-form-element ipad-category category_filter_div slds-is-collapsed">
+						<!--<legend class="slds-form-element__legend slds-form-element__label checkbox-group">Category</legend>-->
+
+						<button class={buttonSmallCss} style={selectallbuttonSmallStyle} onclick={mkr_all_category} ><u>Select All</u></button>&nbsp;
+						<button class={buttonSmallCss} style={clearbuttonSmallStyle} onclick={unmkr_all_category} ><u>Clear</u></button>
+						 
+
+						<div class="slds-form-element__control filter-div-group-IPAD" >
+							<template for:each={categoryFilters} for:item="filter">
+								<div class="slds-checkbox" key={filter.value}>
+									<input data-id="checkbox-filter" data-group="category" data-value={filter.value}
+										data-label={filter.label} type="checkbox" name="options" id={filter.value}
+										value={filter.value}  checked={filter.checked} onclick={handleFilterClick}/>
+									<label class="slds-checkbox__label" for={filter.value}>
+										<span class="slds-checkbox_faux"></span>
+										<span class="slds-form-element__label checkbox-label">{filter.label}</span>
+									</label>
+								</div>
+							</template>
+						</div>
+					</fieldset>
+				</lightning-layout-item>
+				<lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12"  class="slds-p-left_medium">
+					<lightning-layout multiple-rows="true">
+						<lightning-layout-item>	
+							<fieldset class="slds-form-element ipad-status status_filter_div slds-is-collapsed">
+								<!--<legend class="slds-form-element__legend slds-form-element__label checkbox-group">Status</legend>-->
+
+								<button class={buttonSmallCss} style={selectallbuttonSmallStyle} onclick={mkr_all_status} ><u>Select All</u></button>&nbsp;
+								<button class={buttonSmallCss} style={clearbuttonSmallStyle} onclick={unmkr_all_status} ><u>Clear</u></button>
+		
+
+								<div class="slds-form-element__control filter-div-group-IPAD ">
+									<template for:each={statusFilters} for:item="filter">
+										<div class="slds-checkbox" key={filter.value}>
+											<input data-id="checkbox-filter" data-group="status" data-value={filter.value}
+												data-label={filter.label} type="checkbox" name="options" id={filter.value}
+												value={filter.value} checked={filter.checked} onclick={handleFilterClick}/>
+											<label class="slds-checkbox__label" for={filter.value}>
+												<span class="slds-checkbox_faux"></span>
+												<span class="slds-form-element__label checkbox-label">{filter.label}</span>
+											</label>
+										</div>
+									</template>
+								</div>
+							</fieldset>
+						</lightning-layout-item>
+
+
+						<lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12"  class="slds-p-left_medium">
+
+							<div class="daterange_filter_div slds-is-collapsed"> 
+								<div class="slds-m-top_x-small checkbox-group">
+									<lightning-formatted-text value="Select Date Range" ></lightning-formatted-text>
+									<button class={buttonSmallCss} style={cleardatebuttonSmallStyle} onclick={clear_daterange} ><u>Clear Dates</u></button>
+								</div>
+
+								<!-- <lightning-layout horizontal-align="space"> -->
+									<lightning-layout-item flexibility="auto">
+										<label class="checkbox-label">Start Date</label> <lightning-input class="dateInput label-color" type="date"  name="startDate" value={startDate} variant="label-hidden" date-style="short" onchange={handleDateFilter}></lightning-input>
+									</lightning-layout-item>
+									<br/>
+									<lightning-layout-item flexibility="auto" padding="horizontal-medium">
+										<label class="checkbox-label">End Date</label><lightning-input type="date" name="endDate" value={endDate}  variant="label-hidden" date-style="short" onchange={handleDateFilter}></lightning-input>
+									</lightning-layout-item>
+								<!-- </lightning-layout> -->
+
+							</div>
+						</lightning-layout-item>
+						<lightning-layout-item>
+							<template if:true={dateValidationError}>
+								<div class="slds-p-top_x-small checkbox-label">
+									<p>{dateValidationMsg}</p>
+								</div>
+							</template>
+						</lightning-layout-item>
+
+					</lightning-layout>
+				</lightning-layout-item>
+			</lightning-layout>
+			<lightning-layout>
+				<lightning-layout-item class="slds-align_absolute-center slds-p-vertical_large" size="1">
+					<!-- <lightning-button class="button-apply slds-button_full-width" variant="base" label="Apply" title="Apply" onclick={handleFilter} ></lightning-button> -->
+					<button class={buttonApplyCss} onclick={handleFilter} >Apply</button>
+					&nbsp;&nbsp;
+					<!-- <button class={buttonApplyCss} data-id="filter_div_container"  key={filter_div_container} title="Close" onclick={toggle_filter_div_container} >Close</button> -->
+
+
+
+
+
+
+				</lightning-layout-item>
+			</lightning-layout>
+
+		<!--</div>--> <!--filter div-->
+
+	</div>
+
+	</template>
+	<!-- end of IPAD -->
+
+	<!-- start of desktop device -->       
+
+
+	<!-- ################################ -->    
+	<!-- Desktop display, IS_Desktop=true -->    
+	<!-- ################################ -->    
+	<template if:true={IS_DESKTOP}> <!--Desktop (prod mode)-->
+
+
+
+
+<!-- viewas start was here before -->
+<!-- viewas end  was here before -->
+
+
+
+
+
+
+
+
+
+
+
+
+		<div class="filter-div slds-is-collapsed ">
+			
+<!--			<button data-id="mainclearall" class ={buttonSmallCss} style={clearallbuttonSmallStyle} onclick={desktop_clear_all}>CLEAR ALL &nbsp;&nbsp;</button> -->
+			<button data-id="mainclearall"  style={clearallbuttonSmallStyle} onclick={select_this_action}>CLEAR ALL &nbsp;&nbsp;&nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+			<!-- <lightning-layout horizontal-align="spread"> -->
+			<lightning-layout multiple-rows slds-grid_align-center>			
+				<lightning-layout-item size="3" small-device-size="6" medium-device-size="6" large-device-size="3" class="slds-p-left_x-large">
+					<fieldset class="slds-form-element ipad-type">
+						<legend class="slds-form-element__legend slds-form-element__label checkbox-group">Type
+							<br>
+							<button style={selectallbuttonSmallStyle} onclick={mkr_all_type} label="base"  ><u>Select All</u></button>&nbsp;&nbsp;
+							<button style={clearbuttonSmallStyle} onclick={unmkr_all_type} ><u>Clear</u></button>
+						</legend>
+						<div class="slds-form-element__control filter-div-group-desktop slds-scrollable_y">
+							<template for:each={typeFilters} for:item="filter">
+								<div class="slds-checkbox" key={filter.value}>
+									<input data-id="checkbox-filter" data-group="type" data-value={filter.value}
+										data-label={filter.label} type="checkbox" name="options" id={filter.value}
+										value={filter.value}  checked={filter.checked} onclick={handleFilterClick}/>
+									<label class="slds-checkbox__label" for={filter.value}>
+										<span class="slds-checkbox_faux"></span>
+										<span class="slds-form-element__label checkbox-label">{filter.label}</span>
+									</label>
+								</div>
+							</template>
+						</div>
+					</fieldset>
+				</lightning-layout-item>
+				<lightning-layout-item size="3" small-device-size="6" medium-device-size="6" large-device-size="3" class="slds-border_left slds-p-left_medium">
+					<fieldset class="slds-form-element ipad-market">
+						<legend class="slds-form-element__legend slds-form-element__label checkbox-group">Market
+							<Br>
+								<button  style={selectallbuttonSmallStyle} onclick={mkr_all_market} ><u>Select All</u></button>&nbsp;
+								<button style={clearbuttonSmallStyle} onclick={unmkr_all_market} ><u>Clear</u></button>
+						</legend>
+						<div class="slds-form-element__control filter-div-group-desktop  slds-scrollable_y">
+							<template for:each={marketFilters} for:item="filter">
+								<div class="slds-checkbox " key={filter.value}>
+									<input data-id="checkbox-filter" data-group="market" data-value={filter.value}
+										data-label={filter.label} type="checkbox" name="options" id={filter.value}
+										value={filter.value} checked={filter.checked} onclick={handleFilterClick}/>
+									<label class="slds-checkbox__label " for={filter.value}>
+										<span class="slds-checkbox_faux"></span>
+										<span class="slds-form-element__label checkbox-label">{filter.label}</span>
+									</label>
+								</div>
+							</template>
+						</div>
+					</fieldset>
+				</lightning-layout-item>
+				<lightning-layout-item size="3" small-device-size="6" medium-device-size="6" large-device-size="3" class="slds-border_left slds-p-left_medium">
+					<fieldset class="slds-form-element ipad-category">
+						<legend class="slds-form-element__legend slds-form-element__label checkbox-group">Category
+							<Br>
+								<button style={selectallbuttonSmallStyle} onclick={mkr_all_category} ><u>Select All</u></button>&nbsp;
+								<button style={clearbuttonSmallStyle} onclick={unmkr_all_category} ><u>Clear</u></button>
+						</legend>
+							<div class="slds-form-element__control filter-div-group-desktop  slds-scrollable_y">
+							<template for:each={categoryFilters} for:item="filter">
+								<div class="slds-checkbox" key={filter.value}>
+									<input data-id="checkbox-filter" data-group="category" data-value={filter.value}
+										data-label={filter.label} type="checkbox" name="options" id={filter.value}
+										value={filter.value}  checked={filter.checked} onclick={handleFilterClick}/>
+									<label class="slds-checkbox__label" for={filter.value}>
+										<span class="slds-checkbox_faux"></span>
+										<span class="slds-form-element__label checkbox-label">{filter.label}</span>
+									</label>
+								</div>
+							</template>
+						</div>
+					</fieldset>
+				</lightning-layout-item>
+				<lightning-layout-item size="3" small-device-size="6" medium-device-size="6" large-device-size="3" class="slds-border_left slds-p-left_medium">
+					<lightning-layout multiple-rows="true">
+						<lightning-layout-item>
+							<fieldset class="slds-form-element ipad-status">
+								<legend class="slds-form-element__legend slds-form-element__label checkbox-group">Status
+									<Br>
+										<button style={selectallbuttonSmallStyle} onclick={mkr_all_status} ><u>Select All</u></button>&nbsp;
+										<button style={clearbuttonSmallStyle} onclick={unmkr_all_status} ><u>Clear</u></button>
+								</legend>
+								<div class="slds-form-element__control filter-div-group-desktop slds-scrollable_y ">
+									<template for:each={statusFilters} for:item="filter">
+										<div class="slds-checkbox" key={filter.value}>
+											<input data-id="checkbox-filter" data-group="status" data-value={filter.value}
+												data-label={filter.label} type="checkbox" name="options" id={filter.value}
+												value={filter.value} checked={filter.checked} onclick={handleFilterClick}/>
+											<label class="slds-checkbox__label" for={filter.value}>
+												<span class="slds-checkbox_faux"></span>
+												<span class="slds-form-element__label checkbox-label">{filter.label}</span>
+											</label>
+										</div>
+									</template>
+								</div>
+							</fieldset>
+						</lightning-layout-item>
+						<lightning-layout-item>
+							<div class="slds-m-top_x-small checkbox-group">
+								<br/>
+								<lightning-formatted-text value="Select Date Range" ></lightning-formatted-text>
+								<button  style={cleardatebuttonSmallStyle} onclick={clear_daterange} ><u>Clear Dates</u></button>
+
+							</div>
+							<lightning-layout horizontal-align="space">
+								<lightning-layout-item flexibility="auto">
+									<label class="checkbox-label">Start Date</label><lightning-input class="dateInput" type="date" variant="label-hidden" name="startDate"  date-style="short" value={startDate} onchange={handleDateFilter}></lightning-input>
+								</lightning-layout-item>
+								<lightning-layout-item flexibility="auto" padding="horizontal-medium">
+									<label class="checkbox-label">End Date</label><lightning-input type="date" name="endDate" variant="label-hidden" date-style="short" value={endDate} onchange={handleDateFilter}></lightning-input>
+								</lightning-layout-item>
+							</lightning-layout>
+						</lightning-layout-item>
+						<lightning-layout-item>
+							<template if:true={dateValidationError}>
+								<div class="slds-p-top_x-small checkbox-label">
+									<p>{dateValidationMsg}</p>
+								</div>
+							</template>
+						</lightning-layout-item>
+					</lightning-layout>
+				</lightning-layout-item>
+			</lightning-layout>
+			<lightning-layout>
+				<lightning-layout-item class="slds-align_absolute-center slds-p-vertical_large" size="1">
+					<!-- <lightning-button class="button-apply slds-button_full-width" variant="base" label="Apply" title="Apply" onclick={handleFilter} ></lightning-button> -->
+					<button class={buttonApplyCss} onclick={handleFilter} >Apply</button>
+				</lightning-layout-item>
+			</lightning-layout>
+		</div>		
+
+	</template>
+	<!-- end of destktop device-->
+
+	<!-- bottom-->
+
+
+	<!-- bottom of the filter div-->
+ 
+
+</template>

@@ -1,0 +1,200 @@
+<template>
+    <lightning-card variant="narrow" icon-name="standard:actions_and_buttons">
+         <!-- Spinner -->
+         <div if:true={showLoadingSpinner}>
+            <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+        </div>
+        <div class="slds-p-around_medium lgc-bg slds-text-heading_small slds-m-around_small">
+            <lightning-icon icon-name="utility:info" alternative-text="Connected" size="small">
+            </lightning-icon>   
+            <span class="slds-p-around_x-small">        
+            A new case has been created. You must either click <span class="save_button">Save</span> or <span class="cancel_button">Cancel</span> before completing the interaction to prevent a negative customer experience.
+            </span> 
+        </div>
+        <h1 slot="title">Required Actions</h1>
+        <lightning-record-edit-form record-id={recordId} 
+                                    object-api-name={objectApiName} 
+                                    onload={onloadEditForm} 
+                                    onsubmit={onSubmitHandler} 
+                                    onerror ={handlError} 
+                                    onsuccess={handleSuccess}>
+            <!---->
+            <div class="slds-grid slds-wrap ">
+                <div  class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">
+                    <lightning-input-field field-name="Type" required="true" onchange={onCaseType}></lightning-input-field>
+                </div>
+
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">
+                    <lightning-input-field required="true" field-name="Priority" ></lightning-input-field>
+                </div>
+
+                <!-- <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">
+                    <lightning-input-field  required="true" field-name="CaseAction__c" onchange={onCaseAction} ></lightning-input-field>
+                </div> -->
+
+                <div  class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">
+                    <div class="slds-form" >
+                        <div class="slds-form-element slds-form-element_horizontal">
+                            <lightning-combobox
+                                field-level-help={caseActionHelpText}
+                                required="true"
+                                variant="label-inline"
+                                onchange={onCaseAction}
+                                name="CaseAction__c"
+                                data-name="CaseAction__c"
+                                label="Case Action"
+                                value={CaseAction}
+                                options={caseActionOptions} ></lightning-combobox>
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="slds-var-p-horizontal_small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">
+                    <lightning-input-field required="true" field-name="Severity__c" ></lightning-input-field>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">
+                    <lightning-input-field required="true" field-name="Response__c" ></lightning-input-field>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">
+                    <lightning-input-field field-name="Natural_Event__c" ></lightning-input-field>
+                </div>
+                <!-- Formatting div just to move redaction component to the new row -->
+                <div></div>
+                <template if:true={isSuccess}>
+                    <div class="slds-form-element__control slds-p-top_x-small slds-p-bottom_x-small slds-p-left_medium">
+                        <div class="slds-text-color_error">
+                            <span>
+                                {spiDataStatement}
+                            </span>
+                        </div>
+                    </div>
+                </template>
+                <!--<template if:true={showPaymentMethod}>-->
+
+
+    <div class="slds-var-p-horizontal_small slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12"></div>
+    <div class="slds-var-p-horizontal_small slds-var-p-bottom_small slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+        <!-- <c-bwc-redaction-agent-facing-cmp
+            record-id={recordId}
+            case-action={CaseAction}
+            onredactionstarted={handleRedactionStarted}
+            onredactionfinished={handleRedactionFinished}
+        ></c-bwc-redaction-agent-facing-cmp> -->
+    </div> 
+    
+                   <!--<c-bwc-payment-request data-name="paymentRequest"
+                                           record-id={recordId}
+                                           is-success={isSuccess}
+                                           show-refund={showRefund}
+                                           capabilities={capabilities}
+                                           oncashpaymentcheckedchange={handleCashPaymentToggleChange} 
+                                           ontriggeropensubtab={handleOpenSubTab} 
+                                           ></c-bwc-payment-request>-->
+               
+                 <template if:true={showTypeCustRfndFld}>
+                    <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">
+                        <lightning-input-field required="true"
+                                               class="slds-form-element" 
+                                               field-name="Type_of_Customer_Refund__c" 
+                                               onchange={handleCstmrRfndTypChng}></lightning-input-field>
+                    </div>
+                </template>
+                <lightning-layout multiple-rows>
+                <template for:each={lstOfModelCase} for:item="row" key={row.apiName} > 
+                  
+                            <lightning-layout-item key={row} padding="around-small" size="6">
+                            <lightning-input-field key={row} field-name={row.apiName}  required={row.isRequired} disabled={row.isDisabled}>
+                            </lightning-input-field>
+                            
+                            <template if:true={row.showHyperlink}>
+                                <!--strong>/</strong-->
+                                <template if:true={isOrderHyperlinkVisible} >
+                                    <c-bwc-order-hyperlink class="slds-p-left_x-small"
+                                        record-id={recordId}
+                                    ></c-bwc-order-hyperlink>
+                                </template>
+                           </template>
+                           
+                        </lightning-layout-item>
+                        
+                    </template>
+                        </lightning-layout>
+ 
+            
+                <div class="slds-p-horizontal--small slds-p-bottom_small slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1 slds-grid slds-wrap">
+
+                    <div class="slds-form slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12" if:true={isdyDropDown} >
+                        <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label" for="horizontal-input-id-01">Subscriber/CTN</label>
+                            <div class="slds-form-element__control">
+                                <lightning-combobox variant = "label-hidden" if:true={isdyDropDown}  onchange={onSelectItem}  name="SelectItems"  value={selectOptionsVal}  options={selectOpt}  ></lightning-combobox>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="slds-p-horizontal--small slds-p-bottom_small slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1 slds-grid slds-wrap">
+                    <template if:true={isShowAllItems}  for:each={allDyFields} for:item="row" >
+                        <div key={row.apiName} class="slds-form slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12" style="padding-top: 14px;">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label" for="horizontal-input-id-01">{row.fieldLabel}</label>
+                                <div class="slds-form-element__control">
+                                        {row.fieldVal}
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="slds-grid slds-p-horizontal--small slds-size--1-of-1">
+                    <div class="slds-col">
+                        <div>
+                            <lightning-input-field  field-name="Billing_Account_Customer_Name__c" disabled ></lightning-input-field>
+                        </div>
+
+                        <div>
+                            <lightning-input-field  field-name="Billing_Account_Customer_Phone__c" disabled ></lightning-input-field>
+                        </div>
+
+                        <div>
+                            <lightning-input-field  field-name="Billing_Account_Customer_Email__c" disabled ></lightning-input-field>
+                        </div>
+                    </div>
+                    <div class="slds-col">
+                        <div class="slds-p-horizontal--small">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label" >Alternate Name</label>
+                                <lightning-input-field variant="label-hidden" field-name="SuppliedName" ></lightning-input-field>
+                            </div>
+                        </div>
+                        <div class="slds-p-horizontal--small">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label" >Alternate Phone</label>
+                                <lightning-input-field variant="label-hidden" field-name="SuppliedPhone"></lightning-input-field>
+                            </div>
+                        </div>
+                        <div class="slds-p-horizontal--small">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label" >Alternate Email</label>
+                                <lightning-input-field variant="label-hidden" field-name="SuppliedEmail"></lightning-input-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="slds-p-top_medium slds-size--1-of-1 slds-clearfix">
+                <div class="slds-p-right_small slds-float_right">
+                    <lightning-input-field class="slds-hide"
+                                           field-name="Original_Payment_Type_is_Cash__c" value={paymentTypeCash}></lightning-input-field>
+                    <lightning-button class="slds-p-right_small slds-float_left" variant="Neutral" type="submit" onclick={cancelCase} name="Cancel" label="Cancel"></lightning-button>
+                    <lightning-button class="submit-button" variant="brand" type="submit" name="Save" label="Save" disabled={disabledButton}></lightning-button>
+                </div>
+            </div>
+        </lightning-record-edit-form >
+
+
+</lightning-card>
+</template>

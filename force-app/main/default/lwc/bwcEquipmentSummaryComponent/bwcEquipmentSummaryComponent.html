@@ -1,0 +1,25 @@
+<template>
+    <lightning-card title={cardTitle} icon-name='custom:custom100'>
+
+        <lightning-button-icon  icon-name="utility:refresh" variant="border-filled" alternative-text="Refresh" slot="actions" onclick={onRefresh}></lightning-button-icon>
+
+        <lightning-spinner if:true={isLoading} alternative-text="Loading"></lightning-spinner>
+
+        <div class="slds-m-bottom_x-small slds-grid slds-grid_align-center">
+            <c-bwc-notifications></c-bwc-notifications>
+        </div>
+
+        <template if:true={hasData}>
+            <lightning-datatable
+                    key-field="Id"
+                    data={data}
+                    columns={columns}
+                    hide-checkbox-column="true"
+                    default-sort-direction={defaultSortDirection}
+                    sorted-direction={sortDirection}
+                    sorted-by={sortedBy}
+                    onsort={onHandleSort}>
+            </lightning-datatable>
+        </template>
+    </lightning-card>
+</template>

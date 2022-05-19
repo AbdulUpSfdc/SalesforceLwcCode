@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="Prospect Lead Default Filter Application Event ">
+    <aura:attribute  name="SelectedLeadListName" type="String" />
+    <aura:attribute   name="LeadListName" type="List" />
+    <aura:attribute   name="render" type="Boolean" />
+</aura:event>

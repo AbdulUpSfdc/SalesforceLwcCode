@@ -1,0 +1,25 @@
+<template>
+
+    <div class={panelClass}>
+
+        <div class="slds-grid slds-grid_vertical-align-center section-title" onclick={handleExpandCollapseClick}>
+
+            <lightning-icon class="slds-p-around_x-small" size="small" icon-name={_iconName} alternative-text={displayTitle}></lightning-icon>
+
+            <div class="slds-m-left_x-small slds-grid slds-grow">
+                <div class="slds-text-heading_small title">{displayTitle}</div>
+                <div if:true={collapsible} class="slds-col_bump-left">
+                    <lightning-button-icon icon-name={switchIconName} class="slds-button__icon slds-button__icon_left slds-section__title-action-icon" variant="bare"></lightning-button-icon>
+                </div>
+            </div>
+
+        </div>
+
+        <div if:true={showText} class="slds-m-left_x-small slds-p-bottom_x-small">
+            <slot></slot>
+            <lightning-formatted-rich-text disable-linkify value={text}></lightning-formatted-rich-text>
+        </div>
+
+    </div>
+
+</template>

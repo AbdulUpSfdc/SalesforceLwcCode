@@ -1,0 +1,28 @@
+<template>
+  <lightning-card>
+    <header class="slds-modal__header">
+      <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Update Delegates</h2>
+    </header>
+    <lightning-record-edit-form record-id={recordId} object-api-name="Employee__c" layout-type="Compact">
+      <lightning-layout horizontal-align="center">
+
+        <lightning-layout-item padding="around-small">
+          <lightning-input-field field-name="Delegate_1__c" class="delegate1" onchange={deletegate1ChangeHandler}
+            variant="label-stacked"></lightning-input-field>
+        </lightning-layout-item>
+
+        <lightning-layout-item padding="around-small">
+          <lightning-input-field field-name="Delegate_2__c" class="delegate2" onchange={deletegate2ChangeHandler}
+            variant="label-stacked"></lightning-input-field>
+        </lightning-layout-item>
+
+      </lightning-layout>
+    </lightning-record-edit-form>
+    <div class="slds-align_absolute-center">
+      <lightning-button variant="brand" label="Save" type="submit" disabled={isDisabled} onclick={handleSave}>
+      </lightning-button>
+      <lightning-button variant="brand" label="Cancel" onclick={handleCancel} class="slds-m-left_medium">
+      </lightning-button>
+    </div>
+  </lightning-card>
+</template>

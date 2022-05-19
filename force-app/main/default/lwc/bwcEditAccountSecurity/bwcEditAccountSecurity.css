@@ -1,0 +1,21 @@
+.bold-output {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+section:focus {
+    outline-width: 0;
+}
+
+.full-page h2 {
+    font-size: 1.25rem;
+    font-weight: var(--lwc-fontWeightLight);
+}
+
+.full-page .modal-container {
+    padding-top: 1rem;
+}
+
+.modal-content {
+    overflow: visible;
+}

@@ -1,0 +1,11 @@
+<aura:component implements="lightning:isUrlAddressable,flexipage:availableForAllPageTypes">
+	<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:attribute name="contactId" type="String"/>
+    <aura:attribute name="contactname" type="String"/>
+    <aura:attribute name="response" type="String"/>
+    <aura:attribute name="contactDetailsResponse" type="String" />
+    <c:bwcDirectoryToolHeader contactId="{!v.contactId}" contactname="{!v.contactname}"></c:bwcDirectoryToolHeader>
+    <c:bwcDirectoryToolContactDetails codeName="{!v.contactId}" 
+                                         contactName="{!v.contactname}"
+                                         response = "{!v.response}"></c:bwcDirectoryToolContactDetails>    
+</aura:component>

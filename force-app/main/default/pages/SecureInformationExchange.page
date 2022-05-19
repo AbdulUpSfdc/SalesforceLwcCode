@@ -1,0 +1,44 @@
+<apex:page docType="html-5.0"
+  applyHtmlTag="false"
+  applyBodyTag="false"
+  lightningStylesheets="true"
+  showHeader="false"
+  showChat="false"
+  showQuickActionVfHeader="false"
+  action="{!initSecInfoExchg}"
+  controller="BWC_RedactionPaymentMethodController"
+  cache="false"
+  language="{!$CurrentPage.parameters.LANG}"
+>
+  <html>
+    <header>
+      <apex:includeLightning />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </header>
+
+    <body>
+      <div id="appDiv"></div>
+
+      <script>
+        $Lightning.use("c:LeadConsentApp", () =>
+          $Lightning.createComponent(
+            "c:bwcPaymentTypesCmp",
+            {
+              reqId: "{!JSENCODE($CurrentPage.parameters.OTID)}",
+              type: "{!JSENCODE(redactionType)}",
+              ban: "{!JSENCODE(ban)}",
+              nextDue: "{!dueDate}",
+              lang: "{!JSENCODE(language)}",
+              errorMessage: "{!JSENCODE(errorMessage)}",
+              isOtpVerified: "{!JSENCODE(IF(isOtpVerified, "true", "false"))}",
+              otp: "{!JSENCODE(otp)}",
+              cardLastFour: "{!JSENCODE(cardPaymentMethod)}",
+              capabilities: {!IF((capabilities != null),capabilities,"[]")}   //this line of code is already sanitized at server side
+            },
+            "appDiv"
+          )
+        );
+      </script>
+    </body>
+  </html>
+</apex:page>

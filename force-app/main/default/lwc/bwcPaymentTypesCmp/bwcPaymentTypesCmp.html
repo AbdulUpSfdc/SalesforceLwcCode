@@ -1,0 +1,257 @@
+<template>
+  <div class="wrapper" if:true={labels}>
+    <div class="header">
+      <div class="slds-page-header">
+        <div class="slds-page-header__row">
+          <div class="__slds-page-header__col_title">
+            <div class="slds-media">
+              <div class="slds-media__figure">
+                <div class="slds-global-header__logo att-logo">
+                  <span class="slds-assistive-text">AT&mp;T</span>
+                </div>
+              </div>
+              <div class="slds-media__body">
+                <div class="slds-page-header__name">
+                  <div class="slds-page-header__name-title"></div>
+                </div>
+                <p class="slds-page-header__name-meta"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="ioform">
+
+        <template if:true={isTitleAnAccountVisible}>
+          <!-- Title -->
+          <div class="whole-row _slds-text-title_bold_ slds-text-heading_large">
+            {labels.redactionTitle}
+          </div>
+          <!-- BAN# -->
+          <template if:true={ban}>
+            <div class="whole-row slds-text-heading_small">
+              {labels.accNumber} {ban}
+            </div>
+          </template>
+          <!-- Next due -->
+          <div class="slds-text-heading_small">{labels.nextDue}</div>
+          <div class="place-right slds-text-heading_small">{nextDue}</div>
+
+          <hr class="whole-row" />
+          
+        </template>
+
+        <template if:true={errorMessage}>
+          <div
+            class="whole-row slds-text-color_error slds-text-heading_large slds-text-align_center"
+          >
+            {currentErrorMessage}
+          </div>
+        </template>
+
+        <template if:true={successMessage}>
+          <div
+            class="whole-row slds-text-color_success slds-text-heading_large slds-text-align_center"
+          >
+            {successMessage}
+          </div>
+        </template>
+
+        <template if:true={isShowOTPMode}>
+          <div
+            class="whole-row slds-text-color_default slds-text-heading_medium slds-text-align_center"
+          >
+            {labels.otpMessage}
+          </div>
+          <div
+            class="whole-row slds-text-color_default slds-text-heading_large slds-text-align_center"
+          >
+            {otp}
+          </div>
+          <template
+            if:true={showOtpPollingSpinner}
+            class="whole-row _slds-align_absolute-center"
+          >
+            <div class="whole-row _slds-align_absolute-center">
+              <div class="slds-is-relative" style="margin-top: 3em">
+                <lightning-spinner
+                  size="medium"
+                  alternative-text="Checking"
+                ></lightning-spinner>
+              </div>
+            </div>
+            <div
+              class="whole-row slds-text-body_regular slds-text-align_center"
+              style="margin-top: 3em"
+            >
+              {labels.paymentWaitingOnAgent}...
+            </div>
+          </template>
+        </template>
+
+        <!-- Payment Methods Detail Form -->
+        <template if:true={showPaymentForms}>
+          <!-- <div class="whole-row _slds-text-title_bold_ slds-text-heading_large">
+            {labels.redactionTitle}
+          </div>
+          <div class="whole-row slds-text-heading_small">
+            {labels.accNumber} {ban}
+          </div>
+          <div class="slds-text-heading_small">{labels.nextDue}</div>
+          <div class="place-right slds-text-heading_small">{nextDue}</div>
+
+          <hr class="whole-row" /> -->
+
+          <template if:true={isRefundOnly}>
+            <div class="whole-row slds-text-heading_small bold">
+              {labels.refundMethodTitle}
+            </div>
+            <div class="whole-row">
+              <c-bwc-payment-types-selector-cmp
+                class="refund-payment"
+                labels={labels}
+                capabilities={refundCapabilities}
+                card-last-four={cardLastFour}
+                lang={lang}
+              >
+              </c-bwc-payment-types-selector-cmp>
+            </div>
+          </template>
+
+          <template if:false={isRefundOnly}>
+            <!-- Payment method chooser -->
+            <div class="whole-row slds-text-heading_small bold">
+              {labels.paymentMethodTitle}
+            </div>
+            <div class="whole-row">
+              <c-bwc-payment-types-selector-cmp
+                class="primary-payment"
+                labels={labels}
+                capabilities={primaryCapabilities}
+                card-last-four={cardLastFour}
+                lang={lang}
+                onmethodchanged={onPrimaryMethodChanged}
+              >
+              </c-bwc-payment-types-selector-cmp>
+            </div>
+
+            <template if:true={isRefund}>
+              <div class="refund-container-title">
+                {labels.refundTheSameMsg}
+              </div>
+              <div class="refund-container-title">
+                <div style="float: right">
+                  <template if:true={isRefundTheSame}>
+                    <template if:true={isRefundSwitchedEnabled}>
+                      <lightning-input
+                        type="toggle"
+                        label={labels.isRefundSameYES}
+                        name="showRefund"
+                        checked
+                        onclick={setDifferentRefund}
+                        message-toggle-active=""
+                      ></lightning-input>
+                    </template>
+                    <template if:false={isRefundSwitchedEnabled}>
+                      <lightning-input
+                        type="toggle"
+                        label={labels.isRefundSameYES}
+                        name="showRefund"
+                        checked
+                        message-toggle-active=""
+                        disabled
+                      ></lightning-input>
+                    </template>
+                  </template>
+                  <template if:false={isRefundTheSame}>
+                    <lightning-input
+                      type="toggle"
+                      label={labels.isRefundSameNO}
+                      name="showRefund"
+                      message-toggle-inactive=""
+                      onclick={setSameRefund}
+                    ></lightning-input>
+                  </template>
+                </div>
+              </div>
+
+              <div class="whole-row" if:false={isRefundTheSame}>
+                <div class="whole-row slds-text-heading_small bold">
+                  {labels.refundMethodTitle}
+                </div>
+                <div class="whole-row">
+                  <c-bwc-payment-types-selector-cmp
+                    class="refund-payment"
+                    labels={labels}
+                    capabilities={refundCapabilities}
+                    card-last-four={cardLastFour}
+                    lang={lang}
+                  >
+                  </c-bwc-payment-types-selector-cmp>
+                </div>
+              </div>
+            </template>
+          </template>
+
+          <!-- Submit button -->
+          <div><!-- left cell --></div>
+          <div>
+            <lightning-button
+              variant="brand"
+              class="stretched submit-payment"
+              label={labels.submitPaymentBtn}
+              onclick={submitData}
+            ></lightning-button>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <footer>
+      <ul class="footer-links">
+        <li>
+          <a href="https://www.att.com/legal/legal-policy-center.html"
+            >{labels.hlinkLegalPolicyCenter}</a
+          >
+        </li>
+        <li>
+          <a href="https://about.att.com/csr/home/privacy.html"
+            >{labels.hlinkPrivacyCenter}</a
+          >
+        </li>
+        <li>
+          <a href="https://www.att.com/legal/terms.attWebsiteTermsOfUse.html"
+            >{labels.hlinkTermsOfUse}</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://about.att.com/csr/home/privacy/full_privacy_policy.html#choice"
+            >{labels.hlinkAdvertChoices}</a
+          >
+        </li>
+        <li>
+          <a href="https://about.att.com/sites/broadband"
+            >{labels.hlinkBroadbandDetails}</a
+          >
+        </li>
+        <li>
+          <a href="https://about.att.com/sites/accessibility"
+            >{labels.hlinkAccessibility}</a
+          >
+        </li>
+        <li>
+          <a href="https://about.att.com/csr/home/privacy/rights_choices.html"
+            >{labels.hlinkDoNotSellPI}</a
+          >
+        </li>
+        <li><a href="#" onclick={toggleLanguage}>{languageLabel}</a></li>
+      </ul>
+    </footer>
+  </div>
+
+  <c-bwc-redaction-labels></c-bwc-redaction-labels>
+</template>

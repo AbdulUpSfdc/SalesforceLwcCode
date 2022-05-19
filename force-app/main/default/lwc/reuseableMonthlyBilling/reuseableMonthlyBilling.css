@@ -1,0 +1,22 @@
+.hover{
+    cursor: pointer;
+}
+
+.background{
+    background-color: white;
+}
+
+.backgroundPlan{
+    background-color: rgb(233 234 236);
+}
+
+.borderStyle{
+    border-color: #1b96ff;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.slds-visual-picker input:checked~label .slds-visual-picker__text{
+    border-color: #fff;
+    box-shadow: 0px
+}

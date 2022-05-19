@@ -1,0 +1,79 @@
+<template>
+    
+    <template if:true={error}>
+        <div class="slds-m-bottom_x-small">
+            <lightning-card variant="narrow" >
+                <div class="slds-m-left_medium slds-m-bottom_medium slds-m-right_medium errorText slds-align_absolute-center">
+                    <lightning-icon icon-name="utility:error" alternative-text="Error!" title="Error" size="x-small"></lightning-icon>&nbsp;<span class="errorText">Error retrieving Services</span>
+                    <lightning-helptext content={error}></lightning-helptext>
+                </div>
+            </lightning-card>
+        </div>
+    </template>
+    
+        <lightning-spinner if:true={isLoading}></lightning-spinner>
+        <div class="slds-box slds-box_xx-small">
+            <lightning-card  title='Current Existing Promotions/Discounts' icon-name='standard:contract' >
+                <span slot="actions">
+                    <lightning-button
+                        if:true={showEscalateButton}
+                        class="slds-m-right_small"
+                        label="Escalate Missing Promotion"
+                        icon-name="utility:case"
+                        variant="border-filled"
+                        onclick={onEscalate}>
+                    </lightning-button>
+                    <lightning-button label="Refresh" onclick={handleRefresh}></lightning-button>&nbsp;
+                </span>
+                <template if:true={showExistingPromotions}>
+                    <lightning-datatable
+                        class="slds-max-medium-table_stacked"
+                        key-field="Id"
+                        data={existingPromotions}
+                        columns={promotionColumns}
+                        hide-checkbox-column="true"
+                        wrap-text-max-lines="3"
+                        column-widths-mode="auto"
+                        default-sort-direction={defaultSortDirection}
+                        sorted-direction={sortDirection}
+                        sorted-by={sortedBy}
+                        onsort={onHandleSort}
+                        onrowaction={handleRowAction}
+                        >
+                    </lightning-datatable>
+                </template>
+                <template if:true={showEmptyExistingPromotions}>
+                    <div  class="slds-align_absolute-center">
+                        {label.noexistingpromotions}
+                </div>
+            </template>
+            </lightning-card>
+        </div>
+    <br />
+      <div if:true={showExpiredPromotions} class="slds-box slds-box_xx-small">
+          <lightning-card  title='Expired Promotions/Discounts' icon-name='standard:contract' >
+              <span slot="actions">
+                  <lightning-button label="Refresh" onclick={handleRefresh}></lightning-button>&nbsp;
+              </span>
+              <template if:true={showExpiredPromotions}>
+                  <lightning-datatable
+                      class="slds-max-medium-table_stacked"
+                      key-field="Id"
+                      data={expiredPromotions}
+                      columns={promotionColumns}
+                      wrap-text-max-lines="3"
+                      column-widths-mode="auto"
+                      hide-checkbox-column="true"
+                      onrowaction={handleRowAction}
+                      >
+                  </lightning-datatable>
+              </template>
+              <div if:true={showEmptyExpiredPromotions} class="slds-align_absolute-center">
+                  {label.noexpiredpromotions}
+             </div>
+          </lightning-card>
+      </div>
+
+      <c-bwc-promotion-details-expand promo-details = {selectedPromotion}></c-bwc-promotion-details-expand>
+
+</template>

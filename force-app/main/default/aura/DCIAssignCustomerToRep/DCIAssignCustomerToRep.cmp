@@ -1,0 +1,8 @@
+<aura:component controller = "DCIChangeCustomerStatusController" implements="flexipage:availableForAllPageTypes,force:appHostable,force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:actionOverride,lightning:isUrlAddressable" access="global" >
+    <aura:attribute type="String" name="notificationmessage"/>
+    <aura:attribute type="Boolean" name="isValidStatus" default="false" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:if isTrue="{!v.isValidStatus}">
+        <c:dCIChangeCustomerStatusConfirmation  recordId="{!v.recordId}" actionType="AssignCustomer" onsubmitaction="{!c.handleSubmit}" oncloseaction="{!c.handleCancel}"></c:dCIChangeCustomerStatusConfirmation>
+    </aura:if>
+</aura:component>

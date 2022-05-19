@@ -1,0 +1,8 @@
+<aura:component  controller="BWC_UnauthDeviceIssues" implements="force:hasRecordId,force:lightningQuickActionWithoutHeader">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="TSRMConfigs" type="object" />
+
+
+
+</aura:component>

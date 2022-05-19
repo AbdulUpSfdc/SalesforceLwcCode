@@ -1,0 +1,54 @@
+<template>
+
+    <div class="top-panel">
+
+        <div class="slds-grid slds-grid_vertical slds-var-p-around_small slds-align_absolute-center">
+
+            <div class="slds-text-heading_medium slds-align_absolute-center">
+                <strong>{title}</strong>
+            </div>
+
+            <div class="slds-var-m-top_small">
+
+                <c-bwc-notifications onactionclick={handleActionClick}></c-bwc-notifications>
+
+                <div if:true={showLicButton} class="slds-var-m-top_small">
+                    <lightning-button label="Authenticate in Legacy System" onclick={handleLic}></lightning-button>
+                </div>
+
+            </div>
+
+            <div class="content-panel slds-is-relative slds-grid slds-grid_vertical slds-grid_vertical-align-center">
+
+                <div if:true={isBusy}>
+                    <lightning-spinner alternative-text="Loading..." size="large"></lightning-spinner>
+                </div>
+
+                <!-- Authenticate -->
+                <div if:true={isAuthenticating} style="width: 100%;">
+                    
+                    <c-bwc-authenticate onauthenticated={handleAuthenticated} onlic={handleLic}></c-bwc-authenticate>
+
+                </div>
+
+                <!-- CPNI Consent -->
+                <div if:true={isShowingCpni}>
+
+                    <c-bwc-cpni-consent record-id={recordId} oncpnisubmitted={handleCpniConsentSubmitted}></c-bwc-cpni-consent>
+
+                </div>
+
+                <!-- CPNI Consent -->
+                <div if:true={showLegacyAuthScreen}>
+
+                    <c-bwc-authenticate-legacy-system onback={backToAuthentication}></c-bwc-authenticate-legacy-system>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</template>

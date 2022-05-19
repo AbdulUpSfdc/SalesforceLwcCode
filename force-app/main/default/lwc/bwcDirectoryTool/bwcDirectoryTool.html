@@ -1,0 +1,129 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading..." size="large" variant="brand"></lightning-spinner>
+    </template>
+    <template if:true={showDT}>
+        <div class="userDetails">
+            <c-bwc-Directory-Tool-Header feed-back-disabled=true onsavesettings={handleSaveSettings}></c-bwc-Directory-Tool-Header>
+            <!--Search Card-->
+            <article class="slds-card slds-var-m-vertical_small">
+                <div class="slds-card__header slds-grid" style="padding: 0px; margin-bottom: -8px;">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate searchHeader">
+                        <div class="seacrhCard">
+                            <!--Search Directory and Quick List Grid Start-->
+                            <div class="slds-grid">
+                                <!--Quick List Section Start-->
+                                <div class="slds-col slds-size_6-of-12 quickList">
+                                    <div class="slds-grid">
+                                        <div class="slds-col slds-size_1-of-12 slds-var-m-top_xxx-small slds-var-m-right_medium">
+                                            
+                                        </div>
+                                        <div class="slds-col slds-size_10-of-12 slds-var-m-top_xxx-small slds-var-m-right_medium">
+                                            <h1 style="font-size:20px; margin-bottom:2%; font-weight:bold"> Quick Lists </h1> 
+                                            <lightning-spinner alternative-text="Loading..." size="large" variant="brand" if:true={isLoadingQuickList}></lightning-spinner>
+                                                <template if:false={hasQuickLists}>
+                                                    No Quick Lists has been assigned.
+                                                </template>
+                                                <template if:true={hasQuickLists}>
+
+                                                    
+                                                <lightning-layout multiple-rows="true" >                                    
+                                                    <template for:each={quickList} for:item="q">
+                                                        <lightning-layout-item size="6" key={q.quicklistid} class=quickLinks>
+                                                            <li><a data-id={q.quicklistid} class={q.quicklistClass} onclick={handleQuickListClick}>{q.quicklistname}</a></li>
+                                                        </lightning-layout-item>
+                                                    </template>    
+                                                </lightning-layout>      
+                                            </template>                  
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Quick List Section End-->
+
+                                <!--Search Directory Section Start-->
+                                <div class="slds-col slds-size_6-of-12 searchDir">
+                                    <div class="slds-grid">
+                                        <div class="slds-col slds-size_1-of-12 slds-var-m-top_xxx-small slds-var-m-right_medium">
+
+                                        </div>
+                                        <div class="slds-col slds-size_10-of-12 slds-var-m-top_xxx-small slds-var-m-right_medium">
+                                            <h1 style="font-size:20px; margin-bottom:2%; font-weight:bold"> Search Directory </h1>
+                                            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                                                <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" aria-hidden="true">
+                                                    <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#search"></use>
+                                                </svg>
+                                                <input type="text" placeholder="Search Name or Code" class="slds-input" data-name="searchkey" onkeyup={handleSearchChange}/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid" style="margin-top:5%">
+                                        <div class="slds-col slds-size_1-of-12 slds-var-m-top_xxx-small slds-var-m-right_medium">
+
+                                        </div>
+                                        <div class="slds-col slds-size_10-of-12 slds-var-m-top_xxx-small slds-var-m-right_medium">
+                                            <div class="slds-form-element__control">
+                                                <lightning-combobox
+                                                    name="Channel"
+                                                    label="Channel"
+                                                    value={channelSelected}
+                                                    placeholder="Select Channel"
+                                                    options={ChannelOptions}
+                                                    onchange={handleChannelChange} >
+                                                </lightning-combobox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid" style="margin-top:5%">
+                                        <div class="slds-col slds-size_6-of-12 slds-var-m-top_xxx-small slds-var-m-right_medium">
+
+                                        </div>
+                                        <div class="slds-col slds-size_6-of-12 slds-var-m-top_xxx-small slds-var-m-right_medium">
+                                            <button class="slds-button slds-button_brand" style="float: right;margin-bottom:3%;margin-right:17%;width:30%" onclick={handleSearch} title="Search">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Search Directory Section End-->
+                            </div>
+                            <!--Search Directory and Quick List Grid End-->
+                            <!--Search Results Grid Start-->
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_12-of-12 searchResults">
+                                    <!--Search Results Header Start-->
+                                    <header class="slds-media slds-media_center slds-has-flexi-truncate searchHeader">
+                                        <div class="slds-media__figure">
+                                            <span class="slds-icon_container slds-icon-standard-account" title="User Information">
+                                                <svg class="slds-icon slds-icon_medium slds-icon_container slds-icon-standard-brand" aria-hidden="true">
+                                                <use xlink:href="/apexpages/slds/latest/assets/icons/standard-sprite/svg/symbols.svg#orders"></use>
+                                                </svg>
+                                                <span class="slds-assistive-text">User Information</span>
+                                            </span>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <h2 class="slds-card__header-title">
+                                                <div class="slds-truncate">
+                                                    <span style="font-size: 20px;font-weight:bold">Search Results</span>
+                                                </div>
+                                            </h2>
+                                        </div>
+                                        <div class="slds-no-flex">
+                                            <span class="lastUpdated">Status Last Updated : {statusUpdateTime}</span>
+                                            <lightning-button-icon icon-name="utility:refresh"  alternative-text="Refresh" title="Refresh" onclick={handleSearchRefresh}></lightning-button-icon>
+                                        </div>
+                                    </header>
+                                    <!--Search Results Header End-->
+                                    <c-bwc-Directory-Tool-Search-Results show-results={showResults}>
+                                    </c-bwc-Directory-Tool-Search-Results>
+                                </div>
+                            </div>
+                            <!--Search Results Grid End-->
+                        </div>                        
+                    </header>
+                </div>
+                
+            </article>
+            <!--Quick List Modal Popup-->
+        </div>
+        
+
+    </template>
+</template>

@@ -1,0 +1,19 @@
+[
+    {
+        "accountId": "287245899042",
+        "accountType": "wireless",
+        "authUserType": "",
+        "record": {
+            "users": [
+                {
+                    "slid": "jonhperezs@slid.dum",
+                    "associationType": "OWNER",
+                    "authUserType": "online",
+                    "firstName": "JONH",
+                    "lastName": "PEREZ S"
+                }
+            ],
+            "systemOfRecord": "MPSYS-REALTIME"
+        }
+    }
+]

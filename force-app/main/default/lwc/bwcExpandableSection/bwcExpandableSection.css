@@ -1,0 +1,15 @@
+.section-title {
+    background-color: var(--lwc-colorBackground);
+    font-weight: 600;
+    font-size: 16px;
+}
+
+div.closed > div {
+    height: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+
+div.closed lightning-icon {
+    transform: rotate(-90deg) !important;
+}

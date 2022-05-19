@@ -1,0 +1,17 @@
+<aura:component controller="DCIController" implements="flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+<aura:attribute name="buttonName" type="String"/>
+<aura:attribute name="message" type="String"/>
+<aura:attribute name="repStore" type="String"/>
+<aura:attribute name="repStatus" type="String"/>
+<lightning:navigation aura:id="navigation"/>
+<h1>Your Current Status : <b>{!v.repStatus}</b></h1>
+<h1>Your Store : <b>{!v.repStore}</b></h1>
+<br></br>
+<lightning:button variant="destructive-text" name="Offline" label="Go Offline" title="Go Offline"  onclick="{! c.handleClick }"/>
+<lightning:button variant="success" name="Online" label="Go Online" title="Online" onclick="{! c.handleClick }"/>
+<lightning:button variant="brand" name="Get Next Customer" label="Get Next Customer" title="Get Next Customer" onclick="{!c.handleNextCustomer}"/> 
+<br></br>
+<br></br>
+<h3><b>{!v.message}</b></h3>
+</aura:component>

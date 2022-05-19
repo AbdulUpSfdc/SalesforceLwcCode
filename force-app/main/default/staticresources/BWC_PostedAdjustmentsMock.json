@@ -1,0 +1,46 @@
+[
+    {
+        "accountNumber": "177016016600",
+        "accountType": "wireless",
+        "adjHistView": [
+            {
+                "adjGroupId": "0.0",
+                "adjReversed": "N",
+                "amount": "26.0",
+                "amsProduct": "",
+                "balanceImpact": "Y",
+                "billDate": "20100305",
+                "billedInd": "Y",
+                "billPeriod": "",
+                "chgGroupId": "0.0",
+                "adjCreationDate": "20100402",
+                "displayOnBill": "Y",
+                "level": "Charge",
+                "pricePerUnit": "0.0",
+                "productType": "M",
+                "quantity": "0",
+                "reason": "ACTSEB",
+                "source": "CSM",
+                "sourceBan": "0",
+                "subscriberNo": "2144503203",
+                "tax": "3.97",
+                "total": "29.97",
+                "userId": "77091362",
+                "userLoginID": "bj265s",
+                "userOrSystemBillText": "Activation Fee / Service Establishment Fee-Waiver"
+            }
+        ],
+        "amountToCorrect": "$1,217.60",
+        "amountToSatisfy": "$752.00",
+        "lastAdjustmentDate": "20190531",
+        "moreRows": "0",
+        "numAdjToCorrect": "160",
+        "numAdjToSatisfy": "24",
+        "rowCount": "184",
+        "sumAllActvAmt": "$1,969.60",
+        "sumAllTax": "$348.31",
+        "sumAllTotal": "$2,317.91",
+        "sumNumAdjToCorrectAndToSatisfy": "184",
+        "sumAmountToCorrectAndToSatisfy": "$1,969.60"
+    }
+]

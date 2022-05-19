@@ -1,0 +1,26 @@
+<template>
+  <!--HEADER Section-->
+  <div class="slds-modal__header">
+      <div class="slds-text-heading_medium">Change Owner</div>
+  </div>
+
+  <!--BODY Section-->
+  <div class="slds-modal__content slds-p-around_medium">
+      <div class="slds-text-align_left slds-p-bottom_x-small">New Owner:</div>
+      <div style="padding-bottom: 200px;">
+          <c-look-up use-case="CHANGE_LEAD_OWNER" additional-data={lookupInfo} lookup-label="" object-api-name="User" icon-name="standard:user" onlookupitemselected={onUserSelected}></c-look-up>
+      </div>
+  </div>
+
+  <!--FOOTER Section-->
+  <div class="slds-modal__footer" padding=around_small>
+  <lightning-layout>
+   <lightning-layout-item padding="around-small">
+      <lightning-button class="slds-button slds-button_brand" icon-name="utility:save" label="Save" variant="brand" onclick={onSave}></lightning-button>
+	 </lightning-layout-item>
+	  <lightning-layout-item padding="around-small">
+	 <lightning-button class="slds-button slds-button_brand"  icon-name="utility:close" label="Close" variant="brand" onclick={onClose}></lightning-button> 
+   </lightning-layout-item>
+   </lightning-layout>
+  </div>
+</template>

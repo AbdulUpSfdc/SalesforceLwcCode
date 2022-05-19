@@ -1,0 +1,90 @@
+<template>
+    <lightning-layout multiple-rows="true" style="padding: 0px 30px 0px 30px;">
+ <!--
+        <lightning-layout-item padding="around-small" style="margin-top: -1.5em;">
+            <div class="frontline-header"><b>{article.title}</b></div>
+            <div style="display: inline-flex;">
+                <div style="display:inline-flex">
+                    <div class="frontline-text-footer"><b>#</b></div>
+                    <div class="frontline-text-footer slds-truncate" style="max-width:100px">{article.cspId}</div>
+                    &nbsp;&nbsp;&nbsp;
+                </div>
+                <div style="display:inline-flex">
+                    <div class="frontline-text-footer"><b>Published:</b></div>
+                    &nbsp;
+                    <div class="frontline-text-footer">{article.updateddate}</div>
+                    &nbsp;&nbsp;&nbsp;
+                </div>
+                <div style="display:inline-flex">
+                    <div class="frontline-text-footer"><b>Valid</b></div>
+                    &nbsp;
+                    <div class="frontline-text-footer">{article.validity}</div>
+                </div>
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item size="12" padding="around-small">
+            <lightning-formatted-rich-text value={article.summary}></lightning-formatted-rich-text><br />
+            <lightning-formatted-rich-text value={article.previewImageFull}></lightning-formatted-rich-text><br />
+        </lightning-layout-item>
+    -->
+
+<!-- task 5683 make desktop like IPAD -->
+<!--
+    <template if:true={IS_DESKTOP}>    
+        <lightning-layout-item if:true={showRelatedLink} size="12" padding="around-small">
+            <div>
+                Related Links:
+            </div>
+            <div>
+                <ul>
+                    <li>
+                        <lightning-formatted-rich-text value={article.externalLink}></lightning-formatted-rich-text>
+                    </li>
+                    <li>
+                        <lightning-formatted-rich-text value={article.extrnalURL}></lightning-formatted-rich-text>
+                    </li>
+                </ul>
+            </div>
+        </lightning-layout-item>
+    </template>
+-->
+
+        <lightning-layout-item padding="around-small" size="12">
+            <c-voting-component if:true={article.knowledgeArticleId} knowledge-article-id={article.knowledgeArticleId}>
+            </c-voting-component>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="12" style="margin-top: -1.5em;">
+            <c-create-feedback-cmp record-id={recordId}></c-create-feedback-cmp>
+        </lightning-layout-item>
+<!--
+        <lightning-layout-item padding="around-small" size="12" style="margin-top: -1.5em;">
+            <c-related-feedback-component if:true={article.knowledgeArticleId}
+                knowledge-article-id={article.knowledgeArticleId}></c-related-feedback-component>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="12" style="margin-top: -1.5em;">
+            <c-consolidated-related-feedback if:true={article.knowledgeArticleId}
+                knowledge-article-id={article.knowledgeArticleId}></c-consolidated-related-feedback>
+        </lightning-layout-item>
+    -->        
+</lightning-layout>
+    <template if:true={showShareModal}>
+
+        <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <p><strong>{smartURL}</strong></p>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="brand" label="OK" title="OK" class="slds-m-left_x-small"
+                        onclick={hideModal}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+ 
+
+
+</template>

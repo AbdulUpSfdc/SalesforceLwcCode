@@ -1,0 +1,143 @@
+.buttoncss{
+  width: 25px;
+  text-align: center;
+  height: 50px;
+  background-color:grey;
+  border-radius: 4px;
+  padding-top: 15px;
+  color: white;
+}
+
+
+.card{
+  width: 500px;
+  height: 300px;
+}
+
+.rows{
+  width: 500px;
+  height: 150px;
+}
+.column{
+  /*width: 75%;*/
+  float: left;
+  width: 100%;
+  background-color: none;
+}
+
+.left {
+  width: 75%;
+  height: auto;
+  height: 300px;
+}
+
+.right {
+  width: 25%;
+  height: 300px;
+}
+
+.holder{
+    width: 75%;
+    display: inline-block;
+}
+
+img{
+  width: inherit;
+  height: inherit;
+  margin-left: 5%;
+}
+
+.holder1{
+  width: 25%;
+  display: inline-block;
+  height: 300px;
+  vertical-align: middle;
+}
+
+td{
+  height: 300px;
+}
+/*
+img{
+  height:300px;
+}*/
+
+.slds-carousel{
+  position: top;
+}
+.the-div{
+  height: 100%;
+}
+/*
+.holder1-row1{
+  display: inline-block;
+  top: 20px;
+  right: 1px;
+  height: 85%;
+}
+*/
+/*.slds-
+*/
+.slds-carousel__panel-action{
+  color: none;
+  border: none;
+}
+.slds-text-link_reset{
+  color: none;
+  border: none;
+}
+.slds-carousel__panel{
+  color: none;
+  border: none;
+}
+/*
+.holder1 div{
+  height: 50%;
+}
+*/
+.holder3{
+  width: 25%;  
+}
+
+.row2{
+  height: 15%;
+  width: auto;
+  border-top: 1px solid grey;
+}
+.col1{
+  float: left;
+  left: 5px;
+  width: 33.33%;
+}
+
+.col2{
+  float: left;
+  width: 33.33%;
+}
+.col3{
+  float: right;
+  width: 33.33%;
+}
+.row1{
+  height:85%;
+  vertical-align: middle;
+  position: relative;
+}
+h2{
+  color: grey;
+  text-align: left;
+}
+p{
+  color: grey;
+  text-align: left;
+}
+.innercontainer{
+  position: absolute;
+  top:30%
+}
+
+table{
+  width: 75%;
+  margin-left: 10%;
+  margin-right: 15%;
+}

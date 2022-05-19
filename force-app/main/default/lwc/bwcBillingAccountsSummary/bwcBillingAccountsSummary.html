@@ -1,0 +1,31 @@
+<template>
+    <lightning-card title="Billing Accounts Summary" icon-name="standard:display_text"  >
+
+        <lightning-spinner if:true={isLoading} alternative-text="Loading Billing Account Summary" ></lightning-spinner>
+
+        <div class="slds-grid slds-grid_vertical table-container">
+
+            <c-bwc-notifications></c-bwc-notifications>
+
+            <div if:true={showTable} class="slds-col">
+                <c-bwc-billing-accounts-summary-table
+                    key-field="Id"
+                    data={tableData}
+                    hide-checkbox-column
+                    columns={columns}
+                    default-sort-direction={defaultSortDirection}
+                    sorted-direction={sortDirection}
+                    sorted-by={sortedBy}
+                    onsort={onHandleSort}
+                >
+                </c-bwc-billing-accounts-summary-table>
+            </div>
+
+            <div if:true={showEmpty} class="slds-align_absolute-center">
+                No data found
+            </div>
+        </div>
+
+    </lightning-card>
+
+</template>

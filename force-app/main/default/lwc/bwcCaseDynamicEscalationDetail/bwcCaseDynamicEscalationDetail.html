@@ -1,0 +1,157 @@
+<template>
+
+    <c-bwc-expandable-section title={title} >
+
+        <div class="slds-theme_default slds-p-around_small">
+
+            <template if:true={isReadOnly}>
+
+                <lightning-spinner if:true={isViewFormLoading} alternative-text="Loading view form" ></lightning-spinner>
+
+                <lightning-record-view-form
+                    record-id={recordId}
+                    object-api-name={objectApiName}
+                    onload={handleViewLoad}
+                    >
+                    <div class="slds-align_absolute-center slds-m-bottom_small">
+                        <lightning-button if:true={userHasEditAccess.data} label="Edit" variant="brand" onclick={showEditForm} ></lightning-button>
+                    </div>
+                    <div class="slds-grid slds-wrap">
+
+                        <template for:each={readOnlyFields} for:item="field" >
+                            <div key={field.apiName} class={field.cssClass} >
+                                <div class="slds-grid"> 
+                                    <div class="slds-col">
+                                        <lightning-output-field field-name={field.apiName} variant="label-stacked" ></lightning-output-field>
+                                    </div>
+                                    <!-- SPTSFDCSPT_8366_START -->
+                                    <div class="slds-col slds-p-top_large"> 
+                                        <template if:true={field.showHyperlink}>
+                                            <template if:true={isOrderHyperlinkVisible} >
+                                                <c-bwc-order-hyperlink 
+                                                    record-id={recordId}
+                                                ></c-bwc-order-hyperlink>
+                                            </template>
+                                        </template>
+                                    </div>
+                                    <!-- SPTSFDCSPT_8366_END -->
+                                </div>
+                            </div>
+                        </template>
+
+                        <div  class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">
+                            <div class="slds-form">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="horizontal-input-id-01">Alternate Name</label>
+                                    <lightning-output-field variant='label-hidden' field-name="SuppliedName" ></lightning-output-field>
+                                 </div>
+                            </div>
+                        </div>
+
+                        <div  class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">
+                            <div class="slds-form">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="horizontal-input-id-01">Alternate Phone</label>
+                                    <lightning-output-field variant='label-hidden' field-name="SuppliedPhone" ></lightning-output-field>
+                                 </div>
+                            </div>
+                        </div>
+
+                        <div  class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">
+                            <div class="slds-form">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="horizontal-input-id-01">Alternate Email</label>
+                                    <lightning-output-field variant='label-hidden' field-name="SuppliedEmail" ></lightning-output-field>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-align_absolute-center slds-m-top_small">
+                        <lightning-button if:true={userHasEditAccess.data} label="Edit" variant="brand" onclick={showEditForm} ></lightning-button>
+                    </div>
+                </lightning-record-view-form>
+            </template>
+
+            <template if:false={isReadOnly}>
+
+                <lightning-spinner if:true={isEditFormLoading} alternative-text="Loading edit form" ></lightning-spinner>
+
+                <lightning-record-edit-form
+                    record-id={recordId}
+                    object-api-name={objectApiName}
+                    onload={handleEditLoad}
+                    onsubmit={handleSubmit}
+                    onerror ={handleError}
+                    onsuccess={handleSuccess}
+                    >
+
+                    <!-- Form Buttons -->
+                    <div class="slds-align_absolute-center slds-m-bottom_small">
+                        <lightning-button label="Cancel" variant="neutral" onclick={hideEditForm} ></lightning-button>
+                        <lightning-button class="slds-m-left_small" label="Save" variant="brand" type="submit" ></lightning-button>
+                    </div>
+
+                    <div class="slds-grid slds-wrap">
+
+                        <!-- fields from fieldset -->
+                        <template for:each={caseActionfieldSet} for:item="field">
+                            <div key={field.apiName} class={field.cssClass}>
+                                <template if:false={field.readOnly}>
+                                    <lightning-input-field field-name={field.apiName} required={field.isRequired} variant="label-stacked" ></lightning-input-field>
+                                </template>
+                                <template if:true={field.readOnly}>
+                                    <lightning-output-field field-name={field.apiName} required={field.isRequired} variant="label-stacked" ></lightning-output-field>
+                                </template>
+                            </div>
+                        </template>
+
+                        <!-- Selected CTN fields -->
+                        <div class="slds-p-bottom_small slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1 slds-grid slds-wrap">
+                            <template for:each={ctnFieldset} for:item="field">
+                                <div key={field.apiName} class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">
+                                    <lightning-output-field field-name={field.apiName} variant="label-stacked" ></lightning-output-field>
+                                </div>
+                            </template>
+                        </div>
+
+
+                        <div  class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">
+                            <div class="slds-form">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="horizontal-input-id-01">Alternate Name</label>
+                                    <lightning-input-field variant='label-hidden' field-name="SuppliedName" ></lightning-input-field>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div  class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">
+                            <div class="slds-form">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="horizontal-input-id-01">Alternate Phone</label>
+                                    <lightning-input-field variant='label-hidden' field-name="SuppliedPhone" ></lightning-input-field>
+                                 </div>
+                            </div>
+                        </div>
+
+                        <div  class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--6-of-12">
+                            <div class="slds-form">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="horizontal-input-id-01">Alternate Email</label>
+                                    <lightning-input-field variant='label-hidden' field-name="SuppliedEmail" ></lightning-input-field>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Buttons  -->
+                    <div class="slds-align_absolute-center slds-m-top_small">
+                        <lightning-button label="Cancel" variant="neutral" onclick={hideEditForm} ></lightning-button>
+                        <lightning-button class="slds-m-left_small" label="Save" variant="brand" type="submit" ></lightning-button>
+                    </div>
+                </lightning-record-edit-form>
+
+            </template>
+        </div>
+    </c-bwc-expandable-section>
+
+</template>

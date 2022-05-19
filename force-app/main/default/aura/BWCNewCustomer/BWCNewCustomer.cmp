@@ -1,0 +1,6 @@
+<aura:component>
+    <lightning:messageChannel type="BWC_MsgToNewCustomer__c" onMessage="{!c.handleNewCustomerMessage}" />
+
+    <aura:attribute name="opusWindow" type="Object" />
+    <aura:attribute name="currentTab" type="String" />
+</aura:component>

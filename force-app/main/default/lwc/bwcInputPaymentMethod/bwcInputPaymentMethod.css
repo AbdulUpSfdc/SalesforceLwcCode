@@ -1,0 +1,16 @@
+.radio-div {
+    padding-top: .4rem;
+}
+
+.brand {
+    color: var(--lwc-colorTextBrand);
+}
+
+.selected {
+    background-color: #F7FBFF;
+}
+
+.input {
+    width: 14rem;
+    padding-bottom: 0.4rem;
+}

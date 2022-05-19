@@ -1,0 +1,69 @@
+<template>
+    <template if:true={showSpinner}>
+        <div class="spinner">
+            <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+        </div>
+    </template>
+<div class="slds-box slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none custom-box">
+    <div class="slds-card__header-title slds-m-top_small slds-m-left_medium">Data Feed Request</div>
+    <div class="slds-m-top_small slds-m-left_medium">Enter Data Feed, then Select Transaction Numbers OR Start Date/Time & End Date/Time</div>
+    
+    <div class="float-container">
+
+        <div class="float-child">
+            <div class="custom-box slds-box slds-p-around_medium">
+                <lightning-input required  name="selectedValue" type="text" label="Enter Data Feed Name"></lightning-input>
+            </div>
+        </div>
+
+        <div class="float-child">
+            <div class="custom-box slds-box slds-p-around_medium">
+                <lightning-input name="transactionNumbers" type="text" label="Transaction Numbers"></lightning-input>
+            </div>
+        </div>
+
+        <div class="float-child">
+            <div class="custom-box slds-box slds-p-around_medium">
+                <lightning-input type="datetime" data-id="startDate" name="startDate" label="Start Date" message-when-range-overflow="Start date has to be a past date and time" value="" max={maxDate} onchange={checkDates}></lightning-input>
+            </div>
+        </div>
+        <div class="float-child">
+            <div class="custom-box slds-box slds-p-around_medium">
+                <lightning-input type="datetime" data-id="endDate" name="endDate" label="End Date" message-when-range-overflow="End date has to be after start date and a past date & time" value="" max={maxDate} onchange={checkDates}></lightning-input>
+            </div>
+        </div>
+
+
+
+    </div>
+    <div style="clear: both;"></div>
+    
+    <!-- <lightning-layout multiple-rows>
+        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="3" padding="around-small">
+            <div class="custom-box slds-box slds-p-around_medium">
+                <lightning-input required  name="selectedValue" type="text" label="Enter Data Feed Name"></lightning-input>
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="3" padding="around-small">
+            <div class="custom-box slds-box slds-p-around_medium">
+                <lightning-input name="transactionNumbers" type="text" label="Transaction Numbers"></lightning-input>
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="3" padding="around-small">
+            <div class="custom-box slds-box slds-p-around_medium">
+                <lightning-input type="datetime" data-id="startDate" name="startDate" label="Start Date" value="" max={maxDate}></lightning-input>
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="3" padding="around-small">
+            <div class="custom-box slds-box slds-p-around_medium">
+                <lightning-input type="datetime" data-id="endDate" name="endDate" label="End Date" value="" max={maxDate}></lightning-input>
+            </div>
+        </lightning-layout-item>
+    </lightning-layout> -->
+    <div class="slds-align_absolute-center">
+        <lightning-button variant="destructive" label="Submit" title="Submit" onclick={handleSubmit} class="slds-m-top_x-small slds-m-bottom_medium"></lightning-button>
+    </div>
+</div>
+
+
+</template>

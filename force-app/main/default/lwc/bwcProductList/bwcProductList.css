@@ -1,0 +1,18 @@
+.section {
+    background-color: var(--lwc-colorBackground);
+}
+
+.inner-spinner {
+    min-height: 2.5rem;
+}
+
+.errorText {
+    font-family: 'Salesforce Sans', Arial, sans-serif; 
+    color: rgb(252, 62, 60);
+}
+
+.hbo-max-badge{
+    --sds-c-badge-color-background: white;
+    --sds-c-badge-color-border: rgb(196, 196, 196);
+    --sds-c-badge-text-color: black;
+}

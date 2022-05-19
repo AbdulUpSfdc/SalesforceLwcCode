@@ -1,0 +1,45 @@
+<template>
+    <div>
+        <div class="slds-m-bottom_x-small slds-grid slds-grid_align-center">
+            <c-bwc-notifications></c-bwc-notifications>
+        </div>
+        <div if:true={showRefineForm} class="slds-m-vertical_small slds-p-horizontal_small">
+
+            <div class="slds-theme_shade slds-align_absolute-center slds-p-around_small">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <lightning-icon alternative-text="Error" icon-name="utility:warning" size="small">
+                        </lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <p>{label.closematch}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Addresses table -->
+        <div if:true={showTable} class="slds-m-horizontal_medium slds-m-top_x-small">
+            <template if:true={isclosematchAddress}>
+                <c-bwc-datatable hide-checkbox-column key-field="addressId" data={closematchaddress}
+                    columns={tableColumnsWithoutAddressline}></c-bwc-datatable>
+            </template>
+            <template if:true={isMduAddress}>
+                <c-bwc-datatable hide-checkbox-column key-field="addressId" data={addresses}
+                    columns={tableColumnsWithAddressline}></c-bwc-datatable>
+            </template>
+        </div>
+        <div if:true={showTable}
+            class="slds-theme_shade slds-align_absolute-center slds-m-around_small slds-p-around_small">
+            <div class="slds-media">
+                <div class="slds-media__figure">
+                    <lightning-icon alternative-text="Error" icon-name="utility:warning" size="small"></lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <p>{label.addressnotlisted}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</template>

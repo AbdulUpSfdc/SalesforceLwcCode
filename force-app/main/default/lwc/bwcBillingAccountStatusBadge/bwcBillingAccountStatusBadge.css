@@ -1,0 +1,17 @@
+.gray-badge{
+    --sds-c-badge-color-background: #ECEBEA;
+    /* --sds-c-badge-color-border: white; */
+    --sds-c-badge-text-color: black;
+}
+
+.yellow-badge{
+    --sds-c-badge-color-background: #fff23c;
+    /* --sds-c-badge-color-border: white; */
+    --sds-c-badge-text-color: black;
+}
+
+.red-badge{
+    --sds-c-badge-color-background: #C23934;
+    /* --sds-c-badge-color-border: white; */
+    --sds-c-badge-text-color: white;
+}

@@ -1,0 +1,344 @@
+<template>
+
+    <c-bwc-wizard steps={wizardSteps} default-title={wizardDefaultTitle} is-quick-action is-full-page onclose={handleWizardClose}>
+
+        <!-- Select Payment Information panel -->
+        <span slot="panel0">
+
+            <div data-name="selectPaymentInformation" class="panel">
+
+                <div if:true={paymentDetailsRetrieved} class="slds-var-m-top_large slds-grid slds-grid_vertical slds-align_absolute-center select-account">
+
+                    <lightning-combobox class="full-width" data-name="selectBillingAccount" name="selectBillingAccount" label={labels.account} placeholder="Select Billing Account" dropdown-alignment="auto"
+                        required message-when-value-missing="Please select a Billing Account"
+                        options={billingAccountOptions} value={selectedBan} onchange={handleBanSelected}>
+                    </lightning-combobox>
+
+                </div>
+
+            </div>
+
+        </span>
+
+        <!-- First or Second Payment panel -->
+        <span slot="panel1">
+
+            <div data-name="makePayment" class="slds-grid slds-grid_vertical panel">
+
+                <!-- Script -->
+                <c-bwc-read-panel if:true={makePaymentScript} variant="error" text={makePaymentScript}></c-bwc-read-panel>
+
+                <!-- Balance rows -->
+                <div class="slds-grid slds-grid_vertical">
+
+                    <!-- First row -->
+                    <div class="slds-grid">
+
+                        <!-- Total Amount Due -->
+                        <div class="slds-grid slds-grid_vertical-align-center">
+                            <div>Total Amount due <lightning-formatted-date-time value={dueDate}></lightning-formatted-date-time></div>
+                        </div>
+
+                        <!-- Past Due Amount -->
+                        <div if:true={pastDueAmount} class="slds-grid slds-grid_vertical-align-center slds-col_bump-left">
+                            Past Due Amount:&nbsp;
+                            <span class={pastDueClass}>
+                                <lightning-formatted-number format-style="currency" currency-display-as="symbol" currency-code="USD" value={pastDueAmount}>
+                                </lightning-formatted-number>
+                                <span if:true={pastDueMessage}>
+                                    &nbsp;{pastDueMessage}
+                                </span>
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <!-- Second Row -->
+                    <div class="slds-grid">
+
+                        <div class="slds-text-heading_medium heavy-bold">
+                            <lightning-formatted-number format-style="currency" currency-display-as="symbol" currency-code="USD" value={totalAmountDueByDueDate}>
+                            </lightning-formatted-number>
+                        </div>
+
+                        <div if:true={decisionDescription} class="slds-col_bump-left">
+                            Decision Description:&nbsp;<span class="decision-description">{decisionDescription}</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Payment Amount -->
+                <div class="slds-grid slds-grid_vertical">
+
+                    <div class="slds-text-heading_small section-header">
+                        1. Payment Amount&nbsp;{currentPayment.indexLabel}
+                    </div>
+
+                    <div class="section-body">
+
+                        <c-bwc-read-panel if:true={paymentAmountHelp} title="Information" text={paymentAmountHelp} variant="info"></c-bwc-read-panel>
+                    
+                        <div if:false={isEdit} class="slds-grid slds-grid_vertical-align-center">
+                            <div>How much would the Customer like to pay today?</div>
+                        </div>
+
+                        <div class="slds-grid slds-grid_vertical">
+
+                            <!-- Payment Amount Radios -->
+                            <template if:false={isEdit} for:each={currentPayment.paymentAmountOptions} for:item="paymentAmountOption">
+
+                                <div key={paymentAmountOption.index} class="slds-grid">
+    
+                                    <div class="slds-var-m-top_xx-small radio-div">
+                                        <input id={paymentAmountOption.key} type="radio" name="paymentAmountOption" 
+                                            data-payment-amount-option-radio data-index={paymentAmountOption.index} onchange={handlePaymentAmountOptionChange}
+                                        />
+                                    </div>
+                                    <label for={paymentAmountOption.key} class="slds-var-m-top_xx-small slds-var-m-left_x-small slds-var-p-top_xx-small">
+                                        <span>{paymentAmountOption.label}</span>
+                                        <span if:false={paymentAmountOption.isOther} class="payment-amount">
+                                            <span>:&nbsp;</span>
+                                            <lightning-formatted-number class={paymentAmountOption.class} format-style="currency" currency-display-as="symbol" value={paymentAmountOption.amount}>
+                                            </lightning-formatted-number>
+                                        </span>
+                                    </label>
+    
+                                </div>
+
+                            </template>
+
+                            <template if:false={isEdit}>
+                                <!-- Other Amount Input -->
+                                <div class="slds-var-m-top_xx-small short-input" style="margin-left: 1.25rem;">
+                                    <lightning-input name="amountPaidOther" data-name="amoutPaidOther" variant="label-hidden" type="number"
+                                        formatter="currency" 
+                                        required message-when-value-missing="Amount is required."
+                                        min={currentPayment.amountPaidMin} message-when-range-underflow={currentPayment.amountPaidMinError}
+                                        max={currentPayment.amountPaidMax} message-when-range-overflow={currentPayment.amountPaidMaxError}
+                                        step=".01" autocomplete="off" disabled
+                                        oncommit={handleInputCommit}>
+                                    </lightning-input>
+                                </div>
+                                <!-- Amount Warning -->
+                                <div if:true={currentPayment.amountPaidOtherMessage} class="slds-var-m-left_large slds-var-m-top_x-small slds-grid">
+                                    <lightning-icon variant={currentPayment.amountPaidOtherMessage.variant} icon-name={currentPayment.amountPaidOtherMessage.iconName} size="x-small"></lightning-icon>
+                                    <div class="slds-var-m-left_x-small">{currentPayment.amountPaidOtherMessage.text}</div>
+                                </div>
+                            </template>
+                            <template if:true={isEdit}>
+
+                                <!-- Edit Amount Input -->
+                                <div class="slds-grid slds-grid_vertical-align-center">
+                                    <label for="amountPaidOther"><abbr title="" class="slds-required">*</abbr>Amount</label>
+                                </div>
+                                <div class="slds-var-m-top_xx-small short-input">
+                                    <lightning-input id="amountPaidOther" name="amountPaidOther" data-name="amoutPaidOther" label="Amount" variant="label-hidden" type="number"
+                                        formatter="currency" disabled={currentPayment.amountPaidDisabled}
+                                        required message-when-value-missing="Amount is required."
+                                        min={currentPayment.amountPaidMin} message-when-range-underflow={currentPayment.amountPaidMinError}
+                                        max={currentPayment.amountPaidMax} message-when-range-overflow={currentPayment.amountPaidMaxError}
+                                        step=".01" autocomplete="off"
+                                        value={currentPayment.amountPaid}
+                                        oncommit={handleInputCommit}>
+                                    </lightning-input>
+                                </div>
+                                <!-- Amount Warning -->
+                                <div if:true={currentPayment.amountPaidOtherMessage} class="slds-var-m-top_x-small slds-grid">
+                                    <lightning-icon variant={currentPayment.amountPaidOtherMessage.variant} icon-name={currentPayment.amountPaidOtherMessage.iconName} size="x-small"></lightning-icon>
+                                    <div class="slds-var-m-left_x-small">{currentPayment.amountPaidOtherMessage.text}</div>
+                                </div>
+                            </template>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Payment Method -->
+                <div class="slds-grid slds-grid_vertical">
+
+                    <div class="slds-text-heading_small section-header">
+                        2. Eligible Payment Methods&nbsp;{currentPayment.indexLabel}
+                    </div>
+                    <div class="section-body">
+
+                        <c-bwc-input-payment-method
+                            interaction-id={recordId}
+                            ban={selectedBan}
+                            disallow-edit={isEdit}
+                            onpaymentmethodchange={handlePaymentMethodChange}
+                            onpromisetopaymethodchange={handlePromiseToPayMethodChange}
+                            onnewtemporaryprofile={handleNewTemporaryProfile}
+                            context={inputPaymentContext}>
+                        </c-bwc-input-payment-method>
+                        
+                        <!-- Various checkbox options for the payment -->
+                        <lightning-input if:true={currentPayment.showStoreProfile} name="storeProfile" class="slds-var-m-top_small" type="checkbox" label={labels.storeThisProfile}
+                            checked={currentPayment.savePaymentProfile}
+                            onchange={handleInputCommit}>
+                        </lightning-input>
+
+                        <lightning-input if:true={currentPayment.showEnrollInAutoPay} name="enrollInautoPay" class="slds-var-m-top_small" type="checkbox" label="Enroll in AutoPay for this BAN"
+                            checked={currentPayment.enrollInAutoPay}
+                            onchange={handleInputCommit}>
+                        </lightning-input>
+
+                        <lightning-input if:true={currentPayment.showConvertToSinglePayment} name="convertToSinglePayment" class="slds-var-m-top_small" type="checkbox" label="Convert to a single payment"
+                            checked={currentPayment.convertToSinglePayment}
+                            onchange={handleInputCommit}>
+                        </lightning-input>
+
+                        <lightning-input if:true={currentPayment.showSplitThisPayment} name="splitThisPayment" class="slds-var-m-top_small" type="checkbox" label="Split this payment"
+                            checked={currentPayment.splitThisPayment}
+                            onchange={handleInputCommit}>
+                        </lightning-input>
+
+                    </div>
+
+                </div>
+
+                <!-- Convenience Fee inline -->
+                <div if:true={showInlineConvenienceFee} class="slds-grid slds-grid_vertical">
+
+                    <div class="slds-text-heading_small section-header">
+                        3. Convenience Fee
+                    </div>
+                    <div class="section-body">
+                        <c-bwc-convenience-fee
+                            message={convenienceFeeMessage}
+                            is-waivable={isConvenienceFeeWaivable}
+                            waive-reason-options={convenienceFeeWaiveReasonOptions}
+                        ></c-bwc-convenience-fee>
+                    </div>
+
+                </div>
+
+                <!-- Payment Date -->
+                <div class="slds-grid slds-grid_vertical">
+
+                    <div class="slds-text-heading_small section-header">
+                        <template if:false={showInlineConvenienceFee}>3. </template>
+                        <template if:true={showInlineConvenienceFee}>4. </template>
+                        Payment Date&nbsp;{currentPayment.indexLabel}
+                    </div>
+                    <div class="section-body">
+                        <c-bwc-read-panel if:true={paymentDateHelp} title="Information" text={paymentDateHelp} variant="info"></c-bwc-read-panel>
+                        <div class="slds-grid slds-grid_vertical-align-center slds-var-m-bottom_xx-small">
+                            <label for="paymentDate"><abbr title="" class="slds-required">*</abbr>Pay Date</label>
+                        </div>
+
+                        <lightning-input id="paymentDate" name="paymentDate" data-name="paymentDate" class="short-input" variant="label-hidden" type="date"
+                            required message-when-value-missing="Pay Date is required." disabled={currentPayment.paymentDateDisabled}
+                            min={today} message-when-range-underflow={currentPayment.minPaymentDateError}
+                            max={currentPayment.maxPaymentDate} message-when-range-overflow={currentPayment.maxPaymentDateError}
+                            value={currentPayment.paymentDate} onchange={handleInputCommit}></lightning-input>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </span>
+
+        <!-- Review Payment panel -->
+        <span slot="panel2">
+
+            <div class="slds-grid slds-grid_vertical">
+
+                <c-bwc-message-bar if:true={reviewMessage} variant={reviewMessage.variant} text={reviewMessage.text}></c-bwc-message-bar>
+
+                <div class="slds-text-heading_small section-header">
+                    Payment Details&nbsp;{firstPayment.indexLabel}
+                </div>
+
+                <div class="section-body">
+
+                    <c-bwc-payment-details class="slds-var-m-top_medium" payment-details={firstPayment} spi-data={spiDataFirstPayment}></c-bwc-payment-details>
+
+                </div>
+
+                <template if:true={isSplitPayment}>
+
+                    <div class="slds-text-heading_small section-header">
+                        Payment Details&nbsp;{secondPayment.indexLabel}
+                    </div>
+    
+                    <div class="section-body">
+    
+                        <c-bwc-payment-details class="slds-var-m-top_medium" payment-details={secondPayment} spi-data={spiDataSecondPayment}></c-bwc-payment-details>
+    
+                    </div>
+
+                </template>
+
+                <template if:true={tncId}>
+
+                    <div class="slds-text-heading_small section-header">
+                        Disclosures
+                    </div>
+
+                    <div class="section-body">
+
+                        <c-bwc-read-panel if:true={showEpaAutopayReviewInformation} title="Information:" text={labels.epaAutopayInformation}></c-bwc-read-panel>
+
+                        <c-bwc-read-panel text={tncVerbiage}></c-bwc-read-panel>
+        
+                        <lightning-input data-name="agreeToTerms" type="checkbox" class="slds-var-p-top_xx-small slds-var-m-top_medium slds-var-m-bottom_xx-small"
+                            label={labels.agreeToTerms}
+                            checked={agreedToTerms}
+                            onchange={handleAgreeToTermsChange}>
+                        </lightning-input>
+        
+                    </div>
+
+                </template>
+
+            </div>
+
+        </span>
+
+        <!-- Payment Confirmation panel -->
+        <span slot="panel3">
+
+            <div class="slds-grid slds-grid_vertical">
+
+                <c-bwc-message-bar if:true={confirmationMessage} variant={confirmationMessage.variant} text={confirmationMessage.text}></c-bwc-message-bar>
+
+                <div class="slds-text-heading_small slds-var-m-top_small">
+                    {paymentSuccessfulMessage}
+                </div>
+                <div class="slds-var-m-top_small">
+                    {labels.paymentConfirmationEmailMessage}
+                </div>
+
+                <div class="slds-text-heading_small section-header">
+                    Payment Details&nbsp;{firstPayment.indexLabel}
+                </div>
+
+                <div class="section-body">
+                    <c-bwc-payment-details class="slds-var-m-top_medium" payment-details={firstPayment} spi-data={spiDataFirstPayment}></c-bwc-payment-details>
+                </div>
+
+                <template if:true={isSplitPayment}>
+
+                    <div class="slds-text-heading_small section-header">
+                        Payment Details&nbsp;{secondPayment.indexLabel}
+                    </div>
+    
+                    <div class="section-body">
+                        <c-bwc-payment-details class="slds-var-m-top_medium" payment-details={secondPayment} spi-data={spiDataSecondPayment}></c-bwc-payment-details>
+                    </div>
+
+                </template>
+
+            </div>
+
+        </span>
+
+    </c-bwc-wizard>
+
+</template>

@@ -1,0 +1,161 @@
+<template>
+    
+    <template if:true={isOpen}>
+
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading" aria-modal="true"
+            aria-describedby="modal-content" class={modalSectionClass} onkeydown={handleModalKeydown}>
+            <div class="slds-modal__container modal-container">
+                <header class="slds-modal__header">
+
+                    <lightning-button-icon if:false={isFullPage} data-name="closeButton" icon-name="utility:close" variant="bare-inverse" size="large"
+                        class="slds-modal__close" alternative-text="Close" onclick={close} onkeydown={handleButtonKeydown}>
+                    </lightning-button-icon>
+                    <h2 id="modal-heading" class="slds-modal__title slds-hyphenate">Manage Account Contact Information</h2>
+
+                </header>
+                <div class="slds-modal__content modal-content slds-scrollable slds-is-relative slds-p-around_medium slds-grid slds-grid_vertical"
+                    id="modal-content">
+
+                    <lightning-spinner if:true={isBusy} variant="brand" size="large" alternative-text="Loading"></lightning-spinner>
+
+                    <c-bwc-error-report></c-bwc-error-report>
+
+                    <!-- Agent Script -->
+                    <c-bwc-read-panel title="Read to the Customer:" collapsed-title="Agent Script" text={label.agentScript}>
+                    </c-bwc-read-panel>
+
+                    <!-- Account Contact Information -->
+                    <c-bwc-expandable-section title="Account Contact Information">
+
+                        <div class="slds-grid slds-grid_pull-padded-small slds-p-bottom_large">
+
+                            <c-bwc-form-element class="slds-size_1-of-2 slds-p-horizontal_small" label="Customer Name">
+                                <span class="bold-output">{customerName}</span>
+                            </c-bwc-form-element>
+
+                            <c-bwc-form-element class="slds-size_1-of-2 slds-p-horizontal_small" label="Billing Address">
+                                <span class="bold-output">{billingAddress}</span>
+                            </c-bwc-form-element>
+
+                        </div>
+
+                        <!-- Separator -->
+                        <div class="slds-border_bottom"></div>
+
+                        <div class="slds-grid slds-m-top_medium slds-grid_pull-padded-small">
+
+                            <!-- Primary Phone -->
+                            <div class="slds-size_1-of-2 slds-p-horizontal_small slds-grid slds-grid_vertical">
+
+                                <!-- Phone number input -->
+                                <div class="slds-grid">
+                                    <lightning-input name="primaryPhoneNumber" label="Primary Phone Number" placeholder="(XXX) XXX-XXXX" type="tel" required
+                                    value={newValues.primaryPhoneNumber} oncommit={handleInputCommit}></lightning-input>
+                                    <c-bwc-helptext content={label.phoneHelp}></c-bwc-helptext>
+                                </div>
+
+                                <!-- Consent Checkbox -->
+                                <div class="slds-grid slds-m-top_small">
+                                    <div>
+                                        <lightning-input data-name="primaryPhoneAuth" label={label.phoneAuth} type="checkbox" variant="label-hidden" disabled={isInvalidPrimaryPhoneNumber}
+                                            checked={isPrimaryPhoneAuthChecked} onchange={handleAuthChange}></lightning-input>
+                                    </div>
+                                    <div class="slds-grid slds-grid_vertical">
+                                        <label data-for="primaryPhoneAuth" onclick={handleLabelClick}>{label.phoneAuth}</label>
+                                    </div>
+                                </div>
+
+                                <!-- Contact Methods -->
+                                <div class="slds-grid slds-grid_vertical slds-m-vertical_small">
+                                    <legend class="slds-form-element__legend slds-form-element__label">Method of Contact</legend>
+                                    <lightning-input name="primaryPhoneNumberCall" type="checkbox" label="Call" disabled={isDisabledPrimaryMethods} checked={newValues.primaryPhoneNumberCall} onchange={handleMethodOfContactChange}></lightning-input>
+                                    <lightning-input name="primaryPhoneNumberSms" type="checkbox" label="SMS" disabled={isDisabledPrimaryMethods} checked={newValues.primaryPhoneNumberSms} onchange={handleMethodOfContactChange}></lightning-input>
+                                    <div if:true={primaryMethodError} class="slds-text-color_error slds-m-top_xx-small">
+                                        {primaryMethodError}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Alternate Phone -->
+                            <div class="slds-size_1-of-2 slds-p-horizontal_small slds-grid slds-grid_vertical">
+
+                                <!-- Phone number input -->
+                                <div class="slds-grid">
+                                    <lightning-input name="alternatePhoneNumber" label="Alternate Phone Number" placeholder="(XXX) XXX-XXXX"  type="tel" 
+                                        required={isAlternatePhoneRequired} message-when-value-missing={label.alternatePhoneMissing}
+                                        value={newValues.alternatePhoneNumber} oncommit={handleInputCommit}>
+                                    </lightning-input>
+                                    <c-bwc-helptext content={label.phoneHelp}></c-bwc-helptext>
+                                </div>
+
+                                <!-- Consent Checkbox -->
+                                <div class="slds-grid slds-m-top_small">
+                                    <div>
+                                        <lightning-input data-name="alternatePhoneAuth" label={label.phoneAuth} type="checkbox" variant="label-hidden"
+                                        checked={isAlternatePhoneAuthChecked}  onchange={handleAuthChange} disabled={isInvalidAlternatePhoneNumber}></lightning-input>
+                                    </div>
+                                    <div class="slds-grid slds-grid_vertical">
+                                        <label data-for="alternatePhoneAuth" onclick={handleLabelClick}>{label.phoneAuth}</label>
+                                    </div>
+                                </div>
+
+                                <!-- Contact Methods -->
+                                <div class="slds-grid slds-grid_vertical slds-m-vertical_small">
+                                    <legend class="slds-form-element__legend slds-form-element__label">Method of Contact</legend>
+                                    <lightning-input name="alternatePhoneNumberCall" type="checkbox" label="Call" disabled={isDisabledAlternateMethods} checked={newValues.alternatePhoneNumberCall} onchange={handleMethodOfContactChange}></lightning-input>
+                                    <lightning-input name="alternatePhoneNumberSms" type="checkbox" label="SMS" disabled={isDisabledAlternateMethods} checked={newValues.alternatePhoneNumberSms} onchange={handleMethodOfContactChange}></lightning-input>
+                                    <div if:true={alternateMethodError} class="slds-text-color_error slds-m-top_xx-small">
+                                        {alternateMethodError}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Separator -->
+                        <div class="slds-border_bottom"></div>
+
+                        <div class="slds-grid slds-m-top_medium slds-grid_pull-padded-small">
+
+                            <div class="slds-size_1-of-2 slds-p-horizontal_small slds-grid slds-grid_vertical">
+
+                                <!-- Primary Email -->
+                                <lightning-input name="emailAddress" label="Primary Email Address" placeholder="Name@business.com" type="email"
+                                    required={isEmailRequired} message-when-value-missing={label.emailMissing}
+                                    value={newValues.emailAddress} oncommit={handleInputCommit}>
+                                </lightning-input>
+                                <div class="slds-grid">
+                                    <div class="slds-grid slds-m-top_xx-small">
+                                        <lightning-icon icon-name="utility:info" size="x-small"></lightning-icon>
+                                        <div class="slds-m-left_xx-small">{label.emailNotify}</div>
+                                    </div>
+                                    <div if:true={isEmailVerified} class="slds-shrink-none slds-col_bump-left slds-m-top_xx-small slds-text-color_success">
+                                        <lightning-icon icon-name="utility:success" size="x-small" variant="success"></lightning-icon><span class="slds-m-left_xx-small">Validated</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </c-bwc-expandable-section>
+
+                </div>
+
+                <!-- Footer Buttons -->
+                <footer class="slds-modal__footer">
+
+                    <lightning-button data-name="cancelButton" label="Cancel" onclick={close} disabled={isBusy}></lightning-button>
+                    <lightning-button data-name="updateButton" label="Update Information" class="slds-m-left_x-small" variant="brand" disabled={isBusy} onkeydown={handleButtonKeydown} onclick={handleUpdate}></lightning-button>
+
+                </footer>
+            </div>
+
+        </section>
+
+        <div if:false={isFullPage} class="slds-backdrop slds-backdrop_open"></div>
+
+    </template>
+
+</template>

@@ -1,0 +1,9 @@
+.top-panel {
+    background-color: var(--lwc-colorBackgroundAlt);
+}
+
+.content-panel {
+    width: 100%;
+    max-width: 42rem;
+    min-height: 8rem;
+}

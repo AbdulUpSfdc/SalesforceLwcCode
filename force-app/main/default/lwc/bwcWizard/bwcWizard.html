@@ -1,0 +1,102 @@
+<template>
+
+    <template if:true={isOpen}>
+
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading" aria-modal="true"
+            aria-describedby="modal-content" class={modalSectionClass}>
+            <div class="slds-modal__container modal-container">
+                <header class="slds-modal__header">
+
+                    <lightning-button-icon if:false={isFullPage} data-name="closeButton" icon-name="utility:close" variant="bare-inverse" size="large"
+                        class="slds-modal__close" alternative-text="Close" onclick={handleClose} onkeydown={onButtonKeydown}>
+                    </lightning-button-icon>
+
+                    <h2 id="modal-heading" class="slds-modal__title slds-hyphenate">
+                        <lightning-formatted-rich-text value={currentStep.title}></lightning-formatted-rich-text>
+                    </h2>
+
+                </header>
+                <div class="slds-modal__content slds-scrollable slds-is-relative slds-p-around_medium modal-content slds-grid slds-grid_vertical"
+                    style={modalContentStyle} id="modal-content">
+
+                    <lightning-spinner if:true={isBusy} variant="brand" alternative-text="Loading"></lightning-spinner>
+
+                    <c-bwc-error-report></c-bwc-error-report>
+
+                    <slot></slot>
+
+                    <div data-panel="0" class="slds-hide panel" style={panelStyle}>
+                        <slot name="panel0"></slot>
+                    </div>
+                    <div data-panel="1" class="slds-hide panel" style={panelStyle}>
+                        <slot name="panel1"></slot>
+                    </div>
+                    <div data-panel="2" class="slds-hide panel" style={panelStyle}>
+                        <slot name="panel2"></slot>
+                    </div>
+                    <div data-panel="3" class="slds-hide panel" style={panelStyle}>
+                        <slot name="panel3"></slot>
+                    </div>
+                    <div data-panel="4" class="slds-hide panel" style={panelStyle}>
+                        <slot name="panel4"></slot>
+                    </div>
+                    <div data-panel="5" class="slds-hide panel" style={panelStyle}>
+                        <slot name="panel6"></slot>
+                    </div>
+                    <div data-panel="6" class="slds-hide panel" style={panelStyle}>
+                        <slot name="panel7"></slot>
+                    </div>
+                    <div data-panel="7" class="slds-hide panel" style={panelStyle}>
+                        <slot name="panel8"></slot>
+                    </div>
+                    <div data-panel="8" class="slds-hide panel" style={panelStyle}>
+                        <slot name="panel8"></slot>
+                    </div>
+                    <div data-panel="9" class="slds-hide panel" style={panelStyle}>
+                        <slot name="panel9"></slot>
+                    </div>
+
+                </div>
+
+                <!-- Footer Buttons -->
+                <footer class="slds-modal__footer slds-modal__footer_directional">
+
+                    <div class="slds-grid">
+
+                        <div class="slds-grid" style="width:35%;">
+                            <div class="slds-m-right_x-small">
+                                <lightning-button if:true={showCancelButton} label={currentStep.cancelButton.label} disabled={isDisabledCancelButton}
+                                    variant={currentStep.cancelButton.variant} onclick={handleCancelButtonClick} class="footer-button"></lightning-button>
+                            </div>
+                            <div>
+                            <lightning-button if:true={showLeftButton} label={currentStep.leftButton.label} disabled={isDisabledLeftButton}
+                                variant="neutral" onclick={handleLeftButtonClick} class="footer-button"></lightning-button>
+                            </div>
+                        </div>
+
+                        <div class="slds-p-top_x-small" style="width:30%;">
+                            <lightning-progress-indicator if:true={showProgressIndicator} current-step={currentStep.name} has-error={error}>
+                                <template for:each={activeSteps} for:item="step">
+                                    <lightning-progress-step key={step.name} label={step.titlePlain} value={step.name}>
+                                    </lightning-progress-step>
+                                </template>
+                            </lightning-progress-indicator>
+                        </div>
+
+                        <div class="sdls-col_bump-left" style="width:35%;">
+                            <lightning-button if:true={showRightButton} class="slds-float_right footer-button" data-name="rightButton" label={currentStep.rightButton.label} variant="brand"
+                                disabled={isDisabledRightButton} onclick={handleRightButtonClick} onkeydown={onButtonKeydown}></lightning-button>
+                        </div>
+
+                    </div>
+
+                </footer>
+            </div>
+
+        </section>
+
+        <div if:false={isQuickAction} class="slds-backdrop slds-backdrop_open"></div>
+
+    </template>
+
+</template>

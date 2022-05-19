@@ -1,0 +1,15 @@
+<template>
+    <lightning-card class="box">
+        <div if:false={isArticleReaded}>
+            <div class="ribbon"><span>New</span></div>
+        </div>
+        <div class="slds-p-horizontal_small">
+            
+            <strong>{title}</strong><br/>
+            <img alt="Article preview image" src={previewImage} style="max-height: 300px;" onclick={handleClick}/>
+        </div>
+        <p slot="footer">  
+        {summary}
+        </p>
+    </lightning-card>
+</template>

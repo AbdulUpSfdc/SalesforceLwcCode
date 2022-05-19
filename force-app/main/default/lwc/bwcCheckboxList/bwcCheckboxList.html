@@ -1,0 +1,16 @@
+<template>
+    <div class="slds-p-around_x-small">
+        <p class= 'slds-text-title_bold slds-m-bottom_x-small'>{title}</p>
+        <template for:each={filterOptions} for:item="option">
+            <lightning-input 
+                key = {option.id} 
+                type="checkbox" 
+                data-id={option.id} 
+                label={option.label} 
+                onclick={handleChange}
+                checked={option.selected}
+            > 
+            </lightning-input>
+        </template>
+    </div>
+</template>

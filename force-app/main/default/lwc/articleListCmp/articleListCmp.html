@@ -1,0 +1,16 @@
+<template>
+    <lightning-layout horizontal-align="space">
+        <lightning-layout-item padding="around-small" size="10">
+            <template if:true={displayPreviewPane}>
+                <c-article-single-item preview-image={selectedArticle.previewImage} summary={selectedArticle.summary} title={selectedArticle.title} is-article-readed={selectedArticle.articleReaded} >
+                </c-article-single-item>
+
+                </template>
+            <c-article-list-item onhandlearticle={handleClick}></c-article-list-item>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="2">
+            <c-article-sidebar-cmp></c-article-sidebar-cmp>
+        </lightning-layout-item>
+    </lightning-layout>
+    
+</template>

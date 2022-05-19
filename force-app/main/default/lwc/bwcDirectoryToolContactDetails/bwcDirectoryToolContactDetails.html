@@ -1,0 +1,131 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading..." size="large" variant="brand"></lightning-spinner>
+    </template>
+    <template if:true={showContactDetails}>
+        <article class="slds-card slds-var-m-vertical_small ">
+            <div class="slds-card__body slds-card__body_inner slds-var-m-around_x-large slds-var-p-around_large contactDetailsHeader">
+                <article class="slds-card fontStyle">
+                    <div class="slds-card__header slds-grid slds-var-p-around_medium slds-var-m-around_small contactDetailsHeader">
+                        <header class="slds-media slds-media_center slds-var-p-left_small  slds-var-p-right_large slds-has-flexi-truncate">
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    <div class="slds-truncate">
+                                        <span class="contactName">{contactName}</span>
+                                    </div>
+                                </h2>
+                            </div>
+                            <div class="slds-no-flex">
+                                <span class="slds-var-p-right_small">Status Last Updated : {statusUpdateTime}</span>
+                                <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh" size="small" 
+                                title="Refresh" onclick={handleContactDetailsRefresh}></lightning-button-icon>
+                            </div>
+                        </header>
+                    </div>
+                    <!--ContactDetails Grid Start-->
+                    <lightning-layout multiple-rows="true">
+                        <lightning-layout-item size="12" padding="horizontal-small">
+                            <div class="slds-grid slds-wrap slds-var-p-vertical_small">
+                                <div class="slds-col slds-size_5-of-12">
+                                    <div class="slds-var-p-bottom_large"><strong>Main Number:</strong> {contactDetailsResponse.mainnumber}</div>
+                                    <div if:true={contactDetailsResponse.adldesc1} class="slds-var-p-bottom_large"><strong>{contactDetailsResponse.adldesc1}:</strong> 
+                                        <span> {contactDetailsResponse.adlnum}</span></div>
+                                    <div if:true={contactDetailsResponse.adldesc2} class="slds-var-p-bottom_large"><strong>{contactDetailsResponse.adldesc2}:</strong> 
+                                        <span> {contactDetailsResponse.adlnum2}</span></div>
+                                    <div if:true={contactDetailsResponse.adldesc3} class="slds-var-p-bottom_large"><strong>{contactDetailsResponse.adldesc3}:</strong> 
+                                        <span> {contactDetailsResponse.adlnum3}</span></div>
+                                    <div if:true={contactDetailsResponse.adldesc4} class="slds-var-p-bottom_large"><strong>{contactDetailsResponse.adldesc4}:</strong> 
+                                        <span> {contactDetailsResponse.adlnum4}</span></div>
+                                    <div if:true={contactDetailsResponse.adldesc5} class="slds-var-p-bottom_large"><strong>{contactDetailsResponse.adldesc5}:</strong> 
+                                        <span> {contactDetailsResponse.adlnum5}</span></div>
+                                    <div class="slds-var-p-bottom_large overwrap" title={contactDetailsResponse.website}><strong>Website:</strong><a onclick={handleNavigateToURL}> {contactDetailsResponse.website}</a>
+                                        <span if:true={contactDetailsResponse.isWebsiteInternal}> (Internal Only)</span></div>
+                                    <div class="slds-var-p-bottom_large"><strong>Email Address:</strong> {contactDetailsResponse.email}
+                                        <span if:true={contactDetailsResponse.isEmailInternal}> (Internal Only)</span></div>
+                                </div>
+                                <div class="slds-col slds-size_2-of-12">
+                                </div>
+                                <div class="slds-col slds-size_5-of-12">
+                                    <div if:true={contactDetailsResponse.mainnumber} class="slds-var-p-bottom_large"><strong>Extension:</strong> <span if:true={contactDetailsResponse.mainext}> {contactDetailsResponse.mainext}</span>
+                                    <span if:true={contactDetailsResponse.isMainInternal}> (Internal Only)</span></div>
+                                    <div  if:true={contactDetailsResponse.adldesc1} class="slds-var-p-bottom_large"><strong>Extension:</strong> <span if:true={contactDetailsResponse.adlext}> {contactDetailsResponse.adlext}</span>
+                                    <span if:true={contactDetailsResponse.isAddInternal}> (Internal Only)</span></div>
+                                    <div  if:true={contactDetailsResponse.adldesc2} class="slds-var-p-bottom_large"><strong>Extension:</strong> <span if:true={contactDetailsResponse.adlext2}> {contactDetailsResponse.adlext2}</span>
+                                    <span if:true={contactDetailsResponse.isAddInternal2}> (Internal Only)</span></div>
+                                    <div  if:true={contactDetailsResponse.adldesc3} class="slds-var-p-bottom_large"><strong>Extension:</strong><span if:true={contactDetailsResponse.adlext3}> {contactDetailsResponse.adlext3}</span> 
+                                    <span if:true={contactDetailsResponse.isAddInternal3}> (Internal Only)</span></div>
+                                    <div if:true={contactDetailsResponse.adldesc4} class="slds-var-p-bottom_large"><strong>Extension:</strong> <span if:true={contactDetailsResponse.adlext4}> {contactDetailsResponse.adlext4}</span>
+                                    <span if:true={contactDetailsResponse.isAddInternal4}> (Internal Only)</span></div>
+                                    <div  if:true={contactDetailsResponse.adldesc5} class="slds-var-p-bottom_large"><strong>Extension:</strong> <span if:true={contactDetailsResponse.adlext5}> {contactDetailsResponse.adlext5}</span>
+                                    <span if:true={contactDetailsResponse.isAddInternal5}> (Internal Only)</span></div>
+                                </div>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" padding="horizontal-small">
+                            <div class="slds-grid slds-wrap rowBorderTop slds-var-p-vertical_small">
+                                <div class="slds-col slds-size_12-of-12">
+                                    <div class="slds-var-p-bottom_xx-small"><strong>Normal Hours:</strong></div>
+                                    <template if:true={isNoHours}>
+                                        <p>No Hours</p>
+                                    </template>
+                                    <template if:true={isRegHours}>
+                                        <p>Open 24 hours a day, 7 days a week</p>
+                                    </template>
+                                    <template if:true={isSpecificHours}>
+                                        <template for:each={specificHoursList} for:item=sh>
+                                            <div class="slds-var-p-bottom_medium" key={sh.key}>{sh.key}: {sh.value}</div>
+                                        </template>
+                                    </template>
+                                    <div class="slds-var-p-vertical_large"><strong>Description:</strong> {contactDetailsResponse.description} </div>
+                                    <div class="slds-var-p-bottom_large"><strong>Notes: </strong>{contactDetailsResponse.notes} </div>
+                                </div>
+                            </div>
+                        </lightning-layout-item>
+                        <template if:true={isCustomerTypes}>
+                            <lightning-layout-item size="12" padding="horizontal-small">
+                                <div class="rowBorderTop slds-var-p-vertical_small">
+                                    <template for:each={customerTypes} for:item=ct>
+                                        <lightning-layout key={ct.customerType} multiple-rows="true" class="slds-var-p-vertical_large">
+                                            <lightning-layout-item size="1" class="slds-var-p-top_x-small">
+                                                <p><strong>Customer Type:</strong></p>
+                                                <p> {ct.customerType}</p>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item class="slds-var-p-left_xx-small">
+                                                <table>
+                                                    <tr class="tableRowStyle">
+                                                        <template for:each={ct.speedDials} for:item=sd>
+                                                            <td class="slds-var-p-around_medium" key={sd.language}>
+                                                                {sd.language}</td>
+                                                        </template>
+                                                    </tr>
+                                                    <tr>
+                                                        <template for:each={ct.speedDials} for:item=sd>
+                                                            <td class="slds-var-p-around_medium" key={sd.number}>
+                                                                {sd.number}</td>
+                                                        </template>
+                                                    </tr>
+                                                </table>
+                                            </lightning-layout-item>
+                                        </lightning-layout>
+                                    </template>
+                                </div>
+                            </lightning-layout-item>
+                        </template>
+                        <lightning-layout-item size="12" padding="horizontal-small">
+                            <div class="rowBorderTop slds-var-p-vertical_small">
+                                <strong>Channels: </strong>{contactDetailsResponse.channels}
+                            </div>
+                        </lightning-layout-item>
+                        <hr/>
+                        <lightning-layout-item size="12" padding="horizontal-small">
+                            <div class="rowBorderTop slds-var-p-vertical_large">
+                                Contact {contactDetailsResponse.cntid} created on {contactDetailsResponse.createdate} and last updated on {contactDetailsResponse.updatedate}
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                    <!--Contact Details Grid End-->
+                </article>
+            </div>
+        </article>
+    </template>
+</template>

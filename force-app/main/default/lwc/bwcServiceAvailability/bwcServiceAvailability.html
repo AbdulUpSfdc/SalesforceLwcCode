@@ -1,0 +1,73 @@
+<template>
+    <lightning-card title="Service Availability" icon-name="standard:proposition">
+
+        <span slot="actions">
+            <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh Service Availability"
+                title="Refresh" onclick={handleRefresh}></lightning-button-icon>
+            <lightning-button class="slds-m-left_x-small" title={expandButtonText} label={expandButtonText}
+                onclick={handleExpandAll}></lightning-button>
+            <lightning-button-menu alternative-text="Show menu" menu-alignment='right' class="slds-m-left_x-small">
+                <lightning-menu-item value="searchDifferentAddress" label="Search Different Address"
+                    onclick={handleSearchDiffAddress}></lightning-menu-item>
+                <lightning-menu-item value="orderNewService" label="Order New Service" onclick={handleOrderNewService}>
+                </lightning-menu-item>
+            </lightning-button-menu>
+        </span>
+
+        <div class="slds-grid slds-grid_vertical">
+
+            <div class="slds-m-bottom_x-small slds-grid slds-grid_align-center">
+                <c-bwc-notifications></c-bwc-notifications>
+            </div>
+
+            <lightning-spinner if:true={isLoading} alternative-text="Retrieving Service Availability data">
+            </lightning-spinner>
+
+            <div if:true={showInputAddress}>
+                <c-bwc-service-availability-form address-line1={addressLine1} address-line2={addressLine2}
+                    apt-unit-number={aptUnitNumber} zip={zip} state={state} city={city} isnomatch={nomatch}
+                    isexactmatch={exactMatch} onupdatedaddress={handleUpdatedAddress}></c-bwc-service-availability-form>
+            </div>
+
+            <div if:true={showAddressIdWarning} class="slds-m-around_small">
+                <div class="slds-theme_shade slds-align_absolute-center slds-p-around_small">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <lightning-icon alternative-text="Error" icon-name="utility:warning" size="small">
+                            </lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <p>No Id was returned for this address. Please select another address or edit the address.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div if:true={showServiceAvailability} class="slds-grid slds-grid_vertical">
+                <template if:false={isLoading}>
+                    <div if:true={showTable} class="slds-col">
+                        <lightning-tree-grid columns={columns} data={data} key-field="id" expanded-rows={internetExpand}
+                            ontoggle={handleToggle} hide-checkbox-column></lightning-tree-grid>
+                        <div if:true={showMDURestrictionMessage} class="slds-p-horizontal_medium slds-p-vertical_small">
+                            <strong>DIRECTV</strong> - This customer lives on a property where the Homeowner's
+                            Association does not allow DIRECTV.
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div if:true={showMDUView}>
+                <c-bwc-service-availability-m-d-u addresses={mduAddresses} closematchaddress={closematchAddresses}
+                    onselectedaddress={handleSelectedAddress}>
+                </c-bwc-service-availability-m-d-u>
+            </div>
+
+
+
+        </div>
+
+
+    </lightning-card>
+</template>

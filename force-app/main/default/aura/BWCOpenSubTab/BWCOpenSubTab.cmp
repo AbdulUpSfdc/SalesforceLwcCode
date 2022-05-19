@@ -1,0 +1,19 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+    <!-- 
+        This component is added to a flexipage. This component uses workspace api to open a record page in a sub tab.
+    -->
+    <lightning:workspaceAPI aura:id="workspace" />    
+    
+    <!-- error message-->
+    <aura:attribute name="errorMessage" type="String" default="" />
+    
+    <aura:if isTrue="{!v.errorMessage != ''}">
+        <p>{!v.errorMessage}</p>
+    </aura:if>
+    
+    <!-- 
+        The enclosing LWC that listens to PubSub event and passes the data by invoking the controller method
+        openSubTab
+    -->
+    <c:bwcOpenSubTabListener onopensubtab="{!c.openSubTab}" />
+</aura:component>

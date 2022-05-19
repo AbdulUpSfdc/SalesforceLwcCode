@@ -1,0 +1,5 @@
+<aura:component implements="lightning:backgroundUtilityItem">
+    <lightning:workspaceAPI aura:id="workspace" />
+    <aura:handler event="lightning:tabCreated" action="{!c.onTabCreated}" />
+    
+</aura:component>

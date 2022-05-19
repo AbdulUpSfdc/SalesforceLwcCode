@@ -1,0 +1,55 @@
+<template>
+    <div class="slds-box slds-theme_shade slds-box_x-small">
+        <div class="slds-grid slds-wrap">
+            <template for:each={articlesBycolumn} for:item="keyValue">
+                <div key={keyValue} class={selectNumberofColumnClass}>
+                    <template for:each={keyValue.value} for:item="art" for:index='index'>
+                        <div 
+                            id={art.compId} 
+                            key={art.compId}
+                            data-id={art.previewImage} 
+                            onclick={handleClick} 
+                            data-index={index}
+                            style="margin: 3px;">
+
+                            <template if:true={isgridView}>
+                                <c-new-article-single-item  
+                                    aticle-data={art}>
+                                </c-new-article-single-item>
+                            </template>
+                            <template if:false={isgridView}>
+                                <c-kw-article-single-listview-item-cmp aticle-data={art}>
+                                </c-kw-article-single-listview-item-cmp>
+                            </template>
+                            <!--
+
+                            -->
+                            
+                        </div>
+                    </template>
+                </div>
+            </template>
+<!--
+        <template for:each={articlesBycolumn} for:item="columnindex" for:index='index'>
+            <div key={columnindex} class={selectNumberofColumnClass}>
+            {columnindex}
+            
+                <template for:each={articlesBycolumn} for:item="columnindex" for:index='index'>
+                <div 
+                    id={art.compId} 
+                    key={art.compId}
+                    data-id={art.previewImage} 
+                    onclick={handleClick} 
+                    data-index={index}>
+                    <c-new-article-single-item  
+                        aticle-data={art}>
+                    </c-new-article-single-item>
+                </div>
+                </template>
+                
+            </div>
+        </template>
+        -->
+        </div>
+    </div>
+</template>

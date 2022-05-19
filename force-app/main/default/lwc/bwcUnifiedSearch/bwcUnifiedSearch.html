@@ -1,0 +1,148 @@
+<template>
+
+    <div class="slds-theme_default">
+
+        <div if:true={showSearch} class="slds-is-relative slds-grow slds-grid slds-grid_vertical main" onkeypress={handleKeypress}>
+
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading..." size="large" variant="brand"></lightning-spinner>
+            </template>
+
+            <div class="slds-align_absolute-center slds-text-heading_medium heading">{label.header}</div>
+
+            <!-- Errors and informational notifications -->
+            <div class="slds-var-m-top_x-large">
+                <c-bwc-notifications></c-bwc-notifications>
+            </div>
+
+            <div class="slds-align_absolute-center slds-var-m-top_xx-large">
+                <lightning-button label="Search" variant="brand" disabled={disableSearch} onclick={handleSearch}></lightning-button>
+                <lightning-button label="Clear" onclick={handleClear} class="slds-var-p-left_medium"></lightning-button>
+            </div>
+
+            <div class="slds-grid slds-grid_align-center">
+                <div class="slds-grow slds-var-m-top_large inputs">
+                    <lightning-input
+                        data-id="ban" label={utilLabels.account} placeholder="7–15 digit numeric account number" variant="label-inline" autocomplete="off"
+                        min-length="7" message-when-too-short={messageWhenTooShort}
+                        max-length="15" message-when-too-long={messageWhenTooLong}
+                        field-level-help={label.ban_help}
+                        value={ban} disabled={disableBan} onchange={handleInputChange}>
+                    </lightning-input>
+
+                    <lightning-combobox
+                        data-id="accountType" label="Account Type" placeholder="Select an Account Type" variant="label-inline"
+                        options={acctTypeOptions}
+                        value={accountType} disabled={disableBan} onchange={handleInputChange}>
+                    </lightning-combobox>
+
+                    <lightning-input
+                        data-id="phoneNumber" label="Phone Number"  placeholder="(###) ###-####" variant="label-inline" autocomplete="off"
+                        value={phoneNumber} disabled={disablePhoneNumber} onchange={handleInputChange} oncommit={handleInputCommit}>
+                    </lightning-input>
+
+                    <lightning-input
+                        data-id="orderId" label="Order ID"  placeholder="##-###############" variant="label-inline" autocomplete="off"
+                        value={orderId} disabled={disableOrderId} onchange={handleInputChange} oncommit={handleInputCommit}>
+                    </lightning-input>
+
+                    <lightning-input
+                        data-id="attLoginId" label="AT&T Login ID" placeholder="Customer’s login ID" variant="label-inline" autocomplete="off"
+                        min-length="4" message-when-too-short="AT&T Login ID must have at least 4 characters." field-level-help={label.attlogin_help}
+                        value={attLoginId} disabled={disableAttLoginId} onchange={handleInputChange}>
+                    </lightning-input>
+
+                    <lightning-input
+                        data-id="streetAddress" label="Street Address" placeholder="Street Address" variant="label-inline" autocomplete="off"
+                        value={streetAddress} disabled={disableAddress} onchange={handleInputChange}>
+                    </lightning-input>
+
+                    <lightning-input
+                        data-id="aptUnitNo" label="Apt/Unit #" placeholder="Apt or unit #" variant="label-inline" autocomplete="off"
+                        value={aptUnitNo} disabled={disableAddress} onchange={handleInputChange}>
+                    </lightning-input>
+
+                    <lightning-input
+                        data-id="city" label="City" variant="label-inline" placeholder="City" autocomplete="off"
+                        value={city} disabled={disableAddress} onchange={handleInputChange}>
+                    </lightning-input>
+
+                    <lightning-combobox
+                        data-id="state" label="State" placeholder="Select a State" variant="label-inline"
+                        options={stateOptions}
+                        value={state} disabled={disableAddress} onchange={handleInputChange}>
+                    </lightning-combobox>
+
+                    <lightning-input
+                        data-id="zipCode" label="Zip Code" placeholder="Zip Code" variant="label-inline" autocomplete="off"
+                        pattern="^(\d{5}(-\d{4})?|[A-Z]\d[A-Z] ?\d[A-Z]\d)$" message-when-pattern-mismatch="Not a valid ZIP Code."
+                        value={zipCode} disabled={disableAddress} onchange={handleInputChange}>
+                    </lightning-input>
+
+                </div>
+            </div>
+
+            <div class="slds-align_absolute-center slds-var-m-top_xx-large">
+                <lightning-button label="Search" variant="brand" disabled={disableSearch} onclick={handleSearch}></lightning-button>
+                <lightning-button label="Clear" onclick={handleClear} class="slds-var-p-left_medium"></lightning-button>
+            </div>
+
+        </div>
+
+        <div if:true={showIndividualSelection} class="slds-is-relative main">
+            <!-- Errors and informational notifications -->
+            <div class="slds-var-m-top_x-large">
+                <c-bwc-notifications></c-bwc-notifications>
+            </div>
+
+            <template if:true={isLoading} >
+                <lightning-spinner
+                    alternative-text="Loading..."
+                    size="large"
+                    variant="brand">
+                </lightning-spinner>
+            </template>
+
+            <c-bwc-individual-selection
+                individuals={individuals}
+                search-term={searchValue}
+                search-mode={searchMode}
+                onnewsearch={handleNewSearch}
+                record-id={recordId}
+                onerror={handleError}
+                onindividualsearch={handleIndividualSearch}
+            ></c-bwc-individual-selection>
+        </div>
+
+        <div if:true={showAddressSelection} class="slds-is-relative main">
+
+            <!-- Errors and informational notifications -->
+            <div class="slds-var-m-bottom_x-large">
+                <c-bwc-notifications></c-bwc-notifications>
+            </div>
+
+            <template if:true={isLoading} >
+                <lightning-spinner
+                    alternative-text="Loading..."
+                    size="large"
+                    variant="brand">
+                </lightning-spinner>
+            </template>
+
+            <c-bwc-address-selection
+                onnewaddress={handleNewAddress}
+                onnewsearch={handleNewSearch}
+                onerror={handleError}
+                addresses={addresses}
+                onaddressselection={handleAddressSelection}
+                entered-street-address={streetAddress}
+                entered-apt-unit-no={aptUnitNo}
+                entered-city={city}
+                entered-state={state}
+                entered-zip-code={zipCode}>
+            </c-bwc-address-selection>
+        </div>
+
+    </div>
+
+</template>

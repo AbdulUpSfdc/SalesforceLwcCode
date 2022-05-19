@@ -1,0 +1,12 @@
+<aura:component implements="lightning:isUrlAddressable,flexipage:availableForAllPageTypes">
+
+    <aura:handler name="init" value="{!this}" action="{!c.refresh}"/>
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.refresh}" />
+    <aura:attribute name="recordId" type="String"/>
+
+    <c:bwcManageAccountContact recordId="{!v.recordId}" isFullPage="true" onclose="{!c.close}"/>
+
+    <!-- For closing subtab -->
+    <lightning:workspaceAPI aura:id="workspace" />    
+
+</aura:component>

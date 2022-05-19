@@ -1,0 +1,27 @@
+<!--- 
+    Component Name : ProspectLeadsListView
+    Description: This component is part of the ProspectLeads Tab where the list views of prospects are shown
+    Author: Rashmi Thippeswamy
+    -->
+    <aura:component controller="ProspectLeadsListViewController"  implements="lightning:isUrlAddressable,flexipage:availableForAllPageTypes"  access="global">
+        <aura:handler name="init" value="{!this}" action="{!c.init}" />
+        <aura:attribute name="pageReference" type="Object"/>
+        <aura:attribute name="LeadListName" type="List" />
+        <aura:attribute name="lstLead" type="List"   /> 
+        <!--- Start Event handling for default values-->
+            <aura:registerEvent name="appEvent" type="c:ProspectLeadDefaultFilter"/>
+            <aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChange}"/>
+        <!--- End Event handling for default values-->
+        <aura:iteration items="{!v.LeadListName}" var="ln" aura:id="lnName"> 
+                    <lightning:card variant="Narrow"  iconName="standard:lead_list" >
+                        <aura:set attribute="title">
+                            <lightning:button variant="base" label="{!ln}"  onclick="{! c.handleListNameClick }"/>
+                        </aura:set>
+                    </lightning:card>
+        </aura:iteration>
+        <lightning:card variant="Narrow"  iconName="standard:lead_list" >
+                <aura:set attribute="title">
+                    <lightning:button variant="base" label="All Prospect Leads"  onclick="{! c.handleListNameClick }"/>
+                </aura:set>
+        </lightning:card>
+    </aura:component>

@@ -1,0 +1,12 @@
+.text_background {
+    background: white;
+    padding: 8px;
+    width: 100%;
+}
+.text_background {
+    width: 100%;
+    font-size: 13px;
+}
+.blockPadding{
+    padding-block: 55px;
+}

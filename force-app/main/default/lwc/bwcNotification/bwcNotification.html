@@ -1,0 +1,86 @@
+<template>
+    <template if:true={showNotification}>
+        <template if:true={showTypeInline}>
+            <div class="full-width slds-var-m-top_x-small slds-grid slds-grid_align-center slds-grid_vertical-align-center">
+                <lightning-icon
+                    class="slds-var-m-right_small"
+                    icon-name={iconName}
+                    size="x-small"
+                    variant={variant}
+                    alternative-text={variant}
+                ></lightning-icon>
+                <lightning-formatted-rich-text value={message} class={inlineClass}></lightning-formatted-rich-text>
+                <slot></slot>
+                <template if:true={showCloseButton}>
+                    <div class="slds-col_bump-left">
+                        <!-- sldsValidatorIgnoreNextLine -->
+                        <lightning-button-icon 
+                            icon-name="utility:close"  
+                            alternative-text="Close" 
+                            variant="bare"
+                            size="medium"
+                            title="Settings"
+                            onclick={closeNotification}>
+                        </lightning-button-icon>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <template if:true={showTypeScoped}>
+            <div class={scopedClass} role="status">
+                <div if:false={hideIcon} class="slds-media__figure">
+                    <lightning-icon icon-name={iconName} size="small" variant={iconVariant}></lightning-icon>
+                </div>
+                <div class="slds-media__body media-body slds-grid slds-grid_vertical-align-center">
+                    <template for:each={displayItems} for:item="item">
+                        <span key={item.index}>
+                            <lightning-formatted-rich-text class="slds-var-m-right_xx-small" value={item.message}></lightning-formatted-rich-text>
+                            <template if:true={item.action}>
+                                <template if:true={item.action.href}>
+                                    <a class="slds-var-m-right_xx-small" href={item.action.href} target={item.action.name}>
+                                        <lightning-formatted-rich-text data-index={item.index} value={item.action.message}></lightning-formatted-rich-text>
+                                        <template if:true={item.action.icon}>
+                                            <lightning-icon class="slds-var-m-left_x-small" icon-name={item.action.icon.name} size="xx-small" variant="inverse"></lightning-icon>
+                                        </template>
+                                    </a>
+                                </template>
+                                <template if:false={item.action.href}>
+                                    <a class="slds-var-m-right_xx-small" onclick={handleActionClick}>
+                                        <lightning-formatted-rich-text data-index={item.index} value={item.action.message}></lightning-formatted-rich-text>
+                                        <template if:true={item.action.icon}>
+                                            <lightning-icon class="slds-var-m-left_x-small icon" icon-name={item.action.icon.name} size="xx-small" variant="inverse"></lightning-icon>
+                                        </template>
+                                    </a>
+                                </template>
+                            </template>
+
+                        </span>
+                    </template>
+                    <slot></slot>
+                </div>
+                <template if:true={showCloseButton}>
+                    <div class="slds-col_bump-left">
+                        <!-- sldsValidatorIgnoreNextLine -->
+                        <lightning-button-icon 
+                            icon-name="utility:close"  
+                            alternative-text="Close" 
+                            variant="bare-inverse"
+                            size="large"
+                            title="Settings"
+                            onclick={closeNotification}>
+                        </lightning-button-icon>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <template if:true={showTypeValidation}>
+            <div class={validationClass}>
+                <lightning-formatted-rich-text value={message} class={inlineClass}></lightning-formatted-rich-text>
+                <slot></slot>
+            </div>
+        </template>
+
+    </template>
+</template>

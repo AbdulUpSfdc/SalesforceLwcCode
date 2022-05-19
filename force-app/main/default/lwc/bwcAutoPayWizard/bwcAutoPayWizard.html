@@ -1,0 +1,124 @@
+<template>
+
+    <c-bwc-wizard steps={wizardSteps} default-title="<b>AutoPay</b>" is-full-page is-quick-action onclose={handleWizardClose}>
+
+        <!-- Enroll Panel -->
+        <span slot="panel0">
+
+            <div data-name="enroll" class="slds-grid slds-grid_vertical panel">
+
+                <div if:false={paymentDetailsRetrieved} class="slds-grid slds-grid_vertical">
+                    <div class="slds-is-relative top-spinner">
+                        <lightning-spinner variant="brand" alternative-text="Retrieving AutoPay Details" size="large"></lightning-spinner>
+                    </div>
+                    <div class="slds-align_absolute-center slds-text-heading_medium">Retrieving AutoPay Details</div>
+                </div>
+
+                <div if:true={paymentDetailsRetrieved} class="slds-grid slds-grid_vertical">
+                    
+                    <template if:false={isBSSeCustomer}>
+
+                        <!-- Select Account --> 
+                        <div class="slds-grid slds-grid_vertical">
+
+                                <div class="slds-text-heading_small section-header">
+                                    1. Account
+                                </div>
+                                <div class="section-body">
+                                    <lightning-combobox class="select-account" data-name="selectBillingAccount" name="selectBillingAccount" label={labels.account} placeholder="Select Billing Account" dropdown-alignment="auto"
+                                        required message-when-value-missing="Please select a Billing Account" disabled={isEdit}
+                                        options={billingAccountOptions} value={selectedBan} onchange={handleBanSelected}>
+                                    </lightning-combobox>
+                                </div>
+
+                        </div>
+                        
+                    </template>
+
+                    <!-- Payment Method -->
+                    <div class="slds-grid slds-grid_vertical">
+
+                        <div class="slds-text-heading_small section-header">
+                            {eligiblePaymentHeaderLabel}
+                        </div>
+                        <div if:true={showPaymentMethods} class="section-body">
+
+                            <c-bwc-input-payment-method 
+                                class="slds-m-bottom_small" 
+                                interaction-id={recordId} 
+                                ban={selectedBan} 
+                                disallow-edit={isEdit} 
+                                context={inputPaymentContext}>
+                            </c-bwc-input-payment-method>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </span>
+
+        <!-- Review panel -->
+        <span slot="panel1">
+
+            <div class="slds-grid slds-grid_vertical">
+
+                <div class="slds-text-heading_small section-header">
+                    Payment Details
+                </div>
+
+                <div class="section-body">
+
+                    <c-bwc-view-payment-method class="slds-m-top_medium" payment-method={paymentMethod} spi-data={spiData}></c-bwc-view-payment-method>
+
+                </div>
+
+                <div class="slds-text-heading_small section-header">
+                    Terms &amp; Conditions
+                </div>
+
+                <div class="section-body">
+
+                    <c-bwc-read-panel text={tncVerbiage}></c-bwc-read-panel>
+    
+                    <lightning-input data-name="agreeToTerms" type="checkbox" class="slds-p-top_xx-small slds-m-top_medium slds-m-bottom_xx-small"
+                        label={labels.agreeToTerms}
+                        onchange={handleAgreeToTermsChange}>
+                    </lightning-input>
+    
+                </div>
+
+            </div>
+
+        </span>
+
+        <!-- Confirmation panel -->
+        <span slot="panel2">
+
+            <div class="slds-grid slds-grid_vertical">
+
+                <div class="slds-text-heading_small slds-m-top_small">
+                    {confirmationMessage}
+                </div>
+                <div class="slds-m-top_small">
+                    {labels.enrollmentConfirmationEmailMessage}
+                </div>
+
+                <div class="slds-text-heading_small section-header">
+                    Payment Details
+                </div>
+
+                <div class="section-body">
+                    <c-bwc-view-payment-method class="slds-m-top_medium" payment-method={paymentMethod} spi-data={spiData}></c-bwc-view-payment-method>
+                </div>
+
+            </div>
+
+        </span>
+
+    </c-bwc-wizard>
+
+</template>

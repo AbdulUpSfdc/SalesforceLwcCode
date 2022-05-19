@@ -1,0 +1,33 @@
+<template>
+
+    <div class="slds-grid slds-grid_vertical">
+
+        <div class="slds-grid slds-m-bottom_medium">
+
+            <c-bwc-form-element label="Amount" class="slds-size_1-of-4">
+                <lightning-formatted-number class="element-value" format-style="currency" currency-display-as="symbol"
+                    value={paymentDetails.amountPaid}></lightning-formatted-number>
+            </c-bwc-form-element>
+
+            <c-bwc-form-element label="Payment Processing Date" class="slds-size_1-of-4">
+                <lightning-formatted-date-time  class="element-value" year="numeric" month="2-digit" day="2-digit" time-zone="UTC" value={paymentDetails.paymentDate}
+                ></lightning-formatted-date-time>
+            </c-bwc-form-element>
+
+        </div>
+
+        <div class="slds-grid">
+
+            <c-bwc-view-payment-method payment-method={paymentDetails.paymentMethod} spi-data={spiData} style="width: 100%;"></c-bwc-view-payment-method>
+
+        </div>
+
+        <div if:true={paymentDetails.confirmationNumber} class="slds-m-top_medium">
+            <c-bwc-form-element label="Confirmation Number" class="slds-size_1-of-4">
+                <span class="element-value">{paymentDetails.confirmationNumber}</span>
+            </c-bwc-form-element>
+        </div>
+
+    </div>
+
+</template>

@@ -1,0 +1,19 @@
+<template>
+
+    <div class={gridClass}>
+        <div >
+            <span class="slds-m-horizontal_xx-small" title={iconAlternativeText}>
+                <lightning-icon
+                    size="x-small"
+                    icon-name={iconName}
+                    variant={iconVariant}
+                    alternative-text={iconAlternativeText}>
+                </lightning-icon>
+            </span>
+        </div>
+        <div >
+            <lightning-formatted-text value={value}></lightning-formatted-text>
+        </div>
+    </div>
+
+</template>

@@ -1,0 +1,160 @@
+<template>
+    <c-bwc-wizard steps={wizardSteps} default-title={wizardDefaultTitle} is-quick-action is-full-page onclose={handleWizardClose}>
+
+        <c-bwc-notifications></c-bwc-notifications>
+
+        <!-- Select BAN Page -->
+        <span slot="panel0">
+            <div class="panel slds-grid">
+                <div class="slds-col"></div>
+                <div class="slds-col">
+                    <lightning-combobox 
+                        required 
+                        data-id="selectBan" 
+                        name="selectBan" 
+                        label={labels.account}
+                        placeholder="Select Billing Account"
+                        message-when-value-missing="Please select a Billing Account"
+                        options={billingAccountOptions}
+                        onchange={handleBillingAccountSelected}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col"></div>
+            </div>
+        </span>
+
+        <!-- BAN# Adjustment Information -->
+
+        <lightning-spinner if:true={isLoading} alternative-text="Loading"></lightning-spinner>
+        <span slot="panel1">
+            <div data-name="addNewCharge" class="panel">
+                <!-- Account Billing Section -->
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title section">
+                        <span class="slds-var-p-left_small" title="Account Billing Information">Account Billing Information</span>
+                    </h3>
+                    <div class="slds-section__content slds-grid slds-gutters">
+                        <div class="slds-col">
+                            <!-- Customer Name -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Customer Name</label>
+                                <div><strong><lightning-formatted-name
+                                    first-name={customerFirstName}
+                                    last-name={customerLastName}
+                                >
+                                </lightning-formatted-name></strong></div>
+                            </div>
+                            
+                            <!-- Service Type -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Service Type</label>
+                                <div class="slds-form-element__control">
+                                    <span><strong>{serviceType}</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col">
+                            <!-- Creation Date -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Creation Date</label>
+                                <div class="slds-form-element__control">
+                                    <span><strong><lightning-formatted-date-time
+                                        value={creationDate}
+                                        year="numeric"
+                                        month="numeric"
+                                        day="numeric">
+                                    </lightning-formatted-date-time></strong></span>
+                                </div>
+                            </div>                    
+                        </div>
+                    </div>    
+                </div>
+                
+                <div class="slds-section slds-is-open" data-name="addNewChargeForm">
+                    <h3 class="slds-section__title section">
+                        <span class="slds-var-p-left_small" title="Adjustment Information">Adjustment Information</span>
+                    </h3>
+    
+                    <div class="slds-section__content slds-grid slds-gutters">
+                        <div class="slds-col">
+
+                            <!-- Adjustment Type -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Adjustment Type</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-large">
+                                    <span><strong>{adjustmentType}</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- Charge Reason -->
+                            <lightning-combobox 
+                                required 
+                                class="slds-var-p-around_small"
+                                data-id="chargeReason" 
+                                name="chargeReason" 
+                                label="Charge Reason" 
+                                placeholder="Select Reason"
+                                message-when-value-missing="Please select a Charge Reason."
+                                options={chargeReasonOptions}
+                                onchange={handleChargeReasonOnChange}>
+                            </lightning-combobox>
+
+                            <!-- How To Apply -->
+                            <lightning-combobox 
+                                required 
+                                class="slds-var-p-around_small"
+                                data-id="howToApply" 
+                                name="howToApply" 
+                                label="How to Apply"
+                                value="immediately"
+                                message-when-value-missing="Please specify how to apply."
+                                options={howToApplyOptions}
+                                onchange={handleInputOnChange}>
+                            </lightning-combobox>
+                        </div>
+                        <div class="slds-col">
+
+                            <!-- Charge Level -->
+                            <lightning-combobox 
+                                required 
+                                class="slds-var-p-around_small"
+                                data-id="chargeLevel" 
+                                name="chargeLevel"
+                                label="Charge Level"
+                                value="accountLevel"
+                                message-when-value-missing="Please select a Charge Level."
+                                options={chargeLevels}
+                                onchange={handleChargeLevelOnChange}>
+                            </lightning-combobox>
+
+                            <!-- Charge Amount -->
+                            <lightning-input
+                                required 
+                                class="slds-var-p-around_small" 
+                                data-id="chargeAmount" 
+                                name="chargeAmount" 
+                                label="Charge Amount" 
+                                value={chargeAmount}
+                                disabled={chargeAmountDisabled}
+                                pattern="^\$?(([1-9]\d{0,2}(,?\d{3})*)|0)?(\.\d{2})?$"
+                                message-when-pattern-mismatch="Please enter a valid amount."
+                                message-when-value-missing="Please enter a positive value for the Charge Amount."
+                                onchange={handleChargeAmountOnChange}>
+                            </lightning-input>
+                        </div>
+                    </div>
+
+                    <lightning-textarea
+                        required
+                        class="slds-var-p-around_small" 
+                        data-id="comments"
+                        label="Comments" 
+                        placeholder="Enter comments here..."
+                        onchange={handleInputOnChange}>
+                    </lightning-textarea>
+                </div>
+            </div>
+        </span>
+    </c-bwc-wizard>
+
+</template>

@@ -1,0 +1,187 @@
+<apex:page showheader="false" sidebar="false" controller="KnowledgeManagementViewArticleCtrl">
+    
+    <style>
+        body
+        {
+        font-size: 13px;
+        }
+        a:link
+        {
+        color: blue;
+        }
+        .bttcontainer  {
+        
+        }
+        .backtotop {
+        position: -webkit-sticky;
+        position: sticky;
+        }
+    </style>
+    
+    <!--<div id="article-details-container" style="width:700px;">-->
+    <div id="article-details-container">
+        <div class="onlyForIPAD">
+            <apex:image value="{!previewImageFull}" width="{!IPADImageWidth}" />
+            <br/>
+            <apex:outputText value="{!articleSummary}" escape="false" />
+           <!-- <apex:outputPanel rendered="{!if(previewImageFull <> '' , true ,false)}">  -->
+                <!--<div class="previewimagediv" style="width:80%">-->
+                <!--<div class="previewimagediv"> -->
+                <!--<apex:image value="{!previewImageFull}" style="width:100%; height:100%; object-fit: contain;" /> -->
+                    
+               <!-- </div> 		-->			   
+            <!-- </apex:outputPanel>	-->
+            <br/>
+        </div>
+        
+        <apex:outputText value="{!articleDetail}" escape="false" />
+        <br/>
+        
+        <!--<div class="onlyForIPAD"> -->
+            {!showRelatedLink}
+            <apex:outputText value="{!relatedLinksLable}" escape="false" />
+            <br/>
+            <apex:outputText value="{!relatedLinks}" escape="false" />
+        <!-- </div> -->
+
+    </div>
+    
+    
+    <apex:includeScript value="{!URLFOR($Resource.KM_jquery)}"/> 
+    
+    <script>
+    jQuery.noConflict();
+    
+    
+    jQuery( document ).ready(function() {
+        
+        //alert("previewImageFull=>>"+ {!previewImageFull} +"<<");
+        
+        //checkimagepath({!previewImageFull});
+        
+        
+        
+        var lookfor = "forceMobileSDK"; // this was determined by inspection of navigator.userAgent when on IPAD
+        var isIpad = navigator.userAgent.includes(lookfor);
+        
+        var devtype = "Desktop";
+        
+        // set to true forces  fix for all device types
+        //isIpad = true;
+        var AlwaysApplyFix = true;
+
+        if( isIpad )
+        {
+            devtype = " IPAD";
+            //jQuery( "#article-details-container" ).append( "<p>IPAD</p>"); 
+        }
+        else
+        {
+            devtype = " Desktop";
+            //jQuery( "#article-details-container" ).append( "<p>Desktop</p>") ;
+        }
+        
+        // for task 5683, forcing the same display to fix link issue even in desktop
+        //devtype = " IPAD";
+        
+        // alert(devtype);
+        // only apply hot fix for IPAD
+        
+        // task 5683, make it always apply the fix            
+        //if( devtype == " IPAD")
+        if( AlwaysApplyFix)
+         
+            //            if( true)
+        {
+            
+            
+            
+            jQuery( 'div#article-details-container a' ).removeAttr('target');
+            jQuery( 'div#article-details-container a' ).removeAttr('data-lightning-target');
+            
+            // loop on all <a> tags in the  div id=article-details-container
+            jQuery( 'div#article-details-container a' ).each(function()
+                                                             {
+                                                                 
+                                                                 
+                                                                 
+                                                                 
+                                                                 
+                                                                 
+                                                                 //          alert("performing <a processing....");
+                                                                 
+                                                                 // gets the url from the href
+                                                                 
+                                                                 var theUrl = jQuery(this).attr("href");
+                                                                 
+                                                                 // console.log("after"+theUrl);
+                                                                 
+                                                                 if(theUrl === undefined)
+                                                                     // if(theUrl)
+                                                                 {
+                                                                     //console.log("got an undefined");
+                                                                 }
+                                                                 else
+                                                                 {
+                                                                     
+                                                                     var n = theUrl.length;
+                                                                     //alert(theUrl);
+                                                                     console.log("url length="+n);
+                                                                     
+                                                                     // see if it is an anchor tag, which contain a #                    
+                                                                     if(  theUrl.includes("#") ) 
+                                                                     {
+                                                                         // alert("Skipping this URL "+theUrl);
+                                                                         //console.log("Skipping this URL "+theUrl);
+                                                                         //skipping anchor tags
+                                                                     }
+                                                                     else
+                                                                     {
+                                                                         //console.log('Adding onclick to this URL',theUrl);
+                                                                         // add on click event to the <a> tag
+                                                                         // alert("Adding onclick to this URL "+theUrl));
+                                                                         jQuery(this).click(function(){sforce.one.navigateToURL(theUrl);});
+                                                                         
+                                                                         //the above click was a quick fix needed to keep the login session on the IPAD
+                                                                         // otherwise the user was presented with a salesforce login screen and never could display the requested document
+                                                                         
+                                                                         // changes the href url to '#', this needed to stop a double load of the url
+                                                                         jQuery(this).attr("href", '#');
+                                                                         
+                                                                     }
+                                                                 }
+                                                             });
+            
+        } // only do hot fix for IPADs 
+        
+        // remove the onlyForIPAD classes if on desktop
+//        else
+        if( devtype == " Desktop")
+        {
+            
+            jQuery( ".onlyForIPAD" ).hide();
+            
+        }
+        
+        
+        //            alert(" step 4");
+        
+        
+        
+        //}
+        function checkimagepath(path) {
+            
+            //alert("made it"+path);
+            if(path==undefined)
+            {
+                jQuery( ".previewimagediv" ).hide();
+            }
+            
+            return;
+        }
+        
+    });
+    
+    </script> 
+    
+</apex:page>

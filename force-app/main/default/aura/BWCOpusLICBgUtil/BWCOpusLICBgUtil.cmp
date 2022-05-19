@@ -1,0 +1,7 @@
+<aura:component implements="lightning:backgroundUtilityItem" controller="BWC_LIC_OpusBgUtilController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:workspaceAPI aura:id="workspace" />
+    <aura:attribute name="globalParam" type="Map"/>
+    <aura:attribute name="windowHandle" type="Object"/>
+    <aura:handler event="lightning:tabCreated" action="{!c.onTabCreated}" /> 
+</aura:component>

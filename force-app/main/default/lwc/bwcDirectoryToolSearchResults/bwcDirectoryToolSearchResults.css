@@ -1,0 +1,50 @@
+.outerTable{
+    border: none;
+}
+
+.innerTable{
+    border : none;
+    text-align: center;
+}
+
+.outertr{
+    font-size: 18px;
+    border : 1px solid #ccc;
+}
+
+.innertr{
+    font-size: 15px;
+}
+
+.outerth{
+    font-size: 18px;
+    font-weight: bold;
+    border-top: 1px solid #ccc;
+    background: #cccccc6b;
+}
+
+.innerth{
+    font-size: 14px;
+    width: 25%;
+    border : none;
+    font-weight: 500;
+}
+
+.outertd{
+    font-size : 14px;
+}
+
+.innertd{
+    font-size : 14px;
+    border: none;
+}
+
+.seemore{
+    font-weight: bold;
+    color: black;
+    
+}
+
+.contactDetails{
+    font-weight : 500;
+}

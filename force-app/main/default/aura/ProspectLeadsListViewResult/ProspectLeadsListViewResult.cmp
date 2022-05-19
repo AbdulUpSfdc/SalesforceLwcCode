@@ -1,0 +1,152 @@
+<!--- 
+    Component Name : ProspectLeadsListViewResult
+    Description: This component is part of the ProspectLeads Tab .When the user selects a list view from the 
+                            ProspectLeadsListView Page , the results are displayed here
+    Author: Rashmi Thippeswamy
+    -->
+    <aura:component controller="ProspectLeadsListViewController" implements="lightning:isUrlAddressable,flexipage:availableForAllPageTypes" extends="c:ProspectBase" access="global">
+        <aura:attribute   name="LeadListName" type="List" />
+    <!-- Add a "change" handler to handle all changes to the "v.pageReference" value -->
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChange}"/>
+    <!-- Add a "init" handler to set page reference values -selectedLeadlist and filter options -->	
+        <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <!-- Event to invoke filter-->
+        <aura:registerEvent name="appEvent2" type="c:ProspectLeadDefaultFilter"/>
+        <!--Lightning Navigation-->
+        <lightning:navigation aura:id="navigation"/>
+    <!-- End  Event to invoke filter-->
+    <!-- Start Attibutes -->	
+        <aura:attribute name="renderStoreFilter" type="Boolean" default="false"/>
+        <aura:attribute name="isDisabled" type="Boolean" default="false"/>
+        <aura:attribute name="isLoading" type="Boolean" default="false"/>
+        <aura:attribute name="initialRows" type="Integer" default="50"/>
+        <aura:attribute name="currentCount" type="Integer" default="50"/>
+        <aura:attribute name="totalRows" type="Integer" default="0"/>
+        <aura:attribute name="lstLead" type="Object"   />
+        <aura:attribute name="columns" type="List"   />
+        <aura:attribute name="renderCmp" type="Boolean"  default="false" />
+        <aura:attribute name="pageRefresh" type="Boolean"  default="true" />
+        <aura:attribute name="Proximity" type="integer"   />
+        <aura:attribute name="TotalEmployees" type="integer"   />
+        <aura:attribute  name="SelectedLeadListName" type="String" />
+        <aura:attribute name="strListFilterOptions" type="String"   />
+        <aura:attribute name="strFilterOperatorDisplay" type="String"   />
+        <aura:attribute name="timeZone" type="String"/>
+    <!-- Stop Attibutes -->	
+    <!-- Start Header -->	
+        <aura:if isTrue="{!v.renderCmp}"> 
+        <lightning:card title="{!v.SelectedLeadListName}" iconName="standard:lead">
+            <p class="slds-p-horizontal_small">
+                {!v.lstLead.length} Items 
+            </p>
+            <p class="slds-p-horizontal_small">
+                {!v.strFilterOperatorDisplay}
+            </p>
+            <aura:set attribute="actions">
+                <lightning:button variant="brand" label="Apply Filter" onclick="{!c.applyFilter}" />
+               <lightning:tile label="Back" href="{!'/lightning/n/Prospect_Leads'}" class="slds-button slds-button_brand"/>
+            </aura:set>
+        </lightning:card>
+    <!-- Stop Header -->	
+    <!-- Start Results Table -->	
+        <aura:iteration items="{!v.lstLead}" var="ln" >
+            <div class="slds-box slds-theme_default">
+                <lightning:tile label="{!ln.Name}" href="{!'/lightning/r/Lead/'+ln.Id+'/view'}"> 
+    
+                <dl class="slds-dl_horizontal">
+                <dt class="slds-dl_horizontal__label">
+                    <p class="slds-truncate" title="Company">Company</p>
+                </dt>
+                <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                    <p class="slds-truncate" title="Company Name">{!ln.Company}</p>
+                </dd>
+                <dt class="slds-dl_horizontal__label">
+                    <p class="slds-truncate" title="Address">Address</p>
+                </dt>
+                <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                    <p class="slds-truncate" title="Address">
+                    <lightning:formattedAddress
+                            street="{!ln.Street}"
+                            city="{!ln.City}"
+                            country="{!ln.Country}"
+                            province="{!ln.State}"
+                            postalCode="{!ln.PostalCode}"
+                        />
+                    </p>
+                </dd>
+                    <dt class="slds-dl_horizontal__label">
+                        <p class="slds-truncate" title="MobilePhone">Mobile</p>
+                    </dt>
+                    <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                        <p class="slds-truncate" title="Mobile Phone">{!ln.MobilePhone}</p>
+                    </dd>
+                        <dt class="slds-dl_horizontal__label">
+                            <p class="slds-truncate" title="ExpiryDate">Contact By</p>
+                        </dt>
+                        <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                            <p class="slds-truncate" title="Contact By">
+                                <lightning:formattedDateTime  value="{!ln.ExpiryDate__c}" timezone="{!v.timeZone}" year="numeric" month="numeric" day="numeric"></lightning:formattedDateTime >
+                            </p>
+                        </dd>
+                    <dt class="slds-dl_horizontal__label">
+                        <p class="slds-truncate" title="Lead Strength">Lead Strength</p>
+                    </dt>
+                    <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                        <lightning:recordViewForm recordId="{!ln.Id}" objectApiName="Lead">
+                            <lightning:outputField fieldName="LeadStrength__c"  variant="label-hidden"/>
+                        </lightning:recordViewForm>
+                    </dd>
+                    <dt class="slds-dl_horizontal__label">
+                        <p class="slds-truncate" title="Preferred Method of Contact">Preferred Method of Contact</p>
+                    </dt>
+                    <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                        <p class="slds-truncate" title="Preferred Method of Contact">{!ln.PreferredMethodofContact__c}</p>
+                    </dd>
+                    <dt class="slds-dl_horizontal__label">
+                        <p class="slds-truncate" title="Follow Up Opportunity ">Follow Up Opportunity</p>
+                    </dt>
+                    <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                        <p class="slds-truncate" title="Product Interest">{!ln.ProductsDiscussed__c}</p>
+                    </dd>
+                    <dt class="slds-dl_horizontal__label">
+                        <p class="slds-truncate" title="Customer Type">Customer Type</p>
+                    </dt>
+                    <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                        <p class="slds-truncate" title="Customer Type">{!ln.CustomerType__c}</p>
+                    </dd>
+                    <dt class="slds-dl_horizontal__label">
+                        <p class="slds-truncate" title="Lead Source">Lead Source</p>
+                    </dt>
+                    <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                        <p class="slds-truncate" title="Lead Source">{!ln.LeadSource}</p>
+                    </dd>
+                    <dt class="slds-dl_horizontal__label">
+                        <p class="slds-truncate" title="Other Notes">Other Notes</p>
+                    </dt>
+                    <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                        <p class="slds-truncate" title="Other Notes">{!ln.OtherNotes__c}</p>
+                    </dd>
+                    <dt class="slds-dl_horizontal__label">
+                        <p class="slds-truncate" title="Proximity">Proximity</p>
+                    </dt>
+                    <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                        <p class="slds-truncate" title="Proximity__c">
+                            {!ln.Proximity__c} 
+                            <aura:if isTrue="{!not(empty(ln.Proximity__c))}">
+                                miles
+                            </aura:if>
+                        </p>
+                    </dd>
+                </dl>
+                </lightning:tile>
+                </div>
+            </aura:iteration>
+            <!-- Lazy Loading Starts -->	
+            <lightning:button variant="brand" label="Load More"  aura:id ="loadMore" onclick="{!c.handleLoadMore}" disabled="{!v.isDisabled}"/>
+            <aura:if isTrue="{!v.isLoading}">
+                <lightning:spinner alternativeText="Loading" size="medium" />
+            </aura:if>
+            <!-- Lazy Loading Ends -->	
+        </aura:if>
+    <!-- Stop Results Table -->	
+    </aura:component>

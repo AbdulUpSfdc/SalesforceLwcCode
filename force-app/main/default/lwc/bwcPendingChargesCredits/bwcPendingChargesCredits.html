@@ -1,0 +1,51 @@
+<template>
+    <div class="slds-box slds-box_xx-small">
+        <lightning-card title='Pending Charges & Credits' icon-name='standard:contract' >
+
+            <lightning-spinner if:true={isLoading} alternative-text="Loading"></lightning-spinner>
+
+            <!-- Actions available when in preview mode -->
+            <span if:false={viewAll} slot="actions">
+                <template if:true={hasCreditAdjustmentsPermission}>
+                    <lightning-button label="Add New Charge" onclick={handleAddCharge}></lightning-button>
+                </template>
+                <lightning-button label="Refresh" onclick={handleRefresh} class="slds-var-m-left_small"></lightning-button>
+                <lightning-button if:true={showViewAllLink} label="View All" onclick={handleViewAll} class="slds-var-m-left_small"></lightning-button>
+            </span>
+
+            <!-- Actions available when in view all mode -->
+            <span if:true={viewAll} slot="actions">
+                <lightning-combobox
+                    name="Filter"
+                    value=""
+                    options={filterOptions}
+                    onchange={handleFilter}
+                ></lightning-combobox>
+            </span>
+
+            <c-bwc-notifications></c-bwc-notifications>
+
+            <template if:true={showTable}>
+                <lightning-datatable
+                    class="slds-max-medium-table_stacked pending-grid"
+                    key-field="Id"
+                    data={adjustments}
+                    columns={columns}
+                    wrap-text-max-lines="3"
+                    column-widths-mode="auto"
+                    hide-checkbox-column="true"
+                    onrowaction={handleRowAction}
+                    default-sort-direction={defaultSortDirection}
+                    sorted-direction={sortDirection}
+                    sorted-by={sortedBy}
+                    onsort={handleSort}
+                    >
+                </lightning-datatable>
+            </template>
+
+            <div if:true={showEmpty} class="slds-align_absolute-center">
+                {labels.noPendingAdjustments}
+            </div>
+        </lightning-card>
+    </div>
+</template>

@@ -1,0 +1,45 @@
+.articleFeedback-cardheader {
+    color: #080707;
+    letter-spacing: 0;
+    line-height: 28px;
+    padding: 5px 0px 5px 0px;
+    font-weight: bold;
+}
+
+.articleFeedback-header {
+    color: #101820;
+    line-height: 23px;
+}
+
+.articleFeedback-header-link {
+    line-height: 23px;
+}
+
+.articleFeedback-subheader {
+    color: #929292;
+    letter-spacing: 0;
+    line-height: 23px;
+}
+
+.dislayfullcss {
+    max-height: 560px;
+    overflow: scroll;
+}
+
+.flex-parent {
+    display: flex;
+    align-items: center;
+}
+
+.long-and-truncated {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #00a0db;
+    cursor: pointer;
+}
+
+.txt:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,153 @@
+.content {
+    background-color: #F9F9F9;
+    height: 29rem;
+    width: 100%;
+    position:relative;
+}
+.article-image {
+    height: 15.3125rem;
+    width: 100%;
+    background-position: center;
+    background-size: contain;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    
+  }
+.article-badge-recommended {
+  --sds-c-badge-color-background: #8000DB;
+  --sds-c-badge-color-text: white;
+  color: white;
+    --sds-c-badge-font-size: 0.6rem;
+}
+.article-badge-urgent {
+  --sds-c-badge-color-background: #C23934;
+  --sds-c-badge-color-text: white;
+  color: white;
+  --sds-c-badge-font-size: 0.6rem;
+}
+.article-badge-unread {
+  --sds-c-badge-color-background: #FFB75D;
+  --sds-c-badge-color-text: #080707;
+  color: #080707;
+    --sds-c-badge-font-size: 0.6rem;
+}
+  .article-title {
+    font-size: 1.125rem;
+    font-weight: var(--lwc-fontWeightBold);
+    max-height: 4rem;
+    color: #101820;
+  }
+  .article-summary {
+    font-size: 0.8125rem;
+    max-height: 6.3rem;
+    color: #2B2826;
+    overflow: hidden; 
+  }
+  .article-summary-no-image {
+    font-size: 0.8125rem;
+    max-height: 20.7rem;
+    color: #2B2826;
+    overflow: hidden; 
+  }
+  .article-cspid {
+    font-size: 0.625rem;
+    color: #706E6B;
+  }
+  .article-stats {
+    font-size: 0.75rem;
+    color: #919191;
+    position: absolute; 
+    bottom: 0;
+  }
+  a:link {
+    color:black;
+  }
+  .bold-items {
+    font-weight: var(--lwc-fontWeightBold);
+    display: inline-flex;
+}
+/* Desktop shrink < 1600 width 
+@media (min-width: 64.0625em) and (max-width: 100em) {
+
+.article-image {
+    height: 12rem;
+    max-width: 14.6rem;
+    
+  }
+} */
+/* iPad Portrait */
+@media only screen and (min-device-width: 0px) and (max-device-width: 1024px) and (orientation:portrait) {
+  .content {
+    height: 23.25rem;
+  }
+  .article-image {
+    height: 12.25rem;
+  }
+  .article-badge-recommended {
+--sds-c-badge-font-size: 0.6rem;
+}
+.article-badge-urgent {
+--sds-c-badge-font-size: 0.6rem;
+}
+.article-badge-unread {
+--sds-c-badge-font-size: 0.6rem;
+}
+  .article-title {
+    font-size: 0.9rem;
+    max-height: 3.2rem;
+  }
+  .article-summary {
+    font-size: 0.65rem;
+    max-height: 3.90rem;
+  }
+  .article-summary-no-image {
+    font-size: 0.65rem;
+    max-height: 16rem;
+  }
+  .article-cspid {
+    font-size: 0.5rem;
+  }
+  .article-stats {
+    font-size: 0.6rem;
+    padding-top: 0.25rem;
+    bottom: 0;
+  }
+}
+/* iPad Landscape */
+@media only screen and (min-device-width: 0px) and (max-device-width: 1024px) and (orientation:landscape) {
+  .content {
+    height: 23.25rem;
+  }
+  .article-image {
+    height: 12.25rem;
+  }
+    .article-badge-recommended {
+--sds-c-badge-font-size: 0.6rem;
+}
+.article-badge-urgent {
+--sds-c-badge-font-size: 0.6rem;
+}
+.article-badge-unread {
+--sds-c-badge-font-size: 0.6rem;
+}
+  .article-title {
+    font-size: 0.9rem;
+    max-height: 3.2rem;
+  }
+  .article-summary {
+    font-size: 0.65rem;
+    max-height: 3.90rem;
+  }
+   .article-summary-no-image {
+    font-size: 0.65rem;
+    max-height: 16rem;
+  }
+  .article-cspid {
+    font-size: 0.5rem;
+  }
+  .article-stats {
+    font-size: 0.6rem;
+    padding-top: 0.25rem;
+    bottom: 0;
+  }
+}

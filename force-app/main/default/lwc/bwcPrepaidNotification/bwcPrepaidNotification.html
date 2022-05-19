@@ -1,0 +1,19 @@
+<template>
+    
+    <template if:true={isTypeScoped}>
+        <c-bwc-notification type="scoped" texture="alert" message={labels.prepaidAccountNotice}>
+            <a class="slds-var-m-left_x-small slds-grid" href={labels.kicCareUrl} target="kiccare">{labels.loginLabel}
+                <lightning-icon class="slds-var-m-left_x-small" icon-name="utility:new_window" size="xx-small" variant="inverse"></lightning-icon>
+            </a>
+        </c-bwc-notification>
+    </template>
+
+    <template if:true={isTypeInline}>
+        <c-bwc-notification type="inline" message={labels.prepaidAccountNotice}>
+            <a class="slds-var-m-left_x-small slds-grid" href={labels.kicCareUrl} target="kiccare">{labels.loginLabel}
+                <lightning-icon class="slds-var-m-left_x-small link-icon" icon-name="utility:new_window" size="xx-small"></lightning-icon>
+            </a>
+        </c-bwc-notification>
+    </template>
+
+</template>

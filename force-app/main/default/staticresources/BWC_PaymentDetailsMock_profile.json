@@ -1,0 +1,87 @@
+[
+  {
+    "accountType": "uverse",
+    "ban": "112278145",
+        
+  "paymentProfileList": [
+            {
+                "profileName": "Business account",
+                "profileCreatedTime": "2019-08-23",
+                "profileProcessTime": "2019-09-09",
+                "paySource": {
+                    "sourceSystem": "MYWORLD",
+                    "sourceLocation": "CS",
+                    "sourceUser": "MYWORLD"
+                },
+                "paymentMethodType": "BANKACCOUNT",
+                "bankAccount": {
+                    "bankAccountNumber": "XXXXX9720",
+                    "accountHolderName": "Abiola Oshin",
+                    "routingNumber": "211178200",
+                    "accountType": "CHECKING"
+                }
+            },
+            {
+                "profileName": "Bofa Pwmb",
+                "profileCreatedTime": "2019-07-30",
+                "profileProcessTime": "2019-08-09",
+                "paySource": {
+                    "sourceSystem": "MYWORLD",
+                    "sourceLocation": "CS",
+                    "sourceUser": "MYWORLD"
+                },
+                "paymentMethodType": "BANKACCOUNT",
+                "bankAccount": {
+                    "bankAccountNumber": "XXXXX8920",
+                    "accountHolderName": "BofA Core Checking  8657",
+                    "routingNumber": "211178200",
+                    "accountType": "CHECKING"
+                }
+            },
+            {
+                "profileName": "Bofa Credit Card",
+                "profileCreatedTime": "2019-09-12",
+                "profileProcessTime": "2019-09-12",
+                "paySource": {
+                    "sourceSystem": "MYWORLD",
+                    "sourceLocation": "CS",
+                    "sourceUser": "MYWORLD"
+                },
+                "paymentMethodType": "CARD",
+                "card": {
+                    "cardNumber": "XXXXXXXXXXXX1898",
+                    "expireMonth": "05",
+                    "expireYear": "2023",
+                    "cardHolderName": "Shashank Test",
+                    "zipCode": "06516",
+                    "cardType": "VISA",
+                    "trueCreditCardIndicator": true,
+                    "verified": true
+                }
+            }
+        ]
+  },
+  {
+    "accountType": "dtvnow",
+    "ban": "200520233774353",
+    "paymentProfileList": [
+    {
+      "profileName": "Bofa Pwmb",
+      "profileCreatedTime": "2019-07-30",
+      "profileProcessTime": "2019-08-09",
+      "paySource": {
+          "sourceSystem": "MYWORLD",
+          "sourceLocation": "CS",
+          "sourceUser": "MYWORLD"
+      },
+      "paymentMethodType": "BANKACCOUNT",
+      "bankAccount": {
+          "bankAccountNumber": "XXXXX8920",
+          "accountHolderName": "BofA Core Checking  8657",
+          "routingNumber": "211178200",
+          "accountType": "CHECKING"
+      }
+  }
+]
+  }
+]

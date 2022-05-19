@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Message to LIC">
+    <aura:attribute name="msg" type="String"/>
+    <aura:attribute name="params" type="String"/>
+</aura:event>

@@ -1,0 +1,36 @@
+<template>
+
+    <div class="slds-var-m-horizontal_small slds-m-bottom_small">
+        <p class="slds-text-title_bold">Payment</p>
+    </div>
+
+    <div class="slds-box slds-box_xx-small slds-m-horizontal_small slds-m-bottom_small">
+
+        <lightning-card title="Details" icon-name="utility:money">
+            <span slot="actions">
+                <lightning-button
+                    class="slds-var-m-left_x-small"
+                    label={expandButtonText}
+                    title={expandButtonText}
+                    onclick={handleExpandAll} >
+                </lightning-button>
+            </span>
+
+            <c-bwc-order-fields
+                columns=2
+                fields={additionalPaymentInfo}>
+            </c-bwc-order-fields>
+            <div class="slds-var-m-horizontal_small">
+                <template for:each={paymentTenders} for:item='paymentTender'>
+                    <c-bwc-expandable-section key={paymentTender.tenderSequence} title={paymentTender.title} >
+                        <c-bwc-order-fields
+                            columns=2
+                            fields={paymentTender.fields} >
+                        </c-bwc-order-fields>
+                    </c-bwc-expandable-section>
+                </template>
+            </div>
+        </lightning-card>
+    </div>
+
+</template>

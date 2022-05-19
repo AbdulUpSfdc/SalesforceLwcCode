@@ -1,0 +1,17 @@
+<template>
+    <lightning-layout>
+        <lightning-layout-item flexibility="auto" padding="around-small" size="12" class="slds-box">
+
+                <template if:false={hideBack}>
+                    <lightning-button variant="neutral" label={backLabel} onclick={handleClick} disabled={disableBack} class="slds-float_left"></lightning-button>
+                </template>
+                <template if:false={hideContinue}>
+                    <lightning-button variant="neutral" label={continueLabel} onclick={handleClick} disabled={disableContinue} class="slds-float_right"></lightning-button>
+                </template>
+                <template if:false={hideSubmit}>
+                    <lightning-button variant="brand" label={submitLabel} onclick={handleClick} disabled={disableSubmit} class="slds-float_right"></lightning-button>
+                </template>
+
+        </lightning-layout-item> 
+    </lightning-layout>   
+</template>

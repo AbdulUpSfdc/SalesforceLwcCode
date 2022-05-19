@@ -1,0 +1,21 @@
+<template>
+
+  <c-bwc-expandable-section title="Secure Payment Details" >
+    <div class="wrapper">
+
+      <template for:each={summary} for:item="pm">
+        <div class="payment-method slds-text-heading_small slds-text-align_left" key={pm.title}>
+          {pm.title}
+        </div>
+        <template for:each={pm.values} for:item="pair">
+          <div key={pair.label}>
+            <div class="label slds-form-element__label">{pair.label} :</div>
+            <div class="value">{pair.value}</div>
+          </div>
+        </template>
+      </template>
+    
+    </div>
+  </c-bwc-expandable-section>    
+
+</template>

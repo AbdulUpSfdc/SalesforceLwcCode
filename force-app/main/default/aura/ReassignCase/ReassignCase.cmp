@@ -1,0 +1,54 @@
+<aura:component controller="ReassignCase" implements="flexipage:availableForRecordHome,force:lightningQuickAction,force:hasRecordId" >
+   	<aura:attribute name="queueList" type="List" default="[]"/>
+   	<aura:attribute name="userList" type="List" default="[]"/>
+   	<aura:attribute name="queueId" type="String" default=""/>
+   	<aura:attribute name="userId" type="String" default=""/>
+    
+   	<aura:attribute name="userRoleId" type="String" default=""/>
+   	<aura:attribute name="userRoleName" type="String" default=""/>
+    
+    <aura:attribute name="assigneeName" type="String" default="" />
+    <aura:attribute name="assigneeId" type="Id" default="" />
+    <aura:attribute name="recordId" type="Id" />
+    
+    <aura:attribute name="enableButton" type="Boolean" />
+    
+    <!-- mode is used to control be layout of the component
+		reset: only displays title and Reassign button
+		auto: automated reassign
+		queue: displays queue and user comboboxes
+	-->
+    <aura:attribute name="mode" type="String" default="reset" />
+    
+    <!-- used to retrieve the Case -->
+    <aura:attribute name="caseRecord" type="Object"  />
+    <force:recordData aura:id="caseRecordData" 
+                      fields="Id,OwnerId,OwnersRole__c,RecordType.DeveloperName,WorkGroup__c"
+                      recordId="{!v.recordId}" 
+                      mode="EDIT"
+                      targetFields="{!v.caseRecord}"
+                      recordUpdated="{!c.recordUpdated}" />
+
+    <aura:handler name="init" value="{! this }" action="{!c.doInit}"/>
+    
+	<lightning:card title="Reassign Case">
+        <aura:set attribute="footer">
+            <div class="slds-align_absolute-center">            
+                <lightning:button aura:id="reassignButtonId" variant="brand" label="Reassign" title="Reassign" onclick="{!c.handleReassignClick}" disabled="{!v.enableButton}" />
+            </div>
+        </aura:set>
+		<aura:if isTrue="{!notequals(v.mode, 'reset')}">
+            <div class="slds-var-p-around_medium">
+                <aura:if isTrue="{!equals(v.mode, 'auto')}">
+                    <lightning:formattedText value="Case successfully reassigned" />
+                </aura:if>
+                <aura:if isTrue="{!equals(v.mode, 'queue')}">
+                        <lightning:combobox aura:id="queueComboboxId" name="workgroupInput" label="Workgroup" placeholder="Select a Queue" options="{!v.queueList}" onchange="{!c.handleWorkgroupChange}"/>
+                        <lightning:combobox name="userInput" label="User" placeholder="Select a User" options="{!v.userList}" onchange="{!c.handleUserChange}"/>
+                </aura:if>
+            </div>
+        </aura:if>        
+
+	</lightning:card>
+	
+</aura:component>

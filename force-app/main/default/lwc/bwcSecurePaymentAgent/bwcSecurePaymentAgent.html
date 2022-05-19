@@ -1,0 +1,120 @@
+<template>
+    <c-bwc-message-bar if:true={messageBarMessage} class="slds-m-top_x-small" variant={messageBarMessage.variant} text={messageBarMessage.text}></c-bwc-message-bar>
+    <c-bwc-error-report></c-bwc-error-report>
+
+    <div class="slds-is-relative">
+
+        <lightning-spinner if:true={isBusy} alternative-text="Working..." variant="brand"></lightning-spinner>
+
+        <!-- Send Secure Link -->
+        <div if:true={isPhaseSendSecureLink} class="slds-grid slds-grid_vertical slds-m-top_x-small">
+
+            <div class="slds-grid">
+
+                <!-- SMS -->
+                <div class="slds-p-around_x-small slds-grow slds-grid slds-grid_vertical divided-half">
+
+                    <div class="slds-grid slds-grid_vertical-align-center">
+                        <input id="smsRadio" type="radio" name="sendMethod" value="sms" checked={isSendMethodSms} disabled={isBusyEmail} onchange={handleSendTypeChange}/>
+                        <label for="smsRadio" class="slds-m-left_x-small"><strong>Send via SMS</strong></label>
+                    </div>
+
+                    <div class="slds-m-left_x-small send-method">
+                        <lightning-combobox class="slds-m-top_x-small" name="phoneNumbers" label="Customer Phone Number"
+                            options={phoneNumberOptions} disabled={isDisabledSms} value={selectedPhoneNumber} onchange={handleInputCommit}></lightning-combobox>
+                        <lightning-input if:true={useOtherPhoneNumber} class="slds-m-top_x-small" name="otherPhoneNumber" label="Customer Phone Number" variant="label-hidden"
+                                         placeholder="(XXX) XXX-XXXX" type="tel" required disabled={isDisabledSms}
+                                         value={otherPhoneNumber} oncommit={handleInputCommit}></lightning-input>
+                        <lightning-input data-name="smsAgreement" class="slds-m-top_x-small" type="checkbox" label={label.smsConsent} disabled={isDisabledSms}></lightning-input>
+                        <lightning-radio-group class="slds-m-top_x-small" label="Select Language" options={languageOptions} disabled={isDisabledSms} value={selectedLanguageOption} onchange={handleLanguageOptionChange}></lightning-radio-group>
+                        <button class="slds-m-top_x-small slds-button slds-button_brand slds-button_stretch"  disabled={isDisabledSms} onclick={handleSendSecureLink}>Send Secure Link via SMS</button>
+                    </div>
+
+                </div>
+
+                <!-- Divider -->
+                <div class="slds-border_left slds-m-horizontal_small divider"></div>
+
+                <!-- Email -->
+                <div class="slds-p-around_x-small slds-grow slds-grid slds-grid_vertical slds-is-relative divided-half">
+
+                    <div class="slds-grid slds-grid_vertical-align-center">
+                        <input id="emailRadio" type="radio" name="sendMethod" value="email" checked={isSendMethodEmail} disabled={isBusySms} onchange={handleSendTypeChange}/>
+                        <label for="emailRadio" class="slds-m-left_x-small"><strong>Send via Email</strong></label>
+                    </div>
+
+                    <div class="slds-m-left_x-small send-method">
+                        <lightning-combobox class="slds-m-top_x-small" name="emailAddresses" label="Customer Email Address"
+                            options={emailAddressOptions} disabled={isDisabledEmail} value={selectedEmailAddress} onchange={handleInputCommit}></lightning-combobox>
+                        <lightning-input if:true={useOtherEmailAddress} class="slds-m-top_x-small" name="otherEmailAddress" variant="label-hidden"
+                            label="Customer Email Address" type="email" required disabled={isDisabledEmail} value={otherEmailAddress} oncommit={handleInputCommit}></lightning-input>
+                        <lightning-radio-group class="slds-m-top_x-small" label="Select Language" options={languageOptions} disabled={isDisabledEmail} value={selectedLanguageOption} onchange={handleLanguageOptionChange}></lightning-radio-group>
+                        <button class="slds-m-top_x-small slds-button slds-button_brand slds-button_stretch" disabled={isDisabledEmail} onclick={handleSendSecureLink}>Send Secure Link via Email</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Confirm Token -->
+        <div if:true={isPhaseConfirmToken} class="slds-grid slds-grid_vertical slds-m-top_x-small">
+
+            <div class="slds-grid slds-grid_vertical-align-end">
+
+                <div>
+                    <lightning-input name="customerToken" data-name="customerToken" label="Customer's Token" required oncommit={handleInputCommit}></lightning-input>
+                </div>
+                <div class="slds-m-left_x-small">
+                    <lightning-button label="Confirm Customer" variant="brand" onclick={handleConfirmCustomer}></lightning-button>
+                </div>
+                <div class="slds-col_bump-left slds-shrink-none">
+                    <lightning-button label="Resend Link" icon-name="utility:send" onclick={handleResendLink}></lightning-button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Wait for Payment Info -->
+        <div if:true={isPhaseWaitForPaymentInfo} class="slds-grid slds-grid_vertical slds-m-top_x-small">
+
+            <div class="slds-grid slds-grid_vertical-align-end">
+
+                <div class="">
+                    <lightning-button label="Refresh for Payment Details" icon-name="utility:refresh" onclick={handleRefreshForPaymentDetails}></lightning-button>
+                </div>
+                <div class="slds-col_bump-left slds-shrink-none">
+                    <lightning-button label="Resend Link" icon-name="utility:send" onclick={handleResendLink}>></lightning-button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Completed -->
+        <div if:true={isPhaseCompleted} class="slds-grid slds-grid_vertical slds-m-top_x-small">
+
+            <div class="slds-grid slds-grid_vertical-align-center">
+
+                <div  style="max-width: 40px;">
+                    <c-bwc-card-logo if:true={displayCardType} card-type={displayCardType}></c-bwc-card-logo>
+                    <lightning-icon if:false={displayCardType} icon-name="utility:payment_gateway" size="small"></lightning-icon>
+                </div>
+
+                <div class="slds-grid slds-grid_vertical slds-m-left_small">
+
+                    <div>
+                        <lightning-formatted-rich-text value={displayPaymentInfo}></lightning-formatted-rich-text>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</template>

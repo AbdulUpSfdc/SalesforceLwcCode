@@ -1,0 +1,77 @@
+<aura:component implements="lightning:appHomeTemplate">
+    
+    <aura:attribute name="column1" type="Aura.Component[]" description="Column1"/>
+    <aura:attribute name="column2" type="Aura.Component[]" description="Column2"/>
+    <aura:attribute name="column3" type="Aura.Component[]" description="Column3"/>
+    <aura:attribute name="column4" type="Aura.Component[]" description="Column3"/>    
+    <aura:attribute name="column5" type="Aura.Component[]" description="Column3"/>    
+    <aura:attribute name="column6" type="Aura.Component[]" description="Column3"/>    
+    <aura:attribute name="column7" type="Aura.Component[]" description="Column3"/>    
+    <aura:attribute name="column8" type="Aura.Component[]" description="Column3"/>    
+  
+
+
+    <aura:if isTrue="{!$Browser.formFactor == 'DESKTOP'}">
+ 
+    <div style="display: flex;flex-wrap:wrap;" >
+        <div style=" padding:10px;" class="halfwidth">
+        {!v.column1}
+       </div>
+       <div  class="halfwidth">
+        <div style="width: 100%;padding:10px;">
+        {!v.column2}
+        </div>
+        <div style="display: flex;flex-wrap:wrap;">
+  
+        <div style="width: 50%;padding:10px;">
+            {!v.column3}
+           </div>
+    
+           <div style="width: 50%;padding:10px;">
+            {!v.column4}
+           </div>
+           </div>
+       </div>
+    
+
+     
+    </div>
+</aura:if>
+
+<aura:if isTrue="{!$Browser.formFactor != 'DESKTOP'}">
+ 
+    <div style="display: flex;flex-wrap:wrap;">
+
+
+        <div style="width: 100%; padding:10px;">
+        {!v.column5}
+       </div>
+
+     
+
+       <div style="display: flex;flex-wrap:wrap;width:100%">
+  
+        <div style="width: 50%;padding:10px;">
+            {!v.column6}
+           </div>
+    
+           <div style="width: 50%;padding:10px;">
+            {!v.column7}
+           </div>
+           </div>
+
+           <div style="width: 100%; padding:10px;">
+            {!v.column8}
+           </div>
+
+
+
+
+     
+    
+
+     
+    </div>
+</aura:if>
+    
+</aura:component>

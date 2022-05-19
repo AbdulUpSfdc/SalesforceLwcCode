@@ -1,0 +1,26 @@
+<template>
+    <template if:true={isOpen}>
+    <lightning-quick-action-panel header={title} >
+        <lightning-layout>
+            <lightning-layout-item size="12">
+                <lightning-combobox class="slds-var-m-bottom_x-small" label={labels.account}
+                    placeholder="Select Billing Account" dropdown-alignment="auto" required
+                    message-when-value-missing="Please select a Billing Account"
+                    options={billingAccountOptions} value={selectedBillingAccountId}
+                    onchange={handleBillingAccountSelected}>
+                </lightning-combobox>
+            </lightning-layout-item>
+        </lightning-layout>
+
+        <div slot="footer">
+            <lightning-button  class="slds-var-p-right_small" data-name="Cancel" label="Cancel" 
+                        onclick={handleClose}></lightning-button>
+                    <lightning-button data-name="launchWFE" label="Launch WFE" variant="brand"
+                        onclick={handleLaunchWFE} >
+                    </lightning-button>
+        </div>
+    </lightning-quick-action-panel>
+    </template>
+    <!--WFE Launch model-->
+    <c-bwc-launch-w-f-e></c-bwc-launch-w-f-e>
+</template>

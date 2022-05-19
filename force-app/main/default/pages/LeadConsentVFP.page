@@ -1,0 +1,15 @@
+<apex:page showHeader="false" sidebar="false" cache="true" expires="900">
+    <apex:includeLightning />    
+    <div id="LightningComponentid" />    
+    <script>
+    $Lightning.use("c:LeadConsentApp", function() {
+        $Lightning.createComponent("c:leadConsent",
+          { 
+          },
+          "LightningComponentid",
+          function(cmp) {
+             console.log('LWC Componenet added in VF page');
+          });
+    });
+    </script>
+</apex:page>

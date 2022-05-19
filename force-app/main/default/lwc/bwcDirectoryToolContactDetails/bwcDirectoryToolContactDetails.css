@@ -1,0 +1,32 @@
+.contactDetailsCard{
+    border-radius:5px;
+    padding:0px;
+}
+
+.contactDetailsHeader{
+    border: 1px solid #d9d7d7;
+    border-radius:5px;
+}
+
+.rowBorderTop{
+    border-top: 1px solid #d9d7d7;
+}
+.fontStyle{
+    font-size: 14px;
+}
+.tableRowStyle{
+    background-color: #eaeaea;
+}
+
+.contactName{
+    font-size: 16px;
+    font-weight:bold;
+}
+
+.overwrap{
+    overflow-wrap: break-word;
+}
+.table, td {
+    border: 1px solid #d9d7d7;
+   border-collapse: collapse;
+  }

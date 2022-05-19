@@ -1,0 +1,67 @@
+<template>
+
+    <c-bwc-wizard steps={steps} onclose={handleWizardClose}>
+
+        <!-- Select Account panel -->
+        <span slot="panel0">
+
+            <div data-name="selectAccount" class="slds-grid slds-grid_vertical slds-grid_align-center panel">
+
+                <lightning-combobox class="slds-col slds-align_absolute-center" name="selectBillingAccount"
+                    placeholder="Select Billing Account" dropdown-alignment="auto"
+                    required message-when-value-missing="Please select a Billing Account"
+                    options={billingAccountOptions} label={labels.account}
+                    onchange={handleInputCommit}>
+                </lightning-combobox>
+
+            </div>
+
+        </span>
+
+        <!-- Add a New Payment Profile panel -->
+        <span slot="panel1">
+
+            <div data-name="addNewPaymentProfile" class="slds-grid slds-grid_vertical panel">
+
+                <c-bwc-input-payment-method class="slds-m-top_small" 
+                                            interaction-id={interactionId} 
+                                            ban={selectedBan}
+                                            context={raisrContext}>
+                </c-bwc-input-payment-method>
+
+                <template if:true={showEnrollInAutopay}>
+                    <lightning-input name="enrollInAutopay" class="slds-m-top_small" type="checkbox" label={autoPayLabel}
+                        checked={enrollInAutopay} onchange={handleInputCommit}>
+                    </lightning-input>
+                </template>
+
+            </div>
+
+        </span>
+
+        <!-- Review New Payment Profile panel -->
+        <span slot="panel2">
+
+            <div class="slds-grid slds-grid_vertical panel">
+
+                <c-bwc-view-payment-method class="slds-m-top_medium" payment-method={paymentMethod} spi-data={spiData}></c-bwc-view-payment-method>
+
+                <div class="slds-text-heading_medium slds-m-top_medium slds-p-top_medium slds-border_top slds-p-bottom_medium">
+                    Terms &amp; Conditions
+                </div>
+                <div class="slds-scrollable">
+                    <c-bwc-read-panel text={tncVerbiage}></c-bwc-read-panel>
+                </div>
+
+                <lightning-input name="agreeToTerms" data-name="agreeToTerms" type="checkbox" class="slds-p-top_xx-small"
+                    label={labels.agreeToTerms}
+                    onchange={handleInputValidate}>
+                </lightning-input>
+
+            </div>
+
+        </span>
+
+    </c-bwc-wizard>
+
+</template>

@@ -1,0 +1,5 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:messageChannel type="BWC_MsgToNewCustomer__c" aura:id="msgToNewCustomer" />
+</aura:component>

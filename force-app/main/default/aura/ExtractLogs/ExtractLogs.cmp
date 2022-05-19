@@ -1,0 +1,50 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="ExtractLogsController" >
+    
+    <aura:attribute name="SearchText" type="String" />
+    <aura:attribute name="Attid" type="String" />
+    <aura:attribute name="starttime" type="String" />
+    <aura:attribute name="stoptime" type="String" />
+    <aura:attribute name="show" type="boolean" default="true"/>
+    <aura:attribute name="progress" type="Integer" default="0"/>
+    <aura:attribute name="apexJob" type="AsyncApexJob"/>
+    <aura:attribute name="responseMsg" type="string" default="00"/>
+    <aura:handler name="init" value="this" action="{!c.doInit}"/>
+        <!--lightning:card    class="slds-size_medium slds-align_absolute-center "  -->
+        <lightning:card>
+            <div class="slds-align_absolute-center">
+                <div class="slds-align_absolute-center slds-p-top_large slds-p-bottom_large">
+                    <p class="slds-p-horizontal_small">     
+                        <div class="slds-grid slds-wrap"> 
+                            <div class="slds-col slds-size_1-of-1">
+                                <div class="slds-text-heading_large slds-align_absolute-center">Export data</div>
+                            </div>
+                            <lightning:accordion aura:id="accordion" activeSectionName="B">
+       						 <lightning:accordionSection name="A" label="Log Entry"> 
+                           
+                                <lightning:input aura:id="Attid" label="Attid" type="text" placeholder="Enter Attid" value="{!v.Attid}" required="true"/>
+                                    <div class="row">
+                                        <lightning:input type="datetime" name="input1" label="Start Time" value="{!v.starttime}"/>                                     
+                                    </div>
+                                 	<div class="row">
+                                        <lightning:input type="datetime" name="input1" label="Stop Time" value="{!v.stoptime}"/>
+                                    </div>
+                                 <p><lightning:formattedDateTime value="1479944705000" year="2-digit" month="short" day="2-digit" weekday="narrow"/></p>
+                                 
+                             </lightning:accordionSection>
+                            <lightning:accordionSection name="B" label="Exception">
+                            <div class="slds-col slds-size_1-of-1">
+                                <!--lightning:input aura:id="Attid" label="Attuid" type="text" placeholder="Enter Your Attid" value="{!v.Attuid}"  required="true" messageWhenBadInput="Please enter value" fieldLevelHelp="Please enter Search keyword to generate report"/-->
+                            </div>
+                            </lightning:accordionSection>
+                            </lightning:accordion>   
+                           
+                        </div> 
+                        <div class="slds-align_absolute-center slds-p-top_large"><lightning:button class="slds-align_absolute-center" name="Export" label="Export" variant="brand" onclick="{!c.doAction}" />
+                            </div>
+                    </p> 
+                </div>
+            </div><br/><br/><br/>
+        </lightning:card>
+        
+        
+    </aura:component>

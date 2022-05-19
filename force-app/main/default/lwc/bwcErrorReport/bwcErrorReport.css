@@ -1,0 +1,9 @@
+.notify-div {
+    overflow-wrap: anywhere;
+    width: 100%;
+    margin-left: 0;
+}
+
+.error-message {
+    overflow-wrap: anywhere;
+}

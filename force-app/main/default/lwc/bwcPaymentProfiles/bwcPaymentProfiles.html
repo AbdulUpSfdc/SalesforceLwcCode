@@ -1,0 +1,44 @@
+<template>
+
+    <div class="slds-box slds-box_xx-small">
+
+        <lightning-card  title="Payment Profiles" icon-name="custom:custom40" > 
+
+            <lightning-spinner if:true={isLoading} alternative-text="Loading"></lightning-spinner>
+            <span slot="actions">
+                <lightning-button label="Refresh" onclick={handleRefresh}></lightning-button>
+                <lightning-button if:true={hasPaymentPermission} class="slds-m-left_x-small" label="Add New Payment Profile" onclick={handleAddNew}></lightning-button>
+            </span>
+
+            <div class="slds-grid slds-grid_vertical table-container">
+
+                <div class="slds-m-bottom_x-small">
+                    <c-bwc-notifications></c-bwc-notifications>
+                </div>
+
+                <div if:true={showTable} class="slds-col">
+                    <c-bwc-datatable
+                        class="slds-max-medium-table_stacked"
+                        key-field="Id"
+                        data={tableData}
+                        columns={columns}
+                        hide-checkbox-column
+                        wrap-text-max-lines="1"
+                        column-widths-mode="auto"
+                        onrowaction={handleRowAction}>
+                    </c-bwc-datatable>
+                </div>
+
+                <div if:true={showEmpty} class="slds-align_absolute-center">
+                    No data found
+                </div>
+
+            </div>
+
+        </lightning-card>
+    </div>
+
+    <c-bwc-payment-profile-add-edit></c-bwc-payment-profile-add-edit>
+    <c-bwc-confirm></c-bwc-confirm>
+
+</template>

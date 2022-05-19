@@ -1,0 +1,124 @@
+<!-- sldsValidatorIgnore -->
+<template>
+
+  <div class="mgr-ioform slds-grid slds-wrap slds-grid_align-spread slds-var-p-around_medium">
+
+    <div class="slds-col slds-size_3-of-3">
+      <template if:false={isWorkFromHomeAgent}>
+        <lightning-input
+          type="toggle"
+          label="Smart-Fields"
+          name="SmartFields"
+          message-toggle-inactive=""
+          message-toggle-active=""
+          checked={toggleChecked}
+          disabled
+          class="slds-float_right">
+        </lightning-input>
+      </template>
+      <template if:true={isWorkFromHomeAgent}>
+        <lightning-input
+          type="toggle"
+          label="Smart-Fields"
+          name="SmartFields"
+          message-toggle-inactive=""
+          message-toggle-active=""
+          checked={toggleChecked}
+          disabled={isDisabled}
+          onchange={disableRaisrForWHO}
+          class="smart-fields-toggle slds-float_right">
+        </lightning-input>
+      </template>
+    </div>
+
+    <template if:true={isDisabled}>
+      <template if:true={isDisabledByAgent}>
+
+        <c-bwc-read-panel title="Smart-Fields" variant="info" 
+          text="Voice-Masking has been disabled for the reminder of this interaction">
+        </c-bwc-read-panel>
+
+      </template>
+    </template>
+
+    <template if:false={isDisabled}>
+
+      <template if:true={isWorkFromHomeAgent}>
+        <div class="slds-col slds-size_3-of-3">
+          <c-bwc-read-panel title="Smart-Fields" variant="info" 
+          text="Toggling this control off will switch to a customer-based data entry experience for the reminder of this interaction">
+        </c-bwc-read-panel>
+        </div>
+      </template>
+
+    </template>
+
+    <template if:false={isDisabled}>
+
+          <!-- Do not require override reason if WFH agent -->
+          <!-- <template if:true={isWorkFromHomeAgent}>
+
+              <div class="slds-col slds-size_3-of-3">
+
+                  <c-bwc-read-panel title="Smart-Fields" variant="info" text={labels.smartfields_info_disable}></c-bwc-read-panel>
+
+              </div>
+
+              <div class="slds-col slds-size_3-of-3 slds-p-top_x-small">
+
+                <button 
+                    title="Disable RAISR"
+                    onclick={handleDisable} 
+                    class="slds-button slds-button_neutral slds-button_stretch" 
+                    disabled={btnDisabled}>Disable
+                </button>
+
+            </div>
+
+          </template> -->
+  
+          <!-- Require override reason -->
+          <template if:false={isWorkFromHomeAgent}>
+              
+              <div class="slds-col slds-size_3-of-3">
+
+                  <c-bwc-read-panel title="Smart-Fields" variant="info" text={labels.smartfields_info_disable_reason}></c-bwc-read-panel>
+
+              </div>
+
+              <div class="slds-col slds-size_3-of-3">
+
+                  <lightning-combobox
+                    name="overrideReason"
+                    label="Override Reason"
+                    value={value}
+                    placeholder="Select Override Reason"
+                    options={options}
+                    onchange={handleOverride}>
+                  </lightning-combobox>
+
+              </div>
+      
+              <div class="slds-col slds-size_3-of-3 slds-p-top_x-small">
+
+                <button 
+                    title="Disable RAISR"
+                    onclick={handleDisable} 
+                    class="disable-wfo-btn slds-button slds-button_neutral slds-button_stretch" 
+                    disabled={btnDisabled}>Override
+                </button>
+
+              </div>
+
+          </template>
+
+      </template>
+
+  </div>
+  
+  <c-bwc-raisr-msg-pub-sub-cmp 
+    parent-id="bwcRaisrManagerFormCmp"
+    onraisrevent={onRaisrEvent}
+  ></c-bwc-raisr-msg-pub-sub-cmp>
+
+</template>

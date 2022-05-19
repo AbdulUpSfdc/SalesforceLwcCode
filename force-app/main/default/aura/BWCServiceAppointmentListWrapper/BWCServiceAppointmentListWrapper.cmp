@@ -1,0 +1,5 @@
+<aura:component implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+
+   <lightning:workspaceAPI aura:id="workspaceAPI" />
+   <c:bwcServiceAppointmentList />
+</aura:component>

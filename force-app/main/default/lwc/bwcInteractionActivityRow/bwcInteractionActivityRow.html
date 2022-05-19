@@ -1,0 +1,208 @@
+<template>
+    <div if:true={activity} class="slds-p-left_small">
+    <table class="slds-table slds-table_cell-buffer slds-table_striped slds-table_fixed-layout"
+    summary="Table Head for interaction activity rows">
+    <!--This is not the visible Table head. look at bwcInteractionRows lwc we need this THead to suppress sonar qube issues-->
+    <thead hidden class="slds-box slds-box_xx-small">
+        <th class="slds-size_2-of-7 " scope="col">
+            <lightning-formatted-text value="ID" class="slds-p-left_large" ></lightning-formatted-text>
+        </th>
+        <th class="slds-size_1-of-5" scope="col">
+            <lightning-formatted-text  value="Created Date" ></lightning-formatted-text>
+        </th>
+        <th class="slds-size_1-of-7" scope="col">
+            <div >
+                <lightning-formatted-text
+                value="Created By"
+              ></lightning-formatted-text>
+            </div>
+        </th> 
+
+        <th class="slds-size_1-of-5" scope="col">
+            <div>
+                <lightning-formatted-text  value="Case Type" ></lightning-formatted-text>
+            </div>
+        </th>
+        <th class="slds-size_2-of-7" scope="col">
+            <div >
+                <lightning-formatted-text  value="Feature" ></lightning-formatted-text>
+            </div>
+        </th>
+        <th class="slds-size_2-of-7" scope="col">
+            <div >
+                <lightning-formatted-text  value="Subtype" ></lightning-formatted-text>
+            </div>
+        </th>
+        <th class="slds-size_1-of-7" scope="col">
+            <div >
+                <lightning-formatted-text  value="Status" ></lightning-formatted-text>
+            </div>
+        </th>
+
+        <th class="slds-size_1-of-7" scope="col">
+            <div >
+                <lightning-formatted-text
+                value="Notes"
+              ></lightning-formatted-text>
+            </div>
+        </th>
+</thead>
+    <tbody>
+        <template if:false={activity.Case__r}><!--this is an activity record row-->
+        <tr>
+            <td class="slds-size_2-of-7 slds-truncate" >
+                    <!--<div if:true={expandActivityRow}> <lightning-icon  icon-name="utility:chevrondown" size="x-small"></lightning-icon><a class="slds-p-top_xx-small" onclick={navigateToActivity}>{activity.Name}</a></div>
+                    <div if:false={expandActivityRow}> <lightning-icon  icon-name="utility:chevronright" size="x-small"></lightning-icon><a class="slds-p-top_xx-small slds-p-left_medium" onclick={navigateToActivity}>{activity.Name}</a></div>                  
+                    -->
+                    <lightning-icon  icon-name="utility:archive" size="x-small"></lightning-icon><lightning-formatted-text class="slds-p-top_xx-small slds-p-left_small" value={activity.Name} title={activity.Name}></lightning-formatted-text>             
+
+                </td>
+            <td class="slds-size_1-of-5 slds-truncate">
+                    <lightning-formatted-date-time 
+                    value={activity.CreatedDate}
+                    year="numeric" 
+                    month="numeric" 
+                    day="numeric"
+                    ></lightning-formatted-date-time>
+            </td>
+            <td class="slds-size_1-of-7">
+                <div if:true={activity.CreatedBy.Name} title={activity.CreatedBy.Name}>
+                     <lightning-formatted-text
+                value={activity.CreatedBy.ATTUID__c}
+              ></lightning-formatted-text>
+                </div>
+               
+            </td> 
+            <td class="slds-size_1-of-5 slds-truncate">
+                <div title={activity.Case_Type__c}>
+
+                    <lightning-formatted-text value={activity.Case_Type__c}></lightning-formatted-text>
+                    </div>
+
+            </td>
+            <td class="slds-size_2-of-7 slds-truncate">
+                <div title={activity.Feature__c}>
+
+                    <lightning-formatted-text value={activity.Feature__c}></lightning-formatted-text>  
+                    </div>
+
+            </td>
+            <td class="slds-size_2-of-7 slds-truncate">
+                <div title={activity.Feature_Sub_Type__c}>
+
+                    <lightning-formatted-text value={activity.Feature_Sub_Type__c}></lightning-formatted-text>            
+            </div>
+                </td>
+            <td class="slds-size_1-of-7">
+            </td> 
+            
+            <td class="slds-size_1-of-7">
+                
+            </td>     
+
+        </tr>
+        </template>
+        <template if:true={activity.Case__r}><!--this is an case record row-->
+            <tr>
+                        <td class="slds-size_2-of-7 slds-truncate"  >
+                             <!--   <div if:true={expandActivityRow}> <lightning-icon  icon-name="utility:chevrondown" size="x-small"></lightning-icon><a class="slds-p-top_xx-small" onclick={navigateToActivity}>{activity.Case__r.CaseNumber}</a><lightning-icon  class="slds-p-left_small" icon-name="utility:case" size="x-small"></lightning-icon></div>
+                                <div if:false={expandActivityRow}> <lightning-icon  icon-name="utility:chevronright" size="x-small"></lightning-icon><a class="slds-p-top_xx-small" onclick={navigateToActivity}>{activity.Case__r.CaseNumber}</a><lightning-icon class="slds-p-left_small" icon-name="utility:case" size="x-small"></lightning-icon></div>
+                                -->
+                                <lightning-icon icon-name="utility:case" size="x-small"></lightning-icon><a class="slds-p-top_xx-small slds-p-left_small" onclick={navigateToRecord}>{activity.Case__r.CaseNumber}</a>
+                 
+                        </td>
+                        <td class="slds-size_1-of-5 slds-truncate"  >
+                                <lightning-formatted-date-time 
+                                value={activity.CreatedDate}
+                                year="numeric" 
+                                month="numeric" 
+                                day="numeric" 
+                                ></lightning-formatted-date-time>
+                        </td>
+                        <td class="slds-size_1-of-7 slds-truncate" >
+                            <div title={activity.Case__r.CreatedBy.Name}>
+                            <lightning-formatted-text
+                        value={activity.Case__r.CreatedBy.ATTUID__c}
+                        ></lightning-formatted-text>
+                        </div>
+                        </td>
+                        <!--
+                        <td class="slds-size_1-of-7 slds-truncate"  > 
+                            <div title={activity.Case__r.Origin}>
+                            <lightning-formatted-text value={activity.Case__r.Origin}></lightning-formatted-text>
+                            </div>
+                        </td>-->
+                        <td class="slds-size_1-of-5 slds-truncate"  >
+                            <div title={activity.Case__r.Case_Type__c}>
+                                <lightning-formatted-text value={activity.Case__r.Case_Type__c}></lightning-formatted-text>
+                            </div>
+                        </td>
+                        <td class="slds-size_2-of-7 slds-truncate"  >
+                            <div title={activity.Case__r.Feature_Escalation__c}>
+                                <lightning-formatted-text value={activity.Case__r.Feature_Escalation__c}></lightning-formatted-text>
+                            </div>         
+                        </td>
+                        <td class="slds-size_2-of-7 slds-truncate" >
+                            <div title={activity.Case__r.Feature_Sub_Type__c}>
+                                <lightning-formatted-text value={activity.Case__r.Feature_Sub_Type__c}></lightning-formatted-text>
+                            </div> 
+                        </td>
+                        <td class="slds-size_1-of-7 slds-truncate" >   
+                                <lightning-formatted-text value={activity.Case__r.Status}></lightning-formatted-text>   
+                        </td>
+                            
+                        <td class="slds-size_1-of-7">
+                            <div if:true={activity.Case__r.CloseNotes__c}>
+                                <lightning-helptext icon-name="utility:notebook" content={activity.Case__r.CloseNotes__c}></lightning-helptext>               
+                            </div>
+                        </td> 
+                    </tr>
+        </template>
+        <tr>
+        <template if:true={expandActivityRow}>
+            <tr>
+            <template if:false={activity.Case__r}>
+                Need info about the Activity record component
+
+            </template>
+            <template if:true={activity.Case__r}>
+                <!--
+                    <div title="Click to navigate to case">
+                        <a onclick={navigateToRecord}> <lightning-formatted-text  class="slds-text-heading_medium" value="Case Details"></lightning-formatted-text></a>
+
+                    </div>
+                    <div class="slds-align_absolute-center">
+                    <lightning-record-view-form
+                    
+                            record-id={activity.Case__r.Id}
+                            object-api-name="Case">
+                            
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-output-field class="slds-border_bottom" field-name="Case_Type__c"></lightning-output-field>
+                                <lightning-output-field class="slds-border_bottom" field-name="Feature__c"></lightning-output-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-left_medium">
+                                <lightning-output-field class="slds-border_bottom" field-name="BillType__c"></lightning-output-field>
+                                <lightning-output-field class="slds-border_bottom" field-name="DateBillExpected__c"></lightning-output-field>
+                            </div>
+                          
+                               
+                        </div>
+                          <div  >
+                                <lightning-output-field class="slds-border_bottom" field-name="Subject"></lightning-output-field>
+                                <lightning-output-field class="slds-border_bottom" field-name="Description"></lightning-output-field>
+                                <lightning-output-field class="slds-border_bottom" field-name="CloseNotes__c"></lightning-output-field>
+                            </div>
+                    </lightning-record-view-form>
+                    </div>
+                    -->
+                need info about the case record component
+                </template>
+        </tr>
+    </template>
+        </tr>
+    </tbody>
+    </table>
+    </div>
+    </template>

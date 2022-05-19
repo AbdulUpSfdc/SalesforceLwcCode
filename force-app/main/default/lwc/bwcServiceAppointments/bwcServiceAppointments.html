@@ -1,0 +1,66 @@
+<template>
+  <lightning-card>
+    <div class="slds-card_boundary">
+      <!--Spinner-->
+      <div if:true={showSpinner}>
+        <lightning-spinner class="spins" alternative-text="Loading" size="medium"></lightning-spinner>
+      </div>
+      <!--Card Header-->
+      <div class="slds-card__header slds-clearfix">
+        <div class="slds-float_left">
+          <lightning-layout>
+            <lightning-layout-item>
+              <lightning-icon icon-name="standard:service_appointment" size="small"></lightning-icon>
+              <b>
+                <lightning-formatted-text class="slds-text-heading_small slds-p-left_small slds-p-top_small"
+                  value="Service Appointments"></lightning-formatted-text>
+              </b>
+            </lightning-layout-item>
+          </lightning-layout>
+        </div>
+        <div class="slds-float_right">
+          <div class="slds-p-left_small">
+            <span if:true={isUserBroadbandTechCareAgent}>
+              <lightning-button label="WFE Tech Support" title="WFE Tech Support" icon-name="utility:new_window"
+                icon-position="right" class="slds-m-left_x-small" disabled={disableWFEButton}
+                onclick={handleWFETechSupportButtonClick}>
+              </lightning-button>
+            </span>
+            <lightning-button-icon icon-name="utility:refresh" size="medium" alternative-text="Refresh"
+              class="slds-m-left_xx-small" variant="border-filled" onclick={handleRefreshAppointments}>
+            </lightning-button-icon>
+          </div>
+        </div>
+      </div>
+      <!--Body Start-->
+      <c-bwc-notifications></c-bwc-notifications>
+      <div if:true={uverseBANFound}>
+        <div if:true={showSATable}>
+          <lightning-datatable data={serviceAppointmentsData} columns={columns} key-field="id"
+            hide-checkbox-column="true" sorted-by={sortBy} default-sort-direction={defaultSortDirection}
+            sorted-direction={sortDirection} onsort={handleSortAppointmentsData}>
+          </lightning-datatable>
+        </div>
+        <div if:true={showNoSAExistMessage}>
+          <lightning-layout class="slds-align_absolute-center slds-p-vertical_medium">
+            {NO_DATA_FOUND}
+          </lightning-layout>
+        </div>
+      </div>
+      <div if:true={noAppointmentsForAccount}>
+        <lightning-layout class="slds-align_absolute-center slds-p-vertical_medium">
+          {NO_APP_FORAUTH_ACC}
+        </lightning-layout>
+      </div>
+      <!--Body End-->
+      <!--Card Footer-->
+      <div if:true={showViewAll} class="slds-card__footer slds-clearfix">
+        <lightning-layout class="slds-align_absolute-center">
+          <a onclick={handleNavigate}>View All</a>
+        </lightning-layout>
+      </div>
+    </div>
+  </lightning-card>
+  <!-- Launch WFE -->
+  <c-bwc-launch-w-f-e></c-bwc-launch-w-f-e>
+</template>

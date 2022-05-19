@@ -1,0 +1,51 @@
+<template>
+    <div class="slds-box slds-box_xx-small">
+        <lightning-card  title='Adjustment History' icon-name='standard:contract' >
+            
+            <lightning-spinner if:true={isLoading} alternative-text="Loading"></lightning-spinner>
+            
+            <!-- Actions available when in preview mode -->
+            <span if:false={viewAll} slot="actions">
+                <lightning-button label="Refresh" onclick={handleRefresh}></lightning-button>
+                <lightning-button if:true={showViewAllLink} label="View All" onclick={handleViewAll} class="slds-var-m-left_small"></lightning-button>
+            </span>
+
+            <!-- Actions available when in view all mode -->
+            <span if:true={viewAll} slot="actions">
+                <lightning-combobox
+                    name="Filter"
+                    value=""
+                    options={filterOptions}
+                    onchange={handleFilter}
+                ></lightning-combobox>
+            </span>
+
+            <c-bwc-notifications></c-bwc-notifications>
+
+            <template if:true={showTable}>
+                <lightning-datatable
+                    class="slds-max-medium-table_stacked adjustments-grid"
+                    key-field="Id"
+                    data={adjustments}
+                    columns={columns}
+                    wrap-text-max-lines="3"
+                    column-widths-mode="auto"
+                    hide-checkbox-column="true"
+                    default-sort-direction={defaultSortDirection}
+                    sorted-direction={sortDirection}
+                    sorted-by={sortedBy}
+                    onsort={handleSort}
+                    >
+                </lightning-datatable>
+            </template>
+
+            <template if:true={showLoadMore}>
+                <lightning-button class="slds-align_absolute-center slds-var-m-top_small" label="Load More" onclick={handleLoadMore}></lightning-button>
+            </template>
+
+            <div if:true={showEmpty} class="slds-align_absolute-center">
+                {labels.noAdjustmentHistory}
+            </div>
+        </lightning-card>
+    </div>
+</template>

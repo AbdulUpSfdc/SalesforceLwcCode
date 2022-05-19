@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
+    <cacheControl>Public</cacheControl>
+    <contentType>text/javascript</contentType>
+    <description>&lt;script
+  src=&quot;https://code.jquery.com/jquery-3.5.1.slim.min.js&quot;
+  integrity=&quot;sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=&quot;
+  crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;</description>
+</StaticResource>

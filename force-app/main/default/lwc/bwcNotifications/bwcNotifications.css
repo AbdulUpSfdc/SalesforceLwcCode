@@ -1,0 +1,8 @@
+:host {
+    width: 100%;
+}
+
+/* Cancels top margin for first notification. */
+div.notification:first-child {
+    margin-top: 0;
+}

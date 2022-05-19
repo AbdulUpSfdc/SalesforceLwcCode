@@ -1,0 +1,41 @@
+<apex:page controller="BWC_BillPdfViewerController" sidebar="false" showHeader="false" applyBodyTag="false">
+
+    <!-- LDS Support -->
+    <apex:slds />
+
+    <apex:pageMessages id="messages"></apex:pageMessages>
+
+    <body>
+
+        <apex:form >
+            <apex:actionFunction action="{!getBillPdf}" name="getBillPdf" reRender="pdfPanel,spinner,messages"></apex:actionFunction>
+        </apex:form>
+
+        <script>
+            // Call to get PDF while spinner spins
+            window.setTimeout(getBillPdf, 0);
+        </script>
+
+        <apex:outputPanel id="spinner">
+            <apex:outputPanel rendered="{!isBusy}" layout="none">
+                <div class="slds-scope">
+                    <div class="slds-spinner_container">
+                        <div role="status" class="slds-spinner slds-spinner_large slds-spinner_brand">
+                        <span class="slds-assistive-text">Loading</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                        </div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+        </apex:outputPanel>
+
+        <apex:outputPanel id="pdfPanel">
+            <apex:outputPanel rendered="{!isPdfReturned}" layout="none">
+                <iframe src="{!HTMLENCODE(pdfDataUrl)}" style="width: 100%; height: 99vh; border: 0;"></iframe>
+            </apex:outputPanel>
+        </apex:outputPanel>
+
+    </body>
+
+</apex:page>

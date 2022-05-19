@@ -1,0 +1,12 @@
+.THIS .text-area {
+    height: 100%;
+    width: 100%;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    resize: none;
+}
+
+.THIS .text-area:focus {
+    outline-width: 0;
+}

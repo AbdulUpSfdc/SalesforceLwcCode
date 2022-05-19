@@ -1,0 +1,83 @@
+<template>
+<lightning-card  class="slds-m-top_x-small">
+    <div class="slds-card__header slds-grid slds-theme_shade">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate ">
+    <div class="slds-media__figure">
+        <h2 class="slds-card__header-title">
+        <span slot="title" class="articleFeedback-cardheader">
+        <lightning-icon icon-name="standard:feedback" class="slds-icon-standard-feedback slds-icon_container"></lightning-icon>&nbsp;&nbsp;
+        {relatedFedbackCount}
+    </span>
+     </h2>
+</div>
+</header>
+<div class="slds-float_right">
+    <div class="slds-grid slds-media slds-media--center slds-has-flexi-truncate" style="padding-right: 10px; padding-top: 4px;">
+        <template if:true={ShowBtn}>
+     <lightning-button variant="base" label="New" 
+                onclick={Newfeedbackcomponent1} class="slds-button slds-button_neutral">
+            </lightning-button>
+            </template>
+    </div>
+    </div>
+   
+</div>
+   
+    
+            <template if:true={seefeedback}>
+        <!-- Modal/Popup Box LWC starts here -->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box LWC header here -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    
+                </header>
+                <!-- Modal/Popup Box LWC body starts here -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <c-create-feedback-cmp  record-id={recordId}></c-create-feedback-cmp>
+                </div>
+                <!-- Modal/Popup Box LWC footer starts here -->
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
+                    
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+          
+   <div class="slds-p-horizontal_small">
+
+            <lightning-datatable
+                key-field="ID"
+                data={artcileFeedbacks}
+                columns={columns}
+                hide-checkbox-column="true" 
+                wrap-text-max-lines = "2"
+				enable-infinite-loading
+                 onrowaction={handleMenuItem}
+                 sorted-by={sortBy}
+                   sorted-direction={sortDirection}
+                    onsort={handleSortdata}
+                >
+            </lightning-datatable>
+           
+        </div>
+    
+         <div slot="footer">
+        <template if:true={ismorethanthreeArticles}>
+            <lightning-button if:true={ismorethanthreeArticles} variant="base" label={btn_label} title={btn_label}
+                onclick={handleViewAll} class="slds-m-left_x-small">
+            </lightning-button>
+        </template>
+    </div>
+</lightning-card>
+</template>

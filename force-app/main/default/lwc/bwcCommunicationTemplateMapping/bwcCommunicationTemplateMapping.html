@@ -1,0 +1,15 @@
+<template>
+    <template if:true={isVisible}>
+            <c-custom-lookup
+                obj-name={objName}
+                icon-name={iconName}
+                label-name={labelName}
+                placeholder={placeholder}
+                fields={fields}
+                display-fields={displayFields}
+                selected-record={selectedRecord}
+                onlookup={handleLookup} 
+                onclose={handleClose}>
+            </c-custom-lookup>
+    </template>
+</template>

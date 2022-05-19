@@ -1,0 +1,71 @@
+<template>
+    <div class="container">
+        <div if:true={showSpinner} class="spinner">
+            <lightning-spinner alternative-text="Loading..." variant="brand"> </lightning-spinner>
+        </div>
+        <template if:true={showForm}>
+                <lightning-layout multiple-rows="true">
+                    <lightning-record-edit-form object-api-name="Lead" record-type-id={leadRecord.recordTypeId}
+                    onsuccess={handleSuccess} onerror={handleError} onsubmit={handleSubmit}>
+                        <lightning-layout-item size="12" >
+                            <div class="section slds-m-bottom_medium slds-p-around_xxx-small" style='border-bottom:1px solid; border-bottom-color:#757572;'>
+                                <div class="slds-text-align_center slds-text-heading_medium slds-m-around_small"> Finish check-in
+                                </div>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12">
+                            <div class="section slds-m-bottom_medium">
+                                <lightning-layout multiple-rows="true">
+                                    <lightning-layout-item size="12" padding="around-small" small-device-size="12"
+                                        medium-device-size="12" large-device-size="12">
+                                        <h1>Customer</h1>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item size="12" padding="around-small" small-device-size="12"
+                                    medium-device-size="12" large-device-size="12">
+                                        <div class="slds-form-element__legend slds-form-element__label ">
+                                            <lightning-icon icon-name="standard:queue" alternative-text="Name" title="Name"></lightning-icon><span>  {leadRecord.Name}</span>  
+                                        </div>
+                                        
+                                    </lightning-layout-item>
+                                    <template if:true={displayWarning}>
+                                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                            large-device-size="12" padding="around-small">
+                                        
+                                                <p style="color:red;">{displayWarningMessage}</p>
+                                        
+                                        </lightning-layout-item>
+                                    </template>
+                                    
+                                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                        large-device-size="12" padding="around-small">
+                                            <lightning-input-field style='width:50%;' field-name="OtherNotes__c" variant="label-hidden"
+                                            onchange={handleBindingFields}  value={leadRecord.OtherNotes__c}>
+                                            </lightning-input-field>
+                                            <p style="color:red;">{label.ComplianceMessage}</p>
+                                       
+                                    </lightning-layout-item>
+
+                                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                        large-device-size="12" padding="around-small">
+                                        <div class="slds-form-element slds-m-vertical_large">
+                                            <button type="button" class="slds-button slds-button_outline-brand"
+                                                onclick={handleConsumer}>Create follow-up lead</button>
+                                        </div>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                        large-device-size="12" padding="around-small"  style='border-top:1px solid; border-top-color:#757572;'>
+                                        <div class="slds-form-element slds-m-vertical_large">
+                                            <button type="button" class="slds-button slds-button_outline-brand"
+                                                onclick={handleCancel}>Cancel</button>
+                                            <button type="submit" class="slds-button slds-button_brand"
+                                                disabled={isButtonDisabled}>Finish</button>
+                                        </div>
+                                    </lightning-layout-item>
+                                </lightning-layout>
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-record-edit-form>
+                </lightning-layout>
+        </template>
+    </div>
+</template>

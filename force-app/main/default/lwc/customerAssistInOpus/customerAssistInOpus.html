@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="Assist customer in OPUS"></br>
+        <div class="slds-clearfix">
+            <div class="slds-align_absolute-center">
+                <c-generic-lic-opus-button-lwc  if:true={showAssistInOpusCmp} class="slds-m-around_x-small" label="Pay a bill" record-id={recordId} lauch-intent="Bill Pay-Unverified" quick-sell=true onrecordclick={handleClick}></c-generic-lic-opus-button-lwc>
+                <c-generic-lic-opus-button-lwc if:true={showAssistInOpusCmp} label="Buy an accessory" lauch-intent="Sell Item" record-id={recordId} quick-sell=true onrecordclick={handleClick}></c-generic-lic-opus-button-lwc>
+                <c-generic-lic-opus-button-lwc  class="slds-m-around_x-small" label="Go to account" variant="brand"  record-id={recordId}  lauch-intent="Customer Search" quick-sell=false onrecordclick={handleClick}></c-generic-lic-opus-button-lwc>
+            </div>
+        </div>        
+</lightning-card>
+</template>

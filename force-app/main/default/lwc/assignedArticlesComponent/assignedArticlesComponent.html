@@ -1,0 +1,181 @@
+<template>
+    <div class={assignedArticleCss} >
+        <template if:true={articles}>
+
+
+            <!-- IPAD  -->
+            <template if:false={IS_DESKTOP}>
+
+                <lightning-layout>
+                    <lightning-layout-item  class="paddingArticle" style="padding-top:2px; font-size: 8px;">
+                        <span class="assignedArticle-cardheader">{articleCount}</span>
+                            <button data-id="mainclearall"  
+                            
+                            style="  color: #00A0E6;
+                            border: 1px solid #00A0E6;
+                            border-radius: 3px;
+                            float: right;
+                            padding: 2px;
+                            text-align: center;
+                            text-decoration: none;
+                            font-size: 8px;
+                            margin: 1px 1px;
+                            cursor: pointer;"
+                            onclick={resetCache}   >Refresh</button>                          
+                    </lightning-layout-item>
+<!--
+                    <lightning-layout-item  class="paddingArticle" size="6" >
+                        <lightning-button  variant="brand-outline" label="Refresh" title="Refresh"
+                            onclick={resetCache} class="slds-m-left_xxx-small">
+                        </lightning-button>
+                    </lightning-layout-item>                
+-->
+                </lightning-layout>
+
+
+            </template>
+
+            
+            <!-- Desktop -->
+            <template if:true={IS_DESKTOP}>
+            
+                <lightning-layout>
+                    <lightning-layout-item  class="paddingArticle" >
+                        <div class="assignedArticle-cardheader">  {articleCount}</div>
+                    </lightning-layout-item>
+
+                    <lightning-layout-item  class="paddingArticle"  >
+                        <lightning-button  variant="brand-outline" label="Refresh" title="Refresh"
+                            onclick={resetCache} class="slds-m-left_x-small">
+                        </lightning-button>
+                    </lightning-layout-item>                
+                </lightning-layout>
+
+            </template>
+
+
+
+            <template if:true={noUnreadArticles}>
+                <lightning-layout>
+                    <lightning-layout-item  class="paddingArticle">
+                        No new unread articles to display.
+                    </lightning-layout-item>
+                    
+                    
+                </lightning-layout>
+            </template>
+
+            <div class="asignedArticle">
+                <template for:each={articles} for:item="article" for:index='index'>
+                    <div key={article.compId}>
+                        <lightning-layout class="articleInfo">
+                            <lightning-layout-item class="slds-p-around_x-small" size="4">
+                                <div class="imageDiv" id={article.compId} onclick={handleClick}>
+                                    <img class="image-css" alt="Assigned Article Preview Image" src={article.previewImage} />
+                                </div>
+                            </lightning-layout-item>
+                            <template if:true={inRegularMode}>
+                            <lightning-layout-item class="slds-p-around_x-small paddingLeft" size="8">
+                                <div style="margin-bottom: 5px;">
+                                    
+                                        <lightning-badge if:false={article.isRead} label="Unread" class="unread-badge">
+                                        </lightning-badge>
+                                   
+                                    <!--<lightning-badge if:true={article.isRead}
+                                        label="Read"
+                                        class="badge-disable">
+                                    </lightning-badge>-->
+                                    <lightning-badge if:true={article.isUrgent} label="Urgent" class="urgent-badge"></lightning-badge>
+                                    <lightning-badge if:true={article.isPinned} label="Pinned" class="pinned-badge" icon-name="utility:pin"></lightning-badge>
+                                    <!--
+                                    <lightning-badge if:false={article.isUrgent}
+                                        label="Urgent"
+                                        class="badge-disable">
+                                    </lightning-badge>
+                                    -->
+                                </div>
+                                <template if:true={largeDevice}>
+                                    <p class="assignedArticle-header slds-truncate"
+                                    id={article.compId} onclick={handleClick}>{article.title}</p>
+                                    <div style="display:inline-flex" class="assignedArticle-subheader"><strong>Published:</strong>&nbsp;<div>
+                                            {article.updateddate}</div>
+                                    </div>
+                                    <div class="assignedArticle-subheader-sec slds-line-clamp_medium">
+                                        <lightning-formatted-rich-text
+                                            value={article.summary}
+                                        ></lightning-formatted-rich-text>
+                                    </div>
+                                </template>
+                                <template if:false={largeDevice}>
+                                        <p class="assignedArticle-header slds-truncate"
+                                        id={article.compId} onclick={handleClick}>{article.title}</p>
+                                        <div style="display:inline-flex" class="assignedArticle-subheader">Published:&nbsp;<div>
+                                                {article.updateddate}</div>
+                                        </div>
+                                        <div class="assignedArticle-subheader-sec">
+                                            <lightning-formatted-rich-text value={article.summary}></lightning-formatted-rich-text>
+<!--                                             <p class="slds-has-flexi-truncate" >{article.summary}</p> -->
+                                        </div>
+                                </template>
+                            </lightning-layout-item>
+                        </template>
+                        <template if:false={inRegularMode}>
+                            <lightning-layout-item class="slds-p-around_x-small paddingLeft" size="8">
+                                <div style="margin-bottom: 5px;">
+                                    
+                                      
+                                    <!--<lightning-badge if:true={article.isRead}
+                                        label="Read"
+                                        class="badge-disable">
+                                    </lightning-badge>-->
+                                    <lightning-badge if:true={article.isUrgent} label="Urgent" class="urgent-badge"></lightning-badge>
+                                    <lightning-badge if:true={article.isPinned} label="Pinned" class="pinned-badge" icon-name="utility:pin"></lightning-badge>
+                                    <!--
+                                    <lightning-badge if:false={article.isUrgent}
+                                        label="Urgent"
+                                        class="badge-disable">
+                                    </lightning-badge>
+                                    -->
+                                </div>
+                                <template if:true={largeDevice}>
+                                    <p class="assignedArticle-header slds-truncate"
+                                    id={article.compId} onclick={handleClick}>{article.title}</p>
+                                    <div style="display:inline-flex" class="assignedArticle-subheader"><strong>Published:</strong>&nbsp;<div>
+                                            {article.updateddate}</div>
+                                    </div>
+                                    <div class="assignedArticle-subheader-sec slds-line-clamp_medium">
+                                        <lightning-formatted-rich-text
+                                            value={article.summary}
+                                        ></lightning-formatted-rich-text>
+                                    </div>
+                                </template>
+                                <template if:false={largeDevice}>
+                                        <p class="assignedArticle-header slds-truncate"
+                                        id={article.compId} onclick={handleClick}>{article.title}</p>
+                                        <div style="display:inline-flex" class="assignedArticle-subheader">Published:&nbsp;<div>
+                                                {article.updateddate}</div>
+                                        </div>
+                                        <div class="assignedArticle-subheader-sec">
+                                            <lightning-formatted-rich-text value={article.summary}></lightning-formatted-rich-text>
+<!--                                             <p class="slds-has-flexi-truncate" >{article.summary}</p> -->
+                                        </div>
+                                </template>
+                            </lightning-layout-item>
+                        </template>
+                        </lightning-layout>
+                    </div>
+                </template>
+            </div>
+            <div class={viewAllbtncss}>
+                <template if:false={largeDevice}>
+                    <a style="text-decoration:none;" if:true={ismorethanthreeArticles} onclick={handleViewAll} class="ButtonViewAll slds-m-left_x-small">{btn_label}</a>
+                </template>
+                <template if:true={largeDevice}>
+                    <lightning-button if:true={ismorethanthreeArticles} variant="base" label={btn_label} title={btn_label}
+                        onclick={handleViewAll} class="slds-m-left_x-small">
+                    </lightning-button>
+                </template>
+            </div>
+        </template>
+    </div>
+</template>

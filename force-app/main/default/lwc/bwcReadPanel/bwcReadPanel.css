@@ -1,0 +1,27 @@
+.title {
+    font-weight: bold;    
+}
+
+.section-title {
+    cursor: pointer;
+}
+
+.panel.announcement {
+
+    width: 100%;
+    background-color: #FFF4E7;
+    border-color: var(--lwc-colorBorderWarning);
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+
+}
+
+.panel.error {
+    background-color: #f5e1e0;
+    border-color: #c84d49;
+}
+
+.panel.info {
+    background-color: #ededed;
+    border-color: #a6a4a2;
+}

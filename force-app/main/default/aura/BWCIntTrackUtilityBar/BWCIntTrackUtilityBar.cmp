@@ -1,0 +1,13 @@
+<aura:component controller="BWC_InteractionActivity" implements="flexipage:availableForAllPageTypes">
+
+	<lightning:messageChannel type="BWC_InteractionActivity__c" aura:id="lmsBWCInteractionActivity" onMessage="{!c.handleInteractionActivityMessage}" />
+	<lightning:messageChannel type="BWC_EscalationCase__c" aura:id="lmsBWCEscalationCase" onMessage="{!c.handleEscalationCaseMessage}" />
+
+    <lightning:messageChannel type="BWC_Completion__c" aura:id="lmsCompletion"/>
+    
+    <lightning:messageChannel type="BWC_TransferCompleted__c" aura:id="lmsBWCTransferCompleted" onMessage="{!c.handleTransferCompletedMessage}" />
+	<lightning:messageChannel type="BWC_InteractionComplete__c" aura:id="lmsBWCInteractionComplete"/>
+
+	<lightning:workspaceAPI aura:id="workspace" />    
+	
+</aura:component>

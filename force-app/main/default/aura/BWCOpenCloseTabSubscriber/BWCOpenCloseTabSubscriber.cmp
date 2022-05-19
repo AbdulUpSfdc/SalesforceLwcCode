@@ -1,0 +1,8 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <lightning:workspaceAPI aura:id="workspace" />
+    <aura:attribute name="recordValue" type="String"/>
+    <lightning:formattedText value="{!v.recordValue}" />
+    <lightning:messageChannel type="BWC_OpenCloseTabMC__c"
+         onMessage="{!c.handleOpenCloseTab}"/>
+
+</aura:component>

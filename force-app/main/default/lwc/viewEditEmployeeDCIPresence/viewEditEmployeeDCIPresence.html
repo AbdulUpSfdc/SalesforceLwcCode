@@ -1,0 +1,103 @@
+<template>
+    <div if:true={showSpinner} class="spinner">
+        <lightning-spinner alternative-text="Loading..." variant="brand"> </lightning-spinner>
+    </div>
+    <lightning-card title="Reps Status">
+        <div align="right">
+            <button type="button" class={buttoncss} onclick={redirectToHomeStore}>View all store reps</button>
+        </div>
+        <div class="slds-p-around_x-small">
+                <table class="slds-table" summary="Reps Status">
+                    <caption>It is used to view and Edit the Status of reps</caption>
+                    <thead>
+                        <tr class="">
+                            <th class="slds-size_3-of-10" scope="col">
+                                <div class="slds-truncate" title="Account Name">Rep Name</div>
+                              
+                            </th>
+                            <th class="slds-size_3-of-10 slds-text-align_center" scope="col">
+                                <div class="slds-truncate" title="Control">Manager on Duty?</div>
+                            </th>
+                        
+                        <th class="slds-size_3-of-10" scope="col">
+                            <div class="slds-truncate" title="Control">Status</div>
+                        </th>
+                    </tr>
+                    </thead>
+                <tbody>
+                    <template for:each = {empList} for:item = "item" for:index="indexVar">
+                        <tr key={item.Id} class="slds-hint-parent">
+                            <td class="slds-size_3-of-10" data-label="Prospecting">
+                                        <lightning-formatted-text value={item.Name}></lightning-formatted-text>
+                            </td>
+                            <td class="slds-size_3-of-10 slds-text-align_center" data-label="Prospecting">
+                                <lightning-button-icon icon-name={item.MoDiconName} variant={item.varaint} value={item.MoDiconName} name={item} onclick={handleManagerOnDuty} class="slds-m-left_x-small plus-icon " title="Manager on Duty"></lightning-button-icon>
+                            </td>
+                            <td class="slds-size_3-of-10" data-label="Prospecting">
+                                        <lightning-combobox
+                                                name={item}
+                                                value={item.Status}
+                                                options={options}
+                                                onchange={handleChange} class = "slds-p-bottom_large"></lightning-combobox>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+        <div class="slds-m-around_medium">
+            <p class="slds-m-vertical_medium content">
+                     Displaying {startingRecord} to {endingRecord} of {totalRecountCount} records.
+                     Page {page} of {totalPage}. </p>
+            <c-paginator-bottom onprevious={previousHandler} onnext={nextHandler}></c-paginator-bottom>
+        </div>
+    </lightning-card>
+    
+    <template if:true={setIsManagerOnDuty}>
+        <c-set-as-manager-on-duty-util-modal
+            show-modal={showModal} 
+            show-set-button={showSetButton}
+            show-button-name={showButtonName} 
+            show-cancel-button={showCancelButton}
+            oncancel={closeModal}
+            onset={handleSetIsManagerOnDuty}
+            onclose={closeModal}>
+            <div slot="header">
+                <h2 slot="header" id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{header}</h2>
+            </div>
+            <div slot="body">
+                <div class="slds-size_12-of-12">
+                    <p>Set {selectedEmpName} as manager on duty?</p><br/>
+                    <lightning-icon icon-name="custom:custom65" title="custom65">
+                        
+                    </lightning-icon>&nbsp;&nbsp;{selectedEmpName}
+                </div>
+                
+            </div>
+        </c-set-as-manager-on-duty-util-modal>    
+    </template>
+
+    <template if:false={setIsManagerOnDuty}>
+        <c-set-as-manager-on-duty-util-modal
+            show-modal={showModal} 
+            show-un-set-button={showUnSetButton}
+            show-button-name={showButtonName} 
+            show-cancel-button={showCancelButton}
+            oncancel={closeModal}
+            onunset={handleUnSetIsManagerOnDuty}
+            onclose={closeModal}>
+            <div slot="header">
+                <h2 slot="header" id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">{header}</h2>
+            </div>
+            <div slot="body">
+                <div class="slds-size_12-of-12">
+                    <p>Remove {selectedEmpName} as manager on duty?</p><br/>
+                    <lightning-icon icon-name="custom:custom65" title="custom65">
+                    
+                    </lightning-icon>&nbsp;&nbsp; {selectedEmpName}
+                </div>
+            </div>
+        </c-set-as-manager-on-duty-util-modal>    
+    </template>
+
+</template>

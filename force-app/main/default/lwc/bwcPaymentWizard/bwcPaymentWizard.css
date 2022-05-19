@@ -1,0 +1,74 @@
+.full-width {
+    width: 100%
+}
+
+.panel {
+    height: 100%;
+}
+
+.select-account {
+    max-width: 15rem;
+}
+
+.top-spinner {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.section-header {
+    background-color: rgb(250, 250, 249);
+
+    border-radius: 0.25rem;
+    border: 1px solid var(--lwc-colorBorder);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+ 
+    margin-top: .75rem;    
+    padding: 1rem;
+}
+
+.section-body {
+    border: 1px solid rgb(221, 219, 218);
+    border-top: none;
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    padding: 1rem;
+    padding-top: .5rem;
+}
+
+.brand-text {
+    color: var(--lwc-brandAccessible,rgb(0, 112, 210));
+}
+
+.warning {
+    background-color: #ffbb66;
+}
+
+lightning-helptext {
+    padding-bottom: .25rem;
+    margin-left: .25rem;
+}
+
+.radio-div {
+    padding-top: .4rem;
+}
+
+.payment-amount {
+    font-weight: bold;
+}
+
+.past-due {
+    color: red;
+}
+
+.decision-description {
+    font-weight: bold;
+}
+
+.short-input {
+    max-width: 10rem;
+}
+
+.heavy-bold {
+    font-weight: 600;
+}

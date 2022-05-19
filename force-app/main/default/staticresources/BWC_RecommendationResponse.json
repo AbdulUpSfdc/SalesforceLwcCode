@@ -1,0 +1,26 @@
+[
+    {
+        "accountNumber": "158350031",
+        "accountType": "uverse",
+        "offers": [
+            {
+                "displayDescription": "Customer Behavior - Clickstream Cancel",
+                "SFDCIconType": "Suspend",
+                "url": "",
+                "intentType": "Service",
+                "contentId": "6089875db10be4bc653fbec2",
+                "inventorySpaceId": null,
+                "statusCode": "200"
+            },
+            {
+                "displayDescription": "Propensity to Call - Billing Inquiry",
+                "SFDCIconType": "PayBill",
+                "url": "https://www.att.com/support/article/my-account/KM1187650",
+                "intentType": "Service",
+                "contentId": "6089875eb10be4bc653fbf04",
+                "inventorySpaceId": null,
+                "statusCode": "200"
+            }
+        ]
+    }
+]

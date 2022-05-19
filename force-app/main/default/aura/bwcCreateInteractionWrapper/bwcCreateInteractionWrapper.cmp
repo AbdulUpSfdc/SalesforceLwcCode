@@ -1,0 +1,11 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+
+    <lightning:workspaceAPI aura:id="workspace" />
+
+    <lightning:card>
+        <c:bwcCreateInteraction aura:id="bwcCreateInteraction"
+            onvaluechange="{!c.getValueFromLwc}"
+            onnavtointeraction= "{!c.handleNavigationtoInteraction}"/>
+
+    </lightning:card>
+</aura:component>

@@ -1,0 +1,23 @@
+.warning {
+    background-color: #ffbb66;
+}
+
+.success {
+    color: #FFFFFF;
+    background-color: #087d49;
+}
+
+.success-light {
+    color: #078449;
+    background-color: #f8fdfa;
+    border: 1px solid #078449;
+    border-radius: 5px;
+}
+
+.success-blue {
+    color: #0170d2;
+    background-color: #f7fbff;
+    border: 1px solid #0170d2;
+    border-radius: 5px;
+    --sds-c-icon-color-foreground-default: #0070d2;
+}

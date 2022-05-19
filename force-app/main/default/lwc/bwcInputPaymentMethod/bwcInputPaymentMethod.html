@@ -1,0 +1,395 @@
+<template>
+
+    <div class="slds-grid slds-grid_vertical">
+
+        <c-bwc-notification if:true={paymentMethodTypeNotAllowedMessage} class="slds-var-p-vertical_x-small" theme="light" message={paymentMethodTypeNotAllowedMessage}></c-bwc-notification>
+
+        <!-- Payment Method Types-->
+        <div class="slds-m-bottom_x-small">
+            <div class="slds-grid slds-grid_align-spread">
+                <div class="slds-col">
+                    <lightning-radio-group type="button" options={_paymentTypeMethodOptions}
+                        value={selectedPaymentMethodType} onchange={handlePaymentMethodTypeChange} disabled={editInputDisabled}>
+                    </lightning-radio-group>
+                </div>
+
+                <!-- RAISR Dropdown button / show if has voice redaction permset -->
+                <div if:true={showVoiceRedactionButton} class="slds-col slds-text-body_small slds-m-top_xx-small">
+                    <c-bwc-raisr-form-ctrl-cmp icon-classes="raisr-recieving slds-button__icon slds-button__icon_right"></c-bwc-raisr-form-ctrl-cmp>
+                </div>
+            </div>
+        </div>
+
+        <!-- List stored profiles -->
+        <div if:true={showStoredProfiles}>
+
+            <template for:each={selectedProfileOptions} for:item="profileOption">
+
+                <div key={profileOption.index} class="slds-grid slds-grid_vertical">
+
+                    <div data-section-index={profileOption.index}
+                        class="slds-grid slds-grid_vertical slds-box slds-box_x-small slds-m-top_x-small slds-p-top_xx-small"
+                        style="min-height: 3.125rem;">
+
+                        <div class="slds-grid">
+                            <div class="slds-m-top_xx-small slds-m-left_x-small radio-div">
+                                <input id={profileOption.key} type="radio" name="profileOption" data-index={profileOption.index}
+                                    onchange={handlePaymentMethodChange}/>
+                            </div>
+                            <label for={profileOption.key} class="slds-m-top_xx-small slds-m-left_x-small slds-p-top_xx-small slds-grow">
+                                {profileOption.label}
+                            </label>
+                            <div if:true={profileOption.hasVoiceSecurityCode} class="slds-col_bump-left slds-grid slds-grid_vertical slds-hide"
+                                data-security-code={profileOption.index}>
+
+                                <div class="slds-grid slds-grid_vertical-align-center">
+                                    <c-bwc-raisr-tokenized-field-cmp
+                                        name="profileSecurityCode"
+                                        value={raisrProfileSecurityCode}
+                                        visible-value={raisrProfileSecurityCodeVisibleValue}
+                                        token={raisrProfileSecurityCodeToken}
+                                        context={profileOption.raisrContext}
+                                        label="Security Code (CVV)"
+                                        raisr-field-type="CVV"
+                                        place-holder="3 or 4 digits"
+                                        class="slds-col slds-grow-none input" 
+                                        raisr-recieving-help="Capturing data"
+                                        message-when-bad-input="Expect CVV 3 or 4 digits"
+                                        message-when-pattern-mismatch="Wrong format. Expect CVV 3 or 4 digits"
+                                        message-when-type-mismatch="Wrong format. Expect CVV 3 or 4 digits"
+                                        message-when-value-missing="Value can't be empty"
+                                        oncommit={handleInputCommit}
+                                        data-name="profileSecurityCode"
+                                        data-security-code={profileOption.index}>
+                                    </c-bwc-raisr-tokenized-field-cmp>
+                                </div>
+
+                            </div>
+                            <div if:true={profileOption.hasSecurityCode} class="slds-col_bump-left slds-grid slds-grid_vertical slds-hide"
+                                data-security-code={profileOption.index}>
+
+                                <div class="slds-grid slds-grid_vertical-align-center">
+                                    <label class="slds-p-right_x-small">Security Code (CVV)</label>
+                                    <lightning-input variant="label-hidden" type="password" style="max-width: 10rem;"
+                                        name="profileSecurityCode" data-name="profileSecurityCode" data-security-code={profileOption.index}
+                                        value={profileSecurityCode} oncommit={handleInputCommit}
+                                    ></lightning-input>
+                                </div>
+
+                            </div>
+                            <div if:true={profileOption.hasRedactedSecurityCode} class="slds-col_bump-left slds-grid slds-grid_vertical slds-hide"
+                                data-security-code={profileOption.index}>
+
+                                <div class="slds-grid slds-grid_vertical-align-center">
+                                    <lightning-button data-index={profileOption.index} label="Collect CVV" variant="brand" icon-name="utility:push" onclick={handleCollectCvvClick}></lightning-button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <c-bwc-notification class="slds-hide" data-index={profileOption.index} type="validation" alignment="right" variant="error"></c-bwc-notification>
+
+                    </div>
+
+                    <c-bwc-secure-payment-agent if:true={profileOption.hasRedactedSecurityCode} data-index={profileOption.index} 
+                        class="slds-hide slds-m-top_x-small" interaction-id={interactionId} ban={ban}
+                        capabilities={cvvOnlyCapabilities} oncompleted={handleSecurePaymentCompleted}></c-bwc-secure-payment-agent>
+
+                </div>
+
+            </template>
+
+            <!-- "Use New" option-->
+            <div class="slds-grid slds-box slds-box_x-small slds-m-top_x-small slds-p-top_xx-small slds-grid_vertical-align-center" data-section-index="-1" style="min-height: 3.125rem;">
+
+                <div class="slds-m-left_x-small radio-div">
+                    <input id="useNewRadio" type="radio" name="profileOption" data-index="-1" checked={isUseNew} onchange={handlePaymentMethodChange} />
+                </div>
+                <div class="slds-m-left_x-small brand">
+                    <span style="font-size: 18pt;">+</span>
+                </div>
+                <label for="useNewRadio" class="slds-col slds-m-left_x-small slds-grow brand">
+                    {useNewLabel}
+                </label>
+
+            </div>
+
+        </div>
+
+        <!-- Voice Recognition -->
+        <template if:true={showVoiceRecognition}>
+
+            <div data-name="voiceRecognition">
+
+                <template if:true={isCard}>
+
+                    <div class="slds-grid slds-grid_vertical slds-m-top_x-small">
+
+                        <div class="slds-grid slds-gutters slds-gutters_xx-small">
+
+                            <lightning-input class="slds-col slds-grow-none input" name="cardHolderName" label="Cardholder Name" required
+                                autocomplete="off" value={newCard.cardHolderName} oncommit={handleInputCommit}></lightning-input>
+
+                            <c-bwc-raisr-clear-text-field-cmp
+                                name="zipCode"
+                                value={newCard.billingAddress.zipCode}
+                                visible-value={newCard.billingAddress.zipCode}
+                                context={context}
+                                raisr-field-type="ZIP"
+                                label="Billing Zip Code"
+                                class="slds-col slds-grow-none input" 
+                                raisr-recieving-help="Capturing data"
+                                message-when-bad-input="Not a valid ZIP Code."
+                                message-when-pattern-mismatch="Not a valid ZIP Code."
+                                message-when-type-mismatch="Not a valid ZIP Code."
+                                message-when-value-missing="Value can't be empty"
+                                oncommit={handleInputCommit}>
+                            </c-bwc-raisr-clear-text-field-cmp>
+
+                        </div>
+
+                        <div class="slds-grid slds-gutters slds-gutters_xx-small">
+
+                            <c-bwc-raisr-tokenized-field-cmp
+                                name="cardNumber"
+                                value={newCard.cardNumber}
+                                visible-value={newCard.cardNumberVisibleValue}
+                                token={newCard.cardNumberToken}
+                                context={context}
+                                label="Card Number"
+                                raisr-field-type="CREDIT_CARD"
+                                place-holder="15 or 16 digits"
+                                class="slds-col slds-grow-none input"
+                                raisr-recieving-help="Capturing data"
+                                message-when-bad-input="Expect CC 15 or 16 digits"
+                                message-when-pattern-mismatch="Wrong format. Expect CC 15 or 16 digits"
+                                message-when-type-mismatch="Wrong format. Expect CC 15 or 16 digits"
+                                message-when-value-missing="Value can't be empty"
+                                oncommit={handleInputCommit}>
+                            </c-bwc-raisr-tokenized-field-cmp>
+
+                            <c-bwc-raisr-clear-text-field-cmp
+                                name="expirationDate"
+                                value={newCard.expirationDate}
+                                visible-value={newCard.expirationDate}
+                                context={context}
+                                raisr-field-type="EXP_DATE"
+                                label="Expiration Date"
+                                place-holder="MM/YY"
+                                class="slds-col slds-grow-none input" 
+                                raisr-recieving-help="Capturing data"
+                                message-when-bad-input="Expect Date MM/YY"
+                                message-when-pattern-mismatch="Wrong date format."
+                                message-when-type-mismatch="Wrong date format."
+                                message-when-value-missing="Value can't be empty"
+                                oncommit={handleInputCommit}>
+                            </c-bwc-raisr-clear-text-field-cmp>
+
+                            <c-bwc-raisr-tokenized-field-cmp
+                                name="securityCode"
+                                value={newCard.securityCode}
+                                visible-value={newCard.securityCodeVisibleValue}
+                                token={newCard.securityCodeToken}
+                                context={context}
+                                label="Security Code (CVV)"
+                                raisr-field-type="CVV"
+                                place-holder="3 or 4 digits"
+                                class="slds-col slds-grow-none input" 
+                                raisr-recieving-help="Capturing data"
+                                message-when-bad-input="Expect CVV 3 or 4 digits"
+                                message-when-pattern-mismatch="Wrong format. Expect CVV 3 or 4 digits"
+                                message-when-type-mismatch="Wrong format. Expect CVV 3 or 4 digits"
+                                message-when-value-missing="Value can't be empty"
+                                oncommit={handleInputCommit}>
+                            </c-bwc-raisr-tokenized-field-cmp>
+
+                        </div>
+
+                    </div>
+                
+                </template>
+
+                <template if:true={isBankAccount}>
+
+                    <div class="slds-grid slds-grid_vertical slds-m-top_x-small">
+
+                        <div class="slds-grid slds-gutters slds-gutters_xx-small">
+
+                            <lightning-combobox class="slds-col slds-grow-none input" name="accountType" label="Account Type" required  dropdown-alignment="auto"
+                                options={bankAccountTypeOptions} value={newBankAccount.accountType} onchange={handleInputCommit}></lightning-combobox>
+
+                            <lightning-input class="slds-col slds-grow-none input" name="accountHolderName" label="Account Holder Name" required
+                                value={newBankAccount.accountHolderName} oncommit={handleInputCommit}></lightning-input>
+
+                        </div>
+
+                        <div class="slds-grid slds-gutters slds-gutters_xx-small">
+
+                            <c-bwc-raisr-clear-text-field-cmp
+                                name="routingNumber"
+                                value={newBankAccount.routingNumber}
+                                visible-value={newBankAccount.routingNumber}
+                                context={context}
+                                raisr-field-type="BANK_ROUTING"
+                                label="Routing Number"
+                                place-holder="9 digit numeric code"
+                                class="slds-col slds-grow-none input" 
+                                raisr-recieving-help="Capturing data"
+                                message-when-bad-input="Expect 9 digit numeric code"
+                                message-when-pattern-mismatch="Not a valid Routing Number."
+                                message-when-type-mismatch="Not a valid Routing Number."
+                                message-when-value-missing="Value can't be empty"
+                                onchange={handleInputCommit}
+                                oncommit={handleInputCommit}>
+                            </c-bwc-raisr-clear-text-field-cmp>
+
+                            <c-bwc-raisr-tokenized-field-cmp
+                                name="bankAccountNumber"
+                                value={newBankAccount.bankAccountNumber}
+                                visible-value={newBankAccount.bankAccountNumberVisibleValue}
+                                token={newBankAccount.bankAccountNumberToken}
+                                context={context}
+                                label="Account Number"
+                                raisr-field-type="BANK_ACC"
+                                place-holder="6-17 digit numeric code"
+                                class="slds-col slds-grow-none input" 
+                                raisr-recieving-help="Capturing data"
+                                message-when-bad-input="Expect 6-17 digit numeric code"
+                                message-when-pattern-mismatch="Wrong format. Expect 6-17 digit numeric code"
+                                message-when-type-mismatch="Wrong format. Expect 6-17 digit numeric code"
+                                message-when-value-missing="Value can't be empty"
+                                onchange={handleInputCommit}
+                                oncommit={handleInputCommit}>
+                            </c-bwc-raisr-tokenized-field-cmp>
+
+                        </div>
+
+                    </div>
+
+                </template>
+
+                <template if:true={isPromiseToPay}>
+
+                    <div class="slds-grid slds-grid_vertical slds-m-top_x-small">
+
+                        <lightning-combobox class="slds-col slds-grow-none input" name="method" label="Type" required
+                            options={promiseToPayMethodOptions} value={promiseToPay.method} onchange={handleInputCommit} dropdown-alignment="auto">
+                        </lightning-combobox>
+
+                        <div class="slds-m-top_x-small">
+                            <lightning-formatted-rich-text value={selectedPaymentTypeText} disable-linkify={selectedPaymentTypeTextDisableLinkify}></lightning-formatted-rich-text>
+                        </div>
+
+                    </div>
+
+                </template>
+
+            </div>
+
+        </template>
+        <!-- / Voice Recognition -->
+
+        <!-- Redaction -->
+        <div if:true={showRedaction} class="slds-m-top_x-small">
+
+            <!-- If redaction is in use, this replaces direct payment method entry. -->
+            <c-bwc-secure-payment-agent interaction-id={interactionId} ban={ban} payment-profile={temporaryProfile} capabilities={secureAgentCapabilities} oncompleted={handleSecurePaymentCompleted}></c-bwc-secure-payment-agent>
+
+        </div>
+        <!-- / Redaction -->
+
+        <!-- Direct payment method entries -->
+        <template if:true={showEntryDetails}>
+
+            <template if:true={isCard}>
+
+                <div class="slds-grid slds-grid_vertical slds-m-top_x-small">
+
+                    <div class="slds-grid slds-gutters slds-gutters_xx-small">
+
+                        <lightning-input class="slds-col slds-grow-none input" name="cardHolderName" label="Cardholder Name" required
+                            autocomplete="off" value={newCard.cardHolderName} oncommit={handleInputCommit} disabled={editInputDisabled}></lightning-input>
+
+                        <lightning-input class="slds-col slds-grow-none input" name="zipCode" label="ZIP Code" required
+                            pattern="^((\d{5})|([AaBbCcEeGgHhJjKkLlMmNnPpRrSsTtVvXxYy]\d[A-Za-z]\s?\d[A-Za-z]\d))$" message-when-pattern-mismatch="Not a valid ZIP Code."
+                            autocomplete="off" value={newCard.billingAddress.zipCode} oncommit={handleInputCommit}></lightning-input>
+
+                    </div>
+
+                    <div class="slds-grid slds-gutters slds-gutters_xx-small">
+
+                        <c-bwc-input-card-number class="slds-col slds-grow-none input" name="cardNumber"
+                            required value={newCard.cardNumber} oncardtypechange={handleCardTypeChange} oncommit={handleInputCommit} disabled={editInputDisabled}></c-bwc-input-card-number>
+
+                        <lightning-input class="slds-col slds-grow-none input" name="expirationDate" label="Expiration Date" placeholder="MM/YYYY" required
+                            pattern="^(0[1-9]|10|11|12)/20[0-9]{2}$" message-when-pattern-mismatch="Enter MM/YYYY." max-length="7"
+                            autocomplete="off" value={cardExpirationDate}
+                            onchange={handleExpirationDateChange} oncommit={handleInputCommit}></lightning-input>
+
+                        <lightning-input class="slds-col slds-grow-none input" name="securityCode" label="Security Code (CVV)" type="password" placeholder="3 or 4 digits" required
+                            min-length="3" max-length="4"
+                            autocomplete="off" value={newCard.securityCode} oncommit={handleInputCommit}></lightning-input>
+
+                    </div>
+
+                </div>
+            
+            </template>
+
+            <template if:true={isBankAccount}>
+
+                <div class="slds-grid slds-grid_vertical slds-m-top_x-small">
+
+                    <div class="slds-grid slds-gutters slds-gutters_xx-small">
+
+                        <lightning-combobox class="slds-col slds-grow-none input" name="accountType" label="Account Type" required  dropdown-alignment="auto"
+                            options={bankAccountTypeOptions} value={newBankAccount.accountType} onchange={handleInputCommit}></lightning-combobox>
+
+                        <lightning-input class="slds-col slds-grow-none input" name="accountHolderName" label="Account Holder Name" required
+                            value={newBankAccount.accountHolderName} oncommit={handleInputCommit}></lightning-input>
+
+                    </div>
+
+                    <div class="slds-grid slds-gutters slds-gutters_xx-small">
+
+                        <lightning-input class="slds-col slds-grow-none input" name="routingNumber" label="Routing Number" placeholder="9 digit numeric code" required
+                            pattern="^((0[0-9])|(1[0-2])|(2[1-9])|(3[0-2])|(6[1-9])|(7[0-2])|80)([0-9]{7})$"
+                            message-when-pattern-mismatch="Not a valid Routing Number."
+                            autocomplete="off" value={newBankAccount.routingNumber} oncommit={handleInputCommit}></lightning-input>
+
+                        <c-bwc-input-bank-account-number class="slds-col slds-grow-none input" name="bankAccountNumber" placeholder="10-12 digit numeric code"
+                            required value={newBankAccount.bankAccountNumber}
+                            oncommit={handleInputCommit}></c-bwc-input-bank-account-number>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+            <template if:true={isPromiseToPay}>
+
+                <div class="slds-grid slds-grid_vertical slds-m-top_x-small">
+
+                    <lightning-combobox class="slds-col slds-grow-none input" name="method" label="Type" required
+                        options={promiseToPayMethodOptions} value={promiseToPay.method} onchange={handleInputCommit} dropdown-alignment="auto">
+                    </lightning-combobox>
+
+                    <div class="slds-m-top_x-small">
+                        <lightning-formatted-rich-text value={selectedPaymentTypeText} disable-linkify={selectedPaymentTypeTextDisableLinkify}></lightning-formatted-rich-text>
+                    </div>
+
+                </div>
+
+            </template>
+
+        </template>
+        <!-- / Direct payment method entries -->
+
+    </div>
+
+    <c-bwc-raisr-msg-pub-sub-cmp 
+    parent-id="bwcInputPaymentMethod"
+    onraisrevent={onRaisrEvent}></c-bwc-raisr-msg-pub-sub-cmp>
+
+</template>

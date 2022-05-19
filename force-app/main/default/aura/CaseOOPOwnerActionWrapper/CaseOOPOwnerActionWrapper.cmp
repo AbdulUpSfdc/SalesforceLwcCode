@@ -1,0 +1,22 @@
+<aura:component controller="CaseOwnerAssignmentHelper" implements="force:lightningQuickActionWithoutHeader,force:hasRecordId,force:appHostable,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName" access="global" >
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:html tag="style">
+        .slds-modal__container{
+        visibility: hidden !important;
+        }
+        .slds-backdrop {
+        background: rgba(43, 40, 38, 0) !important;
+        visibility: hidden !important;
+        }
+        .slds-fade-in-open {
+        display:none !important;
+        }
+        .slds-modal {
+        display: none;
+        visibility: hidden !important;
+        }
+    </aura:html>
+    
+</aura:component>

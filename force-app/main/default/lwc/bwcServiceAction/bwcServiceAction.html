@@ -1,0 +1,60 @@
+<template >
+  
+  <!--Header-->
+  <div class="slds-modal__header" id="modalBody">
+    <h2 >
+      <lightning-formatted-text
+        value={serviceAction}
+      ></lightning-formatted-text>
+    </h2>
+  </div>
+  <!--Body-->
+  <!--This will be dynamic based in the Action Value-->
+  <div if:true={isActionPicklist} class="slds-p-around_medium slds-p-bottom_medium" >
+    <lightning-formatted-text
+    style="padding-left: 72%; Position: Absolute"
+    value="** will enable escalation" >
+  </lightning-formatted-text>
+    <lightning-combobox
+      name="ActionValues"
+      data-id="combobox"
+      label="Action Values"
+      placeholder="Select Action"
+      onchange={handleChange}
+      options={options}
+      dropdown-alignment="auto"
+      required
+    >
+    </lightning-combobox>
+  </div>
+
+
+  <div if:true={isCTNList} class="slds-p-around_medium slds-p-bottom_medium" >
+    <lightning-combobox
+    name="CTNValues"
+    data-id="CTNCombobox"
+    label="CTN"
+    placeholder="Select CTN"
+    onchange={handleChange}
+    options={ctnOptions}
+    dropdown-alignment="auto"
+    required
+  >
+  </lightning-combobox>
+  </div>
+
+  <!--footer-->
+  <div class="slds-modal__footer">
+    <div>
+      <lightning-button
+        variant="brand"
+        label="Submit"
+        title="Submit"
+        onclick={handleSubmit}
+      >
+      </lightning-button>
+    </div>
+  </div>
+  <div style="height:500px;" hidden>
+</div>
+</template>

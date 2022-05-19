@@ -1,0 +1,12 @@
+:host {
+    --lwc-borderWidthThin: 0px;
+    --lwc-colorGray5: rgb(255,255,255);
+}
+
+.border-bottom{
+    border-bottom: 1px solid rgb(201, 201, 201);
+}
+
+.subscriber-table_alignment {
+    padding-left: 1.7rem;
+}

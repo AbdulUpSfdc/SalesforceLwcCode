@@ -1,0 +1,38 @@
+<aura:component controller="SyncCaseWithAccount" implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <aura:attribute name="recordId" type="String" access="public" />
+    
+    <aura:attribute name="searching" type="Boolean" default="true" />
+    <aura:attribute name="foundAccounts" type="List" />
+    <aura:attribute name="accountList" type="List" />
+    <aura:attribute name="columns" type="List" />
+	<aura:attribute name="errors" type="Object"/>
+    
+    <aura:attribute name="caseRecord" type="Object" />
+    <force:recordData aura:id="caseRecordData" 
+                      fields="Id,AccountId,BillingCity__c,BillingCountry__c,BillingState__c,BillingStreet__c,BillingZip__c,Product__c,AddressDifferent__c"
+                      recordId="{!v.recordId}" 
+                      mode="EDIT"
+                      targetFields="{!v.caseRecord}" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+   
+	<lightning:card title="Customer Search">
+        <aura:if isTrue="{!v.searching}">
+            <c:bwcUnifiedSearch aura:id="bwcComponentId" caseId="{!v.recordId}" onrecordfound="{!c.handleRecordFound}">
+            </c:bwcUnifiedSearch>
+            <aura:set attribute="else">
+                <div class="slds-var-p-around_medium">
+                    <lightning:datatable aura:id="dataTableId" data="{!v.accountList}"
+                     columns="{!v.columns}"
+                     keyField="id" onrowselection="{!c.handleRowSelect}" errors="{!v.errors}">
+                    </lightning:datatable>
+                    <div class="slds-card__footer slds-align_absolute-center">            
+                        <lightning:button variant="brand" label="Cancel" title="Cancel" onclick="{!c.handleCancelClick}" />
+                        <lightning:button aura:id="saveButtonId" variant="brand" label="Save" title="Save" onclick="{!c.handleSaveClick}" disabled="true" />
+                    </div>
+                </div>
+            </aura:set>
+        </aura:if>
+    </lightning:card>
+	
+</aura:component>

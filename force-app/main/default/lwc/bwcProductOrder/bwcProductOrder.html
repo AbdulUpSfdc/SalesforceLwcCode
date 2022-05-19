@@ -1,0 +1,117 @@
+<template>
+    <div class="slds-box slds-box_xx-small ">
+
+        <lightning-card variant="narrow">
+
+            <h3 slot='title' class="slds-text-title_bold">
+                <div if:true={isWireless}>
+                    <lightning-icon
+                        class="slds-p-right_small"
+                        icon-name="utility:phone_portrait"
+                        size="small"
+                        variant="success">
+                    </lightning-icon>
+                    {ctn} - {lineType}
+                </div>
+                <div if:true={isUverse}>
+                    <lightning-icon
+                        class="slds-p-right_small"
+                        icon-name="utility:world"
+                        size="small"
+                        variant="success">
+                    </lightning-icon>
+                    {line.name}
+                </div>
+                
+                <lightning-icon
+                    class="slds-p-left_small"
+                    if:true={isFallout}
+                    icon-name="utility:warning"
+                    variant="error"
+                    size="x-small"
+                ></lightning-icon>
+            </h3>
+
+            <span slot="actions">
+                <lightning-button
+                    class="slds-m-left_x-small"
+                    label={expandButtonText}
+                    title={expandButtonText}
+                    onclick={handleExpandAll} >
+                </lightning-button>
+            </span>
+
+            <div if:true={isFallout} class="slds-var-m-bottom_large">
+                <c-bwc-order-fields
+                    columns=2
+                    fields={falloutFields}
+                >
+                </c-bwc-order-fields>
+            </div>
+
+            <div if:true={showServices} class="slds-m-horizontal_small">
+                <p class="slds-text-title_bold">Services Ordered</p>
+                <!-- Each of these is a service -->
+                <template for:each={_services} for:item="service">
+                    <div key={service.serviceSequence}>
+                        <c-bwc-expandable-section onexpand={handleExpand}>   
+                            <div slot="header" class="headerSection">
+                                <lightning-layout horizontal-align="spread" > 
+                                    <lightning-layout-item size="11">
+                                        {service.title}
+                                    </lightning-layout-item>
+                                    <lightning-layout-item if:true={service.servicePrice} size="1">
+                                        <div class="slds-text-title_bold slds-float_right">
+                                            <lightning-formatted-number value={service.servicePrice} format-style="currency" currency-code="USD"></lightning-formatted-number>
+                                        </div>
+                                    </lightning-layout-item>
+                                </lightning-layout>
+                            </div>
+                            <c-bwc-order-fields columns=2 fields={service.fields}></c-bwc-order-fields>
+
+                    </c-bwc-expandable-section>
+                     
+                    <template for:each={service.promotions} for:item="promotion">
+                        <c-bwc-expandable-section key={promotion.promotionId} onexpand={handleExpand}>
+                            <div slot="header" class="headerSection">
+                                <lightning-layout horizontal-align="spread">
+                                    <lightning-layout-item size="11">
+                                        {service.promotionTitle}
+                                    </lightning-layout-item>
+                                    <lightning-layout-item size="1">
+                                        <div class="slds-text-title_bold slds-float_right">
+                                            <lightning-formatted-number value={promotion.amount} format-style="currency"
+                                                currency-code="USD"></lightning-formatted-number>
+                                        </div>
+                                    </lightning-layout-item>
+                                </lightning-layout>
+                            </div>
+                            <c-bwc-order-promo-applied promo-information={promotion} ></c-bwc-order-promo-applied>
+                        </c-bwc-expandable-section>
+                    </template>
+                </div>
+                </template>
+            </div>
+
+            <!-- Each of these is an item. It may contain promotion and shipment information -->
+            <c-bwc-order-detail-items
+                onexpand={handleExpand}
+                class="slds-p-top_small"
+                addresses={addresses}
+                fulfillments={fulfillments}
+                promotions={promotions}
+                product-sequence-number={productSequenceNumber}
+                items={items}
+                line-of-business={lineOfBusiness}
+                product-name={productName}
+            ></c-bwc-order-detail-items>   
+
+            <c-bwc-order-line-details
+                if:true={isFallout}
+                line={line}
+                onexpand={handleExpand}
+            ></c-bwc-order-line-details>
+        
+        </lightning-card>
+    </div>
+</template>

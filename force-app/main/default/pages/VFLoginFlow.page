@@ -1,0 +1,186 @@
+<apex:page showHeader="false" controller="EmployeeLoginflowController" action="{!doInitialCheck}" >
+    <head>
+        <!--<apex:slds />
+<apex:includeLightning /> -->
+        <apex:includeScript id="jquery" value="{!$Resource.alohajqueryv3}"/>
+        <apex:includeScript id="ipc" loadOnReady="false" value="{!URLFOR($Resource.ipc)}"/>
+
+       <apex:stylesheet value="{!$Resource.login}"/>
+        <style>
+            .displayPanel {
+                /*width: 70%;*/
+                margin-left: 15%;
+                margin-right: 15%;
+            }
+            .StoreSelectionForm {
+                background-color: white;
+                border: 1px solid rgb(216, 221, 230);
+                width: 55%;
+                text-align: left;
+                padding: 1.5rem;
+                margin: auto;
+                /*min-height: 312px;*/
+                display: grid;
+                border-radius: 0.25rem;
+            }
+            label {
+            	font-size: 1rem !important;
+            }
+            .StoreSelectorInput {
+                /*display: block;*/
+                width: 100%;
+                border-radius: 0.25rem;
+                -webkit-appearance: none;
+                font-size: 13px;
+                font-size: 1.1rem;
+                font-family: SFS, Helvetica, Arial, sans-serif;
+                /*color: rgb(102, 112, 126);*/
+            }
+            .DropdownInput {
+                padding: 0.5rem;
+                border: 1px solid #1589ee;
+                outline: 0;
+                box-shadow: 0 0 3px #0070d2;
+                overflow: hidden;
+                -webkit-appearance: menulist !important;
+                height: 3rem;
+                max-height: 40px;
+            }
+            .button {
+                background-image: none !important;
+                float:right;
+                width: 25%;
+                padding: 3% !important;
+                margin-top: 3% !important;
+                margin-left: 3% !important;
+                /*height: 40px !important;*/
+            }
+            .logoutText {
+            	text-align: right;
+            	margin-right: 23%;
+            }
+        </style>
+        <script type="text/javascript">
+            function start() {
+                if ('{!IsValidForCertCheck}' == "true") {
+
+                    if ('{!allows_mTLS}' == "true") {
+                        var mScript = document.createElement("script");
+                        mScript.src = "{!relay}";
+                        mScript.type = "text/javascript";
+                        mScript.onerror = function () {
+                            parseResponse({
+                                message: "ERROR: Failed to load mTLS Resource"
+                            });
+                        }
+
+                        try {
+                            document.head.appendChild(mScript);
+                        } catch (err) {
+                            parseResponse({ message: "ERROR: Failed to inject mTLS" });
+
+                        }
+                    }
+                }
+            }
+            /* mTLS */
+            function parseResponse(obj) {
+                try {
+                    if (obj.message) {
+                        doMTLSErrorAF();
+                        //doFailMahaloAF();
+                        // Create action function to set message
+
+                    } else {
+                        doMahaloAF(obj.cypherText);
+
+                    }
+                } catch (e) {
+                    //doFailMahaloAF();
+                    // Create action function to set fault message
+
+                }
+            }
+        </script>
+
+
+    </head>
+    <body onload="start();">
+        <apex:outputPanel id="loginPanel" layout="block">
+            <div class="displayPanel">
+                <img src="{!$Resource.ATTLogoLoginflow}" alt="AT&T Logo" />
+                <apex:form >
+                    <div class="logoutText">
+                        <apex:outputText value="{!$Label.VFLoginFlowLoggedInAs} {!strCurrUserName}" />
+                        <apex:commandLink value="logout" action="{!doLogout}"/>
+                    </div>
+                </apex:form>
+                <apex:actionStatus layout="none" id="loginStatus">
+                    <apex:facet name="start"></apex:facet>
+                    <apex:facet name="stop"></apex:facet>
+                </apex:actionStatus>
+                <div class=" formContainer StoreSelectionForm">
+                 <!--<div>
+                        <div>
+                            <h1>
+                                <span title="{!$Label.VFLoginFlowRetailHeader}">{!$Label.VFLoginFlowRetailHeader}</span>
+                            </h1>
+                        </div>
+                    </div>
+                    <br/>-->
+                    <apex:messages id="messageBox" rendered="{!hasMessageToDisplay}"/>
+
+                    <apex:form id="loginForm" >
+                        <apex:actionFunction action="{!doMahalo}"
+                            id="doMahaloAF"
+                            name="doMahaloAF"
+                            status="loginStatus"
+                            rerender="LoginMessage,loginStatus,doMahaloAF">
+                            <apex:param name="cypherText"
+                                assignTo="{!cypherText}"
+                                value="{!cypherText}" />
+                        </apex:actionFunction>
+                        <apex:actionFunction action="{!doMTLSError}"
+                            id="doMTLSError"
+                            name="doMTLSErrorAF"
+                            status="loginStatus"
+                            rerender="LoginMessage,loginStatus">
+                        </apex:actionFunction>
+                        <apex:outputPanel id="LoginMessage" layout="block"
+                            styleClass="{!IF(ISNULL(message), 'hide', 'loginError')}"
+                            rendered="{!NOT(ISNULL(message))}">
+                            <apex:outputText escape="false" value="{!message}" rendered="{!NOT(ISNULL(message))}" />
+                        </apex:outputPanel>
+                        <apex:OutputPanel rendered="{!(ISNULL(message))}">
+                            <apex:outputPanel id="employeename-panel" layout="block">
+                                <apex:outputLabel >{!$Label.VFLoginFlowEmployee}</apex:outputLabel>
+                                <apex:outputText styleClass="StoreSelectorInput" value="{! objCurrEmployee[0].FirstName__c & ' ' & objCurrEmployee[0].LastName__c }"></apex:outputText>
+                            </apex:outputPanel>
+                            <br/>
+                            <apex:outputPanel id="storeselect-panel" layout="block">
+                                <apex:outputLabel >{!$Label.VFLoginFlowSelectStore}</apex:outputLabel>
+                                <apex:selectList multiselect="false" value="{!strSelectedValue}" size="1" styleClass="StoreSelectorInput DropdownInput">
+                                    <apex:selectOptions value="{!listStoreOptions}"/>
+                                </apex:selectList>
+                            </apex:outputPanel>
+                        </apex:OutputPanel>
+                        <div>
+                            <apex:iframe src="{!urlDebug}" scrolling="true" id="theIframe1" rendered="{!debugScreenToggle}"/>
+                            <apex:iframe src="{!urlJsonP}" scrolling="true" id="theIframe2" rendered="{!debugScreenToggle}" height="50%"/>
+                        </div>
+                        <div>
+                            <apex:commandButton action="{!toggleDebug}" value="Debug" id="debugButton" rendered="{!showDebugButton}" styleClass="button"/>
+                        </div>
+                        <div>
+                            <apex:commandButton id="loginBTN" rendered="{!NOT(ISNULL(message))}" value="Back" action="{!loadCurrentPage}" styleClass="button"/>
+                        </div>
+                        <div >
+                            <apex:commandButton rendered="{!(ISNULL(message))}" value="Next" action="{!doUpdatePostSelection}" styleClass="button" />
+                        </div>
+                    </apex:form>
+                </div>
+            </div>
+        </apex:outputPanel>
+    </body>
+
+</apex:page>

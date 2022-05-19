@@ -1,0 +1,17 @@
+.card-title
+{
+    color: #080707;
+    letter-spacing: 0;
+    line-height: 28px;
+    padding: 5px 0px 5px 0px;
+    font-weight: bold;
+}
+
+.IPAD-width
+{
+    width:550px;
+}
+.desktop-width
+{
+    width:550px;
+}

@@ -1,0 +1,7 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <lightning:picklistPath aura:id="picklistPath" recordId="{!v.recordId}"
+        variant="linear"
+        picklistFieldApiName="Status"
+        >
+    </lightning:picklistPath>     
+</aura:component>

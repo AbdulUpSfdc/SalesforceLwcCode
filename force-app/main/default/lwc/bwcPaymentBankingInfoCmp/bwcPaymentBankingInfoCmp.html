@@ -1,0 +1,36 @@
+<template>
+
+  <template if:true={labels}>
+
+    <div class="ioform">
+      <lightning-input class="bankNameOnAcc"
+        type="text" label={labels.bankNameOnAcc} placeholder={labels.bankNameOnAcc}
+        pattern="^[^\s]+.*[^\s]*$" 
+        message-when-pattern-mismatch={labels.bankNameOnAccErrMsg}
+        message-when-value-missing={labels.bankNameOnAccErrMsg}
+        required
+      ></lightning-input>
+      <lightning-input class="bankRoutingNumber"
+        type="password" label={labels.bankRoutingNumber} placeholder={labels.bankRoutingNumber}
+        pattern="\d{9,9}"
+        message-when-pattern-mismatch={labels.bankRoutingNumberErrMsg}
+        message-when-value-missing={labels.bankRoutingNumberMissingErrMsg}
+        required
+      ></lightning-input>
+      <lightning-input class="bankAccNumber"
+        type="password" label={labels.bankAccNumber} placeholder={labels.bankAccNumber}
+        pattern="\d+"
+        message-when-pattern-mismatch={labels.bankAccNumberErrMsg}
+        message-when-value-missing={labels.bankAccNumberMissingErrMsg}
+        required
+      ></lightning-input>
+      <lightning-input if:true={showCheckNo} class="bankCheckNumber"
+        type="text" label={labels.bankCheckNumber} placeholder={labels.bankCheckNumber}
+        pattern="\d+"
+        message-when-pattern-mismatch={labels.bankCheckNumberErrMsg}
+        message-when-value-missing={labels.bankCheckNumberMissingErrMsg}
+      ></lightning-input>    
+    </div>  
+  </template>
+
+</template>

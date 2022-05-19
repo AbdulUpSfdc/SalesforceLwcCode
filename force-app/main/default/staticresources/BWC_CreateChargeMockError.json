@@ -1,0 +1,14 @@
+{
+    "errors": [
+        {
+            "errorId": "MSCRDADJ_E600100",
+            "message": "Ban Level Validate Adjustment and Charge Exception.",
+            "details": [
+                {
+                    "code": "InvalidField",
+                    "message": "The Product Type Or Product number is not valid - was not set ."
+                }
+            ]
+        }
+    ]
+}

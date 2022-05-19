@@ -1,0 +1,67 @@
+<template >
+<div class="bg">
+   <template if:true={displayComp}>
+  <div class="slds-box slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none">
+      <lightning-layout multiple-rows = "true">
+         <lightning-layout-item size= "2" padding="around-small">
+            <div class="slds-align_absolute-center">
+               <lightning-button-icon icon-name="utility:arrowup"  size="medium" alternative-text="Move up" class="moveup-icon iconColor slds-m-left_xx-small" onclick={handleButtonClick}  data-name="MoveUp"></lightning-button-icon>
+            </div>
+            <div class="slds-align_absolute-center">
+               Move up
+            </div>
+         </lightning-layout-item>
+         <lightning-layout-item size= "2" padding="around-small">
+            <div class="slds-align_absolute-center">
+               <lightning-button-icon icon-name="utility:check"  size="medium"   alternative-text="Set as arrived" class="setarrived-icon iconColor slds-m-left_xx-small " onclick={handleButtonClick}  data-name="MarkArrived"></lightning-button-icon>
+            </div>
+            <div class="slds-align_absolute-center">
+               Set as arrived                                                                                                                                                  
+            </div>
+         </lightning-layout-item>
+         <lightning-layout-item size= "2" padding="around-small">
+            <div class="slds-align_absolute-center">
+               <lightning-button-icon icon-name="utility:undo"  size="medium"   alternative-text="Set as pending" class="setpending-icon iconColor slds-m-left_xx-small" onclick={handleButtonClick}  data-name="MarkPending"></lightning-button-icon>
+            </div>
+            <div class="slds-align_absolute-center">
+               Set as pending
+            </div>
+         </lightning-layout-item>
+         <lightning-layout-item size= "2" padding="around-small">
+            <div class="slds-align_absolute-center">
+               <lightning-button-icon icon-name="utility:reassign"  size="medium"   alternative-text="Assign to rep" class="assignrep-icon iconColor slds-m-left_xx-small" onclick={handleButtonClick}  data-name="AssignCustomer"></lightning-button-icon>
+            </div>
+            <div class="slds-align_absolute-center">
+               Assign to rep
+            </div>
+         </lightning-layout-item>
+         <lightning-layout-item size= "2" padding="around-small">
+            <div class="slds-align_absolute-center">
+               <lightning-button-icon icon-name="utility:delete" size="medium"   alternative-text="Remove" class="delete-icon iconColor slds-m-left_xx-small" onclick={handleButtonClick}  data-name="MarkRemove"></lightning-button-icon>
+            </div>
+            <div class="slds-align_absolute-center">
+               Remove
+            </div>
+         </lightning-layout-item>
+         <lightning-layout-item size= "2" padding="around-small">
+            <div class="slds-align_absolute-center">
+               <lightning-button-icon icon-name="utility:unlock" size="medium"   alternative-text="Mark no-Show" class="marknoshow-icon iconColor slds-m-left_xx-small" onclick={handleButtonClick}  data-name="MarkNoShow"></lightning-button-icon>
+            </div>
+            <div class="slds-align_absolute-center">
+               Mark no-Show
+            </div>
+         </lightning-layout-item>
+      </lightning-layout>
+   </div>
+   <template if:true={openModal} >
+      <div class="slds-modal slds-fade-in-open slds-backdrop" role="dialog">
+         <div class="slds-modal__container">
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+               <c-d-c-i-change-customer-status-confirmation record-id={recordId} action-type = {actionType} onsubmitaction={handleSubmit} oncloseaction={closeAction} ></c-d-c-i-change-customer-status-confirmation>
+            </div>
+         </div>
+      </div>
+   </template>
+   </template>
+</div>
+</template>

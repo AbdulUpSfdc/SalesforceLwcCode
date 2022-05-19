@@ -1,0 +1,25 @@
+<template>
+
+    <article class="slds-box">
+        <div class="slds-grid slds-border_bottom slds-p-horizontal_xx-small">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate slds-p-around_x-small">
+                <div if:true={iconName} class="slds-media__figure">
+                    <lightning-icon icon-name={iconName} alternative-text={title}></lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title slds-text-heading_small">
+                        <span>{title}</span>
+                    </h2>
+                </div>
+                <slot name="actions">
+                </slot>
+            </header>
+        </div>
+        <div>
+            <div>
+                <slot></slot>
+            </div>
+        </div>
+    </article>
+
+</template>

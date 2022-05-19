@@ -1,0 +1,7 @@
+:host {
+    width: 100%;
+}
+
+.link-icon {
+    --sds-c-icon-color-foreground-default: var(--lwc-colorTextLink);
+}

@@ -1,0 +1,15 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" >
+	 <aura:html tag="style">
+        .slds-modal {
+            visibility: hidden;
+            display: none;
+        }
+        .slds-backdrop{
+        	display: none;
+        }        
+    </aura:html>
+    
+    <lightning:messageChannel type="BWC_InteractionActivity__c" aura:id="lmsBWCInteractionActivity" />-->
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:workspaceAPI aura:id="workspace" />
+</aura:component>

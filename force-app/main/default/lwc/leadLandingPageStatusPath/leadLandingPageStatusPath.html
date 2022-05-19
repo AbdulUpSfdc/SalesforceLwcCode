@@ -1,0 +1,75 @@
+<template>
+
+    <div class="tl">
+    <div class="ll">
+       
+
+        <svg class="card shadow" viewBox="0 10 321 160" version="1.1" xmlns="http://www.w3.org/2000/svg" >
+            <g id="Page-1" stroke="none" stroke-width="0" fill="none" fill-rule="evenodd">
+                <g id="Group" transform="translate(1.000000, 1.000000)">
+                    <g id="Leads-By-Status-Chevron" transform="translate(7.500000, 19.500000)">
+                     
+                        <g id="Chevron-4" transform="translate(219.500000, 58.000000)">
+                            <path d="M62.187,0 L0,0.5 L13,22.5 L0,45.5 L62.187,45 C74.613,45 84.687,34.93 84.687,22.5 C84.687,10.07 74.613,0 62.187,0 Z" id="Path1" fill="#ECEBEA"></path>
+                            <text id="7" font-family="sans-serif" font-size="15" font-weight="normal" line-spacing="18" fill="#000000">
+                                <tspan x={listviewData.closedCountX} y="37">{listviewData.closedCount}</tspan>
+                            </text>
+                            <text id="Closed" font-family="sans-serif" font-size="10" font-weight="normal" fill="#000000">
+                                <tspan x="27" y="16.5">{closedLabel}</tspan>
+                            </text>
+                        </g>
+    
+                        <g id="Chevron-3" transform="translate(148.500000, 58.000000)">
+                            <polygon id="Path" fill="#ECEBEA" fill-rule="nonzero" points="0 0.5 67.5 0 81 22.5 67.5 45 0 45.5 12 22.5"></polygon>
+                            <text id="1" font-family="sans-serif" font-size="15" font-weight="normal" line-spacing="18" fill="#000000">
+                                <tspan  x={listviewData.connectedCountX} y="37">{listviewData.connectedCount}</tspan>
+                            </text>
+                            <text id="Connected" font-family="sans-serif" font-size="10" font-weight="normal" fill="#000000">
+                                <tspan x="18" y="16.5">{connectedLabel} </tspan>
+                            </text>
+                        </g>
+    
+                        <g id="Chevron-2" transform="translate(75.500000, 58.000000)">
+                            <polygon id="Path2" fill="#ECEBEA" fill-rule="nonzero" points="0 0.5 69.5 0 82 22.5 69.5 45 0 45.5 11 22.5"></polygon>
+                            <text id="3" font-family="sans-serif" font-size="15" font-weight="normal" line-spacing="18" fill="#000000">
+                                <tspan x={listviewData.contactedCountX} y="37">{listviewData.contactedCount} </tspan>
+                            </text>
+                            <text id="Contacted" font-family="sans-serif" font-size="10" font-weight="normal" fill="#000000">
+                                <tspan x="17" y="16.5">{contactedLabel} </tspan>
+                            </text>
+                        </g>
+                        <g id="Chevron-1" transform="translate(0.000000, 58.000000)">
+                            <path d="M22.5,0 L72,0 L83.5,22.5 L72,45 L22.5,45 L18,45 L18,44.55 C7.73,42.47 0,33.39 0,22.5 C0,11.61 7.73,2.53 18,0.45 L18,0 L22.5,0 Z" id="Path3" fill="#ECEBEA"></path>
+                            <text id="5" font-family="sans-serif" font-size="15" font-weight="normal" line-spacing="18" fill="#000000">
+                                <tspan x={listviewData.capturedCountX} y="37">{listviewData.capturedCount} </tspan>
+                            </text>
+                            <text id="Captured" font-family="sans-serif" font-size="10" font-weight="normal" fill="#000000">
+                                <tspan x="21.5" y="16.5">{capturedLabel} </tspan>
+                            </text>
+                        </g>
+                        <text id="Leads-by-Current-Status" fill="#17324D" fill-rule="nonzero" font-family="SalesforceSans-Light.woff2" font-size="18" font-weight="bold">
+                            <tspan x="14" y="14">Leads by Current Status   
+                                
+                               
+                            
+                            
+                            </tspan>
+                        </text> 
+                    </g>
+                </g>
+            </g>
+        </svg>  
+          
+</div>
+
+    <span class="rl">
+    <lightning-helptext content="Last rolling 30 days for Closed Status"></lightning-helptext>
+    </span>
+</div>
+<div class="dtl">
+
+</div>
+    
+
+
+</template>

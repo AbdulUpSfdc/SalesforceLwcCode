@@ -1,0 +1,35 @@
+.cmp-msg {
+      font-size: 1rem;
+      color: #706E6B;
+}
+.active-filter {
+font-size: 0.8125rem;
+color: #706E6B;
+letter-spacing: 0;
+}
+.pill-text {
+font-size: 0.8125rem;
+color: #006DCC;
+letter-spacing: 0;
+line-height: 1.25rem;
+}
+.button-backtotop {
+   --sds-c-button-color-text: #009FDB;
+}
+
+.blink-no-results-css {
+    animation: blinker 1s linear 2;
+  }
+  
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+}
+/* iPad Portrait and Landscape */
+@media only screen and (min-device-width: 0px) and (max-device-width: 1024px) {
+
+.pill-text {
+font-size: 0.65rem;
+}
+}

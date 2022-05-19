@@ -1,0 +1,31 @@
+<template>
+    <div class="slds-p-around_large">
+      <template if:true={hasPermission}>
+        <lightning-formatted-rich-text
+          class="slds-align_absolute-center"
+          value="Return Back Adjustment"
+        ></lightning-formatted-rich-text>
+        <lightning-textarea
+          name="returnBackAdjustment"
+          label="Comments"
+          value={comments}
+          onchange={changeHandler}
+          placeholder="Enter Comments..."
+        ></lightning-textarea>
+        <div class="slds-p-around_medium slds-align_absolute-center">
+          <lightning-button
+            variant="standard"
+            label="Cancel"
+            onclick={handleCancel}
+            class="slds-p-right_medium"
+          ></lightning-button>
+          <lightning-button
+            variant="brand"
+            label="Return Back"
+            disabled={isDisabled}
+            onclick={handleSave}
+          ></lightning-button>
+        </div>
+      </template>
+    </div>
+  </template>

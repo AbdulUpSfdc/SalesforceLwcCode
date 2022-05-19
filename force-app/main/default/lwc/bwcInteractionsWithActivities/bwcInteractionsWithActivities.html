@@ -1,0 +1,211 @@
+<template>
+  <lightning-card>
+    <div class="slds-card_boundary">
+      <!--Spinner-->
+      <div if:true={isLoadingMain}>
+        <lightning-spinner
+        class="spins"
+          alternative-text="Loading"
+          size="medium"
+        ></lightning-spinner>
+      </div>
+
+      <!--Card Header-->
+      <div class="slds-card__header slds-clearfix">
+       
+       <div class="slds-float_left">
+        <lightning-layout>
+          <lightning-layout-item>
+            <lightning-icon
+              icon-name="custom:custom22"
+              size="small"
+            ></lightning-icon>
+            <lightning-formatted-text
+              class="slds-text-heading_small slds-p-left_small slds-p-top_small"
+              value="Interaction History"
+            ></lightning-formatted-text>
+          </lightning-layout-item>
+        </lightning-layout>
+      
+        <div if:true={moreThanOnePage} ><lightning-formatted-text  value="Current page" ></lightning-formatted-text>   {displayPageNumber}    </div> </div>
+       
+        <div class="slds-float_right">
+        <lightning-button-group
+          class="slds-p-left_xx-large slds-p-bottom_small"
+        >
+          <lightning-button
+            title="3 months"
+            label="3 months"
+            onclick={handleGetRecords}
+            data-id="3 months"
+          ></lightning-button>
+          <lightning-button
+            title="1 year"
+            label="1 year"
+            onclick={handleGetRecords}
+            data-id="1 year"
+          ></lightning-button>
+          <lightning-button
+            title="All time"
+            label="All time"
+            onclick={handleGetRecords}
+            data-id="all time"
+          ></lightning-button>
+          <div class="slds-p-left_small">
+              <lightning-button-icon
+              icon-name="utility:refresh"
+              size="medium"
+              alternative-text="Refresh" 
+              class="slds-m-left_xx-small"
+              variant="border-filled"
+              onclick={refresh}>
+              </lightning-button-icon>
+          </div>
+        </lightning-button-group>
+        </div>
+      </div>
+
+      <!--Body-->
+      <div if:true={InteractionList}>
+        <!--interaction row table header-->
+        <table
+          class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_fixed-layout"
+          summary="Table Head for interaction rows"
+        >
+          <thead class="slds-line-height_reset">
+              <th class="slds-size_2-of-6" scope="col">
+                <lightning-formatted-text
+                class="slds-p-left_medium"
+                  value="Interaction"
+                ></lightning-formatted-text>
+              </th>
+
+              <th class="slds-size_2-of-6" scope="col">
+                <lightning-formatted-text
+                  value="Created Date"
+                ></lightning-formatted-text>
+              </th>
+              <th class="slds-size_2-of-6" scope="col">
+                <div>
+                  <lightning-formatted-text
+                    value="Contact Type"
+                  ></lightning-formatted-text>
+                </div>
+              </th>
+
+              <th class="slds-size_4-of-7" scope="col">
+                <lightning-formatted-text
+                  value="Activity Summary"
+                ></lightning-formatted-text>
+              </th>
+
+              <th class="slds-size_2-of-7" scope="col">
+                <div>
+                  <lightning-formatted-text
+                    value="Escalations"
+                  ></lightning-formatted-text>
+                </div>
+              </th>
+
+              <th class="slds-size_2-of-7" scope="col">
+                <div>
+                  <lightning-formatted-text
+                    value="One & Done"
+                  ></lightning-formatted-text>
+                </div>
+              </th>
+
+              <th class="slds-size_1-of-7" scope="col">
+                <div>
+                  <lightning-formatted-text
+                    value="Notes"
+                  ></lightning-formatted-text>
+                </div>
+              </th>
+          </thead>
+        </table>
+        <!--iterate over each interaction lwc multipage-->
+        <div if:true={moreThanOnePage} style="min-height:20rem;">
+          <div>
+            <div
+              for:each={displayList}
+              for:item="interaction"
+              key={interaction.key}
+            >
+              <c-bwc-interaction-row
+                data-id={interaction.id}
+                interaction={interaction}
+              ></c-bwc-interaction-row>
+            </div>
+          </div>
+        </div>
+        <!--iterate over each interaction lwc single page-->
+        <div if:false={moreThanOnePage}>
+          <div>
+            <div
+              for:each={displayList}
+              for:item="interaction"
+              key={interaction.key}
+            >
+              <c-bwc-interaction-row
+                data-id={interaction.id}
+                interaction={interaction}
+              ></c-bwc-interaction-row>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!--Card Footer-->
+      <div if:true={moreThanOnePage} class="slds-card__footer slds-clearfix">
+        <lightning-layout class="slds-align_absolute-center">
+          <lightning-layout-item>
+            <lightning-button
+              data-id="prev"
+              label="Prev"
+              title="Prev"
+              onclick={prev}
+              icon-name="utility:chevronleft"
+              class="slds-m-right_x-small"
+            ></lightning-button>
+          </lightning-layout-item>
+          <lightning-layout-item style="max-width: 11rem;">
+            <lightning-layout class="slds-scrollable">
+              
+            
+              <lightning-layout-item
+                for:each={pageList}
+                for:item="page"
+                key={page.key}
+                class="slds-p-around_xx-small"
+              >
+                <a data-id={page.pageNumber} onclick={loadPageNumber}
+                  >{page.pageNumber}</a
+                >
+              </lightning-layout-item>
+           </lightning-layout>          
+          </lightning-layout-item>
+          <lightning-layout-item
+          if:true={showDots}
+          class="slds-p-around_xx-small"
+        >
+        <lightning-helptext icon-name="utility:info" content="There seem to be a large number of pages associated with this customer. We have enabled side scrolling on the page number list to assist "></lightning-helptext>
+
+        </lightning-layout-item>
+          <lightning-layout-item>
+            <lightning-button
+              data-id="next"
+              label="Next"
+              title="Next"
+              onclick={next}
+              icon-name="utility:chevronright"
+              icon-position="right"
+              class="slds-m-left_x-small"
+            ></lightning-button>
+          </lightning-layout-item>
+        </lightning-layout>
+      </div>
+    </div>
+  </lightning-card>
+</template>

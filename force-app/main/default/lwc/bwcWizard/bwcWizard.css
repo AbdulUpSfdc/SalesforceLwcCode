@@ -1,0 +1,33 @@
+section:focus {
+    outline-width: 0;
+}
+
+.modal-container {
+    min-width: 800px;
+}
+
+.modal-content {
+    min-height: 5rem;
+}
+
+.panel {
+    transition-property: opacity;
+    transition-delay: 0s;
+    transition-duration: .3s;
+    height: 100%;
+    position: relative;
+}
+
+.full-page h2 {
+    font-size: 1.25rem;
+    font-weight: var(--lwc-fontWeightLight);
+}
+
+.full-page .slds-modal__container {
+    padding-top: 1rem;
+}
+
+.footer-button {
+    --sds-c-button-text-destructive-spacing-inline-start: 10px;
+    --sds-c-button-text-destructive-spacing-inline-end: 10px;
+}

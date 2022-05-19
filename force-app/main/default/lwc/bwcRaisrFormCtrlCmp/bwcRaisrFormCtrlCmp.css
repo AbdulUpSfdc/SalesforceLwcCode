@@ -1,0 +1,18 @@
+.raisr-recieving {
+  --wave-color: #0176d3;
+  color: var(--wave-color);
+}
+
+.raisr-disabled {
+  --wave-color: lightgrey; /*#e5e5e5;*/  
+  color: var(--wave-color);
+}
+
+.disable-button-text {
+  color: lightgrey;/*#e5e5e5;*/
+}
+/* 
+.my-font {
+  font-weight: 900;
+  font-size: 24px !important;
+} */

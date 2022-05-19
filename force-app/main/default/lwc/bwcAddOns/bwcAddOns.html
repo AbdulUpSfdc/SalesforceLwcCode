@@ -1,0 +1,38 @@
+<template>
+    <lightning-card title={cardTitle} icon-name='standard:all'>
+        <div slot="actions">
+            <lightning-button
+                if:true={showEscalateButton}
+                class="slds-m-right_small"
+                label="Escalate"
+                icon-name="utility:case"
+                variant="border-filled"
+                onclick={onEscalate}></lightning-button>
+            <lightning-button-icon  icon-name="utility:refresh" variant="border-filled" alternative-text="Refresh" onclick={onRefresh}></lightning-button-icon>
+        </div>
+
+
+        <div class="slds-grid slds-grid_vertical table-container">
+
+            <lightning-spinner if:true={isLoading} alternative-text="Loading"></lightning-spinner>
+
+            <div class="slds-m-bottom_x-small slds-grid slds-grid_align-center">
+                <c-bwc-notifications></c-bwc-notifications>
+            </div>
+
+            <template if:true={showTable}>
+
+                <lightning-datatable
+                    key-field="id"
+                    data={data}
+                    columns={columns}
+                    hide-checkbox-column="true">
+                </lightning-datatable>
+
+            </template>
+
+
+
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,9 @@
+{
+	"content": {
+		"pdfData": "pdfData",
+		"pdfReturned": false,
+		"ContentType": "ContentType",
+		"SOR": "SOR",
+		"ErrorCode": "101"
+	}
+}

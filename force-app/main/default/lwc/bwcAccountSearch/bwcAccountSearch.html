@@ -1,0 +1,114 @@
+<template>
+    <template if:true={showLoading}>
+        <lightning-spinner alternative-text="Loading..." variant="brand"></lightning-spinner>
+    </template>
+    <template if:true={search}>
+        <lightning-card variant="narrow">
+            <h1 class="slds-align_absolute-center slds-text-heading_large">Customer Account Search</h1>            
+            <div if:true={errorMsg} style="margin-left: 3%;">
+                <p style="color: red;">{errorMsg}</p>
+            </div>
+            <div class=" slds-align_absolute-center">
+                                    <lightning-button label="Search" variant="brand" onclick={handleSearch}></lightning-button>
+                                </div></br>
+            <lightning-layout multiple-rows="true" horizontal-align="center">
+                
+                <!--lightning-layout-item size="6" small-device-size="5" medium-device-size="4" large-device-size="4"-->
+                <lightning-layout-item size="6" small-device-size="5" medium-device-size="4" large-device-size="5">
+                        <div class="slds-form-element" >                              
+                                <div class="slds-form-element__control">
+                                    <lightning-input type="text" tabindex="0" label="BAN/CPID" placeholder="BAN/CPID" variant="label-inline" onchange={handleBanChange}></lightning-input>
+                                </div>
+                                <div class="slds-form-element__control">
+                                    <lightning-combobox type="text" label="Account Type" variant="label-inline"
+                                        value={acctTypeValue}
+                                        options={acctType} 
+                                        onchange={handleacctTypeChange}>
+                                    </lightning-combobox>
+                                </div>
+                                <div class="slds-form-element__control">
+                                    <lightning-input type="text" label="Wireless Number (CTN)" placeholder="Wireless Number (CTN)" variant="label-inline" onchange={handlectnChange}></lightning-input>
+                                </div>
+                                <div class="slds-form-element__control">
+                                    <lightning-input type="text" label="Email Address" variant="label-inline" placeholder="Email Address" ></lightning-input>
+                                </div>
+                                <div class="slds-form-element__control">
+                                    <lightning-input type="text" label="Phone Number" variant="label-inline"  placeholder="Phone Number"></lightning-input>
+                                </div>
+                                <div class="slds-form-element__control">
+                                    <lightning-input type="text" label="AT&T Login ID" variant="label-inline" placeholder="AT&T Login ID" onchange={handleUserIdChange}></lightning-input>
+                                </div>
+                                <div class="slds-form-element__control">
+                                    <lightning-input type="text" label="Case Number" variant="label-inline"  placeholder="Case Number"></lightning-input>
+                                </div>
+                                <div class="slds-form-element__control">
+                                    <lightning-input type="text" label="Street Address" variant="label-inline" placeholder="Street Address" onchange={handleAddr1Change}></lightning-input>
+                                </div>
+                                <div class="slds-form-element__control">
+                                    <lightning-input type="text" label="Unit #" variant="label-inline" placeholder="Apt #" onchange={handleAddr2Change}></lightning-input>
+                                </div>
+                                <div class="slds-form-element__control">
+                                    <lightning-input type="text" label="City" variant="label-inline" placeholder="City" onchange={handleCityChange}></lightning-input>
+                                </div>
+                                <div class="slds-form-element__control">
+                                    <lightning-combobox type="text" label="State" variant="label-inline"
+                                        value={value}
+                                        placeholder="Select State"
+                                        options={options}  onchange={handleStateChange}>
+                                    </lightning-combobox>
+                                </div>
+                                <div class="slds-form-element__control">
+                                    <lightning-input type="text" label="Zip Code" variant="label-inline"  placeholder="Zip Code" onchange={handleZipChange}></lightning-input>
+                                </div>
+                                <div class="slds-form-element__control slds-align_absolute-center">
+                                    <lightning-button label="Search" variant="brand" onclick={handleSearch}></lightning-button>
+                                </div>
+                            </div> 
+                </lightning-layout-item>
+            </lightning-layout>   
+        </lightning-card>
+    </template>
+    <!-- if result is list of accounts, show accounts columns -->
+    <template if:true={showAccounts}>
+        <lightning-card title="Person Accounts">
+        <lightning-button label="New Search" slot="actions"  onclick={handleNewSearch}></lightning-button>
+        </lightning-card>
+        <template if:true={showNoResultAccount}>
+            <h1 class="slds-text-color_destructive slds-align_absolute-center">Your search returned no result </h1>
+        </template>
+        <template if:false={showNoResultAccount}>
+            <div style="height: 300px;">
+                <lightning-datatable
+                        class="slds-max-medium-table_stacked"
+                        key-field="id"
+                        data={UIdata}
+                        columns={columns}
+                        onrowaction={handleRowActionAccount}
+                        hide-checkbox-column="true">
+                </lightning-datatable>
+            </div>
+        </template>
+    </template>
+
+    <!-- if result is list of addresses, show addresses columns -->
+    <template if:true={showAddresses}>
+        <lightning-card title={addressTitle}>
+        <lightning-button label="New Search" slot="actions"  onclick={handleNewSearch}></lightning-button>
+        </lightning-card>
+        <template if:true={showNoResultAddress}>
+            <h1 class="slds-text-color_destructive slds-align_absolute-center">Your search returned no result </h1>
+        </template>
+        <template if:false={showNoResultAddress}>
+            <div style="height: 300px;">
+                <lightning-datatable
+                        class="slds-max-medium-table_stacked"
+                        key-field="addressId"
+                        data={AddressData}
+                        columns={columnsAddress}
+                        onrowaction={handleRowAction}
+                        hide-checkbox-column="true">
+                </lightning-datatable>
+            </div>
+        </template>
+    </template>
+</template>

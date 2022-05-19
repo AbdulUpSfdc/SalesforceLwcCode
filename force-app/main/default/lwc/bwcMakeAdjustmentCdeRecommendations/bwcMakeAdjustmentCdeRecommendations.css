@@ -1,0 +1,7 @@
+lightning-badge.slds-theme_success {
+    --sds-c-badge-icon-color-foreground: white;
+}
+
+.warning {
+    color: rgb(254, 147, 57);
+}

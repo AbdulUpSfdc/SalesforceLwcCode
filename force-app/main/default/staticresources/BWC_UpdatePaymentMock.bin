@@ -1,0 +1,24 @@
+{
+	"content":{
+		"UpdatePaymentResponseContent":{
+			"transactionId": "Test",
+			"modifyFuturePaymentResponse":[{
+				"responseCode":"Test",
+				"message": "Test",
+				"sequenceNumber": "TestSQN",
+				"paymentConfirmationNumber": "TestPCN",
+				"amount" : "TestAmt",
+				"futurePaymentDate" : "TestFPD",
+				"Error":{
+					"message":"Test",
+					"errorId":"Test",
+					"details":[{
+						"message":"Test",
+						"code":"Test"
+					}]
+				}
+			}]
+
+		}
+	}
+}

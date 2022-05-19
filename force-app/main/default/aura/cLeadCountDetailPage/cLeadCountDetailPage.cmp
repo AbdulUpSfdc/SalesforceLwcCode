@@ -1,0 +1,291 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+<aura:attribute name="leadsInfo" type="List" />
+<aura:attribute name="leadType" type="String" />
+<aura:attribute name="customerInteractionLeads" type="List" />
+<aura:attribute name="marketingCampaignLeads" type="List" />
+<aura:attribute name="smallBusinessLeads" type="List" />
+<aura:attribute name="allLeads" type="List" />
+<aura:attribute name="CurrentUser" type="Object"/>
+
+<force:recordData recordId="{!$SObjectType.CurrentUser.Id}"
+                fields="Profile.Name"
+                targetFields="{!v.CurrentUser}"/>
+
+<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+<div>
+    <lightning:card>
+        <aura:set attribute="title">
+            <lightning:icon iconName="action:new_lead" size="small"/>&nbsp;&nbsp;
+                {!v.leadType} 
+            <lightning:helptext class="slds-var-p-left_small" content="Leads are ordered by Lead Strength from strongest to weakest">
+            </lightning:helptext>
+        </aura:set>
+        <p class="slds-var-p-horizontal_medium">
+        <lightning:tabset selectedTabId="customerInteraction">
+            <lightning:tab label="Customer Interaction" id="customerInteraction">
+                    <aura:if isTrue = "{!v.customerInteractionLeads.length == 0}">
+                        <p>You don't have leads {!v.leadType} in this lead type.</p>
+                        <aura:set attribute="else">
+                            <div aura:id="scrollBarDesign" class="slds-scrollable_y">
+                                <div class="{!v.customerInteractionLeads.length > 5 ? 'scrollable_design' : ''}">
+                                <aura:iteration items="{!v.customerInteractionLeads}" var="cILead" indexVar="cILeadIndex">
+                                    <div data-index ="{!cILeadIndex}" class="tileDesign rectangle-6 slds-p-left_x-small slds-p-top_x-small slds-p-bottom_x-small" onclick="{!c.handleSelect}">
+                                        <div>
+                                            <p class="Section2-Lead-Name">{!cILead.Name}</p>
+                                        </div>
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text">{!$Label.c.Mobile}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3">
+                                                <lightning:formattedPhone class="Section2-Card-Text-Span" value="{!cILead.MobilePhone}">
+                                                </lightning:formattedPhone>
+                                            </div>
+                                            <div class="slds-size_1-of-3"></div>
+                                            <aura:if isTrue ="{!or(v.CurrentUser.Profile.Name == 'Retail RSC Rep', v.CurrentUser.Profile.Name == 'Retail SM')}">
+                                                <div class="slds-size_1-of-3">
+                                                    <span class="Section2-Card-Text">{!$Label.c.Owner}</span>
+                                                </div>
+                                                <div class="slds-size_1-of-3">
+                                                    <span class="Section2-Card-Text-Span">{!cILead.Owner__r.Name}</span>
+                                                </div>
+                                                <div class="slds-size_1-of-3"></div>
+                                            </aura:if>
+                                            <aura:if isTrue ="{!v.CurrentUser.Profile.Name == 'Retail ARSM'}">
+                                                <div class="slds-size_1-of-3">
+                                                    <span class="Section2-Card-Text">{!$Label.c.Location}</span>
+                                                </div>
+                                                <div class="slds-size_1-of-3">
+                                                    <span class="Section2-Card-Text-Span">{!cILead.Store__r.Name}</span>
+                                                </div>
+                                                <div class="slds-size_1-of-3"></div>
+                                            </aura:if>
+                                            
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text">{!$Label.c.FollowUpOpportunity}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text-Span">{!cILead.ProductsDiscussed__c}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3"></div>
+                                            
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text">{!$Label.c.SalesStage}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text-Span">{!cILead.Status}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3"></div>
+                                        </div>
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                        </div>
+                        </aura:set>
+                    </aura:if>
+            </lightning:tab>
+            <lightning:tab label="Small Business" id="smallBusiness">
+                <div>
+                    <aura:if isTrue = "{!v.smallBusinessLeads.length == 0}">
+                        <p>You don't have leads {!v.leadType} in this lead type.</p>
+                        <aura:set attribute="else">
+                            <div  class="slds-scrollable_y">
+                                <div class="{!v.smallBusinessLeads.length > 5 ? 'scrollable_design' : ''}">
+                                <aura:iteration items="{!v.smallBusinessLeads}" var="sLead" indexVar="sLeadIndex">
+                                    <div data-index ="{!sLeadIndex}" class="tileDesign rectangle-6 slds-p-left_x-small slds-p-top_x-small slds-p-bottom_x-small" onclick="{!c.handleSelect}">
+                                        <div>
+                                            <p class="Section2-Lead-Name">{!sLead.Name}</p>
+                                        </div>
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text">{!$Label.c.Mobile}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3">
+                                                <lightning:formattedPhone class="Section2-Card-Text-Span" value="{!sLead.MobilePhone}">
+                                                </lightning:formattedPhone>
+                                            </div>
+                                            <div class="slds-size_1-of-3"></div>
+                                            
+                                            <aura:if isTrue ="{!or(v.CurrentUser.Profile.Name == 'Retail RSC Rep', v.CurrentUser.Profile.Name == 'Retail SM')}">
+                                                <div class="slds-size_1-of-3">
+                                                    <span class="Section2-Card-Text">{!$Label.c.Owner}</span>
+                                                </div>
+                                                <div class="slds-size_1-of-3">
+                                                    <span class="Section2-Card-Text-Span">{!sLead.Owner__r.Name}</span>
+                                                </div>
+                                                <div class="slds-size_1-of-3"></div>
+                                            </aura:if>
+                                            <aura:if isTrue ="{!v.CurrentUser.Profile.Name == 'Retail ARSM'}">
+                                                <div class="slds-size_1-of-3">
+                                                    <span class="Section2-Card-Text">{!$Label.c.Location}</span>
+                                                </div>
+                                                <div class="slds-size_1-of-3">
+                                                    <span class="Section2-Card-Text-Span">{!sLead.Store__r.Name}</span>
+                                                </div>
+                                                <div class="slds-size_1-of-3"></div>
+                                            </aura:if>
+                                            
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text">{!$Label.c.FollowUpOpportunity}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text-Span">{!sLead.ProductsDiscussed__c}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3"></div>
+                                            
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text">{!$Label.c.SalesStage}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text-Span">{!sLead.Status}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3"></div>
+                                        </div>
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                        </div>
+                        </aura:set>
+                    </aura:if>
+                </div>
+            </lightning:tab>
+            <lightning:tab label="Marketing Campaign" id="marketingCampaign">
+                <div>
+                    <aura:if isTrue = "{!v.marketingCampaignLeads.length == 0}">
+                        <p>You don't have leads {!v.leadType} in this lead type.</p>
+                        <aura:set attribute="else">
+                            <div class="slds-scrollable_y">
+                                <div class="{!v.marketingCampaignLeads.length > 5 ? 'scrollable_design' : ''}">
+                                <aura:iteration items="{!v.marketingCampaignLeads}" var="mLead" indexVar="mLeadIndex">
+                                    <div data-index ="{!mLeadIndex}" class="tileDesign rectangle-6 slds-p-left_x-small slds-p-top_x-small slds-p-bottom_x-small" onclick="{!c.handleSelect}">
+                                        <div>
+                                            <p class="Section2-Lead-Name">{!mLead.Name}</p>
+                                        </div>
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text">{!$Label.c.Mobile}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3">
+                                                <lightning:formattedPhone class="Section2-Card-Text-Span" value="{!mLead.MobilePhone}">
+                                                </lightning:formattedPhone>
+                                            </div>
+                                            <div class="slds-size_1-of-3"></div>
+                                            
+                                            <aura:if isTrue ="{!or(v.CurrentUser.Profile.Name == 'Retail RSC Rep', v.CurrentUser.Profile.Name == 'Retail SM')}">
+                                                <div class="slds-size_1-of-3">
+                                                    <span class="Section2-Card-Text">{!$Label.c.Owner}</span>
+                                                </div>
+                                                <div class="slds-size_1-of-3">
+                                                    <span class="Section2-Card-Text-Span">{!mLead.Owner__r.Name}</span>
+                                                </div>
+                                                <div class="slds-size_1-of-3"></div>
+                                            </aura:if>
+                                            <aura:if isTrue ="{!v.CurrentUser.Profile.Name == 'Retail ARSM'}">
+                                                <div class="slds-size_1-of-3">
+                                                    <span class="Section2-Card-Text">{!$Label.c.Location}</span>
+                                                </div>
+                                                <div class="slds-size_1-of-3">
+                                                    <span class="Section2-Card-Text-Span">{!mLead.Store__r.Name}</span>
+                                                </div>
+                                                <div class="slds-size_1-of-3"></div>
+                                            </aura:if>
+                                            
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text">{!$Label.c.FollowUpOpportunity}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text-Span">{!mLead.ProductsDiscussed__c}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3"></div>
+                                            
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text">{!$Label.c.SalesStage}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text-Span">{!mLead.Status}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3"></div>
+                                        </div>
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                            </div>
+                        </aura:set>
+                    </aura:if>
+                </div>
+            </lightning:tab>
+            <lightning:tab label="All" id="all">
+                <div>
+                    <aura:if isTrue = "{!v.allLeads.length == 0}">
+                        <p>You don't have leads {!v.leadType} in this lead type.</p>
+                        <aura:set attribute="else">
+                            <div class="slds-scrollable_y">
+                                <div class="{!v.allLeads.length > 5 ? 'scrollable_design' : ''}">
+                                <aura:iteration items="{!v.allLeads}" var="aLead" indexVar="aLeadIndex">
+                                    <div data-index ="{!aLeadIndex}" class="tileDesign rectangle-6 slds-p-left_x-small slds-p-top_x-small slds-p-bottom_x-small" onclick="{!c.handleSelect}">
+                                        <div>
+                                            <p class="Section2-Lead-Name">{!aLead.Name}</p>
+                                        </div>
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text">{!$Label.c.Mobile}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3">
+                                                <lightning:formattedPhone class="Section2-Card-Text-Span" value="{!aLead.MobilePhone}">
+                                                </lightning:formattedPhone>
+                                            </div>
+                                            <div class="slds-size_1-of-3">
+                                            </div>
+
+                                            <aura:if isTrue ="{!or(v.CurrentUser.Profile.Name == 'Retail RSC Rep', v.CurrentUser.Profile.Name == 'Retail SM')}">
+                                                <div class="slds-size_1-of-3">
+                                                    <div class="Section2-Card-Text">{!$Label.c.Owner}</div>
+                                                </div>
+                                                <div class="slds-size_1-of-3">
+                                                    <div class="Section2-Card-Text-Span">{!aLead.Owner__r.Name}</div>
+                                                </div>
+                                                <div class="slds-size_1-of-3"></div>
+                                            </aura:if>
+                                            <aura:if isTrue ="{!v.CurrentUser.Profile.Name == 'Retail ARSM'}">
+                                                <div class="slds-size_1-of-3">
+                                                    <span class="Section2-Card-Text">{!$Label.c.Location}</span>
+                                                </div>
+                                                <div class="slds-size_1-of-3">
+                                                    <span class="Section2-Card-Text-Span">{!aLead.Store__r.Name}</span>
+                                                </div>
+                                                <div class="slds-size_1-of-3">
+                                                </div>
+                                            </aura:if>
+                                            
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text">{!$Label.c.FollowUpOpportunity}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text-Span">{!aLead.ProductsDiscussed__c}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3">
+                                            </div>
+                                            
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text">{!$Label.c.SalesStage}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3">
+                                                <span class="Section2-Card-Text-Span">{!aLead.Status}</span>
+                                            </div>
+                                            <div class="slds-size_1-of-3">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                        </div>
+                        </aura:set>
+                    </aura:if>
+                </div> 
+            </lightning:tab>
+        </lightning:tabset>
+        </p>
+    </lightning:card>
+</div>
+</aura:component>

@@ -1,0 +1,143 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,lightning:isUrlAddressable" controller="cLeadHomePageController" access="global">
+
+    <aura:attribute name="listViewName" type="String" default="Due_Today" />
+    <aura:attribute name="pageReference" type="Object" />
+
+    <aura:attribute name="profileName" type="String" default="" />
+    <aura:attribute name="hideRecordTablePanel" type="Boolean" default="false" />
+
+    <!--<aura:attribute name="DueToday" type="Integer" />
+    <aura:attribute name="PastDue" type="Integer" />
+    <aura:attribute name="DueNext" type="Integer" />-->
+    <aura:attribute name="DueTodayLst" type="List" />
+    <aura:attribute name="PastDueLst" type="List" />
+    <aura:attribute name="DueNextLst" type="List" />
+    <aura:attribute name="NotificationsLst" type="List" />
+    <aura:attribute name="NotificationsLstForARSM" type="List" />
+    <aura:attribute name="showList" type="Boolean" default="true" />
+    <aura:attribute name="CurrentUser" type="Object" />
+
+    <!-- <force:recordData recordId="{!$SObjectType.CurrentUser.Id}"
+                  fields="Profile.Name"
+                  targetFields="{!v.CurrentUser}"/> -->
+
+    <aura:handler name="init" value="{!this}" action="{!c.doinIt}" />
+    <div class="mobilewidth">
+        <aura:if isTrue="{!v.hideRecordTablePanel ==true}">
+
+            <div class="slds-grid slds-gutters_direct-xx-small  slds-wrap">
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <div class="fixedheight slds-box box-shadow: 0px 2px 5px silver" id="Due_Today" onclick="{!c.handleSelection}">
+                        <lightning:formattedText value="Due Today" />
+                        <h1 class="slds-text-heading_large slds-text-heading--large Lead-Count">{!v.DueTodayLst.length}</h1>
+                        <!--slds-var-m-top_small-->
+                        <p class="slds-var-m-top_small">Leads that have a contacted by date of today</p>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_6-of-12 slds-large-size_6-of-12  ">
+                    <div class="fixedheight slds-box box-shadow: 0px 2px 5px silver" id="Past_Due" onclick="{!c.handleSelection}">
+                        <lightning:formattedText value="All Past Due" class="all-past-title" />
+                        <h1 class="slds-text-heading_large slds-text-heading--large lead-count-all-past">{!v.PastDueLst.length}</h1>
+                        <p class="slds-var-m-top_small all-past-title-text">All Past due leads withinthe last rolling 30 days</p>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_6-of-12 slds-large-size_6-of-12  " style="padding-top: 5px;">
+                    <div class="fixedheight slds-box box-shadow: 0px 2px 5px silver" id="Due_Next" onclick="{!c.handleSelection}">
+                        <lightning:formattedText value="Due Next" />
+                        <h1 class="slds-text-heading_large slds-text-heading--large Lead-Count">{!v.DueNextLst.length}</h1>
+                        <p class="slds-var-m-top_small">Leads with upcoming contacted by date in the next 3 days</p>
+                    </div>
+                </div>
+
+
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_6-of-12 slds-large-size_6-of-12" style="padding-top: 5px;">
+                    <div class="fixedheight slds-box box-shadow: 0px 2px 5px silver" id="Contact_Today" onclick="{!c.handleSelection}">
+                        <lightning:formattedText value="Unresponded SMS" />
+                        <aura:if isTrue="{!or(v.profileName == 'Retail RSC Rep', v.profileName == 'Retail SM')}">
+                            <h1 class="slds-text-heading_large slds-text-heading--large Lead-Count">{!v.NotificationsLst.length}</h1>
+                            <p class="slds-var-m-top_small">Incoming SMS messages haven’t been responded</p>
+                        </aura:if>
+                        <aura:if isTrue="{!and(v.profileName != 'Retail RSC Rep', v.profileName != 'Retail SM')}">
+                            <h1 class="slds-text-heading_large slds-text-heading--large Lead-Count">N/A</h1>
+                            <p class="slds-var-m-top_small">Unresponded incoming messages are not applicable for ARSM</p>
+                        </aura:if>
+                    </div>
+                </div>
+
+            </div>
+        </aura:if>
+
+    </div>
+
+    <aura:if isTrue="{!v.hideRecordTablePanel ==false}">
+        <div class="slds-grid slds-gutters_direct-xx-small ">
+            <div class="slds-col slds-size_1-of-4 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+                <div class="fixedheight slds-box box-shadow: 0px 2px 5px silver" id="Due_Today" onclick="{!c.handleSelection}">
+                    <lightning:formattedText value="Due Today" />
+                    <h1 class="slds-text-heading_large slds-text-heading--large Lead-Count">{!v.DueTodayLst.length}</h1>
+                    <!--slds-var-m-top_small-->
+                    <p class="slds-var-m-top_small">Leads that have a contacted by date of today</p>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-4 slds-medium-size_4-of-12 slds-large-size_3-of-12  ">
+                <div class="fixedheight slds-box box-shadow: 0px 2px 5px silver" id="Past_Due" onclick="{!c.handleSelection}">
+                    <lightning:formattedText value="All Past Due" class="all-past-title" />
+                    <h1 class="slds-text-heading_large slds-text-heading--large lead-count-all-past">{!v.PastDueLst.length}</h1>
+                    <p class="slds-var-m-top_small all-past-title-text">All Past due leads withinthe last rolling 30 days</p>
+                </div>
+            </div>
+
+            <div class="slds-col slds-size_1-of-4 slds-medium-size_4-of-12 slds-large-size_3-of-12  ">
+                <div class="fixedheight slds-box box-shadow: 0px 2px 5px silver" id="Due_Next" onclick="{!c.handleSelection}">
+                    <lightning:formattedText value="Due Next" />
+                    <h1 class="slds-text-heading_large slds-text-heading--large Lead-Count">{!v.DueNextLst.length}</h1>
+                    <p class="slds-var-m-top_small">Leads with upcoming contacted by date in the next 3 days</p>
+                </div>
+            </div>
+
+
+            <div class="slds-col slds-size_1-of-4 slds-medium-size_4-of-12 slds-large-size_3-of-12">
+                <div class="fixedheight slds-box box-shadow: 0px 2px 5px silver" id="Contact_Today" onclick="{!c.handleSelection}">
+                    <lightning:formattedText value="Unresponded SMS" />
+                    <aura:if isTrue="{!or(v.profileName == 'Retail RSC Rep', v.profileName == 'Retail SM')}">
+                        <h1 class="slds-text-heading_large slds-text-heading--large Lead-Count">{!v.NotificationsLst.length}</h1>
+                        <p class="slds-var-m-top_small">Incoming SMS messages haven’t been responded</p>
+                    </aura:if>
+                    <aura:if isTrue="{!and(v.profileName != 'Retail RSC Rep', v.profileName != 'Retail SM')}">
+                        <h1 class="slds-text-heading_large slds-text-heading--large Lead-Count">N/A</h1>
+                        <p class="slds-var-m-top_small">Unresponded incoming messages are not applicable for ARSM</p>
+                    </aura:if>
+                </div>
+            </div>
+
+        </div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.hideRecordTablePanel ==false}">
+        <div class="slds-p-top_medium">
+            <aura:if isTrue="{!v.showList}">
+                <aura:if isTrue="{!v.listViewName == 'Due_Today'}">
+                    <c:cLeadCountDetailPage leadsInfo="{!v.DueTodayLst}" leadType="Due Today" />
+                </aura:if>
+                <aura:if isTrue="{!v.listViewName == 'Due_Next'}">
+                    <c:cLeadCountDetailPage leadsInfo="{!v.DueNextLst}" leadType="Due Next" />
+                </aura:if>
+                <aura:if isTrue="{!v.listViewName == 'Past_Due'}">
+                    <c:cLeadCountDetailPage leadsInfo="{!v.PastDueLst}" leadType="Past Due" />
+                </aura:if>
+                <aura:if isTrue="{!v.listViewName == 'Contact_Today'}">
+                    <aura:if isTrue="{!or(v.profileName == 'Retail RSC Rep', v.profileName == 'Retail SM')}">
+                        <c:cLeadCountDetailPage leadsInfo="{!v.NotificationsLst}" leadType="Unresponded SMS" />
+                    </aura:if>
+                    <aura:if isTrue="{!and(v.profileName != 'Retail RSC Rep', v.profileName != 'Retail SM')}">
+                        <c:cLeadCountDetailPage leadsInfo="{!v.NotificationsLstForARSM}" leadType="Unresponded SMS" />
+                    </aura:if>
+
+                </aura:if>
+            </aura:if>
+        </div>
+    </aura:if>
+
+
+</aura:component>

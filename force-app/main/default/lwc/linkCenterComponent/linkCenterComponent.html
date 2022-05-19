@@ -1,0 +1,54 @@
+<template>
+    <div class="c-container">
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item size="12" padding="around-small"
+                style="background-color: rgb(199 199 199); position:absolute;">
+                <div onkeyup={onSearch}>
+                    <lightning-input name="enter-search" label="Search for Links" type="search"
+                        placeholder="Search for Links (minimum 3 characters)" variant="label-hidden" onchange={onSearch} value={searchKey}>
+                    </lightning-input>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="12">
+                <div class="marginRequired"></div>
+
+                <template for:each={linkArticlelist} for:item="article" for:index='index'>
+                    <!--Code for below div has been modified to obtain the externalLinkUrl value 
+                        instead of the Article Id and Title
+                    -->
+                    <div key={article.compId}>
+                        <template if:true={article.externalLinkUrl}>
+                            <a href="javascript:void(0)" id={article.externalLinkUrl}
+                                onclick={handleClick}>{article.title}</a>
+                            <div class="slds-text-body_small" style="margin-top:5px">
+                                <lightning-formatted-rich-text value={article.summary}></lightning-formatted-rich-text>
+                            </div>
+                            <div class="bottom-border"></div>
+                        </template>
+                    </div>
+
+                    <div key={article.compId}>
+                        <template if:true={article.internalLinkUrl}>
+                            <a href="javascript:void(0)" id={article.internalLinkUrl} data-id={article.internalLinkUrl}
+                                data-compid={article.compId} data-title={article.title}
+                                onclick={handleClickInternal}>{article.title}</a>
+                            <div class="slds-text-body_small" style="margin-top:5px">
+                                <lightning-formatted-rich-text value={article.summary}></lightning-formatted-rich-text>
+                            </div>
+                            <div class="bottom-border"></div>
+                        </template>
+                    </div>
+                </template>
+
+                <template if:true={isKodiakSearch}>
+                    <c-bwc-Kodiak-Search onredirected={handleKodiakRedirect}></c-bwc-Kodiak-Search>
+                </template>
+                <!--
+                <a href="javascript:void(0)">Link Center</a>
+                <div>The following examples show various ways to create an input date component.</div>
+                <div style="border: 1px solid rgb(221 219 218); margin: 10px 0px 10px 0px;"></div>
+                -->
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+</template>

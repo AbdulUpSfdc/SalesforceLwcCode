@@ -1,0 +1,116 @@
+<template>
+    <template if:true={isLoading1}>
+      <div class="slds-is-relative">
+      <lightning-spinner alternative-text="Loading.." size="large"></lightning-spinner>
+      </div>
+  </template>
+  <template if:true={error}>
+    <lightning-card title="UNEXPECTED EXCEPTION" icon-name="utility:error">
+        {error}
+    </lightning-card>
+</template>
+  <template if:true={prmBanDet}>
+    <lightning-card title={prmBanDet.header} icon-name='standard:record'>
+      <div class="slds-form" role="list">
+
+        <div class="slds-form__row">
+          <div class="slds-form__item" role="listitem">
+            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+              <span class="slds-form-element__label">Customer Since</span>
+              <div class="slds-form-element__control">
+                <div class="slds-form-element__static">{prmBanDet.customerSince}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-form__row">
+          <div class="slds-form__item" role="listitem">
+            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+              <span class="slds-form-element__label">Service Address</span>
+              <div class="slds-form-element__control">
+                <div class="slds-form-element__static">{prmBanDet.servAddr}
+                </br>{prmBanDet.servAddr1}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-form__row">
+          <div class="slds-form__item" role="listitem">
+            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+              <span class="slds-form-element__label">Billing Address</span>
+              <div class="slds-form-element__control">
+                <div class="slds-form-element__static">{prmBanDet.billAddr}
+                </br>{prmBanDet.billAddr1}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-form__row">
+          <div class="slds-form__item" role="listitem">
+            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+              <span class="slds-form-element__label">Account Type</span>
+              <div class="slds-form-element__control">
+                <div class="slds-form-element__static">{prmBanDet.acctType}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="slds-form__row">
+          <div class="slds-form__item" role="listitem">
+            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+              <span class="slds-form-element__label">CPNI Indicator</span>
+              <lightning-button-icon icon-name="utility:info"  variant="bare"></lightning-button-icon>
+              <div class="slds-form-element__control">
+                <div class="slds-form-element__static">{prmBanDet.cpniInd}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-form__row">
+          <div class="slds-form__item" role="listitem">
+              <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                <span class="slds-form-element__label">Language Preference</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">{prmBanDet.langPref}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--
+          <div class="slds-form__row">
+            <div class="slds-form__item" role="listitem">
+              <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                <span class="slds-form-element__label">Visually Impaired</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">{prmBanDet.visuallyimp}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slds-form__row">
+            <div class="slds-form__item" role="listitem">
+                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                  <span class="slds-form-element__label">Enrolled in Large Print Billing</span>
+                  <div class="slds-form-element__control">
+                    <div class="slds-form-element__static">{prmBanDet.enrllinlarprt}</div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        -->
+      </div>
+    </lightning-card>    
+  </template>      
+  <template if:true = {prmBanDet}>
+   <c-bwc-modal b-show-modal={bShowModal} modal-header={modalHeader} modal-message={modalMessage}></c-bwc-modal>
+  </template>
+</template>

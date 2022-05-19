@@ -1,0 +1,90 @@
+<template>
+    
+    <lightning-card>
+
+        <!-- Errors and informational notifications -->
+        <div class="slds-var-m-top_x-large slds-p-horizontal_xx-large">
+            <c-bwc-notifications></c-bwc-notifications>
+        </div>
+
+        <!-- Show spinner while loading data -->
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" variant="brand"></lightning-spinner>
+        </template>
+
+        <!-- Show Data Usage after loading is done -->
+        <template if:false={isLoading}>
+
+            <template if:true={usageRetrieved}>
+                
+                <lightning-layout multiple-rows class="slds-p-horizontal_x-small">
+
+                    <!-- Billing Cycle selection dropdown -->
+                    <lightning-layout-item class="slds-align-left slds-p-bottom_xx-small" size="3">
+                        <lightning-combobox 
+                            class="slds-align-middle"
+                            data-name="selectBillingCycle"
+                            name="billingCycle"
+                            label="Billing Cycle"
+                            value={selectedBillingCycle}
+                            placeholder="Select Billing Cycle"
+                            options={billingCycleOptions}
+                            onchange={handleBillingCycleChange}
+                            message-when-value-missing="Please select a Billing Cycle"
+                            dropdown-alignment="auto">
+                        </lightning-combobox>
+                    </lightning-layout-item>
+
+                    <!-- Empty -->
+                    <lightning-layout-item size="9">
+                        <span></span>
+                    </lightning-layout-item>
+
+                    <template if:true={daysRemainingInBillingCycle}>
+
+                        <!-- Days remaining in billing cycle legend -->
+                        <lightning-layout-item class="slds-align-left" size="4">
+                            <span class="days-remaining-legend">{daysRemainingInBillingCycle} {dayOrDaysLabel} remaining on the current billing cycle</span>
+                        </lightning-layout-item>
+
+                        <!-- Empty -->
+                        <lightning-layout-item size="8">
+                            <span></span>
+                        </lightning-layout-item>
+
+                    </template>
+        
+                    <!-- Data Usage Plans Details with chart -->
+                    <template if:false={showNoPlans}>
+
+                        <lightning-layout-item size="12" class="slds-m-top_small">
+
+                            <template for:each={plans} for:item='usageSummary'>
+
+                                <!-- Accordion component -->
+                                <c-bwc-expandable-section key={usageSummary.planName} title={usageSummary.planName}>
+                                    <c-bwc-view-b-a-n-usage-summary-plan usage-summary={usageSummary}></c-bwc-view-b-a-n-usage-summary-plan>
+                                </c-bwc-expandable-section>
+                
+                            </template>
+
+                        </lightning-layout-item>
+
+                    </template>
+            
+                    <!-- No plans to show -->
+                    <template if:true={showNoPlans}>
+                        <lightning-layout-item size="12">
+                            <div class="slds-card message slds-align_absolute-center" data-aura-rendered-by="1:2800;a"><strong>No wireless usage summary to display</strong></div>
+                        </lightning-layout-item>
+                    </template>
+
+                </lightning-layout>
+
+            </template>
+
+        </template>
+
+    </lightning-card>
+
+</template>

@@ -1,0 +1,37 @@
+{
+	"Wireless":[
+		{
+			"statementID":"20180728-325310161-TLG-W",
+			"cycleStartDate":"06/29/2018",
+			"cycleEndDate":"07/28/2018",
+			"billDueDate":"08/17/2018",
+			"ban":"325310161",
+			"billType":"TLG",
+			"totalAmountDue":{
+				"amt":"117.59"
+			}
+		},
+		{
+			"statementID":"20180328-325310161-TLG-W",
+			"cycleStartDate":"03/01/2018",
+			"cycleEndDate":"03/28/2018",
+			"billDueDate":"04/17/2018",
+			"ban":"325310161",
+			"billType":"TLG",
+			"totalAmountDue":{
+				"amt":"257.99"
+			}
+		}
+	],
+	"Wireline":[{
+		"statementID":"20180728-325310161-TLG-W",
+		"cycleStartDate":"06/29/2018",
+		"cycleEndDate":"03/28/2018",
+		"billDueDate":"04/17/2018",
+		"ban":"325310163",
+		"billType":"TLG",
+		"totalAmountDue":{
+			"amt":"115.39"
+		}
+	}]
+}

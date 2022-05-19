@@ -1,0 +1,12 @@
+{
+    "adjOutputInfo": [
+        {
+            "billSeqNo": "1",
+            "billChrgSeqNo": "6305226182",
+            "adjAmount": "5.0",
+            "adjReasonCode": "CRTSYA",
+            "chgSeqNo": "0",
+            "effectiveDate": "2021-08-04"
+        }
+    ]
+}

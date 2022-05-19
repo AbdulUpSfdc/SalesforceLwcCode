@@ -1,0 +1,63 @@
+<template>
+    <lightning-card>
+        <span slot="title" class="articleFeedback-cardheader">
+            <!--<lightning-icon icon-name="utility:chat"></lightning-icon>&nbsp;&nbsp;-->
+            <lightning-icon icon-name="standard:feedback"></lightning-icon>&nbsp;&nbsp;
+            {relatedFedbackCount}
+        </span>
+        <div class={sixFeedbacks}>
+            <template for:each={artcileFeedbacks} for:item="feedback" for:index='index'>
+                <div key={feedback.Id}>
+                    <lightning-layout>
+                        <lightning-layout-item padding="around-small" size="12">
+                            
+                                <div>
+                                    <div style="width:45px; vertical-align: baseline; padding-top: 5px; position: absolute;">
+                                        <lightning-icon icon-name="standard:case"></lightning-icon>
+                                    </div>
+                                    <div>
+                                    <div class="flex-parent" style="margin-left: 40px;">
+                                        <div class="flex-child long-and-truncated txt" id={feedback.Id} onclick={handleTextClick}>
+                                            {feedback.Feedback_Response__c}
+                                        </div>
+                                    </div>
+                                    <div style="margin-left: 40px;">
+                                        <lightning-layout multiple-rows="true">
+                                            <lightning-layout-item size="2">
+                                                <span class="articleFeedback-subheader slds-truncate">
+                                                    Posted By:
+                                                </span>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item size="10">
+                                                <span class="articleFeedback-header slds-truncate">
+                                                    {feedback.Owner.Name}
+                                                </span>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item size="2">
+                                                <span class="articleFeedback-subheader slds-truncate">
+                                                    Status:
+                                                </span>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item size="10">
+                                                <span class="articleFeedback-header slds-truncate">
+                                                    {feedback.Feedback_Status__c}
+                                                </span>
+                                            </lightning-layout-item>
+                                        </lightning-layout>
+                                    </div>
+                                    </div>
+                                </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+            </template>
+        </div>
+        <div slot="footer">
+            <template if:true={ismorethanthreeArticles}>
+                <lightning-button if:true={ismorethanthreeArticles} variant="base" label={btn_label} title={btn_label}
+                    onclick={handleViewAll} class="slds-m-left_x-small">
+                </lightning-button>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,41 @@
+<template>
+  <div class="content">
+    <div class="ioform">
+      <template if:true={isCardVisible}>
+        <lightning-button
+          data-id="CREDIT_CARD"
+          variant={ccButtonVariant}
+          label={creditCardButtonLabel}
+          class={creditCardButtonCSS}
+          onclick={setMode}
+        ></lightning-button>
+      </template>
+      <template if:true={isBankVisible}>
+        <lightning-button
+          data-id="BANK"
+          variant={bankButtonVariant}
+          label={labels.pmACH}
+          class="stretched"
+          onclick={setMode}
+        ></lightning-button>
+      </template>
+
+      <!-- Details of the payment methods -->
+      <div class="whole-row">
+        <template if:true={isCreditCard}>
+          <c-bwc-payment-credit-card-cmp lang={lang} labels={labels} 
+            fields-for-input={creditCardFields}
+          >
+          </c-bwc-payment-credit-card-cmp>
+        </template>
+        <template if:false={isCreditCard}>
+          <c-bwc-payment-banking-info-cmp
+            lang={lang}
+            labels={labels}
+            show-check-no={isBankWithCheck}
+          ></c-bwc-payment-banking-info-cmp>
+        </template>
+      </div>
+    </div>
+  </div>
+</template>

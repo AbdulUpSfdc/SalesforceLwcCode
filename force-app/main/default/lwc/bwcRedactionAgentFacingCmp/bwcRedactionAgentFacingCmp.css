@@ -1,0 +1,56 @@
+a {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.redaction-data-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto minmax(0,2fr); /*1fr 1fr 2fr;*/
+}
+
+.cash-icp-switch-container {
+  grid-column: 1 / 3;
+  grid-row: 1;
+  width: 100%;
+  text-align: center;  
+}
+
+.cash-icp-switch-container > div {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.redaction-msg-container {
+  /*background-color: violet;*/
+}
+
+.redaction-url-container {
+  /*background-color: tomato;*/
+}
+
+.payment-type-details-container {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.payment-type {
+  /*background-color: white;*/
+}
+
+.payment-name-on-acc {
+  /*background-color: white;*/
+}
+
+.refund-type-details-container {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.refund-type {
+  /*background-color: white;*/ 
+}
+
+.refund-name-on-acc {
+  /*background-color: white;*/  
+}

@@ -1,0 +1,111 @@
+.article-tile {
+  height: var(--lwc-sizeSmall);
+  background: #F9F9F9;
+}
+.article-image {
+  height: var(--lwc-sizeSmall);
+  background-position: center;
+  background-size: contain;
+  background-color: #fff;
+  background-repeat: no-repeat;
+}
+.article-title {
+  font-size: 1.875rem;
+  font-weight: var(--lwc-fontWeightBold);
+  max-height: 4rem;
+  color: #101820;
+}
+.article-summary {
+  font-size: 1.125rem; 
+  line-height: 1.875rem;
+  min-height: 9.375rem;
+  max-height: 9.375rem;
+  overflow:hidden;
+  color: #2B2826;
+}
+.article-footer {
+  font-size: 0.875rem; 
+  color: #706E6B;
+}
+.article-badge-recommended {
+  --sds-c-badge-color-background: #8000DB;
+  --sds-c-badge-color-text: white;
+  color: white;
+  --sds-c-badge-font-size: 0.75rem;
+}
+.article-badge-urgent {
+  --sds-c-badge-color-background: #C23934;
+  --sds-c-badge-color-text: white;
+  color: white;
+  --sds-c-badge-font-size: 0.75rem;
+}
+.article-badge-unread {
+  --sds-c-badge-color-background: #FFB75D;
+  --sds-c-badge-color-text: #080707;
+  color: #080707;
+  --sds-c-badge-font-size: 0.75rem;
+}
+a:link {
+  color: #101820;
+}
+.bold-items {
+    font-weight: var(--lwc-fontWeightBold);
+    display: inline-flex;
+}
+/* iPad Portrait */
+@media only screen and (min-device-width: 0px) and (max-device-width: 1024px) and (orientation:portrait) {
+  .article-tile, .article-image {
+    height: 9.9375rem;
+  }
+  .article-badge-recommended {
+--sds-c-badge-font-size: 0.6rem;
+}
+.article-badge-urgent {
+--sds-c-badge-font-size: 0.6rem;
+}
+.article-badge-unread {
+--sds-c-badge-font-size: 0.6rem;
+}
+  .article-title {
+    font-size: 1.375rem;
+    max-height: 3.46rem;
+  }
+  .article-summary {
+    font-size: 0.75rem; 
+    line-height: 1.25rem;
+    min-height: 5rem;
+    max-height: 5rem;
+  }
+  .article-footer {
+    font-size: 0.625rem; 
+  }
+}
+/* iPad Landscape */
+@media only screen and (min-device-width: 0px) and (max-device-width: 1024px) and (orientation:landscape) {
+  .article-tile, .article-image {
+    height: 9.9375rem;
+  }
+
+  .article-badge-recommended {
+--sds-c-badge-font-size: 0.6rem;
+}
+.article-badge-urgent {
+--sds-c-badge-font-size: 0.6rem;
+}
+.article-badge-unread {
+--sds-c-badge-font-size: 0.6rem;
+}
+  .article-title {
+    font-size: 1.375rem;
+    max-height: 3.46rem;
+  }
+  .article-summary {
+    font-size: 0.75rem; 
+    line-height: 1.25rem;
+    min-height: 5rem;
+    max-height: 5rem;
+  }
+  .article-footer {
+    font-size: 0.625rem; 
+  }
+}

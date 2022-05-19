@@ -1,0 +1,116 @@
+<apex:page standardController="KT_Draft__c" extensions="DraftCKEditController" tabStyle="KT_Draft__c"  lightningStylesheets="true" id="thepageid">
+    <apex:form id="theformid">
+        <apex:pageBlock >       
+            <apex:pageBlockSection title="Article Details" collapsible="false" >
+                <apex:inputField value="{!KT_Draft__c.KT_Article_Title__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_Source_Article_Title__c}" rendered="{!isEditSourceFields}"  />
+                <apex:OutputField value="{!KT_Draft__c.KT_Source_Article_Title__c}" rendered="{!!isEditSourceFields}"  />
+                
+                <apex:inputField value="{!KT_Draft__c.KT_Article_Summary__c}"  />                                
+                <apex:inputField value="{!KT_Draft__c.KT_Source_Article_Summary__c}" rendered="{!isEditSourceFields}"  />
+                <apex:OutputField value="{!KT_Draft__c.KT_Source_Article_Summary__c}" rendered="{!!isEditSourceFields}"  />
+                
+                <apex:inputField value="{!KT_Draft__c.KT_Article_Details__c}" />                 
+                <apex:inputField value="{!KT_Draft__c.KT_Source_Details__c}" rendered="{!isEditSourceFields}"  />
+                <apex:OutputField value="{!KT_Draft__c.KT_Source_Details__c}" rendered="{!!isEditSourceFields}"  />
+                
+                <apex:inputField value="{!KT_Draft__c.KT_Preview_Image__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_Source_Preview_Image__c}" rendered="{!isEditSourceFields}" />
+                <apex:OutputField value="{!KT_Draft__c.KT_Source_Preview_Image__c}" rendered="{!!isEditSourceFields}"  />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Information" collapsible="false">
+                <apex:inputField value="{!KT_Draft__c.KT_Transformation__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_Status__c}"  />
+                <apex:inputField value="{!KT_Draft__c.Name}" />              
+                <apex:inputField value="{!KT_Draft__c.KT_Support_Type__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_Article_Record_Type__c}" />              
+                <apex:inputField value="{!KT_Draft__c.KT_Support_Sub_Type__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_Draft_Type__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_Product_Type__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_Retention_Date__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_Promotion_Type__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_MyCSP_Article_Name__c}" />
+                <apex:inputField value="{!KT_Draft__c.KT_Promotion_Sub_Type__c}"  />
+
+                <apex:inputField value="{!KT_Draft__c.KT_News_Article_Start_Date__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_News_Article_End_Date__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_Related_Links__c}" /> 
+                <apex:inputField value="{!KT_Draft__c.KT_External_URL__c}" />              
+                <apex:inputField value="{!KT_Draft__c.KT_Future_Review_Date__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_Content_Sponsor__c}" />              
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Indirect Agents" columns="1" collapsible="false">
+                <apex:inputField value="{!KT_Draft__c.KT_Available__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_Indirect_Agents__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_Dealer_Type__c}"  />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Article Taxonomy" columns="1" collapsible="false">
+                <apex:inputField value="{!KT_Draft__c.KT_Domain__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_Area__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_Topic__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_Sub_Topic__c}"  />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Additional Details" collapsible="false">
+                <apex:inputField value="{!KT_Draft__c.KT_Source_Article_Number__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_URL_Name__c}"  />
+                <apex:inputField value="{!KT_Draft__c.KT_MyCSP_Article_ID__c}"  />
+                <apex:outputLabel />
+                <apex:inputField value="{!KT_Draft__c.KT_News_Article__c}"  />
+                <apex:outputLabel />
+                <apex:inputField value="{!KT_Draft__c.KT_Assigned_Article__c}"  />
+                <apex:outputLabel />
+                <apex:inputField value="{!KT_Draft__c.KT_Front_Line_Focus__c}"  />
+                <apex:outputLabel />
+                <apex:inputField value="{!KT_Draft__c.KT_Urgent__c}"  />
+                <apex:outputLabel />
+                <apex:inputField value="{!KT_Draft__c.KT_Link_Center_Article__c}"  />
+                <apex:outputLabel />
+                <apex:inputField value="{!KT_Draft__c.KT_Visible_in_Public_Knowledge_Base__c}"  />
+                <apex:outputLabel />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Cancel" action="{!Cancel}" />
+                <apex:commandButton value="save" action="{!Save}" />                
+            </apex:pageBlockButtons> 
+            
+        </apex:pageBlock>
+    
+    <script type="text/javascript">
+        var previousOnload = window.onload; 
+        window.onload = function() { 
+            if (previousOnload) { 
+                previousOnload(); 
+            }            
+
+CKEDITOR.editorConfig = function( config ) {
+   
+    
+    config.toolbarGroups = [
+        { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+        { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+        { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+        { name: 'forms', groups: [ 'forms' ] },
+        { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+        '/',
+        { name: 'insert', groups: [ 'insert' ] },
+        { name: 'links', groups: [ 'links' ] },
+        { name: 'paragraph', groups: [ 'align', 'list', 'indent', 'blocks', 'bidi', 'paragraph' ] },
+        { name: 'styles', groups: [ 'styles' ] },
+        { name: 'colors', groups: [ 'colors' ] },
+        { name: 'tools', groups: [ 'tools' ] },
+        { name: 'others', groups: [ 'others' ] },
+        { name: 'about', groups: [ 'about' ] }
+    ];
+
+    config.removeButtons = 'Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Find,Replace,SelectAll,Scayt,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,Flash,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,JustifyBlock,Blockquote,CreateDiv,Language,Styles,Maximize,ShowBlocks,About,Form';
+}; 
+   
+        }
+    </script>
+        </apex:form>
+</apex:page>

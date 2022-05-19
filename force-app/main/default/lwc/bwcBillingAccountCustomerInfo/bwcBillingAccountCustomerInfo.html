@@ -1,0 +1,163 @@
+<template>
+
+    <div class="slds-var-m-bottom_x-small slds-grid slds-grid_align-center">
+        <c-bwc-error-report variant="icon"></c-bwc-error-report>
+    </div>
+
+    <template if:true={showNotValid}>
+        <div class="slds-var-m-left_x-small slds-var-m-vertical_small slds-text-heading_small">
+            Customer Info does not apply to this billing account type.
+        </div>
+    </template>
+
+    <template if:true={showValid}>
+
+        <c-bwc-expandable-section title="Account Contact &amp; Security">
+
+            <span slot="actions">
+
+                <!-- Refresh Button-->
+                <lightning-button-icon
+                    icon-name="utility:refresh" size="small" class="slds-var-m-left_x-small slds-var-p-right_x-small"
+                    alternative-text="Refresh" tooltip="Refresh" onclick={handleAccountContactRefresh}>
+                </lightning-button-icon>
+
+            </span>
+
+            <lightning-spinner if:true={isBusyAccountContact} variant="brand" alternative-text="Loading"></lightning-spinner>
+
+            <div class="slds-grid slds-gutters">
+
+                <div class="slds-size_1-of-2 slds-var-p-horizontal_small">
+
+                    <c-bwc-custom-card title="Contact Information">
+                        <div slot="actions">
+                            <template if:true={manageContactInfo}>
+                                <lightning-button label="Manage" onclick={handleManageAccountContact}></lightning-button>
+                            </template>
+                        </div>
+                        <div>
+                            <c-bwc-custom-card-item label="Primary Phone Number">{contactInformation.primaryPhoneNumber}</c-bwc-custom-card-item>
+                        </div>
+                        <div>
+                            <c-bwc-custom-card-item label="Alternate Phone Number">{contactInformation.alternatePhoneNumber}</c-bwc-custom-card-item>
+                        </div>
+                        <div>
+                            <c-bwc-custom-card-item label="Primary Email Address" no-bottom-border>
+                                {contactInformation.emailAddress}
+                                <lightning-icon if:true={contactInformation.isEmailVerified} class="slds-var-m-left_xx-small" icon-name="utility:success" size="x-small" variant="success"></lightning-icon>
+                            </c-bwc-custom-card-item>
+                        </div>
+                    </c-bwc-custom-card>
+
+                </div>
+
+                <template if:true={showAccountSecurityTile}>
+                    <div class="slds-size_1-of-2 slds-var-p-horizontal_small">
+
+                        <c-bwc-custom-card title="Account Security">
+                            <div slot="actions">
+                                    <template if:true={editAccountSecurity}>
+                                        <lightning-button label="Edit" onclick={handleEditAccountSecurity} icon-name="utility:edit"></lightning-button>
+                                    </template>
+                            </div>
+                            <div>
+                                <c-bwc-custom-card-item label="Security Passcode" no-bottom-border></c-bwc-custom-card-item>
+                            </div>
+                            <div>
+                                <c-bwc-custom-card-item label="The customer will need this security code when they contact us, or if they need to recover their password."></c-bwc-custom-card-item>
+                            </div>
+                            <div>
+                                <c-bwc-custom-card-item label="Security Question & Answer" no-bottom-border></c-bwc-custom-card-item>
+                            </div>
+                        </c-bwc-custom-card>
+    
+                    </div>
+                </template>
+
+            </div>
+
+        </c-bwc-expandable-section>
+
+        <c-bwc-expandable-section title="Customer MyAT&amp;T Login &amp; Security">
+
+            <span slot="actions">
+
+                <!-- Refresh Button-->
+                <lightning-button-icon
+                    icon-name="utility:refresh" size="small" class="slds-var-m-left_x-small slds-var-p-right_x-small"
+                    alternative-text="Refresh" tooltip="Refresh" onclick={handleLoginsRefresh}>
+                </lightning-button-icon>
+
+            </span>
+
+            <div class="section">
+
+                <lightning-spinner if:true={isBusyLogins} variant="brand" alternative-text="Loading"></lightning-spinner>
+
+                <div if:true={showNoLogins} class="slds-var-m-left_x-small slds-var-p-top_large slds-align_absolute-center">
+                    This billing account has no associated MyAT&amp;T logins.
+                </div>
+
+                <div if:true={showLogins} class="slds-grid slds-wrap slds-gutters">
+
+                    <template for:each={logins} for:item="login">
+
+                        <div key={login.slid} class="slds-size_1-of-2 slds-var-p-horizontal_small slds-var-p-bottom_x-small">
+
+                            <c-bwc-custom-card title={login.slid}>
+                                <div if:true={login.isL1Locked} slot="actions">
+                                    <div class="bubble slds-theme_warning">
+                                        <div class="slds-var-p-vertical_xx-small slds-var-p-horizontal_small">
+                                            <lightning-icon icon-name="utility:lock" size="x-small" class="slds-var-m-right_xx-small"></lightning-icon>
+                                            Level 1
+                                        </div>
+                                    </div>
+                                </div>
+                                <div if:true={login.isL2Locked} slot="actions" class="slds-is-relative">
+                                    <div class="bubble slds-theme_error">
+                                        <div class="slds-var-p-vertical_xx-small slds-var-p-horizontal_small" onmouseover={handleLevel2Mouseover} onmouseout={handleLevel2Mouseout}>
+                                            <div >
+                                                <lightning-icon icon-name="utility:lock" size="x-small" variant="inverse" class="slds-var-m-right_xx-small"></lightning-icon>
+                                                <span>Level 2</span>
+                                            </div>
+                                            <div>
+                                                <c-bwc-helptext data-name="level2Popover" no-icon nubbin="top-right" content={label.level2LockDetails}></c-bwc-helptext>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <c-bwc-custom-card-item label="Customer Login Password">
+                                        <template if:true={editAccountSecurity}> 
+                                            <a if:false={login.isResetDisabled} name="resetPasswordOnly" data-slid={login.slid} onclick={handleSecurityReset}>Reset</a>
+                                        </template>
+                                    </c-bwc-custom-card-item>
+                                </div>
+                                <div>
+                                    <c-bwc-custom-card-item label="Security Question &amp; Answer"></c-bwc-custom-card-item>
+                                </div>
+                                <div class="slds-grid slds-var-p-around_x-small" style="min-height: 3rem;">
+                                    <template if:true={editAccountSecurity}>
+                                        <lightning-button if:false={login.isResetDisabled} class="slds-col_bump-left" data-slid={login.slid} label="Reset Both" onclick={handleSecurityReset}></lightning-button>
+                                    </template>
+                                </div>
+                            </c-bwc-custom-card>
+
+                        </div>
+
+                    </template>
+
+                </div>
+
+            </div>
+
+        </c-bwc-expandable-section>
+
+        <c-bwc-step-up></c-bwc-step-up>
+        <c-bwc-manage-account-contact></c-bwc-manage-account-contact>
+        <c-bwc-security-reset></c-bwc-security-reset>
+
+    </template>
+
+</template>

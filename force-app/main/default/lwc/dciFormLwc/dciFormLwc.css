@@ -1,0 +1,17 @@
+.container {
+    position: relative; 
+    background: #F3F2F2;
+}
+.section  {
+    background: white;
+}
+.slds-modal__header{
+    background: white;
+}
+.content {
+    background: white;
+}
+.labelstyle {
+    color:rgb(62, 62, 60);
+    font-size: 0.75rem;
+}

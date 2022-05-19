@@ -1,0 +1,13 @@
+article {
+    padding: 0;
+    height: 100%;
+}
+
+header {
+    min-height: 3rem;
+}
+
+h2 {
+    font-size: 16px;
+    font-weight: 600;
+}

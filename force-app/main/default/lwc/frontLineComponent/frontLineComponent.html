@@ -1,0 +1,78 @@
+<template>
+    <lightning-card>
+    <table>
+    <caption>Carousel display of articles</caption>
+    <tr>
+        
+        <td>
+            <div onclick={handlePrev}>
+                <div>
+                    <lightning-button-icon class="slds-button__icon-x-large" icon-name="utility:chevronleft" variant="border-filled" title="Previous">
+                    </lightning-button-icon>
+                </div>
+            </div>
+        </td>
+    
+    <td>
+        <div class="slds-carousel the-div">
+            <div class="slds-carousel__stage the-div">
+                <div class="slds-carousel__panels" style="transform:translateX(-0%)">
+                    <template if:true={selectedAticle}>
+                        <div key={selectedAticle.compId}
+                            id={selectedAticle.compId} 
+                            class="slds-carousel__panel rows" 
+                            role="tabpanel" 
+                            aria-hidden="true" 
+                            aria-labelledby="indicator-id-01"
+                            onclick={handleClick}>
+                            <a 
+                                href="javascript:void(0);" 
+                                class="slds-carousel__panel-action slds-text-link_reset" 
+                                tabindex={currentIndex}>
+                                <div class="slds-carousel__image column left holder">
+                                    <img src={selectedAticle.previewImage} alt={selectedAticle.title}/>
+                                </div>
+                                <div class="slds-carousel__content column right holder1">
+                                    <div class="row1">
+                                        <div class="innercontainer">
+                                            <h2 class="slds-carousel__content-title">{selectedAticle.title}</h2>
+                                            <p>
+                                                {selectedAticle.summary}
+                                            </p>
+                                        </div>
+                                        
+                                    </div>
+                                    <div>
+                                        <div class="row2 col1">
+                                            <lightning-button-icon icon-name="utility:preview" class="slds-button_icon-x-large" variant="bare" alternative-text="Preview" title="Preview"></lightning-button-icon>
+                                            {selectedAticle.ArticleTotalViewCount}
+                                        </div>
+                                        <div class="row2 col2">
+                                            <lightning-button-icon icon-name="utility:share_post" class="slds-button_icon-x-large" variant="bare" alternative-text="Comment" title="Comment"></lightning-button-icon>
+                                            {selectedAticle.ArticleTotalViewCount}
+                                        </div>
+                                        <div class="row2 col3">
+                                            <lightning-button-icon class ="slds-button_icon-x-large" icon-name="utility:like" variant="bare" title="Like"></lightning-button-icon>
+                                            {selectedAticle.ArticleTotalViewCount}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </td>
+    <td>
+        <div onclick={handleNext}>
+            <div>
+                <lightning-button-icon class="slds-button__icon-x-large" icon-name="utility:chevronright" variant="border-filled" title="Next">
+                </lightning-button-icon>
+            </div>
+        </div>
+    </td>
+    </tr>
+    </table>
+</lightning-card>
+    </template>

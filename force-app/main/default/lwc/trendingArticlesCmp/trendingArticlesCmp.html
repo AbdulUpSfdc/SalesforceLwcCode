@@ -1,0 +1,180 @@
+<template>
+
+    <template if:true={comming_soon}>
+        <div class="rendered-width slds-align_absolute-center">
+            <br>
+            Trending Articles Coming Soon
+            <br>
+            <br>
+        </div>
+    </template>
+
+    <template if:false={comming_soon}>
+            
+    <div class="rendered-width">
+    <lightning-layout>
+            <lightning-layout-item size="1" small-device-size="1" large-device-size="1" medium-device-size="1" >
+                <template if:true={displayArticles}>
+                    <div style="height:100%" class="slds-align_absolute-center" >
+                        <template if:true={IS_DESKTOP}>
+                            <lightning-button-icon class="slds-align_absolute-center" icon-name="utility:chevronleft" size="large"
+                            alternative-text="Left" title="Left" variant="bare-inverse" onclick={backwardNew}>
+                            </lightning-button-icon>    
+                        </template>
+                        <template if:false={IS_DESKTOP}>
+                            <lightning-button-icon class="slds-align_absolute-center" icon-name="utility:chevronleft" 
+                            alternative-text="Left" title="Left" variant="bare-inverse" onclick={backwardNew}>
+                            </lightning-button-icon>    
+                        </template>  
+                    </div>
+                </template>
+            </lightning-layout-item>
+        <lightning-layout-item size="10" small-device-size="10" large-device-size="10" medium-device-size="10">
+            <!-- 
+            "SFDC FormFactor: {formFactorProperty}, desktop: {IS_DESKTOP}, landscape: {IS_IPAD_LANDSCAPE}, portrait:{IS_IPAD_PORTRAIT}, width: {screenWidth}, orientation: {orientation}"
+             -->
+            
+           
+          
+            <div class="trending-title slds-p-top_large slds-var-p-bottom_medium slds-p-horizontal_x-small">
+                Trending Articles
+            </div>
+            <lightning-layout >
+                <template if:false={displayArticles}>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+                        <div class="slds-p-top_large slds-var-p-bottom_large slds-p-horizontal_x-small">
+                            Trending articles cannot be loaded at this time. Please check back later.
+                        </div>
+                    </lightning-layout-item>
+                </template>
+                <template for:each={articles} for:item="article">
+                    <template if:true={largedevice}>
+                        <lightning-layout-item key={article.id}  size="4" small-device-size="4" medium-device-size="4" large-device-size="3">
+                            <div class="content" >
+                                <div class="trending-body-title slds-truncate slds-p-horizontal_x-small">
+                                    <a href={article.url} onclick={navigateToArticle} data-id={article.id} style="color: white;">{article.title}</a>
+                                </div>
+                                <p class="trending-body slds-p-horizontal_x-small slds-line-clamp_medium">
+                                    {article.summary}
+                                </p>
+                                <div class="trending-cspid slds-p-top_small slds-p-horizontal_x-small">
+                                    <ul class="slds-list_horizontal ">
+                                        <div class="slds-grid slds-grid_align-spread">
+                                            <div class="slds-col ">
+											  <template if:true={article.myCspName}>
+                                            {article.myCspName}&nbsp;
+												 </template>
+                                            </div>
+                                            <div class="slds-col ">
+                                                <div class="bold-items">Published:</div> {article.lastPublishedDateString}
+                                            </div>
+                                        
+                                        </div>
+                                    </ul>
+                                </div>
+                                <div class="trending-footer slds-p-bottom_medium slds-p-horizontal_x-small">
+                                    <ul class="slds-list_horizontal slds-has-dividers_right">
+                                        <div class="slds-grid">
+                                            <div class="slds-col">
+                                                <lightning-icon icon-name="utility:preview" alternative-text="Preview" title="Preview"
+                                                        size="x-small" variant="inverse">
+                                                    </lightning-icon>
+                                                    &nbsp;&nbsp;{article.viewCount}
+                                            </div>
+                                            <div class="slds-col slds-p-left_large">
+                                                <lightning-icon icon-name="utility:quick_text" alternative-text="Message" title="Message"
+                                                size="x-small" variant="inverse">
+                                            </lightning-icon>
+                                            &nbsp;&nbsp;{article.commentCount}
+                                            </div>
+                                            <div class="slds-col slds-p-left_large">
+                                                <lightning-icon icon-name="utility:like" alternative-text="Like" title="Like"
+                                                        size="x-small" variant="inverse">
+                                                    </lightning-icon>
+                                                    &nbsp;&nbsp;{article.likeCount}
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </lightning-layout-item>
+                    </template>
+                    <template if:false={largedevice}>
+                        <lightning-layout-item key={article.id}  size="4" small-device-size="4" medium-device-size="4" large-device-size="4">
+                            <div class="content" >
+                                <div class="trending-body-title slds-truncate slds-p-horizontal_x-small">
+                                    <a href={article.url} onclick={navigateToArticle} data-id={article.id} style="color: white;">{article.title}</a>
+                                </div>
+                                <p class="trending-body slds-p-horizontal_x-small slds-line-clamp_medium">
+                                    {article.summary}
+                                </p>
+                                <div class="trending-cspid slds-p-top_small slds-p-horizontal_x-small">
+                                    <ul class="slds-list_horizontal ">
+                                        <div class="slds-grid slds-grid_align-spread">
+                                            <div class="slds-col ">
+											  <template if:true={article.myCspName}>
+                                            {article.myCspName}&nbsp;
+												 </template>
+                                            </div>
+                                            <div class="slds-col ">
+                                                <div class="bold-items">Published:</div> {article.lastPublishedDateString}
+                                            </div>
+                                        
+                                        </div>
+                                    </ul>
+                                </div>
+                                <div class="trending-footer slds-p-bottom_medium slds-p-horizontal_x-small">
+                                    <ul class="slds-list_horizontal slds-has-dividers_right">
+                                        <div class="slds-grid">
+                                            <div class="slds-col">
+                                                <lightning-icon icon-name="utility:preview" alternative-text="Preview" title="Preview"
+                                                        size="x-small" variant="inverse">
+                                                    </lightning-icon>
+                                                    &nbsp;&nbsp;{article.viewCount}
+                                            </div>
+                                            <div class="slds-col slds-p-left_large">
+                                                <lightning-icon icon-name="utility:quick_text" alternative-text="Message" title="Message"
+                                                size="x-small" variant="inverse">
+                                            </lightning-icon>
+                                            &nbsp;&nbsp;{article.commentCount}
+                                            </div>
+                                            <div class="slds-col slds-p-left_large">
+                                                <lightning-icon icon-name="utility:like" alternative-text="Like" title="Like"
+                                                        size="x-small" variant="inverse">
+                                                    </lightning-icon>
+                                                    &nbsp;&nbsp;{article.likeCount}
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </lightning-layout-item>
+                    </template>
+                   
+                </template>
+            </lightning-layout>
+        </lightning-layout-item>
+       
+            <lightning-layout-item size="1" small-device-size="1" large-device-size="1" medium-device-size="1">
+                <template if:true={displayArticles}>
+                    <div style="height:100%" class="slds-align_absolute-center">
+                        <template if:true={IS_DESKTOP}>
+                            <lightning-button-icon icon-name="utility:chevronright" size="large" alternative-text="Right"
+                                title="Right" variant="bare-inverse" onclick={forwardNew}>
+                            </lightning-button-icon>  
+                        </template>
+                        <template if:false={IS_DESKTOP}>
+                            <lightning-button-icon icon-name="utility:chevronright" style="height:22px" alternative-text="Right"
+                                title="Right" variant="bare-inverse" onclick={forwardNew}>
+                            </lightning-button-icon>  
+                        </template>
+                    
+                    </div>
+                </template>
+            </lightning-layout-item>
+        
+    </lightning-layout>
+</div>
+</template>
+
+</template>

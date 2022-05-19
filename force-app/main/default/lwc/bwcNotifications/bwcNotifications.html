@@ -1,0 +1,17 @@
+<template>
+    <template for:each={displayNotifications} for:item="notification">
+        <div key={notification.key} class="slds-grid slds-grid_vertical slds-var-m-top_x-small notification">
+            <c-bwc-notification
+                type={notification.type}
+                variant={notification.variant}
+                texture={notification.texture}
+                theme={notification.theme}
+                message={notification.message}
+                action={notification.action}
+                items={notification.items}
+                close-button={notification.closeButton}
+                onactionclick={handleActionClick}>
+            </c-bwc-notification>
+        </div>
+    </template>
+</template>

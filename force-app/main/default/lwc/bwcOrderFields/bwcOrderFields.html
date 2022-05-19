@@ -1,0 +1,45 @@
+<template>
+    <div class="slds-grid slds-gutters slds-wrap slds-m-horizontal_small">
+
+        <template for:each={fields} for:item="field">
+            <div key={field.label} class={columnClass}>
+                <span class="slds-form-element__label">{field.label}</span>
+                <div class="slds-form-element__control">
+                    <div class="slds-form-element__static slds-text-title_bold slds-form-element_readonly">
+
+                        <!-- Text -->
+                        <p if:true={field.isTextType}>{field.value}</p>
+
+                        <!-- Date -->
+                        <lightning-formatted-date-time
+                            if:true={field.isDateType}
+                            class="slds-text-title_bold"
+                            value={field.value}
+                            year="numeric"
+                            month="2-digit"
+                            day="2-digit">
+                        </lightning-formatted-date-time>
+
+                        <!-- Currency -->
+                        <lightning-formatted-number
+                            if:true={field.isCurrencyType}
+                            value={field.value}
+                            format-style="currency"
+                            currency-code="USD">
+                        </lightning-formatted-number>
+
+                        <!-- URL -->
+                        <lightning-formatted-url
+                            if:true={field.isURLType}
+                            value={field.value}
+                            label={field.urlLabel}
+                            target="_blank" >
+                        </lightning-formatted-url>
+
+                    </div>
+                </div>
+            </div>
+        </template>
+
+    </div>
+</template>

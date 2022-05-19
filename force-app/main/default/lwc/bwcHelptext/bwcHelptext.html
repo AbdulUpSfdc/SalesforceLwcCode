@@ -1,0 +1,16 @@
+<template>
+    
+    <div class="slds-is-relative">
+
+        <lightning-button-icon if:false={noIcon} class="slds-var-m-left_xx-small" variant="bare" icon-name="utility:info" onmouseover={handleMouseover} onmouseout={handleMouseout}>
+        </lightning-button-icon>
+
+        <section class={popoverClass}>
+            <div class="slds-popover__body">
+                <lightning-formatted-rich-text value={content} class="rich-text"></lightning-formatted-rich-text>
+            </div>
+        </section>
+
+    </div>
+
+</template>

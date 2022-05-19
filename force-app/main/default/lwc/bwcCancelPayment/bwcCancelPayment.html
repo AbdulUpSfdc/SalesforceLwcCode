@@ -1,0 +1,28 @@
+<template>
+
+    <c-bwc-wizard steps={wizardSteps} default-title="<b>Retrieving Payment Details</b>" is-quick-action is-full-page onclose={handleWizardClose}>
+
+        <!-- Review panel -->
+        <span slot="panel0">
+
+            <div class="slds-grid slds-grid_vertical">
+
+                <div class="slds-text-heading_small section-header">
+                    Payment Details
+                </div>
+
+                <div class="section-body">
+
+                    <c-bwc-payment-details class="slds-m-top_medium" payment-details={pendingPaymentDetails}></c-bwc-payment-details>
+
+                </div>
+
+                <c-bwc-read-panel text={label.confirm}></c-bwc-read-panel>
+
+            </div>
+
+        </span>
+
+    </c-bwc-wizard>
+
+</template>

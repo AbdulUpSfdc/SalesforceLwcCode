@@ -1,0 +1,72 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <div class="slds-form-element">
+    <label class="slds-form-element__label" for="raisrInputId">
+      <abbr class="slds-required" title="required">* </abbr>
+      {label}
+    </label>
+    <div
+      class={attemptClasses}
+      role="tooltip"
+      id="raisrAttemptsPopup"
+      style={helperPopupStyle}
+    >
+    <div class="slds-popover__body">
+        <p if:true={attempt}>Smart-trys: {attempt}.</p>
+        <p>
+          Focus speech recognition by clicking 
+          into or touching this smart-field
+        </p>
+      </div>
+    </div>
+
+    <div
+      aria-describedby="raisrAttemptsPopup"
+      class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right"
+    >
+      <input
+        type="text"
+        id="raisrInputId"
+        class={inputClasses}
+        aria-describedby="raisrInputHelp"
+        placeholder={placeHolder}
+        pattern={pattern}
+        onfocus={onfocus}
+        onblur={onblur}
+        onchange={onchange}
+        oninput={oninput}
+        onmouseenter={onmouseenter}
+        onmouseleave={onmouseleave}
+        value={visibleValue}
+        onkeydown={onKeyDown}
+        onkeyup={onKeyUp}
+        onkeypress={onKeyPress}
+        onpaste={onpaste}
+      />
+      <button
+        class="slds-button slds-button_icon slds-input__icon slds-input__icon_right slds-icon_x-small icon-button"
+        title="Smart Field Status"
+        onclick={changeMode}
+        onmouseenter={changeMode}
+        onmouseleave={changeMode}
+      >
+      <!-- class="slds-button__icon slds-icon-text-light raisr-complete" -->
+      <svg
+          aria-hidden="true"
+          label="Smart Field"
+          class={icon.classes}
+        >
+          <use xlink:href={icon.icon}></use>
+        </svg>
+        <span class="slds-assistive-text">Smart Field Status</span>
+      </button>
+    </div>
+    <div class={inputHelp.classes} id="raisrInputHelp">{inputHelp.text}</div>
+  </div>
+
+  <c-bwc-raisr-msg-pub-sub-cmp 
+    parent-id="bwcRaisrField"
+    onraisrevent={onRaisrEvent}
+  ></c-bwc-raisr-msg-pub-sub-cmp>
+
+</template>

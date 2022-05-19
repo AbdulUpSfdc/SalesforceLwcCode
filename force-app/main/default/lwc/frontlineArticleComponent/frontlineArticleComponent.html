@@ -1,0 +1,123 @@
+<template>
+    <div class="fontLine-main">
+    <lightning-layout multiple-rows="true">
+      <lightning-layout-item class="chevronDivLeft slds-p-top_small" size="1" small-device-size="1" medium-device-size="1" large-device-size="1">
+            <div onclick={handlePrev} class="chevronLeftArrow">
+                <lightning-icon icon-name="utility:chevronleft" variant="border-filled" title="Previous" >
+                </lightning-icon>
+            </div>
+        </lightning-layout-item>      
+        <lightning-layout-item  class="slds-p-top_medium" size="10" small-device-size="10" medium-device-size="10" large-device-size="10">       
+            <template if:false={viewAsArticlesFound}>
+                <lightning-layout-item size="4" small-device-size="4" medium-device-size="4" large-device-size="12">
+                    <div class="slds-p-top_large slds-var-p-bottom_large slds-p-horizontal_x-small">
+                        No frontline articles found for selected View As Filters
+                    </div>
+                </lightning-layout-item>
+            </template>    
+            <template if:true={viewAsArticlesFound}>
+
+            <div class="slds-carousel the-div">
+                            <div class="slds-carousel__stage the-div">
+                                <div class="slds-carousel__panels" style="transform:translateX(-0%)">
+                                    <template if:true={selectedArticle}>
+                                        <div key={selectedArticle.compId}
+                                            id={selectedArticle.compId} 
+                                            class="slds-carousel__panel" 
+                                            role="tabpanel" 
+                                            aria-hidden="true" 
+                                            aria-labelledby="indicator-id-01">
+                                            <div class="slds-carousel__image column left holder" style={imageheight} id={selectedArticle.compId} onclick={handleClick} >
+                                                <img class="impage-dimnesion-l" src={selectedArticle.previewImage} alt={selectedArticle.title}/>
+    
+                                            </div>
+
+                                            <div>
+                                                <div class="row1">
+                                                    <br/>
+                                                    <div style="display:inline-flex; align-items: center;width:100%;">
+                                                        <p href="javascript:void(0)" class="frontline-header-l slds-truncate" id={selectedArticle.compId} onclick={handleClick}>
+                                                            {selectedArticle.title}
+                                                        </p>
+                                                        &nbsp;&nbsp;&nbsp;
+                                                        <lightning-badge if:false={selectedArticle.isRead}
+                                                            label="Unread"
+                                                            class="unread-badge">
+                                                        </lightning-badge>
+                                                    </div>
+                                                    <template if:true={largeDevice}> <br/><br/></template>  
+                                                    <div class={txtSize_sub} style="height: 46px;">
+                                                        <lightning-formatted-rich-text
+                                                            value={selectedArticle.summary}
+                                                        ></lightning-formatted-rich-text>
+                                                    </div>
+                                                </div>
+                                                <template if:true={largeDevice}><br/></template>  
+                                                <div class="header-border"></div>
+                                                <lightning-layout class="largeDevicePading" multiple-rows="true" >
+                                                    <lightning-layout-item  size="12" small-device-size="12" large-device-size="8" medium-device-size="12">
+                                                        <div style="display: inline-flex;">
+                                                            <div style="display:inline-flex">
+                                                                <div if:true={selectedArticle.cspId} class="frontline-text-footer slds-truncate">{selectedArticle.cspId}</div>
+                                                                &nbsp;&nbsp;&nbsp;
+                                                            </div>
+                                                            <span style="display:inline-flex">
+                                                                <div class="frontline-text-footer"><strong>Published:</strong></div>
+                                                                &nbsp;
+                                                                <span class="frontline-text-footer">{selectedArticle.updateddate}</span>
+                                                                &nbsp;&nbsp;&nbsp;
+                                                            </span>
+                                                           <!-- <span style="display:inline-flex">
+                                                                <div class="frontline-text-footer"><strong>Valid?</strong></div>
+                                                                &nbsp;
+                                                                <span class="frontline-text-footer">{selectedArticle.validity}</span>
+                                                                
+                                                                &nbsp;&nbsp;&nbsp;
+                                                            </span>
+                                                        -->
+                                                        </div>
+                                                    </lightning-layout-item>
+                                                    <lightning-layout-item size="12" small-device-size="12" large-device-size="4" medium-device-size="12">
+                                                        <div class="paddingDiv">
+                                                            <div class="frontline-text-footer-sec" style="float: right;">
+                                                                <lightning-icon icon-name="utility:like" 
+                                                                size="x-small" title="Like">
+                                                                </lightning-icon>
+                                                                &nbsp;
+                                                                {selectedArticle.likeCount}
+                                                                &nbsp;&nbsp;&nbsp;
+                                                            </div>
+                                                            <span class="frontline-text-footer-sec" style="float: right;">
+                                                                <lightning-icon icon-name="utility:share_post" size="x-small" alternative-text="Comment" title="Comment">
+                                                                </lightning-icon>
+                                                                &nbsp;
+                                                                {selectedArticle.messageCount}
+                                                                &nbsp;&nbsp;&nbsp;
+                                                            </span>
+                                                            <span class="frontline-text-footer-sec" style="float: right;">
+                                                                <lightning-icon class="frontline-icon" icon-name="utility:preview" size="x-small" alternative-text="Preview" title="Preview">
+                                                                </lightning-icon>
+                                                                &nbsp;
+                                                                {selectedArticle.previewCount}
+                                                                &nbsp;&nbsp;&nbsp;
+                                                            </span>
+                                                        </div>
+                                                    </lightning-layout-item>
+                                                </lightning-layout>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </template>   
+            </lightning-layout-item>     
+            <lightning-layout-item class="chevronDivRight slds-p-top_x-small" size="1" small-device-size="1" medium-device-size="1" large-device-size="1">
+                        <div onclick={handleNext} class="chevronRightArrow">
+                        <lightning-icon icon-name="utility:chevronright" variant="border-filled" title="Next">
+                                </lightning-icon>
+                        </div>
+            </lightning-layout-item>
+    </lightning-layout>
+    </div>
+</template>

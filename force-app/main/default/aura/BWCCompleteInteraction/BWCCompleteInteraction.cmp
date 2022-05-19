@@ -1,0 +1,16 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+    <aura:html tag="style">
+        .slds-p-around--medium { padding: 0 !important; } .slds-modal__content { height: unset !important; }
+        .cuf-content { padding: 0 !important; }
+    </aura:html>
+
+    <lightning:workspaceAPI aura:id="workspace" />
+
+    <!-- Displays the modal content to input Notes and save the interaction. -->
+    <c:bwcSaveInteraction
+        aura:id="saveInteraction"
+        recordId="{!v.recordId}"
+        onclosequickaction="{!c.closeQuickAction}"
+        onclosetab="{!c.closeTab}"
+    ></c:bwcSaveInteraction>
+</aura:component>

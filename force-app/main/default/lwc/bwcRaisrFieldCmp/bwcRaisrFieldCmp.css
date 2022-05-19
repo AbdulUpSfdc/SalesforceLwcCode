@@ -1,0 +1,64 @@
+.icon-button {
+  box-shadow: none;
+}
+
+/* input {
+  border: 1px solid rgb(221, 219, 218);
+  border-radius: 0.25rem;
+} */
+
+input[type="text"]:read-only {
+  background-color: var(--sds-c-input-color-background, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));
+  border: 1px solid rgb(221, 219, 218);
+  border-radius: 0.25rem;
+  padding-left: var(--sds-c-input-spacing-horizontal-start, var(--lwc-spacingSmall,0.75rem));
+}
+
+input[type="text"]:read-only.ro-disabled {
+  /* background-color: hsl(30, 5%, 92%) !important; */
+  background-color: #F5F5F5 !important;
+}
+
+.error-message {
+  color: #ea001e;
+}
+.show-cursor {
+  caret-color: auto;
+}
+
+.hide-cursor {
+  caret-color: transparent;  
+/**
+  color: transparent;
+  text-shadow: 0 0 0 #2196f3;
+**/
+  /* 
+  &:focus {
+      outline: none;
+  } */
+}
+
+.raisr-active {
+  --wave-color: #1d2329;
+  color: var(--wave-color);
+}
+
+.raisr-recieving {
+  --wave-color: #0176d3;
+  color: var(--wave-color);
+}
+
+.raisr-complete {
+  --wave-color: #41b658;
+  color: var(--wave-color);
+}
+
+.raisr-error {
+  --wave-color: #ba0517;
+  color: var(--wave-color);
+}
+
+.raisr-disabled {
+  --wave-color: lightgrey; /*#e5e5e5;*/
+  color: var(--wave-color);
+}

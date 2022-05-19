@@ -1,0 +1,18 @@
+<aura:component controller="knowledgeResetFRDController" implements="forceCommunity:availableForAllPageTypes,force:hasRecordId,flexipage:availableForRecordHome,force:lightningQuickAction" access="global" >
+	<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:attribute name="knowledge" type="Knowledge__kav"/>
+    <aura:attribute name="errors" type="Object"/>
+   
+    <!--Lightning QuickAction (API) without modal -->
+    <aura:html tag="style">
+    .slds-backdrop {
+    background: rgba(43, 40, 38, 0) !important;  
+    }
+    .slds-fade-in-open {
+    display:none !important;
+   }
+	</aura:html>
+
+  <!-- <lightning:button variant="brand" label="Publish" onclick="{!c.updatePublicationStatus}"/> -->
+
+</aura:component>

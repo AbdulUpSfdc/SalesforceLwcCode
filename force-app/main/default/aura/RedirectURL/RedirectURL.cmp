@@ -1,0 +1,6 @@
+<!-- Description: Component redirects to URL parameters mentioned in redirectURL attribute.Currently utilized in Change Store Visual Flow -->
+<!-- Author: Srinivas Vallepu -->
+<aura:component implements="lightning:availableForFlowActions" access="global">
+    <aura:attribute name="redirectURL" type="String"/>
+  
+</aura:component>

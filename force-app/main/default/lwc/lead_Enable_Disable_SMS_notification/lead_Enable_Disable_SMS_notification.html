@@ -1,0 +1,12 @@
+<template>
+    <lightning-card >
+        <div class="slds-m-around_medium slds-grid slds-wrap">
+            <lightning-input type="toggle" 
+                             label="Enable/Disable"
+                             checked={isEnabled}
+                             onchange={handleChange}></lightning-input>  
+           <lightning-helptext class="slds-m-left_small" content="By opting in, you will receive a bell notification of the list of reps who haven't responded to SMS on daily basis."></lightning-helptext>
+           
+        </div>
+    </lightning-card>
+</template>

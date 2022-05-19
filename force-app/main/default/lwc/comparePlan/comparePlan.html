@@ -1,0 +1,32 @@
+<template>
+  <lightning-card>
+    <h1 slot="title" class="slds-align_absolute-center">
+      {header}
+    </h1>
+
+    <div class="slds-grid slds-scrollable_x slds-m-around_xx-small">
+      <div class="slds-col slds-shrink-none"> 
+        <div class="slds-grid slds-grid_vertical">
+            <template for:each={keys} for:item="key">
+              <div key={key.key}>
+                <c-compare-selection label field="label" record={key}></c-compare-selection>
+              </div>
+            </template>
+          </div>
+        </div>
+
+
+      <template for:each={records} for:item="record">    
+        <div class="slds-col slds-shrink-none" key={record.id}> 
+          <div class="slds-grid slds-grid_vertical"> 
+            <template for:each={keys} for:item="key"> 
+              <div class="slds-col" key={key.key}>                                                                                
+                <c-compare-selection field={key.key} record={record}></c-compare-selection> 
+              </div>  
+            </template>  
+          </div>
+        </div>
+      </template>
+    </div>
+  </lightning-card>  
+</template>

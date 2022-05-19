@@ -1,0 +1,38 @@
+.button-radius {
+  --sds-c-button-radius-border: 0.25rem !important;
+  --sds-c-button-brand-color-background: orange;
+  --sds-c-button-brand-color-border: orange;
+}
+.delete-icon{
+ --sds-c-button-radius-border: 50% !important;
+ --sds-c-button-color-background: #CD7F7F;
+ --sds-c-button-color-border: #CD7F7F;
+}
+.moveup-icon{
+ --sds-c-button-radius-border: 50% !important;
+ --sds-c-button-color-background: #AEBBC4;
+ --sds-c-button-color-border: #AEBBC4;
+}
+.setarrived-icon{
+ --sds-c-button-radius-border: 50% !important;
+ --sds-c-button-color-background: #84C2B7;
+ --sds-c-button-color-border: #84C2B7;
+}
+.setpending-icon{
+ --sds-c-button-radius-border: 50% !important;
+ --sds-c-button-color-background: #586987;
+ --sds-c-button-color-border: #586987;
+}
+.assignrep-icon{
+ --sds-c-button-radius-border: 50% !important;
+ --sds-c-button-color-background: #3C61A5;
+ --sds-c-button-color-border: #3C61A5;
+}
+.marknoshow-icon{
+ --sds-c-button-radius-border: 50% !important;
+ --sds-c-button-color-background: #3C61A5;
+ --sds-c-button-color-border: #3C61A5;
+}
+.bg{
+  background-color:white !important;
+}

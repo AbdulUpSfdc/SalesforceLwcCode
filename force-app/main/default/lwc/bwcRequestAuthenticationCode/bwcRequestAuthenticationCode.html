@@ -1,0 +1,46 @@
+<template>    
+        <article class="slds-card" style="background-color: #525988;">
+            <!--Error Design-->
+            <template if:true={showErrors}>
+                <div style="min-height: 50px;background-color:red; color: white; text-align:center; padding-top:15px">
+                    {errorMessage}
+                    <span class="slds-icon_container slds-icon-utility-close slds-current-color" title="Close" style="float: right; margin-right: 1%; cursor:pointer" onclick={clearErrors}>
+                        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                        <use xlink:href="/apexpages/slds/latest/assets/icons/action-sprite/svg/symbols.svg#close"></use>
+                        </svg>
+                        <span class="slds-assistive-text">Close</span>
+                    </span>
+                </div>
+            </template>
+          
+    <template if:true={showRSAScreen}>   
+            <div style="width: 100%; margin:auto;background:#2E5773">
+                <template if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading..." size="large" variant="brand"></lightning-spinner>
+                </template>
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-3">
+                        <!--empty col-->
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 mainContent">
+                        <h3>Authentication Code</h3>
+                        <button class="slds-button slds-button_neutral slds-button_stretch" aria-label="Auth Code" onclick={generateToken} disabled={disableGeneration}>Generate Token</button>
+                        <template if:true={showToken}>
+                            <h4> These two pieces of information will be required to validate when you call the internal group that needs to authenticate your identification.</h4>
+                            <label class="slds-form-element__label">Token Serial Number</label>
+                            <input type="text" disabled value={serialNum} class="slds-input"/>
+                            <label class="slds-form-element__label">Token Code</label>
+                            <input type="text" disabled value={tokenCode} class="slds-input"/>
+                            <p class="expiryText">Code Expires in</p>
+                            <p class="timer">{timer}</p>
+                        </template>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <!--empty col-->
+                    </div>
+                </div>
+            </div>
+            
+    </template>
+        </article>
+</template>

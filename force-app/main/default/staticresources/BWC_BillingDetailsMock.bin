@@ -1,0 +1,320 @@
+{
+    "content": {
+        "billInfo": {
+            "cycleStDate": "2018-01-29",
+            "cycleEndDate": "2018-02-28",
+            "ban": "325310161",
+            "address": {
+                "name": "ROBERT B. PENLAND",
+                "addressLines": [
+                    "13218 GLAD ACRES DR",
+                    "FARMERS BRNCH, TX 75234-5201"
+                ]
+            },
+            "fanID": "",
+            "bbInstance": "01",
+            "billngSystem": "TLG",
+            "marketZone": "DLS",
+            "billingMethod": "AR",
+            "paperBillInd": "F",
+            "autoPayInd": "Y"
+        },
+        "billSummary": {
+            "totalPayments": {
+                "amt": "0.00",
+                "descList": [
+                    "Payments"
+                ],
+                "amtInd": "",
+                "type": "PAYMENT"
+            },
+            "totalAdjustments": {
+                "amt": "0.00",
+                "descList": [
+                    "Adjustments"
+                ],
+                "amtInd": "",
+                "type": "ADJUSTMENT"
+            },
+            "prevBal": {
+                "amt": "182.13",
+                "descList": [
+                    "Your last bill"
+                ],
+                "amtInd": ""
+            },
+            "newChrgs": {
+                "amt": "37.93",
+                "descList": [
+                    "Service summary"
+                ],
+                "amtInd": "",
+                "type": "NEW_CHARGES"
+            },
+            "totChrgs": {
+                "amt": "220.06",
+                "descList": [
+                    "Total"
+                ],
+                "amtInd": "",
+                "type": "TOTAL_AMT_DUE"
+            },
+            "rmningBal": {
+                "amt": "182.13",
+                "descList": [
+                    "Remaining balance"
+                ],
+                "amtInd": "",
+                "type": "BALANCE"
+            },
+            "prevRmningBal": {
+                "amt": "144.20",
+                "type": "PREV_BALANCE"
+            },
+            "amountDueMsg": [
+                "",
+                ""
+            ]
+        },
+        "wirelessChrgs": {
+            "wirelessServiceDesc": "Wireless",
+            "totalWirelessServiceAmt": {
+                "amt": "37.93",
+                "descList": [
+                    "Total"
+                ],
+                "amtInd": ""
+            },
+            "prevWirelessServiceAmt": {
+                "amt": "37.93"
+            },
+            "varWirelessServiceAmt": {
+                "amt": "0.00"
+            },
+            "wirelessServiceList": [
+                {
+                    "serviceDesc": "ROBERT B. PENLAND",
+                    "totalServiceAmt": {
+                        "amt": "37.93",
+                        "descList": [
+                            "Total"
+                        ],
+                        "amtInd": ""
+                    },
+                    "prevServiceAmt": {
+                        "amt": "37.93"
+                    },
+                    "varServiceAmt": {
+                        "amt": "0.00"
+                    },
+                    "sectionBeanList": [
+                        {
+                            "sectionDesc": "Monthly charges",
+                            "totalSectAmt": {
+                                "amt": "29.99",
+                                "descList": [
+                                    ""
+                                ],
+                                "amtInd": ""
+                            },
+                            "chargeList": [
+                                {
+                                    "date1": "2018-03-01",
+                                    "date2": "2018-03-28",
+                                    "amt": "29.99",
+                                    "descList": [
+                                        "Nation 300 with Rollover"
+                                    ],
+                                    "amtInd": "",
+                                    "type": "MONTHLY_CHARGES_DETAILS"
+                                },
+                                {
+                                    "date1": "2018-03-01",
+                                    "date2": "2018-03-28",
+                                    "amt": "0.00",
+                                    "descList": [
+                                        "International Roaming - Expanded"
+                                    ],
+                                    "amtInd": "",
+                                    "type": "MONTHLY_CHARGES_DETAILS"
+                                },
+                                {
+                                    "date1": "2018-03-01",
+                                    "date2": "2018-03-28",
+                                    "amt": "0.00",
+                                    "descList": [
+                                        "Data Usage Block"
+                                    ],
+                                    "amtInd": "",
+                                    "type": "MONTHLY_CHARGES_DETAILS"
+                                },
+                                {
+                                    "date1": "2018-03-01",
+                                    "date2": "2018-03-28",
+                                    "amt": "0.00",
+                                    "descList": [
+                                        "Pay Per Use Picture/Video Messaging"
+                                    ],
+                                    "amtInd": "",
+                                    "type": "MONTHLY_CHARGES_DETAILS"
+                                }
+                            ],
+                            "prevSectAmt": {
+                                "amt": "29.99"
+                            },
+                            "varSectAmt": {
+                                "amt": "0.00"
+                            },
+                            "type": "MONTHLY"
+                        },
+                        {
+                            "sectionDesc": "Surcharges & fees",
+                            "totalSectAmt": {
+                                "amt": "4.55",
+                                "descList": [
+                                    ""
+                                ],
+                                "amtInd": "",
+                                "type": "SUB_TOTAL"
+                            },
+                            "chargeList": [
+                                {
+                                    "date1": "",
+                                    "date2": "",
+                                    "amt": "0.76",
+                                    "descList": [
+                                        "Administrative Fee"
+                                    ],
+                                    "amtInd": "",
+                                    "type": "SURCHARGES"
+                                },
+                                {
+                                    "date1": "",
+                                    "date2": "",
+                                    "amt": "1.74",
+                                    "descList": [
+                                        "Federal Universal Service Charge"
+                                    ],
+                                    "amtInd": "",
+                                    "type": "SURCHARGES"
+                                },
+                                {
+                                    "date1": "",
+                                    "date2": "",
+                                    "amt": "1.25",
+                                    "descList": [
+                                        "Regulatory Cost Recovery Charge"
+                                    ],
+                                    "amtInd": "",
+                                    "type": "SURCHARGES"
+                                },
+                                {
+                                    "date1": "",
+                                    "date2": "",
+                                    "amt": "0.08",
+                                    "descList": [
+                                        "State Cost-Recovery Fee"
+                                    ],
+                                    "amtInd": "",
+                                    "type": "SURCHARGES"
+                                },
+                                {
+                                    "date1": "",
+                                    "date2": "",
+                                    "amt": "0.72",
+                                    "descList": [
+                                        "Texas Universal Service"
+                                    ],
+                                    "amtInd": "",
+                                    "type": "SURCHARGES"
+                                }
+                            ],
+                            "prevSectAmt": {
+                                "amt": "4.55"
+                            },
+                            "varSectAmt": {
+                                "amt": "0.00"
+                            },
+                            "type": "SURCHARGE"
+                        },
+                        {
+                            "sectionDesc": "Government taxes & fees",
+                            "totalSectAmt": {
+                                "amt": "3.39",
+                                "descList": [
+                                    ""
+                                ],
+                                "amtInd": "",
+                                "type": "SUB_TOTAL"
+                            },
+                            "chargeList": [
+                                {
+                                    "date1": "",
+                                    "date2": "",
+                                    "amt": "0.50",
+                                    "descList": [
+                                        "9-1-1 Service Fee"
+                                    ],
+                                    "amtInd": "",
+                                    "type": "TAXES"
+                                },
+                                {
+                                    "date1": "",
+                                    "date2": "",
+                                    "amt": "0.06",
+                                    "descList": [
+                                        "911 Equalization Surcharge"
+                                    ],
+                                    "amtInd": "",
+                                    "type": "TAXES"
+                                },
+                                {
+                                    "date1": "",
+                                    "date2": "",
+                                    "amt": "0.34",
+                                    "descList": [
+                                        "City District Sales Tax - Telecom"
+                                    ],
+                                    "amtInd": "",
+                                    "type": "TAXES"
+                                },
+                                {
+                                    "date1": "",
+                                    "date2": "",
+                                    "amt": "0.34",
+                                    "descList": [
+                                        "City Sales Tax - Telecom"
+                                    ],
+                                    "amtInd": "",
+                                    "type": "TAXES"
+                                },
+                                {
+                                    "date1": "",
+                                    "date2": "",
+                                    "amt": "2.15",
+                                    "descList": [
+                                        "TX State Sales Tax - Telecom"
+                                    ],
+                                    "amtInd": "",
+                                    "type": "TAXES"
+                                }
+                            ],
+                            "prevSectAmt": {
+                                "amt": "3.39"
+                            },
+                            "varSectAmt": {
+                                "amt": "0.00"
+                            },
+                            "type": "GOV_TAX"
+                        }
+                    ],
+                    "ctn": "214-538-5080",
+                    "ctnUser": "ROBERT B. PENLAND",
+                    "group": false,
+                    "nbrOfDevices": 1
+                }
+            ]
+        },
+        "billFound": true
+    }
+}

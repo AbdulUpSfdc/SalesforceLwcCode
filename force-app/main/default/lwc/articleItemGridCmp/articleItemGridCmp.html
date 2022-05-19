@@ -1,0 +1,79 @@
+<template>
+    <lightning-layout>
+        <div class="content">
+            <template if:true={article.previewImage}>
+                <a href={url} onclick={navigateToArticle}>
+                    <div style={backgroundStyle} class="article-image"></div>
+                </a>
+            </template>
+            <div class="slds-p-vertical_x-small slds-p-horizontal_small">
+                <template if:true={article.recommended}>
+                    <lightning-badge label="Recommended" class="article-badge-recommended"></lightning-badge>
+                </template>
+                <template if:false={article.isRead}>
+                    <lightning-badge label="Unread" class="article-badge-unread"></lightning-badge>
+                </template>
+                <template if:true={article.isUrgent}>
+                    <lightning-badge label="Urgent" class="article-badge-urgent"></lightning-badge>
+                </template>
+
+            </div>
+            <div class="article-title slds-p-vertical_x-small slds-p-horizontal_small slds-truncate">
+                <template if:false={hasSnippetTitle}>
+                    <a href={url} onclick={navigateToArticle} style="color:black;">{article.title}</a>
+                </template>
+            </div>
+            <div class="article-cspid slds-p-horizontal_small ">
+                <ul class="slds-list_horizontal ">
+                    <div class="slds-truncate">
+                        <template if:true={article.myCspName}>
+                            {article.myCspName}&nbsp;&nbsp;
+                        </template>
+                        <div class="bold-items">Published</div>&nbsp;{article.lastPublishedDateString}&nbsp;&nbsp;
+                       <!--  <div class="bold-items">Valid</div>&nbsp;{article.validDates}
+                        <div class="slds-grid">
+                    <div class="slds-col ">
+                        #{article.myCspName}
+                    </div>
+                    <div class="slds-col slds-truncate">
+                        <div class="bold-items">Updated</div> {article.lastPublishedDateString}
+                    </div>
+                    <div class="slds-col  slds-p-right_xxx-small slds-truncate">
+                        <div class="bold-items">Valid</div> {article.validDates}
+                    </div>
+                </div> -->
+                    </div>
+                </ul>
+            </div>
+            <p class={summaryCss}>
+                <lightning-formatted-rich-text value={article.summary}></lightning-formatted-rich-text>
+            </p>
+            <div class="article-stats slds-p-vertical_x-small">
+                <ul class="slds-list_horizontal slds-has-dividers_right">
+                    <div class="slds-grid">
+                        <div class="slds-col">
+                            <lightning-icon icon-name="utility:preview" alternative-text="Preview" title="Preview"
+                                size="x-small">
+                            </lightning-icon>
+                            &nbsp;&nbsp;{article.viewCount}
+                        </div>
+                        <div class="slds-col slds-p-left_large">
+                            <lightning-icon icon-name="utility:quick_text" alternative-text="Message" title="Message"
+                                size="x-small">
+                            </lightning-icon>
+                            &nbsp;&nbsp;{article.commentCount}
+                        </div>
+                        <div class="slds-col slds-p-left_large">
+                            <lightning-icon icon-name="utility:like" alternative-text="Like" title="Like"
+                                size="x-small">
+                            </lightning-icon>
+                            &nbsp;&nbsp;{article.likeCount}
+                        </div>
+                    </div>
+                </ul>
+            </div>
+
+
+        </div>
+    </lightning-layout>
+</template>

@@ -1,0 +1,115 @@
+<template>
+    <div class="slds-box">
+
+        <lightning-layout class="slds-var-m-bottom_small" horizontal-align="spread">
+            <lightning-layout-item size="5">
+
+                <p if:false={showForm}>
+                    You Entered <br>
+                    <strong >
+                        <lightning-formatted-text value={searchTerm} ></lightning-formatted-text>
+                    </strong>
+
+                    <br>
+                    <br>
+
+                    <lightning-button
+                        if:false={showForm}
+                        onclick={handleSearchAgain}
+                        label="Edit Address" >
+                    </lightning-button>
+                </p>
+
+                <div if:true={showForm} class="slds-grid slds-grid_vertical">
+                    <div>
+                        <lightning-input
+                            data-id="streetAddress"
+                            label="Street Address"
+                            placeholder="Street Address"
+                            variant="label-inline"
+                            autocomplete="off"
+                            value={enteredStreetAddress}
+                            onchange={handleInputChange}>
+                        </lightning-input>
+                    </div>
+
+                    <div>
+                        <lightning-input
+                            data-id="aptUnitNo"
+                            label="Apt/Unit #"
+                            placeholder="Apt or unit #"
+                            variant="label-inline"
+                            autocomplete="off"
+                            value={enteredAptUnitNo}
+                            onchange={handleInputChange}>
+                        </lightning-input>
+                    </div>
+
+                    <div>
+                        <lightning-input
+                            data-id="city"
+                            label="City"
+                            variant="label-inline"
+                            placeholder="City"
+                            autocomplete="off"
+                            value={enteredCity}
+                            onchange={handleInputChange}>
+                        </lightning-input>
+                    </div>
+
+                    <div>
+                        <lightning-combobox
+                            data-id="state"
+                            label="State"
+                            placeholder="Select a State"
+                            variant="label-inline"
+                            options={states}
+                            value={enteredState}
+                            onchange={handleInputChange}>
+                        </lightning-combobox>
+                    </div>
+
+                    <div>
+                        <lightning-input
+                            data-id="zipCode"
+                            label="Zip Code"
+                            placeholder="Zip Code"
+                            variant="label-inline"
+                            autocomplete="off"
+                            pattern="^(\d{5}(-\d{4})?|[A-Z]\d[A-Z] ?\d[A-Z]\d)$"
+                            message-when-pattern-mismatch="Not a valid ZIP Code."
+                            value={enteredZipCode}
+                            onchange={handleInputChange} >
+                        </lightning-input>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <lightning-button
+                    if:true={showForm}
+                    onclick={handleNewAddress}
+                    label="Search Again" >
+                </lightning-button>
+            </lightning-layout-item>
+
+            <lightning-layout-item>
+                <lightning-button
+                    onclick={handleNewSearch}
+                    label="Conduct New Search">
+                </lightning-button>
+            </lightning-layout-item>
+        </lightning-layout>
+
+        <!-- TODO: add sort functionality -->
+        <c-bwc-datatable
+            key-field="id"
+            data={addresses}
+            columns={columns}
+            column-widths-mode="auto"
+            hide-checkbox-column>
+        </c-bwc-datatable>
+
+    </div>
+</template>

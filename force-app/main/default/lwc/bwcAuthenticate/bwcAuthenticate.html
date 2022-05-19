@@ -1,0 +1,113 @@
+<template>
+
+    <div class="slds-grid slds-grid_vertical slds-is-relative" style="align-items: center;">
+
+        <c-bwc-notifications onactionclick={handleActionClick}></c-bwc-notifications>
+
+        <template if:true={isSelectedBanPrepaid}>
+            <c-bwc-prepaid-notification class="slds-var-m-vertical_small"></c-bwc-prepaid-notification>
+        </template>
+
+        <div if:true={isBusy}>
+            <lightning-spinner alternative-text="Loading..." size="large"></lightning-spinner>
+        </div>
+
+        <div if:true={showBypassButton} class="slds-var-m-top_small slds-grid slds-grid_vertical slds-align_absolute-center">
+
+            <lightning-button label="Bypass" onclick={handleBypass}></lightning-button>
+            <div class="slds-var-p-vertical_small">or</div>
+
+        </div>
+
+        <div class="content-panel">
+            <lightning-layout>
+
+                <lightning-layout-item size="12">
+                    <lightning-combobox
+                        class="slds-var-m-bottom_x-small"
+                        label={labels.account} placeholder="Select Billing Account" dropdown-alignment="auto"
+                        required message-when-value-missing="Please select a Billing Account"
+                        disabled={disableBanSelection}
+                        options={billingAccountOptions} 
+                        value={selectedBillingAccountId}
+                        onchange={handleBillingAccountSelected}>
+                    </lightning-combobox>
+                </lightning-layout-item>
+
+            </lightning-layout>
+            
+            <!-- BAN is selected but no methods are available. -->
+            <div if:true={showNoAuthenticationMethods} class="slds-align_absolute-center slds-text-color_error">
+                <lightning-layout>
+                    <lightning-layout-item size="12">
+                    {labels.noAuthenticationOptionsMessage}
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+
+            <template if:true={showAuthenticationMethods}>
+                <lightning-layout>
+                    <lightning-layout-item size="12">
+                        <!-- BAN is selected and methods are available. -->
+                        <lightning-combobox label="Authentication Type" placeholder="Select Authentication Type"
+                            autocomplete="off" options={authenticationMethodOptions} value={selectedAuthenticationMethod} disabled={disableAuthenticationMethodSelection} onchange={handleAuthenticationMethodChange}>
+                        </lightning-combobox>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </template>
+
+            <!-- Passcode -->
+            <template if:true={isAuthenticationMethodPasscode}>
+                <lightning-layout>
+                    <lightning-layout-item size="12">
+                        <lightning-input class="slds-var-m-top_x-small" type="password" label="Customer's Passcode" value={passcodeEntered} onchange={handlePasscodeChange}></lightning-input>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </template>
+
+            
+            <!-- OTP -->
+            <template if:true={isAuthenticationMethodOtp}>
+                <lightning-layout>
+                    <lightning-layout-item size="12">
+                        <lightning-layout>
+                            <lightning-layout-item size="12">
+                                <lightning-combobox autocomplete="off" class="slds-var-m-top_x-small" label="Contact Method" options={otpContactMethodOptions} onchange={handleOtpContactMethodChange}></lightning-combobox>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="8" class="slds-p-top_large slds-p-left_medium">
+                                <lightning-button label="Send OTP" icon-name="utility:send" onclick={handleSendOtp} disabled={isDisabledSendOtp}></lightning-button>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                        <lightning-input class="slds-var-m-top_x-small" type="password" label="Customer's One-time Pin" disabled={isDisabledOtpEntry} value={otpPinEntered} onchange={handleOtpEntryChange}></lightning-input>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </template>
+
+            <!-- Confirm -->
+            <lightning-layout horizontal-align="center" class="slds-m-top_large slds-p-bottom_large">
+                <lightning-layout-item size="12">
+                    <lightning-layout if:false={isModal} horizontal-align="center">
+
+                        <div if:true={showLicButton}>
+                            <lightning-layout-item size="7">
+                                <lightning-button label="Authenticate in Legacy System" onclick={handleLic}></lightning-button>
+                            </lightning-layout-item>
+    
+                            <lightning-layout-item size="5" class="slds-p-left_x-small">
+                                <lightning-button label="Continue" variant="brand" disabled={isDisabledConfirm} onclick={handleConfirm}></lightning-button>
+                            </lightning-layout-item>
+                        </div>
+
+                        <div if:false={showLicButton}>
+                            <lightning-layout-item padding="around-small" size="12">
+                                <lightning-button label="Continue" variant="brand" disabled={isDisabledConfirm} onclick={handleConfirm}></lightning-button>
+                            </lightning-layout-item>
+                        </div>
+
+                    </lightning-layout>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+    </div>
+
+</template>

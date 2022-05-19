@@ -1,0 +1,11 @@
+.panel {
+    height: 100%;
+}
+
+.section {
+    background-color: var(--lwc-colorBackground);
+}
+
+footer {
+    display: none;
+}

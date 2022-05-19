@@ -1,0 +1,125 @@
+<template>
+    
+    <c-bwc-wizard steps={wizardSteps} default-title={wizardDefaultTitle} is-quick-action is-full-page onclose={handleWizardClose}>
+        
+        <lightning-spinner if:true={isLoading} alternative-text="Loading"></lightning-spinner>
+        
+        <div class="slds-var-m-bottom_x-small slds-grid slds-grid_align-center">
+            <c-bwc-notifications></c-bwc-notifications>
+        </div>
+
+        <!-- Charge Selector for Line Item Adjustments -->
+        <span slot="panel0">
+            <div data-name="chargeSelector" class="panel">
+
+                <c-bwc-make-adjustment-header
+                    is-goodwill={isGoodwill}
+                    customer-name={customerName}
+                    service-type={serviceType}
+                    creation-date={creationDate}
+                    how-to-apply={howToApply}
+                    account-number={accountNumber}
+                    billing-period={billingPeriod}
+                    bill-payment-status={billPaymentStatus}
+                ></c-bwc-make-adjustment-header>
+                
+                <c-bwc-make-adjustment-charge-selector
+                    record-id={recordId}
+                    account-number={accountNumber}
+                    service-type={serviceType}
+                    selected-statement-id={selectedStatementId}
+                    onerror={handleSubcomponentError}
+                    onload={handleSubcomponentLoading}
+                    onrowselection={handleChargeSelection}
+                ></c-bwc-make-adjustment-charge-selector>
+            </div>
+        </span>
+        
+        <!-- adjustmentDetails -->
+        <span slot="panel1">
+            <div data-name="adjustmentDetails" class="panel">
+
+                <!-- Account Billing Section -->
+                <c-bwc-make-adjustment-header
+                    is-goodwill={isGoodwill}
+                    customer-name={customerName}
+                    service-type={serviceType}
+                    creation-date={creationDate}
+                    how-to-apply={howToApply}
+                    account-number={accountNumber}
+                    billing-period={billingPeriod}
+                    bill-payment-status={billPaymentStatus}
+                ></c-bwc-make-adjustment-header>
+
+                <!-- Adjustment Details -->
+                <h1 class="slds-section__title slds-text-heading_small slds-var-p-vertical_small slds-theme_shade">
+                    <span class="slds-var-p-left_small" title="Selected Charges in Question">Selected Charges in Question</span>
+                </h1>
+
+                <template for:each={adjustmentLineItems} for:item="li">
+                    <c-bwc-make-adjustment-detail
+                        key={li.id}
+                        line-item-id={li.id}
+                        is-goodwill={isGoodwill}
+                        service-type={li.serviceType}
+                        service-product={li.serviceProduct}
+                        charge-code={li.chargeCode}
+                        charge-amount={li.chargeAmount}
+                        onvalidation={handleAdjustmentDetailValidation}
+                        onerror={handleSubcomponentError}
+                    ></c-bwc-make-adjustment-detail>
+                </template>
+            </div>
+        </span>
+
+        <!-- cdeRecommendations  -->
+        <span slot="panel2">
+            <div data-name="cdeRecommendations" class="panel">
+
+                <!-- Account Billing Section -->
+                <c-bwc-make-adjustment-header
+                    is-goodwill={isGoodwill}
+                    customer-name={customerName}
+                    service-type={serviceType}
+                    creation-date={creationDate}
+                    how-to-apply={howToApply}
+                    account-number={accountNumber}
+                    billing-period={billingPeriod}
+                    bill-payment-status={billPaymentStatus}
+                ></c-bwc-make-adjustment-header>
+
+                <!-- CDE Recommendations -->
+                <h3 class="slds-section__title section">
+                    <span class="slds-var-p-left_small" title="Selected Charges in Question">Selected Charges in Question</span>
+                </h3>
+
+                <!-- Info Panel -->
+                <div if:true={infoPanelText} class="slds-var-m-top_medium slds-box_small slds-theme_warning slds-size_full">
+                    <lightning-icon 
+                        class="slds-var-p-horizontal_small"
+                        icon-name="utility:warning"
+                        size="small">
+                    </lightning-icon>
+                    <span class="slds-text-body_small">{infoPanelText}</span>
+                </div>
+
+                <div class="slds-section__content"></div>
+                <template for:each={adjustmentLineItems} for:item="li">
+                    <c-bwc-make-adjustment-cde-recommendations
+                        key={li.id}
+                        line-item-id={li.id}
+                        is-goodwill={isGoodwill}
+                        how-to-apply={li.howToApply}
+                        cde-status={li.overallCDEStatus}
+                        amount-requested={li.requestedAmount}
+                        amount-approved={li.approvedAmount}
+                        read-to-customer-text={li.cdeReasonForCustomer}
+                        decision-status={li.decisionStatus}
+                        onagentdecision={handleAgentDecision}
+                    ></c-bwc-make-adjustment-cde-recommendations>
+                </template>
+
+            </div>
+        </span>
+    </c-bwc-wizard>
+</template>

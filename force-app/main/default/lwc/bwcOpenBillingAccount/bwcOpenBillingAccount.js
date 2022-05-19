@@ -1,0 +1,1 @@
+// This control is obsolete, code moved to bwcProductList.handleBillingAccountClick().

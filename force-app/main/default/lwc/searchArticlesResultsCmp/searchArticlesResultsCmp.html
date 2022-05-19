@@ -1,0 +1,78 @@
+<template>
+	<div style="background:white" name="mainDiv">
+		<template if:true={articles}>
+			<div class="slds-grid slds-p-around_large">
+				<div id="searchId" class="active-filter 
+				slds-text-body_medium ">
+					Active Filters:
+				</div>
+				<div
+					class="pill-text slds-float_left slds-col slds-medium-size_9-of-12 slds-large-size_9-of-12 slds-grid  slds-wrap">
+					<template for:each={filterPills} for:item="pill">
+						<div class="slds-p-bottom_small" key={pill.value}>
+							&nbsp;&nbsp;&nbsp;&nbsp;<lightning-pill key={pill.value} data-group={pill.group} data-value={pill.value}
+								label={pill.label} onremove={handleFilterRemoval}>
+							</lightning-pill>
+							<!-- <div class="slds-box slds-box_xx-small slds-col slds-size_1-of-10 slds-p-left_x-small"
+				                                                        key={pill.value} style="display: inline-block;">
+				                                                        {pill.label}
+				                                                </div> -->
+						</div>
+					</template>
+
+				</div>
+				<div class="slds-float_right slds-col slds-medium-size_2-of-12 slds-large-size_2-of-12  ">
+					<div class="slds-float_right">
+						<template if:true={showBackToTopButtonProperty}>
+
+							<button class="button-backtotop slds-button slds-button_neutral slds-p-horizontal_x-small "
+								title="Back to Top" onclick={handleBackToTop}>
+								Back to Top
+							</button>
+
+						</template>
+					</div>
+				</div>
+
+
+
+			</div>
+			<template if:false={isGridView}>
+				<template for:each={articles} for:item="article">
+					<div class="slds-p-horizontal_large slds-p-bottom_large" key={article.id}>
+						<c-article-item-cmp article={article} onarticleread={handleArticleRead}></c-article-item-cmp>
+					</div>
+				</template>
+			</template>
+			<template if:true={isGridView}>
+				<div class="slds-grid slds-wrap slds-gutters slds-p-horizontal_medium">
+					<template for:each={articles} for:item="article">
+						<div key={article.id} class="slds-col slds-p-bottom_large 
+						slds-size_1-of-2 slds-small-size_1-of-2 slds-medium-size_1-of-3 slds-large-size_1-of-5">
+							<c-article-item-grid-cmp article={article} onarticleread={handleArticleRead}></c-article-item-grid-cmp>
+						</div>
+					</template>
+				</div>
+			</template>
+			<div class="slds-align_absolute-center cmp-msg slds-text-body_medium slds-p-vertical_small">
+				<template if:true={articles.length}>
+					<template if:true={hasMoreArticles}>
+						<lightning-button variant="base" label={viewMoreLabel} title={viewMoreLabel}
+							onclick={handleMore} class="slds-m-left_x-small"></lightning-button>
+					</template>
+					<template if:false={hasMoreArticles}>
+						<template if:false={initialArticlesOnly}>
+							No Additional Articles
+						</template>
+					</template>
+				</template>
+				<template if:false={articles.length}>
+					<div class="blinker blink-no-results-css">
+						No Results Found. Please change search term (minimum 3 characters) or filters.
+					</div>
+				</template>
+			</div>
+		</template>
+	</div>
+	<br><br><br>
+</template>

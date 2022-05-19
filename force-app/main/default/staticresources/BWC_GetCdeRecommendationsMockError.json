@@ -1,0 +1,8 @@
+{
+    "node": "customer-icap-credit-sapi",
+    "code": 400,
+    "message": "CDE-522",
+    "description": "CDE-522-LINE data not found in data store",
+    "transactionId": "a8de6aa9-cad1-4ad8-9036-e3be88f7974c",
+    "traceId": "12349dc0-d547-48e2-93de-3cc8e4407b29"
+}

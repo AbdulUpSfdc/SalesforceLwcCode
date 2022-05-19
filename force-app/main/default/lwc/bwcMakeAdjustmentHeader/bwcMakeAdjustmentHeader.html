@@ -1,0 +1,84 @@
+<template>
+    <div class="slds-section slds-is-open">
+        <h1 class="slds-section__title slds-text-heading_small slds-var-p-vertical_small slds-theme_shade">
+            <span class="slds-var-p-left_small" title="Account Billing Information">Account Billing Information</span>
+        </h1>
+
+        <!-- Goodwill Adjustment -->
+        <div if:true={isGoodwill} class="slds-section__content slds-grid slds-gutters">
+            <div class="slds-col">
+                <!-- Customer Name -->
+                <div class="slds-var-p-around_small">
+                    <label class="slds-form-element__label">Customer Name</label>
+                    <div><strong><span>{customerName}</span></strong></div>
+                </div>
+
+                <!-- BAN/CPID -->
+                <div class="slds-var-p-around_small">
+                    <label class="slds-form-element__label">Service Type</label>
+                    <div class="slds-form-element__control">
+                        <span><strong>{serviceTypeLabel}</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-col">
+
+                 <!-- Creation Date -->
+                 <div class="slds-var-p-around_small">
+                    <label class="slds-form-element__label">Creation Date</label>
+                    <div class="slds-form-element__control">
+                        <span><strong>{creationDate}</strong></span>
+                    </div>
+                </div>
+
+                 <!-- How To Apply -->
+                 <div class="slds-var-p-around_small">
+                    <label class="slds-form-element__label">How To Apply</label>
+                    <div class="slds-form-element__control">
+                        <span><strong>{howToApply}</strong></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Line Adjustment -->
+        <div if:false={isGoodwill} class="slds-section__content slds-grid slds-gutters">
+            <div class="slds-col">
+                <!-- Customer Name -->
+                <div class="slds-var-p-around_small">
+                    <label class="slds-form-element__label">Customer Name</label>
+                    <div><strong><span>{customerName}</span></strong></div>
+                </div>
+
+                <!-- BAN/CPID -->
+                <div class="slds-var-p-around_small">
+                    <label class="slds-form-element__label">BAN/CPID</label>
+                    <div class="slds-form-element__control">
+                        <span><strong>{accountNumber}</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-col">
+
+                 <!-- Billing Period -->
+                 <div class="slds-var-p-around_small">
+                    <label class="slds-form-element__label">Billing Period</label>
+                    <div class="slds-form-element__control">
+                        <span><strong>{billingPeriod}</strong></span>
+                    </div>
+                </div>
+
+                 <!-- Bill Payment Status -->
+                 <div class="slds-var-p-around_small">
+                    <label class="slds-form-element__label">Bill Payment Status</label>
+                    <div class="slds-form-element__control">
+                        <span><strong>{billPaymentStatus}</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

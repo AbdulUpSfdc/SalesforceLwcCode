@@ -1,0 +1,119 @@
+<template>
+    <div data-name="makeAdjustmentForm" class="slds-section slds-is-open">
+        <div class="slds-section slds-is-open">
+
+            <h2 class="slds-section__title slds-text-heading_small slds-box slds-box_x-small">
+                <span class="slds-var-p-horizontal_small" title={title}>{title}</span>
+                <!-- success/warning/failure icons. Based on decisionStatus from API response -->
+                <lightning-badge if:true={decisionStatusApproved} class="slds-theme_success" label="Approved" icon-name="utility:check" ></lightning-badge>
+                <lightning-badge if:true={decisionStatusApprovedWithConditions} class="slds-theme_success slds-badge__icon_inverse" label="Approved with Conditions" icon-name="utility:check" ></lightning-badge>
+                <lightning-badge if:true={decisionStatusRejected} class="slds-theme_warning" label="Rejected - Take Action" icon-name="utility:warning" ></lightning-badge>
+            </h2>
+            
+            <!-- CDE Response -->
+            <div class="slds-section__content">
+                <div class="slds-grid slds-gutters">
+
+                    <!-- Amount Requested -->
+                    <div class="slds-col slds-var-p-around_small">
+                        <label class="slds-form-element__label">Amount Requested</label>
+                        <div class="slds-form-element__control">
+                            <strong><lightning-formatted-number value={amountRequested} format-style="currency" currency-code="USD"></lightning-formatted-number></strong>
+                        </div>
+                    </div>
+
+                    <!-- Amount Approved -->
+                    <div class="slds-col slds-var-p-around_small">
+                        <label class="slds-form-element__label">Amount Approved</label>
+                        <div class="slds-form-element__control">
+                            <span if:true={isApproved} class="slds-grid">
+                                <strong><lightning-formatted-number class="slds-text-color_success" value={amountApproved} format-style="currency" currency-code="USD"></lightning-formatted-number></strong>
+                                <lightning-icon class="slds-var-m-left_x-small slds-var-m-bottom_xxx-small" icon-name="utility:success" size="xx-small" variant="success" ></lightning-icon>
+                            </span>
+                            <span if:true={isApprovedWithCondition} class="slds-grid">
+                                <strong><lightning-formatted-number class="slds-text-color_success" value={amountApproved} format-style="currency" currency-code="USD"></lightning-formatted-number></strong>
+                                <lightning-icon class="slds-var-m-left_x-small slds-var-m-bottom_xxx-small" icon-name="utility:success" size="xx-small" variant="success" ></lightning-icon>
+                            </span>
+                            <span if:true={isRejected} class="slds-grid">
+                                <strong><lightning-formatted-number class="warning" value={amountApproved} format-style="currency" currency-code="USD"></lightning-formatted-number></strong>
+                                <lightning-icon class="slds-var-m-left_x-small slds-var-m-bottom_xxx-small" icon-name="utility:warning" size="xx-small" variant="warning" ></lightning-icon>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agent Decision -->
+                <div>
+                    <!-- Read to the Customer -->
+                    <c-bwc-read-panel class="slds-var-p-around_small slds-size_full" text={readToCustomerText}></c-bwc-read-panel>
+
+                    <!-- Agent Decision Buttons -->
+                    <div class="slds-align_absolute-center">
+                        <lightning-button
+                            if:true={showAcceptAmount}
+                            variant="brand"
+                            label="Accept Amount"
+                            title="Accept Amount"
+                            data-status="Accepted"
+                            class="slds-var-m-right_x-small"
+                            disabled={isAgentDecisionDisabled}
+                            onclick={handleAgentDecision}>
+                        </lightning-button>
+
+                        <lightning-button
+                            if:true={isAccepted}
+                            variant="base"
+                            label="Accept Amount"
+                            title="Accept Amount"
+                            icon-name="utility:check"
+                            class="slds-var-m-right_x-small"
+                            disabled={isAgentDecisionDisabled}>
+                        </lightning-button>
+
+                        <lightning-button
+                            if:true={showOverride}
+                            variant="brand-outline"
+                            label="Override"
+                            title="Override"
+                            data-status="Overridden"
+                            class="slds-var-m-right_x-small"
+                            disabled={isAgentDecisionDisabled}
+                            onclick={handleAgentDecision}>
+                        </lightning-button>
+
+                        <lightning-button
+                            if:true={isOverridden}
+                            variant="base"
+                            label="Override"
+                            title="Override"
+                            class="slds-var-m-right_x-small"
+                            disabled={isAgentDecisionDisabled}
+                            icon-name="utility:check">
+                        </lightning-button>
+
+                        <lightning-button
+                            if:true={showDiscardItem}
+                            variant="brand"
+                            label="Discard Item"
+                            title="Discard Item"
+                            data-status="Discarded"
+                            class="slds-var-m-left_x-small"
+                            disabled={isAgentDecisionDisabled}
+                            onclick={handleAgentDecision}>
+                        </lightning-button>
+
+                        <lightning-button
+                            if:true={isDiscarded}
+                            variant="base"
+                            label="Discard Item"
+                            title="Discard Item"
+                            class="slds-var-m-left_x-small"
+                            disabled={isAgentDecisionDisabled}
+                            icon-name="utility:check">
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

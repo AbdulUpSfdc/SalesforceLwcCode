@@ -1,0 +1,33 @@
+.custom-link{
+    margin-left: 200px;
+}
+
+.text-align-left {
+    margin-left: 10px !important;
+}
+
+.text-align-right {
+    margin-right: 10px !important;
+}
+
+.text-align-top {
+    margin-top: 10px !important;
+}
+
+.slds-textarea {
+    
+        width:400px !important;
+}
+/** CSS **/
+.scrollerSize {
+    height: 300px;
+}
+
+.slds-col .dateScroll {
+   overflow: auto;  
+   z-index: 9002;
+   position: relative;    
+}
+.slds-col .slds-form-element__control .dateScroll {   
+    position: relative;    
+ }

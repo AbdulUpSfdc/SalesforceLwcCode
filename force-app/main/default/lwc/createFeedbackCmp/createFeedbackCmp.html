@@ -1,0 +1,42 @@
+<template>
+  <lightning-card>
+    <span slot="title" class="card-title">
+      <lightning-icon icon-name="standard:feedback"></lightning-icon>&nbsp;&nbsp; Private Feedback
+    </span>
+    <h1 class="slds-p-around_medium">Tell us how it could be more helpful</h1>
+    <lightning-record-edit-form object-api-name="KM_Article_Feedback__c" onsubmit={handleSubmit}>
+      <lightning-messages></lightning-messages>
+      <template if:false={IS_DESKTOP}>
+        <div class="slds-p-around_medium IPAD-width">
+          Choose a general reason <br>
+          <lightning-input-field field-name="Reason__c" variant="label-hidden"></lightning-input-field>
+        </div>
+      </template>
+      <template if:true={IS_DESKTOP}>
+        <div class="slds-p-around_medium desktop-width">
+          Choose a general reason <br>
+         <lightning-input-field field-name="Reason__c" variant="label-hidden"></lightning-input-field>
+        </div>
+      </template>
+      <template if:false={IS_DESKTOP}>
+        <div class="slds-p-around_medium IPAD-width">
+         Description
+         <lightning-input-field field-name="Description__c" variant="label-hidden"></lightning-input-field>
+        </div>
+      </template>
+      <template if:true={IS_DESKTOP}>
+        <div class="slds-p-around_medium desktop-width">
+          Description
+         <lightning-input-field field-name="Description__c" variant="label-hidden"></lightning-input-field>
+        </div>
+      </template>
+      <div style="text-align: center;">
+        <lightning-button class="slds-m-top_small"
+                        type="submit"
+                        label="Submit"
+                        variant="brand">
+        </lightning-button>
+      </div>
+    </lightning-record-edit-form>
+  </lightning-card>
+</template>

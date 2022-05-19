@@ -1,0 +1,16 @@
+<aura:component implements="lightning:isUrlAddressable,flexipage:availableForAllPageTypes">
+
+    <aura:handler name="init" value="{!this}" action="{!c.refresh}"/>
+
+    <aura:attribute name="interactionId" type="String"/>
+    <aura:attribute name="billingAccountId" type="String"/>
+
+    <c:bwcEpaViewer interactionId="{!v.interactionId}" billingAccountId="{!v.billingAccountId}" onclose="{!c.close}"/>
+
+    <!-- For closing subtab -->
+    <lightning:workspaceAPI aura:id="workspace" />    
+
+    <!-- Handles calls to console API or overlay library for the page-->
+    <c:BWCPageHelper></c:BWCPageHelper>
+
+</aura:component>

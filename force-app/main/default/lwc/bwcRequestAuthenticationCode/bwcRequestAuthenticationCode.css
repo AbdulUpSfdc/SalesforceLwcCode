@@ -1,0 +1,41 @@
+h3{
+  text-align: center;
+  margin-bottom: 10%;
+  font-size: 15px;
+  color: white;
+  font-weight: bold;
+}
+
+h4{
+  text-align: center;
+  margin-bottom: 10%;
+  font-size: 13px;
+  color: white;
+  margin-top: 10%;
+}
+
+.mainContent{
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+label{
+  color : white;
+  margin-top: 20px;
+}
+
+.expiryText{
+  color: orange;
+  text-align: center;
+  margin-top: 10%;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.timer{
+  color: orange;
+  text-align: center;
+  margin-top: 1%;
+  font-size: 25px;
+  font-weight: bold;
+}

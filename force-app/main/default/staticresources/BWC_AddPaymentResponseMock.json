@@ -1,0 +1,11 @@
+{
+	"content": {
+		"transactionId": "TJK_001",
+		"PaymentProfileResponse": [{
+			"paymentArrangementResponse": {
+				"responseCode": "1",
+				"message": "Success"
+			}
+		}]
+	}
+}

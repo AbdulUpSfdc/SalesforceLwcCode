@@ -1,0 +1,12 @@
+.component-color{
+    background-color:rgb(243, 242, 242);
+}
+.strong-text{
+    font-weight: bold;
+}
+.upwards{
+ line-height: 7.5px;
+}
+.checkin-queue{
+    font-size: large;
+}

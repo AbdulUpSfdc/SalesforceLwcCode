@@ -1,0 +1,11 @@
+<aura:component description="A modal header with rich text title, used by BWCPageHelper to create a modal.">
+    <aura:attribute name="isRendered" type="Boolean" />
+    <aura:attribute name="modalBody" type="Aura.Component" />
+    <aura:attribute name="headerRichText" type="String" />
+
+    <aura:handler name="render" value="{!this}" action="{!c.init}" />
+
+    <h2 class="slds-modal__title">
+        <lightning:formattedRichText value="{!v.headerRichText}"></lightning:formattedRichText>
+    </h2>
+</aura:component>

@@ -1,0 +1,152 @@
+<template>
+    <div class="container">
+        <div if:true={showSpinner} class="spinner">
+            <lightning-spinner alternative-text="Loading..." variant="brand"> </lightning-spinner>
+        </div>
+        <lightning-layout multiple-rows="true">
+            <lightning-record-edit-form object-api-name="Lead" record-type-id={leadRecord.RecordTypeId}
+                onsuccess={handleSuccess} onerror={handleError} onsubmit={handleSubmit}>
+                <lightning-layout-item size="12">
+                    <div class="section slds-m-bottom_medium slds-p-around_xxx-small">
+                        <div class="slds-text-align_center slds-text-heading_medium slds-m-around_small"> New check-in
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12">
+                    <div class="section slds-m-bottom_medium">
+                        <lightning-layout multiple-rows="true">
+                            <lightning-layout-item size="12" padding="around-small">
+                                <div class="slds-form-element__legend slds-form-element__label ">
+                                    <span>Customer Name</span>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="4" small-device-size="4" medium-device-size="4"
+                                large-device-size="4" padding="around-small">
+                                <div class="uiInput">
+                                    <label class="slds-form-element__label">
+                                        <span> {fieldData.FirstName.label} </span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <lightning-input-field required field-name="FirstName" variant="label-hidden"
+                                        onchange={handleBindingFields} value={leadRecord.FirstName}>
+                                    </lightning-input-field>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="4" small-device-size="4" medium-device-size="4"
+                            large-device-size="4" padding="around-small">
+                            <div class="uiInput">
+                                <label class="slds-form-element__label">
+                                    <span> {fieldData.LastName.label} </span>
+                                    <span class="required">*</span>
+                                </label>
+                                <lightning-input-field required field-name="LastName" variant="label-hidden"
+                                    onchange={handleBindingFields} value={leadRecord.LastName}>
+                                </lightning-input-field>
+                            </div>
+                        </lightning-layout-item>
+                            <lightning-layout-item size="4" small-device-size="4" medium-device-size="4"
+                                large-device-size="4" padding="around-small">
+                                <div class="uiInput">
+                                    <label class="slds-form-element__label">
+                                        <span> {fieldData.MobilePhone.label} </span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <lightning-input-field required field-name="MobilePhone" variant="label-hidden"
+                                        onchange={handleBindingFields} value={leadRecord.MobilePhone}>
+                                    </lightning-input-field>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item required size="12" small-device-size="12" medium-device-size="12"
+                                large-device-size="12" padding="around-small">
+                                <div class="uiInput">
+                                    <label class="slds-form-element__label">
+                                        <span>Reason for visit </span>
+                                        <span class="required">*</span>
+                                    </label>
+                                    <!--<lightning-input-field field-name="ReasonforLeaving__c" variant="label-hidden"
+                                    onchange={handleBindingFields} value={leadRecord.ReasonforLeaving__c}>
+                                    </lightning-input-field>-->
+                                    <lightning-combobox name={fieldLabel} variant="label-hidden" value={changedValue} placeholder={fieldLabel}
+                                    options={options} onchange={handleChange}></lightning-combobox>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item required size="4" small-device-size="4" medium-device-size="4"
+                                large-device-size="2" padding="around-small">
+                                <div class="uiInput">
+                                    <label class="slds-form-element__label">
+                                        <span>Preferred Language</span>
+                                    </label>
+                                    <lightning-combobox name={fieldLabel} variant="label-hidden" value={changedLanguageValue}
+                                    options={languageOptions} onchange={handleLanguageChange}></lightning-combobox>
+                                </div>
+                            </lightning-layout-item>
+                             <!-- Krishna Start-->
+							<lightning-layout-item size="4" small-device-size="4" medium-device-size="4"
+                            large-device-size="4" padding="around-small">
+                            <div class="uiInput">
+                                <template if:true={isPickup}>
+
+                                    <lightning-input type="text" name="DCIBOPISOrder__c"
+                                    label="BOPIS Order#"  onchange={handleBindingFieldBOP} value={leadRecord.DCIBOPISOrder__c} data-name = "order"></lightning-input>
+                                </template>
+                            </div>
+                        </lightning-layout-item>
+                        <!-- Krishna End-->
+                            <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                large-device-size="12" padding="around-small">
+                                <div class="uiInput">
+                                    <template if:true={isOther}>
+                                        <!--<label class="slds-form-element__label">
+                                            <span> {fieldData.DCIOtherVisitReason__c.label} </span>
+                                            <span class="required">*</span>
+                                        </label>
+                                         <lightning-input-field required field-name="DCIOtherVisitReason__c" variant="label-hidden"
+                                            onchange={handleBindingFields} value={leadRecord.DCIOtherVisitReason__c}>
+                                        </lightning-input-field>-->
+
+                                        <lightning-input type="text" required = "true"  name="DCIOtherVisitReason__c"
+                                        message-when-value-missing ="Be sure to enter information about why this customer is visiting the store." label="Other visit reason"  onchange={handleBindingField} value={leadRecord.DCIOtherVisitReason__c}></lightning-input>
+                                    </template>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="12" padding="around-small">
+                                <lightning-formatted-text value="Customer Requested Rep" class="labelstyle"></lightning-formatted-text>
+                                    <c-employee-selection-picklist onpicklistcustomevent={handleCustomEvent} options={userOptions} ></c-employee-selection-picklist>
+                                    <p style="color:black;">{label.CustomerRequestedRep}</p>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                large-device-size="12" padding="around-small">
+                                <div class="uiInput">
+                                    <lightning-input-field field-name="OtherNotes__c" variant="label-hidden"
+                                        onchange={handleBindingFields} value={leadRecord.OtherNotes__c}>
+                                    </lightning-input-field>
+                                </div>
+                                <p style="color:red;">{label.ComplianceMessage}</p>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                large-device-size="12" padding="around-small">
+                                <div class="slds-m-top_small">
+                                    <div class="slds-text-title">Please read to customer:</div>
+                                    <div class="slds-text-body_small">"By checking in to our virtual line, you agree to receive automated informational text message updates from AT&amp;T on your phone about your place in line for service at the store and a one-time survey. You understand that messaging and data rates may apply to these updates"</div>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                large-device-size="12" padding="around-small">
+                                <div class="slds-form-element slds-m-vertical_large">
+                                    <button type="button" class="slds-button slds-button_outline-brand"
+                                        onclick={handleCancel}>{label.Cancel}</button>
+                                    <button type="submit" onclick={handlehelpCustomerButton} class="slds-button slds-button_outline-brand"
+                                        disabled={isHelpButtonDisabled}>Help walk-in customer now</button>
+                                    <button type="submit" class="slds-button slds-button_brand"
+                                        disabled={isButtonDisabled}>Add customer to queue</button>    
+                                </div>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </div>
+                </lightning-layout-item>
+            </lightning-record-edit-form>
+        </lightning-layout>
+
+    </div>
+</template>

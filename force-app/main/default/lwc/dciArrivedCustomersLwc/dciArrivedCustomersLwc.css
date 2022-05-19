@@ -1,0 +1,60 @@
+.articleSection {
+    padding: 2%;
+    line-height: 24px;
+    background-color: white;
+    border-bottom:1px solid;
+    border-bottom-color: #f3f2f2;
+    cursor: pointer;
+}
+.titleHeader {
+    background-color:#f3f2f2;
+    font-size: 20px;
+    border:1px solid;
+    border-color: #e6e0e0;
+    font-weight: bold;
+    cursor: pointer;
+}
+.assignedArticle-header {
+    font-weight: var(--lwc-fontWeightBold);
+    font-size: 16px;
+    color: #101820;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+.assignedArticleMainSection{
+    height:500px;
+    background-color: white;
+}
+.errorSection{
+    background-color: white;
+}
+.errorSection-header {
+    font-weight: var(--lwc-fontWeightBold);
+    color: #101820;
+    cursor: pointer;
+}
+/* iPad */
+@media only screen and (min-device-width: 0px) and (max-device-width: 1024px) and (orientation:portrait) {
+    .articleSection {
+        padding: 2%;
+        font-size: 13px;
+        line-height: 24px;
+        background-color: white;
+        border-bottom:1px solid;
+        border-bottom-color: #f3f2f2;
+        cursor: pointer;
+        color:#2c2b2b 
+   }
+}
+@media only screen and (min-device-width: 0px) and (max-device-width: 1024px) and (orientation:landscape) {
+    .articleSection {
+        padding: 2%;
+        font-size: 13px;
+        line-height: 24px;
+        background-color: white;
+        border-bottom:1px solid;
+        border-bottom-color: #f3f2f2;
+        cursor: pointer;
+        color:#2c2b2b 
+   }
+}

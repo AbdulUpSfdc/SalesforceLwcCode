@@ -1,0 +1,8 @@
+{
+    "node": "customer-idp-credit-adj-sapi",
+    "code": 400,
+    "message": "MSCRDADJ_E600100-Ban Level Validate Adjustment and Charge Exception.",
+    "description": "BANNotExist-BAN 325310161 does not exist.",
+    "transactionId": "d81f2bf6-cfd1-46cd-bea8-29531070a1f8",
+    "traceId": "12349dc0-d547-48e2-93de-3cc8e4407b29"
+}

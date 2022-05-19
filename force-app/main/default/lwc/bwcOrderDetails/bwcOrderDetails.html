@@ -1,0 +1,105 @@
+<template>
+    <div class="slds-grid slds-gutters_x-small slds-wrap" if:true={showOrder}>
+
+        <div class=" slds-col slds-size_3-of-4">
+
+            <div class="slds-theme_default">
+
+                <lightning-tabset >
+
+                    <lightning-tab label="Order Details" title="Order Details"  >
+
+                        <!-- Products loop. Wireless, Uverse, etc -->
+                        <template for:each={products} for:item="product">
+
+                            <div key={product.productSequenceNumber} class="slds-m-horizontal_small slds-m-bottom_small">
+
+                                <p class="slds-text-title_bold slds-m-bottom_small">{product.lineOfBusiness}</p>
+
+                                <!-- Line loop. Each of these is a card, containing services and Items -->
+                                <template for:each={product.lines} for:item="line" >
+
+                                    <div key={line.lineSequence} class="slds-m-bottom_small">
+
+                                        <c-bwc-product-order
+                                            line={line}
+                                            line-of-business={product.lineOfBusiness}    
+                                            promotions={promotions}
+                                            services={line.services}
+                                            addresses={addresses}
+                                            fulfillments={fulfillments}
+                                            product-sequence-number={product.productSequenceNumber}
+                                            ctn={line.customerTelephoneNumber}
+                                            line-type={line.lineType}
+                                            is-fallout={isFallout}
+                                            line-status={line.lineStatus}
+                                            items={product.items} 
+                                            product-name={product.name}>
+                                        </c-bwc-product-order>
+
+                                    </div>
+
+                                </template>
+
+                            </div>
+
+                        </template>
+
+                        <c-bwc-order-payment-info
+                            order-price={orderPrice}
+                            payment-info={paymentTenders}
+                            >
+                        </c-bwc-order-payment-info>
+
+                    </lightning-tab>
+
+                    <lightning-tab
+                        if:true={showReturnsTab}
+                        label="Returns"
+                        title="Returns"
+                        onactive={handleReturnTabOpen}>
+
+                        <template for:each={returns} for:item="returnItem">
+
+                            <div key={returnItem.itemSequence} class="slds-m-horizontal_small slds-m-bottom_small">
+
+                                <c-bwc-order-return-item
+                                    return-item={returnItem}
+                                    fulfillments={fulfillments}>
+                                </c-bwc-order-return-item>
+
+                            </div>
+
+                        </template>
+
+                    </lightning-tab>
+
+                </lightning-tabset>
+            </div>
+        </div>
+
+        <div if:true={currentOrder} class="slds-col slds-size_1-of-4 slds-p-bottom_small">
+
+            <c-bwc-order-information-card
+                addresses={addresses}    
+                order={currentOrder}
+                columns=1
+            ></c-bwc-order-information-card>
+
+            <br>
+            <c-bwc-order-credit-information
+                if:true={isFallout}
+                order={currentOrder}
+            ></c-bwc-order-credit-information>
+
+            <br>
+
+            <c-bwc-order-sales-rep-info
+                if:true={isFallout}
+                order={currentOrder}
+            ></c-bwc-order-sales-rep-info>
+
+        </div>
+
+    </div>
+</template>

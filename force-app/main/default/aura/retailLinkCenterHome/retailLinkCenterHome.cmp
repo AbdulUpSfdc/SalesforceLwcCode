@@ -1,0 +1,14 @@
+<aura:component implements="force:appHostable,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,force:hasRecordId">
+    <lightning:layout>
+        <lightning:layoutItem size="12">
+            <lightning:card title="Link Center"> 
+                <aura:set attribute="actions">
+                    <a href='/lightning/n/Link_Center' slot="actions">Visit Link Center</a> 
+                </aura:set> 
+                <div class="heightLinkCenter">
+                   <c:linkCenterComponent/>
+                </div>
+            </lightning:card>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

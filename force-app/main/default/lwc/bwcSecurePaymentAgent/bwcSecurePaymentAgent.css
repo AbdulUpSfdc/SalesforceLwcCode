@@ -1,0 +1,15 @@
+lightning-button {
+    width: 100%;
+}
+
+.divided-half {
+    max-width: 22rem;
+}
+
+.divider {
+    border-width: 2px;
+}
+
+.send-method {
+    margin-left: 1.25rem;
+}

@@ -1,0 +1,65 @@
+<template>
+
+    <lightning-layout multiple-rows>
+
+        <template for:each={subscriberList} for:item="subscriber">
+
+            <lightning-layout-item key={subscriber.uniqueKey} size={itemSize} class="slds-p-horizontal_xx-small">
+            
+                <div class="slds-box slds-p-around_none slds-m-bottom_x-small">
+    
+                    <lightning-layout class="slds-align-middle" vertical-align="center" multiple-rows style="padding-bottom: 10px;">
+                        
+                        <lightning-layout-item class="slds-text-align_left" size="1">
+                            <c-bwc-view-b-a-n-usage-summary-c-t-n-device-icon device-type={subscriber.device}></c-bwc-view-b-a-n-usage-summary-c-t-n-device-icon>
+                        </lightning-layout-item>
+        
+                        <lightning-layout-item class="slds-text-align_left" size="5" padding="around-small">
+                            <span class="device-subscriber-name">{subscriber.subscriberName}</span><br />
+                            {subscriber.displayPhone}
+                        </lightning-layout-item>
+        
+                        <lightning-layout-item class="slds-text-align_right" size="6" padding="around-small">
+                            <span class="device-name">{subscriber.name}</span><br />
+                            <div class="device-usage">
+                                <span class="slds-p-around_xx-small">{subscriber.used} of <span if:true={subscriber.isUnlimited}>unlimited</span><span if:false={subscriber.isUnlimited}>{subscriber.alloted}</span> {subscriber.uom} used</span> 
+                                <template if:true={subscriber.isNearLimit}>
+                                    <lightning-icon class="icon" icon-name="utility:alert" size="xx-small" aria-describedby="help" aria-disabled="false"></lightning-icon>
+                                    <span class="near-limit-tooltip">Near Limit</span>
+                                </template>
+                                <template if:true={subscriber.isOverLimit}>
+                                    <lightning-icon class="icon" variant="error" icon-name="utility:alert" size="xx-small" aria-describedby="help" aria-disabled="false"></lightning-icon>
+                                    <span class="near-limit-tooltip">Over Limit</span>
+                                </template>
+                            </div>
+                        </lightning-layout-item>
+
+                        <template if:false={usageSummary.showChart}>
+                            <lightning-layout-item class="slds-text-align_left slds-p-around_xx-small" size="1">
+                                <span></span>
+                            </lightning-layout-item>
+                            <lightning-layout-item class="slds-text-align_left slds-p-around_xx-small" size="11">
+                                <span class="device-plan-span">{subscriber.soc}</span>
+                            </lightning-layout-item>
+                        </template>
+            
+                    </lightning-layout>
+        
+                </div>
+
+            </lightning-layout-item>
+    
+        </template>
+
+        <!-- Show Mix & Match disclaimer to customer -->
+        <template if:false={usageSummary.showChart}>
+            <lightning-layout-item class="slds-p-horizontal_xx-small" size={itemSize}>
+                <div class="slds-box slds-p-around_xx-small slds-m-bottom_x-small slds-p-around_x">
+                    <lightning-icon icon-name="utility:info" alternative-text="Disclaimer" title="Disclaimer" size="xx-small" class="slds-p-right_xx-small"></lightning-icon> <lightning-formatted-rich-text disable-linkify value={labels.mixMatchDisclaimer}></lightning-formatted-rich-text>
+                </div>
+            </lightning-layout-item>
+        </template>
+
+    </lightning-layout>
+
+</template>

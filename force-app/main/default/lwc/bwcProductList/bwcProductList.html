@@ -1,0 +1,137 @@
+<template>
+    <template if:true={isLoadingMain}>
+        <div class="slds-is-relative" style="min-height: 8rem;">
+            <lightning-spinner alternative-text="Loading.." size="large"></lightning-spinner>
+        </div>
+    </template>
+
+    <c-bwc-notifications></c-bwc-notifications>
+    <div if:true={hasErrorNotifications} class="slds-align_absolute-center slds-m-top_x-small">
+        <lightning-button label="Refresh" class="slds-m-left_small" onclick={onRetryClick}></lightning-button>
+    </div>
+
+    <template if:true={customerServices}>
+
+        <div class="slds-clearfix">
+            <div class="slds-float_right">
+                <lightning-button
+                    label={expandCollapseLabel}
+                    title={expandCollapseLabel}
+                    onclick={handleExpandClick} >
+                </lightning-button>
+            </div>
+        </div>
+
+        <template for:each={customerServices} for:item="service">
+
+            <c-bwc-expandable-section  key={service.serviceName} onexpand={handleExpandEvent}>
+
+                <span slot="header">
+                    {service.serviceTypeName}
+                    <lightning-badge
+                        if:true={service.hboMaxFlag}
+                        label={service.badgeLabel}
+                        class={service.badgeClass}>
+                    </lightning-badge>
+                    &nbsp;-&nbsp;
+                    <template if:true={service.isMasked}>
+                        {service.maskedBan}
+                    </template>
+
+                    <template if:false={service.isMasked}>
+                        <a onclick={handleHeaderBANClick} data-id={service.recordId} data-ban={service.maskedBan} >{service.maskedBan}</a>
+                    </template>
+
+                    {service.unifiedLabel}
+                </span>
+
+                <div if:false={service.isLoading} slot="actions">
+                    <lightning-button-icon if:true={service.isL0}
+                        icon-name="utility:unlock" size="small" class="slds-m-left_x-small"
+                        alternative-text="Step Up" tooltip="Step Up"
+                        data-service-name={service.serviceName} onclick={onItemStepUpClick}>
+                    </lightning-button-icon>
+
+                    <!-- Refresh Button-->
+                    <lightning-button-icon
+                        icon-name="utility:refresh" size="small" class="slds-m-left_x-small slds-p-right_x-small"
+                        alternative-text="Refresh" tooltip="Refresh"
+                        data-service-name={service.serviceName} onclick={onItemRefreshClick}>
+                    </lightning-button-icon>
+                </div>
+
+                <div if:true={service.isLoading} class="slds-is-relative inner-spinner">
+                    <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+                </div>
+                <div class="slds-section__content" if:false={service.isLoading}>
+
+                    <div if:true={service.errorMessage} class="slds-align_absolute-center slds-m-bottom_x-small">
+                        <c-bwc-notification type="inline" variant="error" message={service.errorMessage}></c-bwc-notification>
+                    </div>
+
+                    <!-- Plan/Packages -->
+                    <template if:true={service.hasPlanPackages}>
+                        <div class="slds-box slds-box_xx-small">
+                            <lightning-card title='Plan' icon-name='standard:visit_templates'>
+                            <!--LIC to WFE START-->
+                            <template if:true={isTechCareAgent}>
+                                <template if:true={service.isUverse}>
+                                    <lightning-button  label="WFE Tech Support" title="WFE Tech Support" data-record={service.ban}
+                                    icon-name="utility:new_window" icon-position="right" slot="actions" class="slds-m-left_x-small" onclick={handleWFEClick} ></lightning-button>
+                                </template>
+                            </template>
+                            <!--LIC to WFE END-->
+                                <c-bwc-datatable class="slds-max-medium-table_stacked" key-field="Id"
+                                    data={service.planData} columns={service.planColumns}
+                                    hide-checkbox-column="true" column-widths-mode="auto"
+                                    onrowaction={handleProductRowAction}>
+                                </c-bwc-datatable>
+                            </lightning-card>
+                        </div>
+                    </template>
+
+                    <!-- Spacer -->
+                    <div if:true={service.bothPlansAndEquipment} class="slds-m-top_small"></div>
+
+                    <!-- Devices -->
+                    <template if:true={service.hasEquipment}>
+                        <div class="slds-box slds-box_xx-small">
+                            <lightning-card variant="Narrow" title='Lines' icon-name='standard:contract'>
+                                <c-bwc-datatable class="slds-max-medium-table_stacked testclass" key-field="Id"
+                                    data={service.equipmentData} columns={service.equipmentColumns}
+                                    hide-checkbox-column="true" column-widths-mode="auto" 
+                                    onrowaction={handleProductRowAction}>
+                                </c-bwc-datatable>
+                            </lightning-card>
+                        </div>
+                    </template>
+
+                    <!-- Empty Message -->
+                    <div if:true={service.noPlansOrEquipment} class="slds-align_absolute-center">
+                        {label.noItemsFound}
+                    </div>
+
+                    <div if:true={service.isHidden} class="slds-align_absolute-center">
+                        <a class="slds-m-vertical_small" href="javascript:void(0)" data-service-name={service.serviceName} onclick={onItemStepUpClick}>
+                            Step up authentication</a>&nbsp;required
+                    </div>
+
+                    <div if:true={service.isPrepaid}>
+                        <c-bwc-prepaid-notification></c-bwc-prepaid-notification>
+                    </div>
+
+                </div>
+
+            </c-bwc-expandable-section>
+
+        </template>
+
+    </template>
+
+    <!-- Step Up Authentication Modal -->
+    <c-bwc-step-up></c-bwc-step-up>
+    
+    <!--WFE Launch model-->
+    <c-bwc-launch-w-f-e></c-bwc-launch-w-f-e>
+
+</template>

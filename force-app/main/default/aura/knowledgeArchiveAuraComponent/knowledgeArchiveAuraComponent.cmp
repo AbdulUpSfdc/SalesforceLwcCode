@@ -1,0 +1,8 @@
+<aura:component controller="KnowledgeArchiveController" implements="forceCommunity:availableForAllPageTypes,force:hasRecordId,flexipage:availableForRecordHome,force:lightningQuickAction" access="global" >
+	<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:attribute name="knowledge" type="Knowledge__kav"/>
+    <aura:attribute name="errors" type="Object"/>
+	
+	<lightning:notificationsLibrary aura:id="notifLib"/>
+
+</aura:component>

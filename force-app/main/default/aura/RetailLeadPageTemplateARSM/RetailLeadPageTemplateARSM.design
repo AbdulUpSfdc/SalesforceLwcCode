@@ -1,0 +1,16 @@
+<design:component>
+    <flexipage:template >
+        <flexipage:region name="column1" defaultWidth="Large" />
+        <flexipage:region name="column2" defaultWidth="Small" />
+        <flexipage:region name="column3" defaultWidth="Small" />
+        <flexipage:region name="column4" defaultWidth="Small" />
+        <flexipage:region name="column5" defaultWidth="Small" />
+        <flexipage:region name="column6" defaultWidth="Small" />
+        <flexipage:region name="column7" defaultWidth="Small" />
+        <flexipage:region name="column8" defaultWidth="Small" />
+    </flexipage:template>
+    <design:supportedFormFactors>        
+        <design:supportedFormFactor type="Large"/>   
+        <design:supportedFormFactor type="Small"/>
+    </design:supportedFormFactors>
+</design:component>

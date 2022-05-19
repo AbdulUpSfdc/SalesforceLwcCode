@@ -1,0 +1,34 @@
+{
+"content": {
+"associatedAccounts": [
+{
+"accountType": "UVERSE",
+"accountBan": "106094172",
+"authorizationLevel": "L1"
+},
+{
+"accountType": "WIRELESS",
+"accountBan": "232083293",
+"authorizationLevel": "L0"
+}
+],
+"recommendedStepUps": [
+{
+"stepUpType": "PASSCODE",
+"accountType": "WIRELESS",
+"accountBan": "232083293"
+},
+{
+"stepUpType": "OTP",
+"accountType": "WIRELESS",
+"accountBan": "232083293",
+"otpPhoneNumber": [
+"2623665797",
+"4142173501",
+"4142173532",
+"4144259116"
+]
+}
+]
+}
+}

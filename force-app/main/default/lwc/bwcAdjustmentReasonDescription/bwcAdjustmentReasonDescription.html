@@ -1,0 +1,23 @@
+<template>
+    <lightning-card variant="narrow" title="Adjustment Reason">
+
+        <lightning-layout vertical-align="start" multiple-rows="false">
+
+            <lightning-layout-item padding="around-small" size="12">
+                <lightning-combobox
+                    disabled={isViewMode}
+                    name="progress"
+                    label="Adj Reason Description"
+                    value={value}
+                    options={reasonDescriptions}
+                    onchange={handleChange} ></lightning-combobox>
+            </lightning-layout-item>
+
+        </lightning-layout>
+
+        <div slot="footer">
+            <lightning-button variant="brand" label={buttonLabel} title="Primary action" onclick={handleClick} class="slds-m-left_x-small" disabled={hasCreditAdjustmentsPermission}></lightning-button>
+        </div>
+
+    </lightning-card>
+</template>

@@ -1,0 +1,24 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId,lightning:isUrlAddressable" access="global" >
+    <lightning:workspaceAPI aura:id="workspace"/>
+    <aura:if isTrue="{!$Browser.formFactor == 'DESKTOP'}">
+        <div style="background:white">
+            <lightning:button label="Back" iconName="utility:chevronleft" iconPosition="left" variant="base"
+                onclick="{!c.closeFocusedTab}" class="button-css" />
+             <!-- original <c:knowledgeForAgentComponent recordId="{!v.recordId}" /> -->
+             <c:knowledgeArticleTitle recordId="{!v.recordId}" />
+
+             <!--
+            <br/>
+            {!v.articleDetail}
+            <br/>
+            -->
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!$Browser.formFactor != 'DESKTOP'}">
+        <div style="background:white">
+            <!--<c:knowledgeForAgentComponent recordId="{!v.recordId}" /> -->
+            <c:knowledgeArticleTitle recordId="{!v.recordId}" />
+        </div>
+    </aura:if>
+   
+</aura:component>

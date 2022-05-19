@@ -1,0 +1,44 @@
+<aura:component implements="lightning:isUrlAddressable,flexipage:availableForAllPageTypes">
+
+    <aura:handler name="init" value="{!this}" action="{!c.refresh}"/>
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.refresh}" />
+
+    <aura:attribute name="isGoodwill" type="Boolean"/>
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="accountNumber" type="String"/>
+    <aura:attribute name="serviceType" type="String"/>
+    <aura:attribute name="customerName" type="String"/>
+    <aura:attribute name="selectedStatementId" type="String"/>
+    <aura:attribute name="billSequenceNumber" type="String"/>
+    <aura:attribute name="billStartDate" type="String"/>
+    <aura:attribute name="billEndDate" type="String"/>
+    <aura:attribute name="billingPeriod" type="String"/>
+    <aura:attribute name="billPaymentStatus" type="String"/>
+    <aura:attribute name="caseId" type="String"/>
+    
+    <c:bwcMakeAdjustmentWizard 
+        isGoodwill="{!v.isGoodwill}" 
+        recordId="{!v.recordId}" 
+        accountNumber="{!v.accountNumber}"
+        serviceType="{!v.serviceType}"
+        customerName="{!v.customerName}"
+        selectedStatementId="{!v.selectedStatementId}"
+        billSequenceNumber="{!v.billSequenceNumber}"
+        billStartDate="{!v.billStartDate}"
+        billEndDate="{!v.billEndDate}"
+        billingPeriod="{!v.billingPeriod}"
+        billPaymentStatus="{!v.billPaymentStatus}"
+        caseId="{!v.caseId}"
+        onclose="{!c.close}"
+    >
+    </c:bwcMakeAdjustmentWizard>
+
+    <!-- For closing subtab -->
+    <lightning:workspaceAPI aura:id="workspace" />
+    
+    <!-- Both required to open case record -->
+    <c:BWCPageHelper></c:BWCPageHelper>
+    
+    <c:BWCOpenSubTab></c:BWCOpenSubTab>
+
+</aura:component>

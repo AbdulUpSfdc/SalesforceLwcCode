@@ -1,0 +1,21 @@
+<template>
+    <lightning-card title='Install Appointments'>
+        <!--Spinner-->
+        <div if:true={showSpinner}>
+            <lightning-spinner class="spins" alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+        <template if:true={isUserBroadbandTechCareAgent}>
+            <lightning-button label="WFE Tech Support" title="WFE Tech Support" icon-name="utility:new_window"
+                icon-position="right" onclick={handleWFETechSupportButtonClick} slot="actions"
+                class="slds-m-left_x-small"></lightning-button>
+        </template>
+        <div style="height: 300px">
+            <lightning-datatable data={installAppointmentsDataForTable} columns={columns} key-field="id"
+                hide-checkbox-column="true" sorted-by={sortBy} sorted-direction={sortDirection}
+                onsort={handleSortAppointmentsData}>
+            </lightning-datatable>
+        </div>
+    </lightning-card>
+    <!-- Step Up Authentication Modal -->
+    <c-bwc-launch-w-f-e></c-bwc-launch-w-f-e>
+</template>

@@ -1,0 +1,65 @@
+<template>
+    <div class="slds-form-element">      
+        <div class="slds-combobox_container slds-has-selection">
+            <label class="slds-form-element__label" for="combobox-id-1">{labelName}</label>
+            <div class="lookupInputContainer slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" aria-expanded="false" aria-haspopup="listbox" role="combobox"> 
+                <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right" role="none">
+                    <div class="searchBoxWrapper slds-show">
+                        <!--Lookup Input Field-->
+                        <lightning-input                   
+                        type="search"
+                        data-source="searchInputField"
+                        onchange={handleChange}
+                        is-loading={isLoading}
+                        value={searchTerm}
+                        variant="label-hidden"
+                        placeholder={placeholder}
+                        ></lightning-input>  
+                    </div>
+    
+                <!--Lookup Selected record pill container start-->  
+                    <div class="pillDiv slds-hide">        
+                        <span class="slds-icon_container slds-combobox__input-entity-icon">
+                        <lightning-icon icon-name={iconName} size="x-small" alternative-text="icon"></lightning-icon>  
+                        </span>
+                        <input type="text"
+                            id="combobox-id-1"
+                            value={selectedRecord.field0}       
+                            class="slds-input slds-combobox__input slds-combobox__input-value"
+                            readonly
+                            onclick={recordNavigate}
+                            />
+                        <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" title="Remove selected option">
+                            <lightning-icon icon-name="utility:close" size="x-small" alternative-text="close icon" onclick={handleRemove}></lightning-icon> 
+                        </button>
+                    </div>  
+
+                    <!--Search results-->
+                    <div style="background: white;" id="listbox-id-1" class="slds-dropdown_length-with-icon-7 slds-dropdown_fluid slds-hide" role="listbox">
+                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                            <template for:each={searchRecords} for:item="record" for:index="index">
+                                <li onclick={handleSelect} role="presentation" class="slds-listbox__item" data-record-id={record.Id} key={record.Id}>
+                                    <div data-id={record.Id} class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
+                                        <span class="slds-media__figure slds-listbox__option-icon">
+                                            <span class="slds-icon_container slds-icon-standard-account">
+                                            <lightning-icon icon-name={iconName} alternative-text={iconName} size="x-small"></lightning-icon>
+                                            </span>
+                                        </span>
+                                        <span class="slds-media__body">
+                                            <span class="slds-listbox__option-text slds-listbox__option-text_entity">
+                                                {record.field0}
+                                            </span>
+                                            <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">
+                                                {record.field1} &nbsp; {record.field2}
+                                            </span>   
+                                        </span>
+                                    </div>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

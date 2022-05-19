@@ -1,0 +1,110 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading..." size="large" variant="brand"></lightning-spinner>
+    </template>
+    <table if:true={showResults} class="slds-table outerTable">
+        <tr class="outertr">
+            <th class="outerth">Click For Details</th>
+            <th class="outerth">Number</th>
+            <th class="outerth"></th>
+        </tr>
+        <template for:each={responseOutput} for:item="contact">
+            <tr key={contact.number} class="outertr">
+                <td class="outertd contactDetails"><a onclick={openContactDetailPage} data-codename={contact.codeName} data-contactname={contact.contactName}>{contact.contactName}</a></td>
+                <td class="outertd">{contact.phoneNumber} <span if:true={contact.ext}>{contact.ext}</span> <span if:true={contact.internal} class="slds-p-left_xxx-small">(Internal Only)</span></td>
+                <td class="outertd">
+                    <template if:true={contact.hasOtherLanguages}>
+                        <table class="innerTable"><tr class="innertr"><th class="innerth seemore"><a data-codename={contact.codeName} data-contactname={contact.contactName} onclick={openContactDetailPage}>See Details</a></th></tr></table>
+                    </template>
+                    <table class="innerTable">
+                        <tr class="innertr">
+                            <template if:true={contact.hasAtLeastOneCustomer}>
+                                <th class="innerth">Customer Type</th>
+                            </template>
+                            <template if:true={contact.hasAtLeastOneEnglish}>
+                                <th class="innerth">English</th>
+                            </template>
+                            <template if:true={contact.hasAtLeastOneSpanish}>
+                                <th class="innerth">Spanish</th>
+                            </template>
+                        </tr>
+                        <template for:each={contact.speeddial} for:item="speeddial">
+                            <tr key={speeddial}>
+                                <td class="innertd">
+                                    <template if:true={contact.hasAtLeastOneCustomer}>
+                                        {speeddial.customerType}
+                                    </template>
+                                </td>
+                                <td class="innertd">
+                                    <template if:true={speeddial.hasEnglish}>
+                                        {speeddial.languages.English}
+                                    </template>
+                                </td>
+                                <td class="innertd">
+                                    <template if:true={speeddial.hasSpanish}>
+                                        {speeddial.languages.Spanish}
+                                    </template>
+                                </td>
+                            </tr>
+                        </template>
+                    </table>
+                    
+                </td>
+                
+            </tr>
+        </template>
+    </table>
+
+    <template if:true={showPagination}>
+        <div class="slds-m-around_large slds-align_absolute-center">
+        
+            <lightning-button
+                variant="neutral"
+                title="previous"
+                class="slds-float_left"
+                label="Prev"
+                icon-name="utility:chevronleft"
+                icon-position="left"
+                onclick={handlePrev}
+                disabled={disablePrev}
+            ></lightning-button>
+            <template if:true={pagelinks}>
+                <lightning-button-group>
+                    <template if:false={backMore}>
+                        <lightning-button
+                        label="..."
+                        onclick={backMorePages}
+                        disabled={backMore}>
+                        </lightning-button>
+                    </template>
+                    
+                    <template for:each={pagelinksTemp} for:item="page">
+                    <lightning-button
+                        key={page.key}
+                        label={page.key}
+                        variant={page.class}
+                        onclick={handlePage}
+                    ></lightning-button>
+                    </template>
+                    <template if:false={addMore}>
+                        <lightning-button
+                        label="..."
+                        onclick={addMorePages}
+                        disabled={addMore}>
+                        </lightning-button>
+                    </template>
+                </lightning-button-group>
+            </template>
+            <lightning-button
+                variant="neutral"
+                title="next"
+                class="slds-float_right"
+                label="Next"
+                icon-name="utility:chevronright"
+                icon-position="right"
+                onclick={handleNext}
+                disabled={disableNext}
+            ></lightning-button>
+        </div>
+        </template>
+</template>

@@ -1,0 +1,93 @@
+<template>
+    
+    <template if:true={isOpen}>
+
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading" aria-modal="true"
+            aria-describedby="modal-content" class="slds-modal slds-fade-in-open" onkeydown={handleModalKeydown}>
+            <div class="slds-modal__container modal-container">
+                <header class="slds-modal__header">
+
+                    <lightning-button-icon data-name="closeButton" icon-name="utility:close" variant="bare-inverse" size="large"
+                        class="slds-modal__close" alternative-text="Close" onclick={close} onkeydown={handleButtonKeydown}>
+                    </lightning-button-icon>
+                    <h2 id="modal-heading" class="slds-modal__title slds-hyphenate">{heading}</h2>
+                    <div class="slds-m-top_small">
+                        <lightning-formatted-rich-text value={subheading}></lightning-formatted-rich-text>
+                    </div>
+
+                </header>
+                <div class="slds-modal__content slds-scrollable slds-is-relative slds-p-around_medium modal-content slds-grid slds-grid_vertical"
+                    id="modal-content">
+
+                    <lightning-spinner if:true={isBusy} variant="brand" alternative-text="Loading"></lightning-spinner>
+
+                    <c-bwc-error-report></c-bwc-error-report>
+
+                    <!-- Customer Information -->
+                    <c-bwc-expandable-section title="Customer Information">
+
+                        <div class="slds-grid slds-grid_pull-padded-small slds-p-around_x-small slds-p-bottom_large">
+
+                            <c-bwc-form-element class="slds-size_1-of-2 slds-p-horizontal_small" label="Customer Name">
+                                <span class="bold-output">{billingAccountRecord.First_Name__c}&nbsp;{billingAccountRecord.Last_Name__c}</span>
+                            </c-bwc-form-element>
+
+                            <c-bwc-form-element class="slds-size_1-of-2 slds-p-horizontal_small" label="MyAT&amp;T Login User ID">
+                                <span class="bold-output">{user.slid}</span>
+                            </c-bwc-form-element>
+
+                        </div>
+
+                    </c-bwc-expandable-section>
+
+                    <!-- Contact Methods Section -->
+                    <c-bwc-expandable-section title="Contact Methods">
+
+                        <div class="slds-grid slds-grid_vertical">
+
+                            <template for:each={contactMethods} for:item="contactMethod">
+
+                                <div key={contactMethod.key} class="slds-grid slds-grid_vertical-align-center slds-m-top_x-small slds-box contact-method">
+
+                                    <input id={contactMethod.key} data-key={contactMethod.key} name="contactMethod" type="radio" checked={contactMethod.selected} onchange={handleContactMethodChange}/>
+
+                                    <label for={contactMethod.key} class="slds-m-left_x-small">
+                                        {contactMethod.value}
+                                    </label>
+
+                                    <div class="slds-col_bump-left slds-grid slds-grid_vertical">
+                                        <!-- <div>
+                                            {contactMethod.value}
+                                        </div> -->
+                                        <div if:true={contactMethod.isValidated} class="slds-col_bump-left slds-m-top_xx-small slds-text-color_success">
+                                            <lightning-icon icon-name="utility:success" size="x-small" variant="success"></lightning-icon><span class="slds-m-left_xx-small">Validated</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </template>
+
+                        </div>
+
+                    </c-bwc-expandable-section>
+
+
+                </div>
+
+                <!-- Footer Buttons -->
+                <footer class="slds-modal__footer">
+
+                    <lightning-button data-name="cancelButton" label="Cancel" onclick={close} disabled={isBusy}></lightning-button>
+                    <lightning-button data-name="sendLinkButton" label="Send Link" class="slds-m-left_x-small" variant="brand" disabled={isBusy} onkeydown={handleButtonKeydown} onclick={handleSendLink}></lightning-button>
+
+                </footer>
+            </div>
+
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open"></div>
+
+    </template>
+
+</template>

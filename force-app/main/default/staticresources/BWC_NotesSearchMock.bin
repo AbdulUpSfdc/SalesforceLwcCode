@@ -1,0 +1,50 @@
+{
+    "notes": [
+        {
+            "ban": "287273122837",
+            "id": "4d17db32-ff7f-4806-bde0-a51a496cef58",
+            "updatedTime": "2020-11-13T03:24:08 UTC",
+            "updatedByUserId": "abc123",
+            "updatedByUserType": "Agent",
+            "createdTime": "2020-11-13T03:20:11 UTC",
+            "createdByUserId": "abc123",
+            "createdByUserType": "System",
+            "accountType": "WIRELESS",
+            "appId": "OPUS",
+            "noteTitle": "Note Title 1 updated",
+            "noteBody": "Test Notes 1  updated for ban 287 27 3122837",
+            "additionalAttributes": {
+                "expiryDate": "2021-05-15T03:24:08 UTC",
+                "insertedBy": "UI",
+                "insertedTime": "2020-11-13T03:24:08 UTC",
+                "ttl": "15811200"
+            }
+        },
+        {
+            "ban": "287276670956",
+            "id": "99f44402-5b58-41df-81ad-40c69f48ae31",
+            "updatedTime": "2020-12-01T03:34:43 UTC",
+            "updatedByUserId": "abc123",
+            "updatedByUserType": "Agent",
+            "createdTime": "2020-12-01T03:26:19 UTC",
+            "createdByUserId": "abc123",
+            "createdByUserType": "System",
+            "accountType": "WIRELESS",
+            "appId": "OPUS",
+            "noteTitle": "Note Title 1 updated",
+            "noteBody": "Test Notes 1 updated for ban 287 27 6670956",
+            "additionalAttributes": {
+                "expiryDate": "2021-06-02T03:34:43 UTC",
+                "insertedBy": "UI",
+                "insertedTime": "2020-12-01T03:34:43 UTC",
+                "ttl": "15811200"
+            }
+        }
+    ],
+    "totalCount": 2,
+    "additionalInfo": {
+        "287273108111_CRM": "errorCode: 200100000003,errorMessage: A Resource Required By Service Is Not Available",
+        "287273122837_CRM": "errorCode: 200100000003,errorMessage: A Resource Required By Service Is Not Available",
+        "287276670956_CRM": "errorCode: 200100000003,errorMessage: A Resource Required By Service Is Not Available"
+    }
+}

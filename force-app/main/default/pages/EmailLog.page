@@ -1,0 +1,13 @@
+<apex:page id="EmailLog" standardController="Lead" showQuickActionVfHeader="true">
+        <apex:includeLightning />     
+        <div id="AppContainer"></div>  
+    <script src='/canvas/sdk/js/publisher.js'></script>
+    <script>
+        $Lightning.use("c:logAEmailContainerApp", function()
+        {
+            $Lightning.createComponent(
+             "c:LogAEmail", {"recordId" : "{!Lead.Id}"}, "AppContainer", function(cmp) { console.log("component loaded...")});
+        });
+        Sfdc.canvas.publisher.publish({ name : "publisher.close", payload : { refresh:"true" }});
+    </script>
+</apex:page>

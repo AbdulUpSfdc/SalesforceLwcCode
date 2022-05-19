@@ -1,0 +1,119 @@
+<template>
+    <div class="container"> 
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item style="background-color:#e9eaec;" size="12" small-device-size="12" medium-device-size="12" large-device-size="12" > 
+                        <div style="text-align: center;" class="slds-m-around_medium">
+                            <img style="height: 40px;width: 200px;" alt='AT&T' src={AttLogoUrl}>
+                        </div>
+            </lightning-layout-item>  
+        </lightning-layout>
+        <template if:true={Message}>
+            <lightning-layout multiple-rows="true">
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12" >
+                    <div class="slds-card">
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12" >
+                            <div class="slds-m-bottom_medium slds-p-around_xxx-small">
+                                <div class="slds-text-heading_medium slds-m-around_small boldText"> {Message} </div>
+                            </div>
+                        </lightning-layout-item>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </template>
+        <template if:true={showConsent}> 
+          <lightning-layout class="slds-is-relative" multiple-rows="true"> 
+            <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12" >  
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item size="5" small-device-size="5" medium-device-size="5" large-device-size="5" >
+                        <div class="section slds-m-bottom_medium slds-p-around_xxx-small">
+                            <div if:false={isSpanish} class="boldText slds-text-heading_medium slds-m-around_small">{label.CustomerConsent}</div> 
+                            <div if:true={isSpanish} class="boldText slds-text-heading_medium slds-m-around_small">{label.CustomerConsentSpanish}</div>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="7" small-device-size="7" medium-device-size="7" large-device-size="7" >
+                       <lightning-combobox
+                        name="Language"
+                        value={combovalue}
+                        placeholder="Language"
+                        options={options}
+                        onchange={handleComboChange} class="combobox" ></lightning-combobox>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>  
+
+            <lightning-layout-item size="9" padding="around-small">
+                <div class="slds-text-align_left">
+                    <span if:false={isSpanish}> {label.ConsentMessage} </span>
+                    <span if:true={isSpanish}> {label.ConsentMessageSpanish} </span>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" small-device-size="12" medium-device-size="12" large-device-size="6" padding="around-small">
+                <div class="uiInput">
+                    <lightning-input if:false={isSpanish} type="text" class="boldText" label="First Name" disabled="true" value={LeadConsent.FirstName__c} ></lightning-input>
+                    <lightning-input if:true={isSpanish} type="text" class="boldText" label={label.FirstNameSpanish} disabled="true" value={LeadConsent.FirstName__c} ></lightning-input>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" small-device-size="12" medium-device-size="12" large-device-size="6" padding="around-small">
+                <div class="uiInput">
+                    <lightning-input if:false={isSpanish}  type="text"  class="boldText" label="Last Name" disabled="true" value={LeadConsent.LastName__c}></lightning-input>
+                    <lightning-input if:true={isSpanish} type="text"  class="boldText" label={label.LastNameSpanish} disabled="true" value={LeadConsent.LastName__c}></lightning-input>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" small-device-size="12" medium-device-size="12" large-device-size="6" padding="around-small">
+                <div class="uiInput">
+                    <lightning-input if:false={isSpanish} type="email"  class="boldText" label="Email" disabled="true" value={LeadConsent.Email__c}></lightning-input>
+                    <lightning-input if:true={isSpanish} type="email"  class="boldText" label={label.EmailSpanish} disabled="true" value={LeadConsent.Email__c}></lightning-input>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" small-device-size="12" medium-device-size="12" large-device-size="6" padding="around-small">
+                <div class="uiInput">
+                    <lightning-input if:false={isSpanish} type="text"  class="boldText" label="Mobile Phone" disabled="true" value={LeadConsent.MobilePhone__c}></lightning-input>
+                    <lightning-input if:true={isSpanish} type="text"  class="boldText" label={label.MobilePhoneSpanish} disabled="true" value={LeadConsent.MobilePhone__c}></lightning-input>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" padding="around-small">
+                <template if:false={isSpanish}>
+                    <lightning-button variant="brand-outline" label="Cancel" title="Cancel" onclick={handleCancel} ></lightning-button>
+                    <span class="slds-m-horizontal_medium">
+                        <lightning-button variant="brand" label="Accept" title="Accept" onclick={handleAccept}></lightning-button>
+                    </span>
+                </template>   
+                <template if:true={isSpanish}>
+                    <lightning-button variant="brand-outline" label={label.CancelSpanish} title="Cancel" onclick={handleCancel} ></lightning-button>
+                    <span class="slds-m-horizontal_medium">
+                        <lightning-button variant="brand" label={label.AcceptSpanish} title="Accept" onclick={handleAccept}></lightning-button>
+                    </span>
+                </template>
+            </lightning-layout-item>
+            <template if:true={isModalOpen}>
+                <!-- Modal/Popup Box LWC starts here -->
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-is-absolute slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <!-- Modal/Popup Box LWC header here -->
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                                <lightning-icon icon-name="utility:close"
+                                    alternative-text="close"
+                                    variant="inverse"
+                                    size="small" ></lightning-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Confirm Action</h2>
+                        </header>
+                        <!-- Modal/Popup Box LWC body starts here -->
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <p><strong>Are you sure you don't want to register your consent?</strong></p>  
+                        </div>
+                        <!-- Modal/Popup Box LWC footer starts here -->
+                        <footer class="slds-modal__footer">
+                            <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
+                            <button class="slds-button slds-button_brand" onclick={submitDetails} title="Yes">Yes</button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+           </lightning-layout>          
+        </template>   
+    </div>
+</template>

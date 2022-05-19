@@ -1,0 +1,205 @@
+:host{
+    /* only change the value directly below (-arrowsize-and-offset-int) for custom arrow sizing */
+    /* default: 1.6*/
+    --arrowsize-and-offset-int:1.6;
+      /* -----*/
+    --arrowsize-and-offset-intx2: calc(var(--arrowsize-and-offset-int) * 2);
+    --arrowsize-and-offset: calc(var(--arrowsize-and-offset-int) * 1rem); /* concatenate rem*/
+    --arrowsize-and-offsetx2: calc(var(--arrowsize-and-offset-intx2) * 1rem); /* concatenate rem, doubled value*/
+    --arrowsize-and-offsetx2-neg: calc(-1rem * var(--arrowsize-and-offset-intx2)); /* concatenate rem, doubled to negative value*/
+
+    /* -- colors -- */
+
+    /* complete*/
+    --color-green: #2e844a;
+    --color-green-dark: #24663a;
+
+    /* incomplete */
+    --color-grey: #ecebea;
+    --color-grey-dark: #dddbda;
+
+    /* active/current */
+    --color-blue: #014486;
+    --color-blue-dark: #00396b;
+}
+
+body {
+  background: #fff;
+}
+
+.container {
+  width: 100%;
+  float: left;
+  padding-bottom: 1rem;
+}
+
+.path {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* base step styles */
+.step {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  background: var(--color-grey, #ecebea);
+  cursor: pointer;
+  margin: 0 0 0 6px;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--arrowsize-and-offsetx2);
+}
+
+.step:nth-child(1) {
+  border-radius: 2rem 0 0 2rem;
+}
+
+.step:last-child {
+  border-radius: 0 2rem 2rem 0;
+}
+
+.step::after,
+.step::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 0;
+  border: var(--arrowsize-and-offset) solid transparent;
+}
+
+.step:nth-child(1)::before {
+  border: none;
+}
+
+.step::before {
+  border-left-color: #fff;
+}
+
+.step::after {
+  z-index: 1;
+  right: var(--arrowsize-and-offsetx2-neg);
+}
+
+/* incomplete */
+.incomplete::after {
+  border-left-color: var(--color-grey, #ecebea);
+}
+
+.incomplete:hover {
+  background: var(--color-grey-dark, #dddbda);
+}
+
+.incomplete:hover::after {
+  border-left-color: var(--color-grey-dark, #dddbda);
+}
+/* current */
+.current {
+  background: var(--color-green, #2e844a);
+}
+
+.current::after {
+  border-left-color: var(--color-green, #2e844a);
+}
+
+.current:hover {
+  background: var(--color-green-dark, #24663a);
+}
+
+.current:hover::after {
+  border-left-color: var(--color-green-dark, #24663a);
+}
+
+/* complete */
+.complete {
+  background: var(--color-green, #2e844a);
+}
+
+.complete::after {
+  border-left-color: var(--color-green, #2e844a);
+}
+
+.complete:hover {
+  background: var(--color-green-dark, #24663a);
+}
+
+.complete:hover::after {
+  border-left-color: var(--color-green-dark, #24663a);
+}
+
+.complete .status-text {
+  color: #fff;
+  position: relative;
+}
+
+.complete .status-text::after {
+  color: #fff;
+  visibility: visible;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.step:nth-child(1).complete:hover .status-text::after {
+  content: attr(data-status);
+}
+.step:nth-child(2).complete:hover .status-text::after {
+  content: attr(data-status);
+}
+.step:nth-child(3).complete:hover .status-text::after {
+  content: attr(data-status);
+}
+.step:nth-child(4).complete:hover .status-text::after {
+  content: attr(data-status);
+}
+.step:nth-child(5).complete:hover .status-text::after {
+  content: attr(data-status);
+}
+
+.incomplete:last-child::after,
+.complete:last-child::after,
+.current:last-child::after {
+  border: none;
+}
+
+/* typography */
+.status-text {
+  display: inline-block;
+  font-family: var(--font-family);
+  font-size: 0.8125rem;
+  color: #fff;
+  text-align: center;
+  text-indent: var(--arrowsize-and-offset);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+.incomplete .status-text {
+  color: #080707;
+}
+
+@media (min-width: 768px) {
+    :host {
+        --arrowsize-and-offset-int:1;
+        --arrowsize-and-offset-intx2: calc(var(--arrowsize-and-offset-int) * 2);
+        --arrowsize-and-offset: calc(var(--arrowsize-and-offset-int) * 1rem);
+        --arrowsize-and-offsetx2: calc(var(--arrowsize-and-offset-intx2) * 1rem);
+        --arrowsize-and-offsetx2-neg: calc(-1rem * var(--arrowsize-and-offset-intx2));
+    }
+
+    /* base step styles */
+    .step {min-height:var(--arrowsize-and-offsetx2); }
+    .step::after,.step::before { border-width: var(--arrowsize-and-offset); }
+    .step::after {right: var(--arrowsize-and-offsetx2-neg); }
+
+    /* typography */
+    .status-text {text-indent: var(--arrowsize-and-offset);}
+
+  }

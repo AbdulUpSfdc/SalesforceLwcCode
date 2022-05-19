@@ -1,0 +1,28 @@
+<aura:component implements="flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:hasRecordId,force:hasSObjectName">
+    <aura:html tag="style">
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }
+        .slds-modal__content{
+        overflow-y:hidden !important;
+        height:unset !important;
+        max-height:unset !important;
+        }
+        .forceChatterBasePublisher :not(.PHONE).cuf-content {
+        padding: 0;
+        }  
+        .slds-spinner_container{
+       		 position: inherit !important;
+        }
+        .slds-modal__container .slds-modal__close{
+        	    display: none !important;
+        }
+    </aura:html>
+    <lightning:workspaceAPI aura:id="workspace"/>
+    <c:caseCreateOOPAction recordId="{!v.recordId}" onclose="{!c.closeMethodInAuraController}" onvaluechange="{!c.getValueFromLwc}"/>
+    
+    
+</aura:component>

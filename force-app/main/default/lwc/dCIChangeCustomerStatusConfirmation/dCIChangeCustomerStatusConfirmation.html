@@ -1,0 +1,120 @@
+<template>
+	<div class="container"> 
+		<div if:true={showSpinner} class="spinner">
+			<lightning-spinner alternative-text="Loading..." variant="brand"> </lightning-spinner>
+		</div>
+		
+		<lightning-layout multiple-rows="true">
+			<lightning-record-view-form record-id={recordId} object-api-name="RetailCheckinQueue__c">
+				<lightning-layout-item size="12" >
+					<div class="section slds-m-bottom_medium slds-p-around_xxx-small">
+						<div class="slds-text-align_center slds-text-heading_medium slds-m-around_small"> {cardTitle}  </div>
+					</div>
+				</lightning-layout-item>
+				<lightning-layout-item size="10" padding="around-small" class="left-align" if:true={isAssignVal} >
+					<div class="slds-m-left_medium">
+						<strong><span class="slds-truncate">Customer Requested Rep</span></strong>
+						<c-employee-selection-picklist onpicklistcustomevent={handleCustomEvent} options={userOptions}></c-employee-selection-picklist>
+					</div>
+				</lightning-layout-item>
+				<hr if:true={isAssignVal}>
+
+				<lightning-layout-item size="12">
+					<div class="section slds-m-bottom_medium">
+						<lightning-layout multiple-rows="true" horizontal-align="spread">
+							<!--left panel-->
+							
+							<lightning-layout-item size="7" padding="around-small" class="left-align">
+								<div class="slds-m-bottom_small">
+									<h1> <span class="slds-page-header__title slds-truncate" if:true={isAssignVal}>Customer</span></h1>
+								</div>
+								
+								<lightning-layout multiple-rows="true" horizontal-align="spread">
+									<lightning-layout-item size="4" padding="around-small" class="left-align">
+										<lightning-output-field field-name="Lead__c" variant ="label-hidden" class="boldFonts"></lightning-output-field>
+									</lightning-layout-item>
+									<lightning-layout-item size="8" padding="around-small" class="right-align">
+										<div class={badgeCss}>
+											<lightning-output-field field-name="Status__c" variant ="label-hidden"></lightning-output-field>
+										</div>
+									</lightning-layout-item>
+									<lightning-layout-item size="4" padding="around-small" class="left-align">
+										<label class="slds-form-element__label">
+											<span>Reason for visit:</span>						
+										</label>
+									</lightning-layout-item>
+									<lightning-layout-item size="8" padding="around-small" class="right-align">
+										<lightning-output-field field-name="DCIVisitReason__c" variant="label-hidden"></lightning-output-field>
+									</lightning-layout-item>
+									<lightning-layout-item size="4" padding="around-small" class="left-align">
+										<label class="slds-form-element__label">
+											<span>Notes:</span>
+										</label>
+									</lightning-layout-item>
+									<lightning-layout-item size="8" padding="around-small" class="right-align">
+										<lightning-output-field field-name="DCIOtherVisitReason__c" variant="label-hidden"></lightning-output-field>
+									</lightning-layout-item>
+									<lightning-layout-item size="4" padding="around-small" class="left-align">
+										<label class="slds-form-element__label">
+											<span>Assigned rep:</span>
+										</label>
+									</lightning-layout-item>
+									<lightning-layout-item size="8" padding="around-small" class="right-align">
+										<lightning-output-field field-name="DCIAssignedRSC__c" variant="label-hidden"></lightning-output-field>
+									</lightning-layout-item>
+								</lightning-layout>
+							</lightning-layout-item>
+							
+							<!--right side-->
+							<lightning-layout-item size="5" padding="around-small" class="right-align">
+								<lightning-layout multiple-rows="true" horizontal-align="spread">
+									<lightning-layout-item size="12" padding="around-small" class="right-align">
+										<div class="blankDiv"></div>
+									</lightning-layout-item>
+									<lightning-layout-item size="6" padding="around-small" class="right-align">
+										<label class="slds-form-element__label">
+											<span>Estimated Wait Time:</span>
+										</label>
+									</lightning-layout-item>
+									<lightning-layout-item size="6" padding="around-small" class="right-align">
+										<div style="display: flex;"> <lightning-output-field field-name="EstimatedWaitTime__c" variant="label-hidden"></lightning-output-field> <span> &nbsp; min</span> </div>
+									</lightning-layout-item>
+									<lightning-layout-item size="6" padding="around-small" class="right-align">
+										<label class="slds-form-element__label">
+											<span>Time Waiting:</span>
+										</label>
+									</lightning-layout-item>
+									<lightning-layout-item size="6" padding="around-small" class="right-align">
+										<lightning-output-field field-name="DCITimeWaiting__c" variant="label-hidden"></lightning-output-field>
+									</lightning-layout-item>
+									<lightning-layout-item size="6" padding="around-small" class="right-align">
+										<label class="slds-form-element__label">
+											<span>Transaction Time:</span>
+										</label>
+									</lightning-layout-item>
+									<lightning-layout-item size="6" padding="around-small" class="right-align">
+										<lightning-output-field field-name="DCITransactionTime__c" variant="label-hidden"></lightning-output-field>
+									</lightning-layout-item>
+									<lightning-layout-item size="6" padding="around-small" class="right-align">
+										<label class="slds-form-element__label">
+											<span>Customer-req. rep:</span>
+										</label>
+									</lightning-layout-item>
+									<lightning-layout-item size="6" padding="around-small" class="right-align">
+										<lightning-output-field field-name="CustomerRequestedRep__c" variant="label-hidden"></lightning-output-field>
+									</lightning-layout-item>
+								</lightning-layout>
+							</lightning-layout-item>
+						</lightning-layout>
+					</div>
+				</lightning-layout-item>
+			</lightning-record-view-form>
+			<lightning-layout-item size="12" padding="around-large" alignment-bump="right" >
+				<lightning-button label="Cancel" variant="brand-outline"  onclick={closeAction} ></lightning-button>
+				<span class="slds-m-horizontal_medium">
+					<lightning-button label={actionLabel} onclick={handleSubmit} variant="brand" ></lightning-button>
+				</span>
+			</lightning-layout-item>
+		</lightning-layout>
+	</div>
+</template>

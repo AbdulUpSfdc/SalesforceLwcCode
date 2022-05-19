@@ -1,0 +1,28 @@
+.custom-box {
+    background-color:white;
+
+}
+
+.float-container {
+    border: 3px solid #fff;
+    background-color:white;
+    margin:10 0 10 0;
+}
+
+.float-child {
+    margin: 10px;
+    float: left;
+    width: fit-content;
+}  
+.float-child:first-child {
+    min-width: 500px;
+} 
+.float-child:nth-child(2) {
+    min-width: 400px;
+}
+.float-child:nth-child(3) {
+    min-width: 350px;
+}
+.float-child:nth-child(4) {
+    min-width: 350px;
+}

@@ -1,0 +1,23 @@
+<template>
+    <lightning-card >
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item size="12" class="slds-p-bottom_x-small
+                                                    slds-p-left_small">
+                Was this article helpful?
+            </lightning-layout-item>
+            <lightning-layout-item size="12" class="slds-p-bottom_x-small
+                                                    slds-p-left_medium">
+                <div>
+                <lightning-button-icon-stateful icon-name="utility:like" selected={likeState} onclick={handleLikeButtonClick} alternative-text="Like"></lightning-button-icon-stateful>
+                &nbsp;&nbsp;
+                {likeCount}
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <lightning-button-icon-stateful icon-name="utility:dislike" selected={dislikeState} onclick={handleDislikeButtonClick} alternative-text="Dislike"></lightning-button-icon-stateful>
+                &nbsp;&nbsp;
+                {dislikeCount}
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

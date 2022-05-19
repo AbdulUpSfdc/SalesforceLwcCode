@@ -1,0 +1,46 @@
+<template>
+
+    <div class="slds-box slds-p-around_none">
+
+        <lightning-layout class="slds-align-middle slds-p-around_x-small" multiple-rows>
+
+            <!-- Empty space -->
+            <lightning-layout-item class="slds-align-right" size="6">
+                <span></span>
+            </lightning-layout-item>
+
+            <!-- Plan Type button group -->
+            <lightning-layout-item class="slds-align-right slds-p-bottom_x-small" size="6">
+                <div class="slds-text-align_right">
+                    <lightning-button-group>
+                        <lightning-button id="data-details-btn" name="data" label="Data" variant={dataButtonVariant} onclick={handleDetailsTypeClick}></lightning-button>
+                        <lightning-button id="text-details-btn" name="text" label="Text" variant={textButtonVariant} onclick={handleDetailsTypeClick}></lightning-button>
+                        <lightning-button id="talk-details-btn" name="talk" label="Talk" variant={talkButtonVariant} onclick={handleDetailsTypeClick}></lightning-button>
+                    </lightning-button-group>
+                </div>
+            </lightning-layout-item>
+
+            <!-- Chart: plan usage overall for scenarios 1-5 -->
+            <template if:true={usageSummary.showChart}>
+
+                <lightning-layout-item class="slds-align-left slds-p-right_x-small" size="6">
+                    
+                    <c-bwc-view-b-a-n-usage-summary-chart usage-summary={usageSummary}></c-bwc-view-b-a-n-usage-summary-chart>
+
+                </lightning-layout-item>
+
+            </template>
+
+            <!-- Details per plan type and device -->
+            <lightning-layout-item class="slds-align-left" size={ctnUsageCardSize}>
+
+                <div class="slds-p-bottom_x-small">
+                    <c-bwc-view-b-a-n-usage-summary-c-t-n-usage usage-summary={usageSummary}></c-bwc-view-b-a-n-usage-summary-c-t-n-usage>
+                </div>
+
+            </lightning-layout-item>
+        
+        </lightning-layout>
+    </div>
+    
+</template>

@@ -1,0 +1,4 @@
+:host {
+    --sds-c-card-color-background: rgb(243, 242, 242);
+    --slds-c-card-body-spacing-block-end: 0px;
+}

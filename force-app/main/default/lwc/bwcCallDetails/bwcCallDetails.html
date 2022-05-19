@@ -1,0 +1,24 @@
+<template>
+
+    <lightning-card icon-name="standard:call" title="Call Details">
+
+        <div class="slds-var-m-left_large slds-grid slds-grid_vertical">
+
+            <c-bwc-form-element class="slds-var-m-bottom_small" label="CTI Call Identifier">
+                <lightning-formatted-text value={interaction.CTI_Call_Identifier__c}></lightning-formatted-text>
+            </c-bwc-form-element>
+            <c-bwc-form-element class="slds-var-m-bottom_small" label="User Account Number">
+                <lightning-formatted-text value={interaction.Masked_Ban__c}></lightning-formatted-text>
+            </c-bwc-form-element>
+            <c-bwc-form-element class="slds-var-m-bottom_small" label="ANI">
+                <lightning-formatted-text value={interaction.ANI__c}></lightning-formatted-text>
+            </c-bwc-form-element>
+            <c-bwc-form-element if:true={interaction.User_Order_Num__c} class="slds-var-m-bottom_small" label="Order ID">
+                <lightning-formatted-text value={interaction.User_Order_Num__c}></lightning-formatted-text>
+            </c-bwc-form-element>
+
+        </div>
+
+    </lightning-card>
+
+</template>

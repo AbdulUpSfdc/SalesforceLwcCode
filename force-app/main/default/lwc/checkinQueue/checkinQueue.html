@@ -1,0 +1,23 @@
+<template>
+    <div class="component-color slds-box slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none">
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item size="4" padding="around-small">
+                <lightning-icon icon-name="standard:queue" label="check-in Queue" size="medium"></lightning-icon>
+                <strong class="slds-m-left--x-small checkin-queue">Check-in Queue</strong>
+            </lightning-layout-item>
+            <lightning-layout-item size="8" padding="around-small">
+                <div class="slds-float_right">
+                    <lightning-input label="My availability" class="slds-float_right strong-text" type="toggle"
+                        message-toggle-inactive="" onchange={changeRepStatus} checked={isRepOnline}
+                        message-toggle-active=""></lightning-input>
+                    <template if:false={iCanHelpCustomers}>
+                        <p class="upwards" ><small> I am currently unavailable</small></p>
+                    </template>
+                    <template if:true={iCanHelpCustomers}>
+                        <p class="upwards"><small>I can help customers</small></p>
+                    </template>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+</template>

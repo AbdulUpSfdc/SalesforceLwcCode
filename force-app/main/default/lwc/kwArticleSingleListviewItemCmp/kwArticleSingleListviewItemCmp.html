@@ -1,0 +1,53 @@
+<template>
+    <div class="c-container">
+        <lightning-layout>
+            <lightning-layout-item>
+                <img src={aticleData.previewImage} style="max-height:100px" alt={aticleData.title} />
+            </lightning-layout-item>
+            <lightning-layout-item >
+                <lightning-layout>
+                    <lightning-layout-item>
+                        <lightning-tile label={aticleData.title} type="media">
+                        <ul class="slds-list_horizontal slds-has-dividers_right">
+                            <li class="slds-item"><strong style="color:#00a2df">{aticleData.title}</strong></li>
+                            <li class="slds-item">
+                                <p style="color:grey">
+                                    <lightning-formatted-rich-text value={aticleData.summary}>
+                                    </lightning-formatted-rich-text>
+                                </p>
+                            </li>
+                        </ul>
+                        <br/>
+                        <ul class="slds-list_horizontal slds-has-dividers_right">
+                            <lightning-layout>
+                                <lightning-layout-item flexibility="auto" padding="around-small">
+                                    <lightning-icon 
+                                        icon-name="utility:preview" 
+                                        alternative-text="Preview" 
+                                        title="Preview" 
+                                        size="x-small">
+                                    </lightning-icon>
+                                    &nbsp;&nbsp;{aticleData.previewCount}
+                                </lightning-layout-item>
+                                <lightning-layout-item flexibility="auto" padding="around-small">
+                                    <lightning-icon 
+                                        icon-name="utility:quick_text" 
+                                        alternative-text="Message" 
+                                        title="Message" 
+                                        size="x-small">
+                                    </lightning-icon>
+                                    &nbsp;&nbsp;{aticleData.likeCount}
+                                </lightning-layout-item>
+                                <lightning-layout-item flexibility="auto" padding="around-small">
+                                    <img src={hertlogoURL} style="height:15px" alt={aticleData.title} />
+                                    &nbsp;&nbsp;{aticleData.messageCount}
+                                </lightning-layout-item>
+                            </lightning-layout>
+                        </ul>
+                    </lightning-tile>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+</template>

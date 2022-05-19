@@ -1,0 +1,196 @@
+<template>
+    <div if:true={interaction} >
+    <table class="slds-table slds-table_cell-buffer slds-table_striped slds-table_fixed-layout"
+    summary="Table for interaction rows">
+    <!--This is not the visible Table head. look at bwcInteractionWithActivities lwc we need this THead to suppress sonar qube issues-->
+    <thead hidden class="slds-line-height_reset">
+        <th class="slds-size_2-of-6" scope="col">
+          <lightning-formatted-text
+          class="slds-p-left_medium"
+            value="Interaction"
+          ></lightning-formatted-text>
+        </th>
+
+        <th class="slds-size_2-of-6" scope="col">
+          <lightning-formatted-text
+            value="Created Date"
+          ></lightning-formatted-text>
+        </th>
+        <th class="slds-size_2-of-6" scope="col">
+          <div>
+            <lightning-formatted-text
+              value="Contact Type"
+            ></lightning-formatted-text>
+          </div>
+        </th>
+
+        <th class="slds-size_4-of-7" scope="col">
+          <lightning-formatted-text
+            value="Activity Summary"
+          ></lightning-formatted-text>
+        </th>
+
+        <th class="slds-size_2-of-7" scope="col">
+          <div>
+            <lightning-formatted-text
+              value="Escalations"
+            ></lightning-formatted-text>
+          </div>
+        </th>
+
+        <th class="slds-size_2-of-7" scope="col">
+          <div>
+            <lightning-formatted-text
+              value="One & Done"
+            ></lightning-formatted-text>
+          </div>
+        </th>
+
+        <th class="slds-size_1-of-7" scope="col">
+          <div>
+            <lightning-formatted-text
+              value="Notes"
+            ></lightning-formatted-text>
+          </div>
+        </th>
+    </thead>
+        <!--Interaction record Row-->
+        <tbody>
+        <tr class="slds-box slds-box_xx-small">
+            <td class="slds-size_2-of-6  slds-truncate" onclick={expandInteraction}>    
+                   
+                    <lightning-layout if:true={expandRow} title={interaction.CreatedBy.ATTUID__c}> 
+                       <lightning-layout-item if:true={hasRecords}> <lightning-icon  icon-name="utility:chevrondown" size="x-small" ></lightning-icon></lightning-layout-item>
+                        <lightning-layout-item >{interaction.Name}</lightning-layout-item>
+                    </lightning-layout>
+                    <lightning-layout if:false={expandRow} title={interaction.CreatedBy.ATTUID__c}> 
+                        <lightning-layout-item if:true={hasRecords}> <lightning-icon  icon-name="utility:chevronright" size="x-small"></lightning-icon> </lightning-layout-item>
+                        <div if:false={hasRecords} class="slds-p-left_medium"></div><lightning-layout-item  >{interaction.Name}</lightning-layout-item>
+                    </lightning-layout>                  
+            </td>
+    
+            <td class="slds-size_2-of-6  slds-truncate"  onclick={expandInteraction}>
+                <div >
+                    <lightning-formatted-date-time 
+                    value={interaction.CreatedDate} 
+                    year="numeric" 
+                    month="numeric" 
+                    day="numeric"
+                    ></lightning-formatted-date-time>
+                </div>
+            </td>
+            
+            <td class="slds-size_2-of-6 " onclick={expandInteraction}>
+                <div title={interaction.Contact_Type__c} >
+                    <lightning-formatted-text  value={interaction.Contact_Type__c} ></lightning-formatted-text>
+    
+                </div>
+    
+            </td>
+
+            <td class="slds-size_4-of-7 slds-truncate"  onclick={expandInteraction}>
+                <div title={interaction.Activity_Summary__c} class="slds-truncate"> 
+                    <lightning-formatted-text value={interaction.Activity_Summary__c} ></lightning-formatted-text>
+                </div>
+            </td >
+    
+            <td class="slds-size_2-of-7  slds-truncate"  onclick={expandInteraction}>
+                <div title={interaction.Case_Count__c}>
+                    <lightning-formatted-number value={interaction.Case_Count__c}></lightning-formatted-number>
+                </div>
+            </td>
+    
+            <td class="slds-size_2-of-7  slds-truncate"  onclick={expandInteraction}>
+                <div  title={interaction.Interaction_Activity_Count__c}>
+                    <lightning-formatted-number value={interaction.Interaction_Activity_Count__c}></lightning-formatted-number>            
+                </div>
+                
+            </td>
+     
+             <td class="slds-size_1-of-7 " onclick={expandInteraction}>
+                 <div if:true={interaction.Notes__c}>
+                    <lightning-helptext icon-name="utility:notebook" content={interaction.Notes__c}></lightning-helptext>
+                 </div>
+            </td>
+        </tr>   
+    </tbody>
+    </table>
+    <!--inner table and child components-->
+        <template if:true={expandRow}>
+            <div class="slds-p-left_small">
+    
+          <table class="slds-p-left_small slds-table slds-table_cell-buffer slds-table_striped slds-table_fixed-layout"
+          summary="Table for interaction rows">  
+                <thead class="slds-box slds-box_xx-small">
+                    <th class="slds-size_2-of-7 " scope="col">
+                        <lightning-formatted-text value="ID" class="slds-p-left_large" ></lightning-formatted-text>
+                    </th>
+                    <th class="slds-size_1-of-5" scope="col">
+                        <lightning-formatted-text  value="Created Date" ></lightning-formatted-text>
+                    </th>
+                    <th class="slds-size_1-of-7" scope="col">
+                        <div >
+                            <lightning-formatted-text
+                            value="Created By"
+                          ></lightning-formatted-text>
+                        </div>
+                    </th> 
+                    <!--
+                    <th class="slds-size_1-of-7" >
+                        <lightning-formatted-text  value="Origin" ></lightning-formatted-text>
+                    </th>-->
+                    
+                    <th class="slds-size_1-of-5" scope="col">
+                        <div>
+                            <lightning-formatted-text  value="Case Type" ></lightning-formatted-text>
+                        </div>
+                    </th>
+                    <th class="slds-size_2-of-7" scope="col">
+                        <div >
+                            <lightning-formatted-text  value="Feature" ></lightning-formatted-text>
+                        </div>
+                    </th>
+                    <th class="slds-size_2-of-7" scope="col">
+                        <div >
+                            <lightning-formatted-text  value="Subtype" ></lightning-formatted-text>
+                        </div>
+                    </th>
+                    <th class="slds-size_1-of-7" scope="col">
+                        <div >
+                            <lightning-formatted-text  value="Status" ></lightning-formatted-text>
+                        </div>
+                    </th>
+    
+                    <th class="slds-size_1-of-7" scope="col">
+                        <div >
+                            <lightning-formatted-text
+                            value="Notes"
+                          ></lightning-formatted-text>
+                        </div>
+                    </th>
+            </thead> 
+        </table>
+            </div>
+      
+        <template if:false={activityAndCaseList}>
+            <div style="max-height:15rem;" >
+                <lightning-spinner class="spins" alternative-text="Loading.." size="large"></lightning-spinner>
+            </div>
+        </template>
+        <template if:true={activityAndCaseList}>
+        <div class="slds-scrollable slds-is-relative" style="max-height:20rem;">
+            
+       <template class="slds-p-left_small" for:each={activityAndCaseList} for:item="activity" key={activity.key}>
+          
+        <c-bwc-interaction-activity-row key={activity.key} activity={activity}></c-bwc-interaction-activity-row>
+    
+       </template>
+        </div>
+    
+       </template>
+    
+    </template>
+    
+    
+    </div>
+    </template>

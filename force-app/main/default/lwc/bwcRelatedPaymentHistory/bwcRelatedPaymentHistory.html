@@ -1,0 +1,59 @@
+<template>
+    <lightning-card
+            variant="narrow"
+            icon-name="standard:client">
+        <lightning-spinner if:true={isLoading} alternative-text="Loading"></lightning-spinner>
+        <h1 slot="title">{cardTitle}</h1>
+        <template if:true={pmtHstryGrpd}>
+            <template for:each={pmtHstryGrpd} for:item="item">
+                 <div key={item.name} class="slds-box slds-theme_default">
+                       <div class="row slds-form-element__row">
+                            <div class="column">Date:</div>
+                            <div class="column">{item.Date}</div>
+                        </div>
+                       <div class="row slds-form-element__row">
+                            <div class="column">Amount:</div>
+                            <div class="column">{item.Amount}</div>
+                        </div>
+                       <div class="row slds-form-element__row">
+                            <div class="column">BAN:</div>
+                            <div class="column">{item.BAN}</div>
+                        </div>
+                       <div class="row slds-form-element__row">
+                            <div class="column">Method:</div>
+                            <div class="column">{item.Method}</div>
+                        </div>
+                       <div class="row slds-form-element__row">
+                            <div class="column">Payment Method:</div>
+                            <div class="column">{item.PaymentMethod}</div>
+                        </div>
+                       <div class="row slds-form-element__row">
+                            <div class="column">Type:</div>
+                            <div class="column">{item.Type}</div>
+                        </div>
+                       <div class="row slds-form-element__row">
+                            <div class="column">Last 4:</div>
+                            <div class="column">{item.LastFour}</div>
+                        </div>
+                       <div class="row slds-form-element__row">
+                            <div class="column">Status:</div>
+                            <div class="column">{item.Status}</div>
+                        </div>
+                       <div class="row slds-form-element__row">
+                            <div class="column">Confirmation #:</div>
+                            <div class="column">{item.ConfirmationNum}</div>
+                        </div>
+                 </div>
+            </template>
+        </template>
+        <template if:false={pmtHstryGrpd}>
+            No history to show.
+        </template>
+        <div slot="actions">
+            <lightning-button-icon icon-name="utility:refresh" onclick={handleRefresh}></lightning-button-icon>
+        </div>
+        <div slot="footer">
+            {error}
+        </div>
+    </lightning-card>
+</template>

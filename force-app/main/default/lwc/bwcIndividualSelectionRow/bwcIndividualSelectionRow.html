@@ -1,0 +1,86 @@
+<template>
+
+    <div class="border-bottom">
+        <table class="slds-table slds-table_cell-buffer slds-table_striped slds-table_fixed-layout"
+            summary="Header for Individual Rows">
+            <!--This is not the visible Table head. look at bwcInteractionWithActivities lwc we need this THead to suppress sonar qube issues-->
+            <thead hidden class="slds-line-height_reset">
+                <th class="slds-size_2-of-7" scope="col">
+                    <lightning-formatted-text
+                    class="slds-var-p-left_medium"
+                    value="Name"
+                    ></lightning-formatted-text>
+                </th>
+
+                <th class="slds-size_2-of-8" scope="col">
+                    <lightning-formatted-text
+                    value="Email"
+                    ></lightning-formatted-text>
+                </th>
+
+                <th class="slds-size_2-of-7" scope="col">
+                    <div>
+                    <lightning-formatted-text
+                        value="Contact Number"
+                    ></lightning-formatted-text>
+                    </div>
+                </th>
+
+                <!-- NOTE: for formatting -->
+                <th class="slds-size_2-of-8" scope="col"></th>
+            </thead>
+            <!--Interaction record Row-->
+            <tbody>
+                <tr class="slds-box slds-box_xx-small">
+                    <td class="slds-size_2-of-7  slds-truncate" onclick={expandRow}>
+
+                        <lightning-layout pull-to-boundary="small">
+                            <lightning-layout-item>
+                                <lightning-icon icon-name={iconName} size="x-small"></lightning-icon>
+                            </lightning-layout-item>
+                            <lightning-layout-item class="slds-p-left_small">
+                                <a href="#" onclick={handleIndividualClick} >{individual.fullName}</a>
+                            </lightning-layout-item>
+
+                        </lightning-layout>
+                    </td>
+
+                    <td class="slds-size_2-of-8  slds-truncate" onclick={expandRow}>
+                        <div>
+                            <span>{individual.email}</span>
+                        </div>
+                    </td>
+
+                    <td class="slds-size_2-of-7 " onclick={expandRow}>
+                        <div>
+                            <span>{individual.contactNumber}</span>
+                        </div>
+
+                    </td>
+
+                    <!-- NOTE: for formatting -->
+                    <td class="slds-size_2-of-8 " onclick={expandRow}></td>
+
+                </tr>
+            </tbody>
+        </table>
+
+        <div if:true={isExpanded}>
+
+            <div class="slds-theme_default subscribers-table subscriber-table_alignment">
+                <lightning-datatable
+                    class="slds-max-medium-table_stacked"
+                    key-field="accountNumber"
+                    data={currentSubscribers}
+                    columns={columns}
+                    hide-checkbox-column
+                    default-sort-direction={defaultSortDirection}
+                    sorted-direction={sortDirection}
+                    sorted-by={sortedBy}
+                    onsort={onHandleSort}
+                ></lightning-datatable>
+            </div>
+        </div>
+    </div>
+
+</template>

@@ -1,0 +1,8 @@
+section {
+    position: absolute;
+}
+
+.rich-text {
+    white-space: pre-wrap;
+    color: initial;
+}

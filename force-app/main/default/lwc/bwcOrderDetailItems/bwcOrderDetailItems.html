@@ -1,0 +1,56 @@
+<template>
+    <div if:true={areThereDevices} class="slds-m-horizontal_small">
+        <p if:true={isWireless} class="slds-text-title_bold"> Devices Ordered</p>
+        <p if:false={isWireless} class="slds-text-title_bold"> Items Ordered</p>
+        <template for:each={_items} for:item="item">
+            <div key={item.itemSequence}>
+                <c-bwc-expandable-section data-name='outterExpandSection' onexpand={handleExpand} >
+                <div slot="header" class="headerSection">
+                    <lightning-layout horizontal-align="spread" > 
+                        <lightning-layout-item size="11">
+                            {item.title}
+                        </lightning-layout-item>
+                        <lightning-layout-item if:true={item.itemPrice} size="1">
+                            <div class="slds-text-title_bold slds-float_right">
+                                <lightning-formatted-number value={item.itemPrice} format-style="currency" currency-code="USD"></lightning-formatted-number>
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+
+                <div class="slds-grid slds-grid_vertical">
+                    <c-bwc-order-item-tracker
+                        fulfillment-type={_fulfillmentType}
+                        item-status={item.itemStatus}>
+                    </c-bwc-order-item-tracker>
+                    <c-bwc-order-fields columns=2 fields={item.fields} ></c-bwc-order-fields>
+                </div>
+
+                <div class="slds-m-left_small">
+                    <c-bwc-expandable-section onexpand={handleExpand} if:true={item.shipmentFields} title="Shipment Details">
+                        <c-bwc-order-fields columns=2 fields={item.shipmentFields} ></c-bwc-order-fields>
+                    </c-bwc-expandable-section>
+                </div>
+            </c-bwc-expandable-section> 
+
+            <c-bwc-expandable-section if:true={item.promotion} onexpand={handleExpand}>
+                <div slot="header" class="headerSection">
+                    <lightning-layout horizontal-align="spread">
+                        <lightning-layout-item size="11">
+                            {item.promotionTitle} 
+                        </lightning-layout-item>
+                        <lightning-layout-item size="1">
+                            <div class="slds-text-title_bold slds-float_right">
+                                <lightning-formatted-number value={item.promotion.amount} format-style="currency"
+                                    currency-code="USD"></lightning-formatted-number>
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <c-bwc-order-promo-applied promo-information={item.promotion}></c-bwc-order-promo-applied>
+            </c-bwc-expandable-section>
+        </div>
+            
+        </template>
+    </div>
+</template>

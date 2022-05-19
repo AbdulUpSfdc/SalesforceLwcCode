@@ -1,0 +1,15 @@
+
+/* decrease check mark size */
+lightning-icon.slds-icon-utility-check > lightning-primitive-icon > svg.slds-icon{
+    transform: scale(0.70);
+    fill: white;
+}
+
+
+/* add blue circle background */
+lightning-icon.slds-icon-utility-check{
+    border-radius: var(--lwc-borderRadiusCircle,50%);
+    background-color: #0070d2;
+}
+
+

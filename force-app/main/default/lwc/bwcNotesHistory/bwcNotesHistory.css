@@ -1,0 +1,40 @@
+.tab {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.notes-div {
+    position: relative;
+    min-height: 5rem;
+}
+
+.source-system {
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--lwc-colorBorder);
+    border-radius: var(--lwc-borderRadiusLarge);
+    white-space: nowrap;
+}
+
+.slds-is-open .source-system {
+    color: white;
+    background-color: #86c2bf;
+}
+
+.loading-more {
+    height: 3rem;
+}
+
+.clear-button
+{
+    z-index:1000;
+    position: absolute;
+    right:3%
+}
+.filter-box
+{
+    z-index:100;
+    position: absolute;
+    background-color: white;
+    width: fit-content;
+}

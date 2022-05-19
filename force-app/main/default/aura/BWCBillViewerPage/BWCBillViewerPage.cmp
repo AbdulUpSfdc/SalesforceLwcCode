@@ -1,0 +1,20 @@
+<aura:component implements="lightning:isUrlAddressable,flexipage:availableForAllPageTypes">
+
+    <aura:handler name="init" value="{!this}" action="{!c.setBan}"/>
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.setBan}" />
+
+    <aura:attribute name="ban" type="String"/>
+    <aura:attribute name="accountType" type="String"/>
+    <aura:attribute name="interactionId" type="String"/>
+    <aura:attribute name="defaultStatementId" type="String"/>
+    <aura:attribute name="caseId" type="String"/>
+    
+    <c:bwcBillViewer interactionId="{!v.interactionId}" ban="{!v.ban}" accountType="{!v.accountType}" defaultStatementId="{!v.defaultStatementId}" caseId="{!v.caseId}"></c:bwcBillViewer>
+
+    <!-- To open PDF from this tab. -->
+    <c:BWCOpenSubTab></c:BWCOpenSubTab>
+
+    <!-- To open Adjustment Wizard -->
+    <c:BWCPageHelper></c:BWCPageHelper>
+
+</aura:component>

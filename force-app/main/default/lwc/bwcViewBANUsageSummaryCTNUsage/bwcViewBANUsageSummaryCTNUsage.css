@@ -1,0 +1,53 @@
+.device-usage .near-limit-tooltip {
+    visibility: hidden;
+    width: 80px;
+    background-color: #032d60;
+    color: #fff;
+    z-index: 1;
+    top: -6px;
+    left: 100%;
+    text-align: center;
+    border-radius: .25rem;
+    padding: 5px 0;
+    position: absolute;
+    margin-left: 10px;
+}
+
+.device-usage .near-limit-tooltip:before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #032d60;
+    left: -8px;
+    top: 5px;
+}
+
+.device-usage {
+    position: relative;
+    display: inline-block;
+}
+
+.device-usage:hover .near-limit-tooltip {
+    visibility: visible;
+}
+
+.device-subscriber-name {
+    font-weight: bold;
+    line-height: 1.5rem;
+}
+
+.device-name {
+    font-weight: bold;
+    line-height: 1.5rem;
+}
+
+.device-plan-span {
+    padding: 2px 8px;
+    background: #ECEBEA;
+    color: #080707;
+    border-radius: 23px;
+}

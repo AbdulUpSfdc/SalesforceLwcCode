@@ -1,0 +1,15 @@
+{
+    "accounts": [
+        {
+            "accountType": "DTV",
+            "ban": "631014841",
+            "addons": [
+                {
+                    "title": "HBO MAX",
+                    "monthlyCost": "0",
+                    "description": "With seven premium channels, HBO Max is the place for the biggest Hollywood hits, great original movies, award-winning shows, exclusive sporting events and more."
+                }
+            ]
+        }
+    ]
+}

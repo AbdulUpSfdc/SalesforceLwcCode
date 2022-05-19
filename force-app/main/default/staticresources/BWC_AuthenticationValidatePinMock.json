@@ -1,0 +1,6 @@
+{
+"appStatusMsg": "SUCCESS",
+"X-ATT-UniqueTransactionId": "12345",
+"transactionName": "ValidatePIN",
+"appStatusCode": "0"
+}

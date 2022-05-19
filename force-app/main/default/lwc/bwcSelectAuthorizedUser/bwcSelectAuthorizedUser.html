@@ -1,0 +1,30 @@
+<template>
+
+    <div class="content-panel slds-grid slds-grid_vertical slds-is-relative">
+
+        <c-bwc-error-reports></c-bwc-error-reports>
+
+        <div if:true={isBusy}>
+            <lightning-spinner alternative-text="Loading..." size="large"></lightning-spinner>
+        </div>
+
+        <div if:true={isLoaded} class="slds-is-relative">
+
+            <div class="slds-m-top_small">
+
+                <c-bwc-datatable
+                    hide-checkbox-column
+                    column-widths-mode="auto"
+                    key-field="slid"
+                    columns={userTableColumns}
+                    data={userTableRows}
+                >
+                </c-bwc-datatable>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</template>

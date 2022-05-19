@@ -1,0 +1,57 @@
+<aura:component controller="UserCurrentLocationController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <!-- Attributes section -->
+    <aura:attribute name="filter" type="String" access="GLOBAL"/>
+    <aura:attribute name="ProfileName" type="String"/>
+    <aura:attribute name="user" type="String"/>
+    <aura:attribute name="WaveDashboardId" type="String"/>
+   
+        
+    <!-- doinit call -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+  
+    <!--If profile is Retail RSC Rep-->
+    <aura:if isTrue="{!v.ProfileName == 'Retail RSC Rep'}">
+        
+        <div width = "100%">
+            
+            <wave:waveDashboard dashboardId="{!$Label.c.Retail_RSC_Rep_DashboardID}" showTitle="{!$Label.c.Retail_RSC_Rep_showTitle}" 
+                                showHeader="{!$Label.c.Retail_RSC_Rep_showHeader}"
+                                height="{!$Label.c.Retail_RSC_Rep_height}" openLinksInNewWindow="true" 
+                                filter="{!v.filter}" showSharing="{!$Label.c.Retail_RSC_Rep_showSharing}"/>
+        </div>
+        
+    </aura:if >
+    
+    
+    <!--If profile is Retail ARSM   -->
+    <aura:if isTrue="{!v.ProfileName == 'Retail ARSM'}">  
+        
+        <div width = "100%">
+            
+            <wave:waveDashboard dashboardId="{!$Label.c.Retail_ARSM_DashboardId}" showTitle="{!$Label.c.Retail_ARSM_showTitle}" 
+                                showHeader="{!$Label.c.Retail_ARSM_showHeader}"
+                                height="{!$Label.c.Retail_ARSM_height}" openLinksInNewWindow="true" 
+                                filter="{!v.filter}" showSharing="{!$Label.c.Retail_ARSM_showSharing}"/>
+        </div>
+        
+    </aura:if >
+    
+   
+    <!--If profile is Retail SM-->
+    <aura:if isTrue="{!v.ProfileName == 'Retail SM'}">
+        
+        <div width = "100%">
+                        
+            <wave:waveDashboard dashboardId="{!$Label.c.Retail_SM_DashboardId}" showTitle="{!$Label.c.Retail_SM_showTitle}" 
+                                showHeader="{!$Label.c.Retail_SM_showHeader}"
+                                height="{!$Label.c.Retail_SM_height}" openLinksInNewWindow="true" 
+                                filter="{!v.filter}" showSharing="{!$Label.c.Retail_SM_showSharing}"/>
+        </div>
+        
+    </aura:if>
+    
+    
+    
+    
+</aura:component>

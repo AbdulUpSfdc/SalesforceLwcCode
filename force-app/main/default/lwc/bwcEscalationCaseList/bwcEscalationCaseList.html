@@ -1,0 +1,19 @@
+<template>
+
+    <lightning-card variant="Narrow" title="Escalation Cases" icon-name="standard:case">
+        
+        <c-bwc-escalation-case-datatable
+            record-id={recordId}
+            ondatatableload={handleOnLoad}
+        ></c-bwc-escalation-case-datatable>
+        <template if:true={viewAll}>
+            <div class="slds-text-align_center slds-var-p-top_small">
+                <c-bwc-action-link
+                    label="View All"
+                    onactionclick={handleViewAllClick}
+                ></c-bwc-action-link>
+            </div>
+        </template>
+    </lightning-card>
+    
+</template>

@@ -1,0 +1,13 @@
+.THIS {
+}
+
+.THIS .halfwidth{
+    width: 100%;
+}
+
+
+@media screen and (min-width: 1024px) {
+    .THIS .halfwidth{
+        width: 50%;
+    }
+}

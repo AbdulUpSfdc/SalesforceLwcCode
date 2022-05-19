@@ -1,0 +1,30 @@
+.column {
+   display: flex;
+   gap: 10px;
+   align-items: flex-end;
+  }
+
+  .originalval {
+    font-size: small;  
+  }
+
+  .newval {
+    display: flex;
+    gap: 2px;
+    font-size:large;
+    text-align: last;
+  }
+
+  .month {
+    text-align: start;
+    align-self: flex-end;
+  }
+
+  .display {
+    font-weight: bold;
+  }
+
+  .discount {
+    font-size: small;
+    color: green;
+  }

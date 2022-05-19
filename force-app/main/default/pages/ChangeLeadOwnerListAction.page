@@ -1,0 +1,42 @@
+<apex:page standardController="Lead" showQuickActionVfHeader="false" extensions="ChangeLeadOwnerListActionController" recordSetVar="leads">
+    <apex:includeLightning />     
+    <div id="AppContainer"></div>  
+    <script src='/canvas/sdk/js/publisher.js'></script>
+    <script>
+        
+        function returnBack(){
+            window.history.go(-1);
+        }
+        function validate() {
+            let leadsListStr = '{!leads}';
+            let isValidProfile = '{!isValidProfile}';
+            leadsListStr = leadsListStr.replace('[', '').replace(']', '');
+            let leadsArray = leadsListStr.length > 0 ? leadsListStr.split(',') : [];
+            if(!(leadsArray.length > 0)) {
+                showToast("{!$Label.Error}", "Please select atleast one lead to change owner", "error");
+                returnBack(); 
+            } else if (leadsArray.length > 100) {
+            	showToast("{!$Label.Error}", "Maximum of 100 records can be selected", "error");
+                returnBack(); 
+            } else if(isValidProfile === 'false') {
+                showToast("{!$Label.Error}", "{!$Label.Retail_Lead_Invalid_Profile_Error_Msg}", "error");
+                returnBack(); 
+            } else {
+                $Lightning.use("c:ChangeLeadOwnerApp", function() { 
+                    $Lightning.createComponent("c:changeLeadOwnerLwc", {"leadsList" : leadsListStr, "calledFrom": "LeadListView"}, "AppContainer", function(cmp) { console.log("component loaded...")});
+                });
+                Sfdc.canvas.publisher.publish({ name : "publisher.close", payload : { refresh:"true" }});    
+            }
+        }
+        function showToast(title, message, type) {
+            sforce.one.showToast({
+                "title": title,
+                "message": message,
+                "type": type
+            });
+        }
+        validate();
+
+    </script>
+   
+</apex:page>

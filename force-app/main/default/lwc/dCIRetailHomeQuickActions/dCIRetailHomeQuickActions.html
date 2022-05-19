@@ -1,0 +1,131 @@
+<template>
+    <lightning-card if:false={DCIcheckIfBusywithCustomer}></br>
+      <template if:true={isLoading}>
+        <div class="spinner">
+            <lightning-spinner  class = "loading" alternative-text="loading" variant="brand"></lightning-spinner>
+        </div>
+    </template>
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-5">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-size_1-of-1 slds-align_absolute-center">
+                        <lightning-icon 
+                            class="pointer"
+                            icon-name="action:new_lead" 
+                            alternative-text="NewLead"
+                            size="medium"
+                            title="New Lead" 
+                            onclick={gotoLeadForm}>
+                        </lightning-icon>
+                    </div>
+                    &nbsp;
+                    <div class="slds-size_1-of-1 slds-align_absolute-center">
+                        <label> <div class="fontSize">Create New Lead</div> </label>
+                    </div>
+                </div>
+            </div>
+        <div class="slds-col slds-size_1-of-5">
+          <div class="slds-size_1-of-1 slds-align_absolute-center">
+            <lightning-icon 
+              class="pointer"
+              icon-name="custom:custom17"
+              alternative-text="Pay a Bill"
+              size="large"
+              title="Pay a Bill"
+              onclick={gotoPayABillForm}>
+            </lightning-icon>
+          </div>
+          &nbsp;
+          <div class="slds-size_1-of-1 slds-align_absolute-center">
+            <label> <div class="fontSize">Pay a Bill </div> </label>
+          </div>
+        </div>
+
+        <div class="slds-col slds-size_1-of-5">
+          <div class="slds-grid slds-wrap">
+            <div class="slds-size_1-of-1 slds-align_absolute-center">
+              <lightning-icon 
+                class="pointer"
+                icon-name="standard:webcart"
+                alternative-text="Buy accessory(only)"
+                size="large"
+                title="Buy accessory (only)" 
+                onclick={gotoBuyaccessoryForm}>
+              </lightning-icon>
+            </div>
+            &nbsp;
+            <div class="slds-size_1-of-1 slds-align_absolute-center">
+            <label> <div class="fontSize">Buy accessory (only) </div> </label>
+            </div>
+          </div>
+        </div>
+
+            <div class="slds-col slds-size_1-of-5">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-size_1-of-1 slds-align_absolute-center">
+                        <lightning-icon 
+                            class="pointer"
+                            icon-name="action:web_link" 
+                            alternative-text="StoreURL"
+                            size="medium"
+                            title="Share my store URL" 
+                            onclick={showModal}>
+                        </lightning-icon>
+                    </div>
+                    &nbsp;
+                    <div class="slds-size_1-of-1 slds-align_absolute-center">
+                        <label> <div class="fontSize"> Share my store URL </div> </label>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-5">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-size_1-of-1 slds-align_absolute-center">
+                        <lightning-icon 
+                            class="pointer"
+                            icon-name="action:refresh" 
+                            alternative-text="Refresh"
+                            size="medium"
+                            title="Refresh" 
+                            onclick={refreshPage}>
+                        </lightning-icon>
+                    </div>
+                    &nbsp;
+                    <div class="slds-size_1-of-1 slds-align_absolute-center">
+                        <label> <div class="fontSize"> Refresh </div> </label>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="slds-col slds-size_1-of-5">
+
+            </div>
+
+            <div class="slds-col slds-size_1-of-5">
+                
+            </div>
+        </div>
+</lightning-card>
+ <template if:true={openModal}>
+    <div class="slds-modal slds-fade-in-open slds-backdrop">
+      <div class="slds-modal__container">
+        <div class="slds-modal__header">
+          <lightning-button-icon icon-name="utility:close" alternative-text="Close this window" size="large"
+            variant="bare-inverse" onclick={closeModal} class="slds-modal__close">
+          </lightning-button-icon>
+          <h2>My Store URL</h2>
+        </div>
+        <div class="slds-modal__content slds-p-around_medium">
+          <div class="center">
+            <a href={myStoreLink}>{myStoreLink}</a>
+          </div>
+        </div>
+        <div class="slds-modal__footer">
+          <lightning-button icon-name="utility:close" label="close" variant="brand" onclick={closeModal}>
+          </lightning-button>
+        </div>
+      </div>
+    </div>
+  </template>
+</template>

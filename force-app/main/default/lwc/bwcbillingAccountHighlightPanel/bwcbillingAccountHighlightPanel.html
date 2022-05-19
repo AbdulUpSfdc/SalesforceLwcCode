@@ -1,0 +1,67 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner  alternative-text="Loading" size="small"></lightning-spinner>
+    </template>
+    <lightning-record-view-form
+        record-id={recordId}
+        object-api-name={billingAccountObject}>
+
+        
+        <div class="slds-page-header">
+            <div class="slds-page-header_row">
+                <div class="slds-page-header_col-title slds-clearfix slds-grid">
+                    <div class="slds-media slds-col slds-size_1-of-2">
+                        <div class="slds-media_figure">
+                            <span class="slds-icon_container slds-icon-standard-opportunity">
+                                <lightning-icon icon-name="standard:work_step" size="medium"></lightning-icon>
+                            </span>
+                        </div>
+                        <div class="slds-media_body">
+                            <div class="slds-page-header_name">
+                                <div class="slds-page-header_name-title">
+                                    <h1>
+                                        <span>Order</span>
+                                        <div class="slds-truncate" title="">
+                                            {orderTitle}
+                                        </div>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2" slot="actions">
+                    <lightning-button
+                                    label="Escalate"
+                                    value="escalateService"
+                                    class="slds-float_right"
+                                    disabled={noAccess}
+                                    variant="border-filled"
+                                    onclick={onEscalate}>
+                    </lightning-button>
+                    </div>
+                </div>
+
+            </div>
+            <template if:true={isOpen}>
+                <div class="slds-page-header__row slds-page-header__row_gutters">
+                    <div class="slds-page-header__col-details">
+                        <ul class="slds-page-header__detail-row">
+                            <template for:each={banFields} for:item='fieldName'>
+                                <li key={fieldName} class="slds-page-header__detail-block">
+                                    <div class="slds-truncate" title="">
+                                       <!-- <span class="slds-text-body_small" style="font-size: 14px">First Name</span> -->
+                                       <lightning-output-field field-name={fieldName} variant="label-stacked"></lightning-output-field>
+                                    </div>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+
+        </template>
+
+
+    </div>
+    </lightning-record-view-form>
+
+</template>

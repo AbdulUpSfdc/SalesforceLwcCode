@@ -1,0 +1,4 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" controller="LeadOwnershipAssignController">
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+	
+</aura:component>

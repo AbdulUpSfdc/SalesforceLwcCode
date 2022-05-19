@@ -1,0 +1,30 @@
+<aura:component controller="RetailHomePageController" implements="force:appHostable,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,force:hasRecordId">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="listViewNameDueToday" type="String"/>
+    <div class="c-container">
+        <aura:if isTrue="{!v.listViewNameDueToday}">
+            <lightning:layout multipleRows="true">
+                <lightning:layoutItem size="12"  class="slds-p-around_xx-small">
+                    <lightning:listView aura:id="listViewLeads"
+                    objectApiName="Lead"
+                    listName="{!v.listViewNameDueToday}"
+                    showSearchBar="true"
+                    showActionBar="true"
+                    enableInlineEdit="true"
+                    showRowLevelActions="true"
+                    rows="2"/> 
+                </lightning:layoutItem>
+            </lightning:layout>
+        </aura:if> 
+        <lightning:layoutItem size="12" class="slds-p-around_xx-small">
+            <lightning:listView aura:id="listViewLeads"
+            objectApiName="Lead"
+            listName="RecentlyViewedLeads"
+            showSearchBar="true"
+            showActionBar="true"
+            enableInlineEdit="true"
+            showRowLevelActions="true"
+            rows="2"/>
+        </lightning:layoutItem>
+    </div>
+</aura:component>

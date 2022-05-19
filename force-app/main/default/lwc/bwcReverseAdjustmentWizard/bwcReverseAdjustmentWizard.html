@@ -1,0 +1,115 @@
+<template>
+
+    <c-bwc-wizard steps={wizardSteps} default-title={wizardDefaultTitle} is-quick-action is-full-page onclose={handleWizardClose}>
+
+        <lightning-spinner if:true={isLoading} alternative-text="Loading"></lightning-spinner>
+
+        <c-bwc-notifications></c-bwc-notifications>
+
+        <span slot="panel0">
+            <div class="panel">
+
+                <!-- Account Billing Information -->
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title section">
+                        <span class="slds-var-p-left_small" title="Account Billing Information">Account Billing Information</span>
+                    </h3>
+                    <div class="slds-section__content slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+
+                            <!-- Customer Name -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Customer Name</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-large">
+                                    <span><b>{customerFirstName} {customerLastName}</b></span>
+                                </div>
+                            </div>
+
+                            <!-- CTN -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">CTN</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-large">
+                                    <span><b>{ctn}</b></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+
+                            <!-- Next Bill Date -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Next Bill Date</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-large">
+                                    <span><b>{nextBillDate}</b></span>
+                                </div>
+                            </div>
+
+                            <!-- Account Type -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Account Type</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-large">
+                                    <span><b>{accountType}</b></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Adjustment Information -->
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title section">
+                        <span class="slds-var-p-left_small" title="Adjustment Information">Adjustment Information</span>
+                    </h3>
+                    <div class="slds-section__content slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            
+                            <!-- Code -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Code</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-large">
+                                    <span><b>{adjustmentCode}</b></span>
+                                </div>
+                            </div>
+
+                            <!-- Created Date -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Created Date</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-large">
+                                    <span><b>{createdDate}</b></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+
+                            <!-- Description -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Description</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-large">
+                                    <span><b>{adjustmentDescription}</b></span>
+                                </div>
+                            </div>
+
+                            <!-- Adjustment Amount -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Adjustment Amount</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-large">
+                                    <span><b>${adjustmentAmount}</b></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </span>
+
+        <span slot="panel1">
+            <div class="panel">
+                <!-- TODO Change to SF Label -->
+                <span class="slds-align_absolute-center slds-grid_vertical-align-center">You are about to reverse a past adjustment. Would you like to continue with this reversal?</span>
+            </div>
+        </span>
+
+    </c-bwc-wizard>
+</template>

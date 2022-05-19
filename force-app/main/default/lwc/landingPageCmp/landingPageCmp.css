@@ -1,0 +1,37 @@
+.main-container {
+    position: relative;
+}
+.landing-container {
+    width: 100%;
+    background: white;
+}
+
+/* iPad */
+@media only screen 
+  and (min-width: 768px) and (max-width: 1024px) and (orientation:portrait){
+    .search-form{
+    }
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation:landscape) {
+    .search-form{
+    }
+}
+
+
+.MyModal {
+    width: 200px;
+    height: 200px;
+    color: white;
+    background-color: #336699;
+    padding: 10px;
+    display: block;
+    pointer-events: auto;
+  }
+
+
+/* 
+@media (max-device-height: 1080px) {
+    .trending-container {
+        display:none;
+    } 
+} */

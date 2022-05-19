@@ -1,0 +1,11 @@
+<aura:component implements="flexipage:availableForAllPageTypes">
+    <!-- load the workspace API -->
+    <lightning:workspaceAPI aura:id="workspace" />
+    <!-- configuration values -->
+    <aura:attribute name="WorkSpaceApi" type="Object"/>
+    <!-- Subscribe to the Launch WFE Event -->
+    <lightning:messageChannel type="BWC_WFEWindowClose__c" onMessage="{!c.handleCloseEvent}"/>
+    
+    <aura:attribute name="windowHandle" type="Object"/>
+
+</aura:component>

@@ -1,0 +1,68 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <!-- <div class="slds-dropdown-trigger slds-dropdown-trigger_click  slds-is-open"> -->
+    <div>
+    <button
+      class="form-trigger slds-button slds-button_neutral"
+      id="formTrigger"
+      aria-haspopup={hasPopup}
+      aria-expanded={expanded}
+      onclick={showRaisrManager}
+    >
+      Voice-Masking
+      <svg
+        class={iconClasses}
+        aria-hidden="true"
+      >
+        <use xlink:href={audioIcon}></use>
+      </svg>
+    </button>
+    </div>
+    <!-- <div class="slds-dropdown slds-dropdown_right"> -->
+      <!-- slds-popover_hide -->
+    <div>
+      <section
+        aria-describedby="dialog-body-id-109"
+        aria-labelledby="dialog-heading-id-114"
+        class="slds-popover slds-nubbin_top-right slds-popover_small slds-popover_hide" 
+        style="position:absolute; right: 0rem;"
+        role="dialog"
+      >
+        <button
+          class="slds-button slds-button_icon slds-button_icon-small slds-float_right slds-popover__close"
+          title="Close dialog"
+          onclick={showRaisrManager}
+        >
+          <svg class="slds-button__icon" aria-hidden="true">
+            <use
+              xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#close"
+            ></use>
+          </svg>
+          <span class="slds-assistive-text">Close dialog</span>
+        </button>
+        <div
+          class="slds-popover__body __slds-popover__body_small"
+          id="dialog-body-id-109"
+        >
+          <!-- <div class="slds-media">
+            <div class="slds-media__body">
+              <div> -->
+                <c-bwc-raisr-manager-form-cmp></c-bwc-raisr-manager-form-cmp>
+              <!-- </div>
+            </div>
+          </div> -->
+        </div>
+        <!-- <footer class="slds-popover__footer">
+        <p>Footer Item</p>
+      </footer> -->
+      </section>
+
+    </div>
+
+    <!-- </div>
+  </div> -->
+
+  <c-bwc-raisr-msg-pub-sub-cmp 
+    parent-id="bwcRaisrFormCtrlCmp"
+    onraisrevent={onRaisrEvent}></c-bwc-raisr-msg-pub-sub-cmp>
+</template>

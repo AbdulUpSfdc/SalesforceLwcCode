@@ -1,0 +1,42 @@
+<template>
+
+    <div class="slds-modal__content slds-scrollable slds-is-relative slds-p-around_medium modal-content slds-grid slds-grid_vertical">
+
+        <div if:true={isBusy}>
+            <lightning-spinner alternative-text="Loading..." size="large"></lightning-spinner>
+        </div>
+
+        <lightning-combobox
+            class="slds-m-bottom_small slds-size_1-of-4" label="View Consent in" options={languageOptions} value={selectedLanguageOption}
+            onchange={handleLanguageChange}>
+        </lightning-combobox>
+
+        <c-bwc-read-panel title="Read to the Customer:" text={consentText}></c-bwc-read-panel>
+
+        <lightning-radio-group class="slds-m-top_small" variant="label-hidden"
+            required message-when-value-missing="Please select an option."
+            options={consentOptions} value={selectedConsentOption} onchange={handleConsentOptionChange}>
+        </lightning-radio-group>
+
+        <div if:true={isSelectedPermanent} class="slds-grid slds-grid_vertical slds-m-left_large slds-m-top_small">
+
+            <c-bwc-read-panel if:true={isSelectedPermanent} title="Read to the Customer:" text={permanentConsentText}></c-bwc-read-panel>
+
+            <lightning-radio-group class="slds-m-top_small" variant="label-hidden"
+                required message-when-value-missing="Please select an option."
+                options={permanentConsentOptions} value={selectedPermanentConsentOption} onchange={handlePermanentConsentOptionChange}>
+            </lightning-radio-group>
+
+        </div>
+
+    </div>
+
+    <div class="slds-grid slds-m-top_small">
+
+        <footer class="slds-col_bump-left">
+            <lightning-button data-name="submitButton" label="Submit" variant="brand" onclick={handleSubmit}></lightning-button>
+        </footer> 
+
+    </div>
+
+</template>

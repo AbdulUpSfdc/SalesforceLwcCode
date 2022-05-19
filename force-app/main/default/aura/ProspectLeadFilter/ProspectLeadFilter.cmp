@@ -1,0 +1,112 @@
+<!--- 
+    Component Name : ProspectLeadsFilter
+    Description: This component is part of the ProspectLeads Tab .When the user clicks on apply filter button from prospect result 
+                            and prospect list view page , this component is rendered
+    Author: Rashmi Thippeswamy
+-->
+<aura:component  controller="ProspectLeadsListViewController" implements="lightning:isUrlAddressable,flexipage:availableForAllPageTypes,force:appHostable"  extends="c:ProspectBase" >
+<!--  Begin Handler-->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.handlePageReferenceChange}" />
+    <aura:handler event="c:ProspectLeadDefaultFilter" action="{!c.handleApplicationEvent}"/>
+    <aura:handler name="change"  value="{!v.lead.Store__c}" action="{!c.handleStoreChange}"/>
+
+ <!--  End Handler-->  
+ <!--Begin Attributes-->
+ 
+ <aura:attribute name="lead" type="Lead" 
+               default="{ 'sobjectType': 'Lead' }"/>
+    <aura:attribute name="renderCmp" type="Boolean" default="false"/>
+    <aura:attribute   name="isError" type="Boolean"  default="false"/>
+    <aura:attribute name="renderStoreFilter" type="Boolean" default="false"/>
+    <aura:attribute name="gotoResults" type="Boolean" default="false"/>
+    <aura:attribute name="selectedValueObject" type="List" />   
+    <aura:attribute name="selectedValueObjectTemp" type="List" />   
+    <aura:attribute name="pageReference" type="Object"/>
+    <aura:attribute name="lstLead" type="List"   />
+    <aura:attribute name="opportunityTypeOptions" type="List" default="[
+    {'label': 'Prepaid', 'value': 'Prepaid'},
+    {'label': 'Postpaid', 'value': 'Postpaid'}
+    ]"/>
+    <aura:attribute name="customerTypeOptions" type="List" default="[
+    {'label': 'New Customer', 'value': 'New Customer'},
+    {'label': 'Existing Customer', 'value': 'Existing Customer'},
+    {'label': 'Customer Moving', 'value': 'Customer Moving'},
+    {'label': 'Contract Expiring', 'value': 'Contract Expiring'},
+    {'label': 'Sales Follow Up', 'value': 'Sales Follow Up'}
+    ]"/>
+    <aura:attribute   name="DefaultValueList" type="List" default="[ProductsDiscussed__c','CustomerType__c']"/>
+    <aura:attribute   name="LeadListName" type="List" />
+    <aura:attribute   name="storeId" type="String" /> 
+    <aura:attribute   name="storeName" type="String" /> 
+    <aura:attribute  name="oppTypeDefault"  type="List" />
+    <aura:attribute  name="cusTypeDefault"  type="List" />
+    <aura:attribute   name="DefaultValueMap" type="Map"  default="{}"/>
+    <aura:attribute   name="DefaultOperatorMap" type="Map"  default="{}"/>
+    <aura:attribute   name="PicklistValueMap" type="Map" />
+    <aura:attribute  name="SelectedLeadListName" type="String" />
+    <aura:attribute name="strListFilterOptions" type="String"   />
+    <aura:attribute name="strFilterOperatorDisplay" type="String"   />
+    <aura:attribute name="storeTooltip" type="String" />
+    <aura:attribute name="maxProximity" type="Integer" />
+
+ <!--End Attributes-->
+ 
+ <!--Begin Navigation-->
+    <lightning:navigation aura:id="navigation"/>
+<!--End Navigation-->
+ <!--Begin Filter Form-->
+
+            
+    <aura:renderIf isTrue="{!v.renderCmp}"> 
+        <div class="slds-clearfix slds-float_right" >
+            <lightning:button variant="brand" type="submit"  label="Apply"  onclick="{!c.applyFilter}" />
+            <lightning:button variant="brand" label="Cancel" onclick="{!c.goToProspectPage}" />
+        </div>
+        
+        <lightning:formattedText value="Lead List Type" aura:id="LeadListName__cFormat" />
+            <lightning:combobox name="LeadListName__c" aura:id="LeadListName__c" label="includes"   value="{!v.SelectedLeadListName}"  options="{! v.LeadListName }" />
+        
+        <span class="required">*</span>
+        <lightning:formattedText value="Prospect Radius (miles)" aura:id="Proximity__cFormat"/>
+        <lightning:helptext content="{!$Label.c.ProspectProximityTooltip}"/>
+        <lightning:input type="number" name="Proximity__c" aura:id="Proximity__c"  label="less than"  value="{!v.DefaultValueMap.Proximity__c}"/>
+        
+        <aura:renderIf isTrue="{!v.renderStoreFilter}">
+            <lightning:formattedText value="Employee Location" aura:id="Store__cFormat" />
+            <lightning:helptext content="{!v.storeTooltip}"/> 
+            <force:inputField aura:id="Store__c"   value="{!v.lead.Store__c}"   />
+        </aura:renderIf>
+        <lightning:formattedText value="Total Employees" aura:id="NumberOfEmployeesFormat"  />
+            <lightning:input type="number" name="NumberOfEmployees" aura:id="NumberOfEmployees" label="less than"  value="{!v.DefaultValueMap.NumberOfEmployees}"  />
+        <lightning:formattedText value="Lead Name" aura:id="NameFormat" />
+            <lightning:input type="text" name="Name" aura:id="Name"  label="contains" value="{!v.DefaultValueMap.Name}" />
+        <lightning:formattedText value="Opportunity Type" aura:id="ProductsDiscussed__cFormat"  />
+            <lightning:dualListbox aura:id="ProductsDiscussed__c" 
+                                label= "includes"
+                                name="ProductsDiscussed__c"
+                                sourceLabel="Available"
+                                selectedLabel="Selected"
+                                fieldLevelHelp="Select your Opportunity Type"
+                                options="{!v.opportunityTypeOptions}"
+                                value="{!v.oppTypeDefault}"/>
+        <lightning:formattedText value="Customer Type"  aura:id="CustomerType__cFormat"  />
+            <lightning:dualListbox aura:id="CustomerType__c"
+                                label= "includes"
+                                name = "CustomerType__c"
+                                sourceLabel="Available" 
+                                selectedLabel="Selected"
+                                fieldLevelHelp="Select your Customer Type"
+                                options="{!v.customerTypeOptions}"
+                                value="{!v.cusTypeDefault}" />
+        <lightning:formattedText value="Contact Number" aura:id="MobilePhoneFormat"  />
+            <lightning:input aura:id="MobilePhone" type="tel" name="MobilePhone" label="Equals" value="{!v.DefaultValueMap.MobilePhone}"   />
+        <lightning:formattedText value="Email" aura:id="EmailFormat" />
+            <lightning:input aura:id="Email" type="email" name="Email" label="Equals" value="{!v.DefaultValueMap.Email}" />
+            <div class="slds-clearfix slds-float_right" >
+                <lightning:button variant="brand" label="Clear All"  onclick="{!c.clearAllFilterValues}" />
+            </div>
+    </aura:renderIf>
+    
+ <!--End Filter Form-->
+</aura:component>

@@ -1,0 +1,13 @@
+caption{
+  visibility: hidden;
+}
+button {
+  background: none!important;
+  border: none;   
+  color: #069;  
+  cursor: pointer;
+}
+
+.plus-icon{
+  --lwc-colorTextIconDefault: rgb(1, 68, 134);
+}

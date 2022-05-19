@@ -1,0 +1,32 @@
+<aura:component implements="lightning:isUrlAddressable,flexipage:availableForAllPageTypes">
+
+    <aura:handler name="init" value="{!this}" action="{!c.refresh}"/>
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.refresh}" />
+
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="ban" type="String"/>
+    <aura:attribute name="adjustmentCode" type="String"/>
+    <aura:attribute name="createdDate" type="String"/>
+    <aura:attribute name="adjustmentDescription" type="String"/>
+    <aura:attribute name="adjustmentAmount" type="String"/>
+    <aura:attribute name="entSeqNo" type="String"/>
+    <aura:attribute name="subscriberNo" type="String"/>
+    <aura:attribute name="nextBillDate" type="String"/>
+    
+    <c:bwcReverseAdjustmentWizard 
+        recordId="{!v.recordId}" 
+        ban="{!v.ban}"
+        adjustmentCode="{!v.adjustmentCode}"
+        createdDate="{!v.createdDate}"
+        adjustmentDescription="{!v.adjustmentDescription}"
+        adjustmentAmount="{!v.adjustmentAmount}"
+        entSeqNo = "{!v.entSeqNo}"
+        subscriberNo = "{!v.subscriberNo}"
+        nextBillDate = "{!v.nextBillDate}"
+        onclose="{!c.close}">
+    </c:bwcReverseAdjustmentWizard>
+
+    <!-- For closing subtab -->
+    <lightning:workspaceAPI aura:id="workspace" />
+
+</aura:component>

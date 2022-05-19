@@ -1,0 +1,28 @@
+<template>
+    <template if:true={displayOffer}>
+
+        <div class="slds-grid">
+            <div class="slds-col slds-size_1-of-12">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="36" >
+                    <use xlink:href={iconName}></use>
+                </svg>
+            </div>
+            <div class="slds-col slds-size_8-of-12 center-left-text">
+                {offer.displayDescription} &nbsp;
+                <lightning-helptext
+                    if:true={showTooltip}
+                    content={helptext}
+                ></lightning-helptext>
+            </div>
+            <div class="slds-col slds-size_2-of-12 center-left-text">
+                <lightning-formatted-url
+                    if:true={showReadMore}
+                    label="Read more"
+                    value={offer.url}
+                    target="_blank" >
+                </lightning-formatted-url>
+            </div>
+        </div>
+
+    </template>
+</template>

@@ -1,0 +1,25 @@
+.container {
+    background: #F3F2F2;
+    position:relative;
+}
+.section  {
+    background: white;
+}
+.valueHeading{
+    font-size: 36px; 
+      /*font-family: 'Salesforce Sans Light';*/
+      color:#080707;
+      font-weight: bold;
+}
+.valueStyling{
+    font-size: 13px; 
+    font-family: 'Salesforce Sans Light';
+    color:#080707;
+    display: inline-block;
+    margin: 5px;
+}
+
+.titleHeading{
+    font-size: 20px;
+    line-height: 45px;
+}

@@ -1,0 +1,16 @@
+<template>
+
+
+    <lightning-card title="Account Actions">
+        <div slot="footer">
+           <div class="slds-align_absolute-center">
+     <!-- Spinner -->
+                <div if:true={showLoadingSpinner}>
+                    <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                </div>
+                <lightning-button data-id = "EscalateButton" disabled="true" variant="brand"  label="Escalate" title="Escalate" onclick={escalateLICAction} ></lightning-button>
+
+            </div>
+        </div>
+	</lightning-card>
+</template>

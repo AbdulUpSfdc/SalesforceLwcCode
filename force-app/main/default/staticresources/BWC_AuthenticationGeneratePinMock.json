@@ -1,0 +1,8 @@
+{
+"appStatusMsg": "SUCCESS",
+"securityCode": "725024",
+"X-ATT-UniqueTransactionId": "12345",
+"transactionName": "GeneratePIN",
+"securityCodeExpires": "12282020 16:16 GMT",
+"appStatusCode": "0"
+}

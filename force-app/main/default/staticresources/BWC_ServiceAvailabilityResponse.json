@@ -1,0 +1,232 @@
+{
+    "content": {
+        "availabilityStatus": "GREEN",
+        "userInput": {
+            "addressId": "00010UB2QS",
+            "glid": "00010UB2QS",
+            "mode": "ADDRESSID",
+            "customertype": "CONSUMER",
+            "clientName": "C360"
+        },
+        "availableServices": {
+            "dtvAvailable": true,
+            "iptvAvailable": false,
+            "hsiaAvailable": false,
+            "voipAvailable": false,
+            "lightSpeedAvailable": false,
+            "wirelessAvailable": true,
+            "fixedWirelessInternetAvailable": false,
+            "d2LiteEligible": false,
+            "wllCapacity": false,
+            "cafiiIndicator": false,
+            "fiberAvailable": false,
+            "lightGigAvailable": false,
+            "ATTTVInternetBundleAvailable": false,
+            "dslAvailable": false,
+            "potsAvailable": false
+        },
+        "existingServices": {
+            "lightSpeedPending": false,
+            "uverseServiceExisting": false,
+            "dslServiceExisting": false,
+            "wirelineServiceExisting": false,
+            "dtvServiceExisting": false,
+            "wirelessServiceExisting": false,
+            "telcoServiceExisting": false,
+            "wllServiceExisting": false,
+            "existingIPTVService": false,
+            "existingHSIAService": false,
+            "existingVOIPService": false
+        },
+        "addressFeatures": {
+            "addressLine1": "1099 S FIGUEROA ST",
+            "addressLine2": "",
+            "city": "LOS ANGELES",
+            "state": "CA",
+            "zip": "90015",
+            "addressId": "00010UB2QS",
+            "zipExtension": "1368",
+            "dma": "803",
+            "wireCenterCode": "LSANCA09",
+            "outOfUverseFootPrint": false,
+            "nation": "US",
+            "fmoRegion": true,
+            "countyName": "LOS ANGELES COUNTY",
+            "countyFIPScode": "037",
+            "singleDispatchIndicator": false,
+            "dwellingTypeDetails": {
+                "isMdu": false,
+                "isBulkBilling": false,
+                "isACC": false,
+                "isDTVConnectedProperty": false,
+                "isDTVDealerRestricted": false
+            },
+            "dwellingType": "SFU General",
+            "instantHSIAOnIndicator": false,
+            "globalLocationId": "00010UB2QS"
+        },
+        "itpaDPLResponse": {
+            "itpaProcessedResp": {
+                "itparesponse": {
+                    "common": {
+                        "location": {
+                            "addressType": "SERVICE",
+                            "houseNumber": "1099",
+                            "streetDirection": "S",
+                            "addressId": "00010UB2QS",
+                            "streetThoroughfare": "ST",
+                            "city": "LOS ANGELES",
+                            "state": "CA",
+                            "postalCode": "90015",
+                            "postalCodePlus4": "1368",
+                            "country": "USA",
+                            "streetName": "FIGUEROA"
+                        },
+                        "locationProperties": {
+                            "exchangeCode": "213742",
+                            "lataCode": "730",
+                            "localProviderServingOfficeCode": "LSANCA09",
+                            "primaryNpaNxx": "213742",
+                            "rateCenterCode": "2020883",
+                            "rateZoneBandCode": "803",
+                            "sagWireCenter": "CMBRMA01",
+                            "sbcServingOfficeWirecenter": "LSANCA09",
+                            "servingAreaDescription": "UNKNOWN",
+                            "tarCode": "000",
+                            "legalEntity": "PC00",
+                            "videoHubOffice": "UNKNOWN",
+                            "smartmoves": "N",
+                            "localNetworkServices": {
+                                "migrationTarget": "",
+                                "wirelessHomePhoneEligible": "Y"
+                            },
+                            "inFranchiseType": "Y",
+                            "instantHSIAOnIndicator": false,
+                            "convergedBillingAvailabilityIndicator": true,
+                            "independentCompanyName": "PACIFIC BELL"
+                        },
+                        "serviceOfferingFromLocation": {
+                            "location": [
+                                {
+                                    "offeringServices": [
+                                        {
+                                            "serviceCode": "DL",
+                                            "serviceAvailableType": "Y",
+                                            "serviceDescription": "Digital Life"
+                                        },
+                                        {
+                                            "serviceCode": "DTV",
+                                            "serviceAvailableType": "Y",
+                                            "serviceDescription": "Direct TV"
+                                        },
+                                        {
+                                            "serviceCode": "WL",
+                                            "serviceAvailableType": "Y",
+                                            "serviceDescription": "Wireless"
+                                        },
+                                        {
+                                            "softErrorMessage": {
+                                                "code": "WLL1000"
+                                            },
+                                            "serviceCode": "WLL",
+                                            "serviceAvailableType": "N",
+                                            "serviceDescription": "Wireless Local Loop",
+                                            "dataVoiceCode": "N"
+                                        }
+                                    ],
+                                    "countyName": "LOS ANGELES COUNTY",
+                                    "countyFIPScode": "037"
+                                }
+                            ]
+                        },
+                        "resultResponse": [
+                            {
+                                "responseApplicationName": "GIS_ABF",
+                                "code": "100",
+                                "description": "FAILURE"
+                            },
+                            {
+                                "responseApplicationName": "GIS",
+                                "code": "S1000",
+                                "description": "Single Match"
+                            },
+                            {
+                                "responseApplicationName": "GIS_DTV",
+                                "code": "200",
+                                "description": "No Neustar Record: DTV Attributes Unavailable",
+                                "matchCodeStatus": "MATCH"
+                            },
+                            {
+                                "responseApplicationName": "POSTAL",
+                                "code": "3SUH",
+                                "description": "House number is not recognized by the U.S. Postal Service.  Mail may not be delivered.",
+                                "matchCodeStatus": "PARTIAL_MATCH"
+                            },
+                            {
+                                "responseApplicationName": "GIS_DTVRC1",
+                                "code": "999",
+                                "description": "RC1 Region",
+                                "matchCodeStatus": "MATCH"
+                            }
+                        ],
+                        "uspsDeliveryPointValidation": [
+                            {
+                                "postalAddress": {
+                                    "houseNumber": "1099",
+                                    "streetName": "FIGUEROA",
+                                    "streetThoroughfare": "ST",
+                                    "city": "LOS ANGELES",
+                                    "state": "CA",
+                                    "postalCode": "90015",
+                                    "postalCodePlus4": "1368",
+                                    "county": "LOS ANGELES",
+                                    "countryCode": "037",
+                                    "primaryAddressLine": "1099 S FIGUEROA ST ",
+                                    "cityAbbreviatedName": "LOS ANGELES",
+                                    "cassAddressLines": [
+                                        "1099 S FIGUEROA ST",
+                                        "LOS ANGELES CA  90015-1368"
+                                    ]
+                                },
+                                "locationProperties": {
+                                    "coordinates": {
+                                        "latitude": 34.043662,
+                                        "longitude": -118.265221
+                                    },
+                                    "lacsInfo": {
+                                        "lacsCode": "F"
+                                    },
+                                    "additionalData": {
+                                        "deliveryPointValidationFootnote": "AAM3",
+                                        "taxationGeocode": "0105037190000"
+                                    },
+                                    "addressType": "S",
+                                    "addressMatchCode": "3SUH",
+                                    "addressMatchCodeDescription": "House number is not recognized by the U.S. Postal Service.  Mail may not be delivered.",
+                                    "addressMatchCodeStatus": "S80000",
+                                    "cassRecordType": "S",
+                                    "cassAssignmentType": "0",
+                                    "deliveryPointValidationCode": "N"
+                                }
+                            }
+                        ]
+                    },
+                    "dtv": {
+                        "dtvlocationProperties": {
+                            "connectedCommunityId": "",
+                            "dtvServiceabilityIndicator": true,
+                            "countyFIPS": "037",
+                            "stateFIPS": "06",
+                            "satelliteServiceable": "Y"
+                        }
+                    }
+                },
+                "globalLocationId": "00010UB2QS"
+            },
+            "addressLine1": "1099**S**FIGUEROA**ST",
+            "addressLine2": "",
+            "zipCode": "90015",
+            "dplDataForm": "Ovals"
+        }
+    }
+}

@@ -1,0 +1,47 @@
+<template>
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12" class="titleHeader">
+            <div style="padding: 1%;">
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item size="1" small-device-size="1" medium-device-size="1" large-device-size="1">
+                        <lightning-icon icon-name="standard:lead" size="large"></lightning-icon>
+                    </lightning-layout-item>
+                    <lightning-layout multiple-rows="true">
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+                            <span> Retail Store Queue</span>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="1" small-device-size="1" medium-device-size="1" large-device-size="1"> </lightning-layout-item>
+                        <lightning-layout-item size="11" small-device-size="12" medium-device-size="12" large-device-size="12">
+                            <p class="slds-text-body--small">
+                                <span>{totalRecords} items; </span>
+                                <span>Sorted by Position</span>
+                            </p>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </lightning-layout>
+            </div>
+        </lightning-layout-item>
+
+        <lightning-layout-item class="assignedArticleContainer" size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+            <lightning:card>
+                <template for:each={arrivedcustomers} for:item="cust" for:index='index'> 
+                    <lightning-layout  key={cust.Id} id={cust.Id} class="articleSection" multiple-rows="true">
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12" >
+                            <div class="assignedArticle-header slds-truncate" id={cust.Id}>{cust.Name}</div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </template>
+            </lightning:card>
+        </lightning-layout-item>
+        <template if:true={ismorethanThreeRecords}>           
+            <lightning-layout-item class="slds-align_absolute-center" style='padding:5px;background-color:white;' size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+            <lightning-button style="display:grid;width:98%" label={btn_label} title={btn_label} onclick={handleMore}></lightning-button>
+            </lightning-layout-item> 
+        </template> 
+        <template if:false={hasRecordsLoaded}>           
+            <lightning-layout-item class="slds-align_absolute-center errorSection" style='padding:5px;background-color:white;' size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+            <h1 class="errorSection-header">No customers available in queue</h1> 
+            </lightning-layout-item> 
+        </template>  
+    </lightning-layout>
+</template>

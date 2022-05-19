@@ -1,0 +1,135 @@
+<template>
+    <div class="slds-box slds-box_xx-small">
+        <lightning-card  title='Billing' icon-name='standard:contract' >
+            <lightning-spinner if:true={isLoading} alternative-text="Loading"></lightning-spinner>
+            <span slot="actions">
+                <lightning-button label="Refresh" onclick={handleBillingRefresh}></lightning-button>
+                <lightning-button if:true={hasPaymentPermission} class="slds-m-left_x-small" label="Make a Payment" onclick={handleMakePayment}></lightning-button>
+            </span>
+
+            <c-bwc-notifications data-name="billingNotifications"></c-bwc-notifications>
+
+            <template if:true={showBillTable}>
+                <lightning-datatable
+                    class="slds-max-medium-table_stacked"
+                    key-field="Id"
+                    data={billingData}
+                    columns={billingColumns}
+                    hide-checkbox-column="true"
+                    wrap-text-max-lines="3"
+                    column-widths-mode="auto"
+                    onrowaction={handleBillingRowAction}>
+                </lightning-datatable>
+            </template>
+            <template if:true={showBillEmpty}>
+                <div  class="slds-align_absolute-center">
+                    {label.nobilldata}
+            </div>
+        </template>
+        </lightning-card>
+    </div>
+    <br />
+    <template if:true={paymentsData}>
+        <div class="slds-box slds-box_xx-small">
+            <lightning-card  title='Payment History' icon-name='standard:contract' >
+                <lightning-spinner if:true={isLoadingPayments} alternative-text="Loading"></lightning-spinner>
+                <span slot="actions">
+                    <lightning-button label="Escalate Unidentified Payment" 
+                                      onclick={handleEscalateUnidentifiedPayment}
+                                      disabled={disableEscUnidPmtBtn}></lightning-button>
+                    <lightning-button class="slds-m-left_x-small" label="Refresh" onclick={handlePaymentsRefresh}></lightning-button>
+                    <lightning-button class="slds-m-left_x-small" label="View All" onclick={showPaymentsViewAll}></lightning-button>
+                </span>
+
+                <c-bwc-notifications data-name="paymentNotifications"></c-bwc-notifications>
+
+                <template if:true={showPaymentTable}>
+                    <lightning-datatable
+                        class="slds-max-medium-table_stacked payments-grid"
+                        key-field="Id"
+                        data={paymentsData}
+                        columns={paymentsColumns}
+                        wrap-text-max-lines="3"
+                        column-widths-mode="auto"
+                        hide-checkbox-column="true"
+                        onrowaction={handlePaymentRowAction}
+                        default-sort-direction={defaultSortDirection}
+                        sorted-direction={sortDirection}
+                        sorted-by={sortedBy}
+                        onsort={onHandleSort}
+                        >
+                    </lightning-datatable>
+                </template>
+                <div if:true={showPaymentEmpty} class="slds-align_absolute-center">
+                    {label.nopayment}
+               </div>
+            </lightning-card>
+        </div>
+    </template>
+
+    <template if:true={isPaymentsViewAllOpen}>
+        <!-- Modal/Popup Box LWC starts here -->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box LWC header here -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closePaymentsViewAll}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Payments & Adjustment History</h2>
+                </header>
+                <!-- Modal/Popup Box LWC body starts here -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning-datatable
+                        class="slds-max-medium-table_stacked"
+                        key-field="Id"
+                        data={allPaymentsData}
+                        columns={paymentsColumns}
+                        hide-checkbox-column="true">
+                    </lightning-datatable>
+                </div>
+                <!-- Modal/Popup Box LWC footer starts here -->
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closePaymentsViewAll} title="Cancel">Cancel</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={isEnrollModalOpen}>
+        <!-- Modal/Popup Box LWC starts here -->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-moda_small">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box LWC header here -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeEnrollModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">{EnrollModalTitle}</h2>
+                </header>
+                <!-- Modal/Popup Box LWC body starts here -->
+                <div class="slds-modal__content slds-p-around_large " id="modal-content-id-2">
+                    <p>{EnrollModalMessage}</p>
+                    <br>
+                    <p><em>{EnrollModalMessageCustomer}</em></p>
+                </div>
+                <!-- Modal/Popup Box LWC footer starts here -->
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeEnrollModal} title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={enroll} title="Confirm">Confirm</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    
+</template>

@@ -1,0 +1,11 @@
+<template>
+    <div class="container">
+        <div id="c__path-history" class="path">
+            <template for:each={_stages} for:item="stage">
+                <div key={stage.label} class={stage.cssClass}>
+                    <span class="status-text" data-status={stage.label}>{stage.label}</span>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

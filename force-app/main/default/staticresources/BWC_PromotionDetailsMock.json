@@ -1,0 +1,101 @@
+[
+   {
+      "accountType":"wireless",
+      "ban":"337079543931",
+      "promotions":[
+         {
+            "promotionID":"MSV15",
+            "promotionCode":[
+               "MSV15"
+            ],
+            "promotionAmount":[
+               "15.0"
+            ],
+            "promotionName":"Mobile Share Value Savings",
+            "promotionType":"D",
+            "promotionStartDate":"20150330",
+            "promotionCategory":"MSV",
+            "promotionPlanLevel":"C",
+            "wirelessPromotionLevel":"subscriberLevel",
+            "wirelessSubscriberNumber":"6199571808"
+         },
+         {
+            "promotionID":"MSV15",
+            "promotionCode":[
+               "MSV15"
+            ],
+            "promotionAmount":[
+               "15.0"
+            ],
+            "promotionName":"Mobile Share Value Savings",
+            "promotionType":"D",
+            "promotionStartDate":"20150330",
+            "promotionCategory":"MSV",
+            "promotionPlanLevel":"C",
+            "wirelessPromotionLevel":"subscriberLevel",
+            "wirelessSubscriberNumber":"6199571006"
+         }
+      ]
+   },
+   {
+      "accountType":"dtvnow",
+      "ban":"201201001628954",
+      "promotions":[
+         {
+            "promotionID":"PPRE12MCON",
+            "promotionAmount":[
+               53.01
+            ],
+            "promotionName":"12-month promotional pricing(Premier)",
+            "promotionDesc":"$53.01 off for 12 mos. $183/mo. (or active rate) in mo. 13.",
+            "promotionType":"Flat Off",
+            "promotionStartDate":"2020-12-04 00:00:00",
+            "promotionEndDate":"2021-12-04 00:00:00",
+            "promotionStatus":"Active",
+            "promotionDuration":"12",
+            "promotionPeriod":"NoOfMonths",
+            "productId":[
+               "BASE-PREMIER-202004"
+            ]
+         },
+         {
+            "promotionID":"OSPREYFREE",
+            "promotionAmount":[
+               0.0
+            ],
+            "promotionName":"AT&T Osprey Box For Free",
+            "promotionDesc":"AT&T Osprey Box For Free",
+            "promotionType":"Free",
+            "promotionStartDate":"2020-12-01 00:00:00",
+            "promotionEndDate":"1969-12-31 23:59:59",
+            "promotionStatus":"Active",
+            "promotionPeriod":"LifeTime",
+            "productId":[
+               "HARD-OSPREY-042019"
+            ]
+         }
+      ]
+   },
+   {
+      "accountType":"uverse",
+      "ban":"153086126",
+      "promotions":[
+         {
+            "promotionID":"88696223",
+            "promotionCode":"IS0616",
+            "promotionAmount":-20.0,
+            "promotionName":"$20 off with bundle",
+            "promotionType":"B",
+            "promotionStartDate":"2017-07-17T05:00:00.000Z",
+            "promotionEndDate":"2100-09-23T17:00:00.000Z",
+            "promotionStatus":"Active",
+            "promotionDuration":999,
+            "productId":88541733,
+            "baseOfferInstanceId":747992953,
+            "salabilityIndicator":"Y",
+            "productType":"IA",
+            "promotionLob":"Uverse"
+         }
+      ]
+   }
+]

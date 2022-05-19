@@ -1,0 +1,5 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable,force:lightningQuickActionWithoutHeader,lightning:actionOverride,force:hasRecordId" access="global">
+<aura:attribute name="recordId" type="String"></aura:attribute>  
+<lightning:navigation aura:id="navService"/>	   
+<c:dciCustomerSearchLwc recordId="{!v.recordId}"  onHandleMobile="{!c.handleMobile}" onHandleDesktop="{!c.handleDesktop}" />  
+</aura:component>

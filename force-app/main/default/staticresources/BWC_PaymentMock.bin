@@ -1,0 +1,33 @@
+{
+	"content":{
+		"transactionId":"Test",
+		"makePaymentAccountResponse":[{
+			"paymentArrangementResponse":{
+				"responseCode":"Test",
+				"message":"Test",
+				"error":{
+					"message":"Test",
+					"errorId":"Test",
+					"details":[{
+						"message":"Test",
+						"code":"Test"
+					}]
+				}
+			},
+			"makePaymentItemResponse":[{
+				"sequenceNumber":"Test",
+				"paymentConfirmationNumber":"Test",
+				"paymentAmount":"Test",
+				"paymentArrangementIndicator":true,
+				"error":{
+					"message":"Test",
+					"errorId":"Test",
+					"details":[{
+						"message":"Test",
+						"code":"Test"
+					}]
+				}
+			}]
+		}]
+	}
+}

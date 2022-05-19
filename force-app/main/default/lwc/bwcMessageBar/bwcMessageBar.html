@@ -1,0 +1,11 @@
+<template>
+    <div class={topClass}>
+        <div class="slds-grid slds-align_absolute-center">
+            <lightning-icon icon-name={_iconName} variant={iconVariant} size="x-small"></lightning-icon>
+            <div class="slds-m-left_x-small">
+                {text}
+                <slot></slot>
+            </div>
+        </div>
+    </div>
+</template>

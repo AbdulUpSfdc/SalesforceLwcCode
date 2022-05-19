@@ -1,0 +1,234 @@
+.fontLine-main {
+  height: 576px;
+  overflow: hidden;
+  background: white;
+}
+
+.impage-dimnesion-l {
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  background-color: #fff;
+  background-repeat: no-repeat;
+}
+
+.unread-badge {
+  --sds-c-badge-color-background: rgb(28, 148, 196);
+  --sds-c-badge-color-text: white;
+  color: white;
+  height: 25px;
+}
+
+.header-border {
+  border: 1px solid #e0e0df;
+}
+
+.frontline-header-l {
+  color: #080707;
+  font-weight: 800;
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: 38px;
+  cursor: pointer;
+}
+
+.frontline-subheader {
+  font-size: 16px;
+  color: #080707;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+
+.frontline-text-footer {
+  font-size: 14px;
+  color: #706E6B;
+  line-height: 30px;
+}
+
+.frontline-text-footer-sec {
+  font-size: 12px;
+  color: #919191;
+  text-align: left;
+}
+
+.slds-line-clamp_medium {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-line;
+}
+
+/* iPad */
+@media only screen and (min-device-width: 0px) and (max-device-width: 1024px) and (orientation:portrait) {
+
+  .fontLine-main {
+    height: 405px;
+    overflow: hidden;
+    background: white;
+  }
+
+  .impage-dimnesion-l {
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    height: 220px;
+    background-color: #fff;
+    background-repeat: no-repeat;
+  }
+
+  .chevronDivLeft {
+    position: relative;
+    height: 200px;
+    width: 7%;
+  }
+
+  .chevronDivRight {
+    position: relative;
+    height: 200px;
+    width: 7%;
+  }
+
+  .chevronRightArrow {
+    position: absolute;
+    top: 50%;
+  }
+
+  .chevronLeftArrow {
+    position: absolute;
+    top: 50%;
+  }
+
+  .frontline-text-footer {
+    font-size: 10px;
+    color: #706E6B;
+    line-height: 30px;
+  }
+
+  .frontline-text-footer-sec {
+    font-size: 12px;
+    color: #919191;
+    text-align: left;
+  }
+
+  .frontline-header-l {
+    font-size: 22px;
+    color: #080707;
+    letter-spacing: 0;
+    line-height: 30px;
+    font-weight: bold;
+  }
+
+  .frontline-subheader {
+    font-size: 12px;
+    color: #080707;
+    letter-spacing: 0;
+    line-height: 14px;
+  }
+}
+
+@media only screen and (min-device-width: 0px) and (max-device-width: 1024px) and (orientation:landscape) {
+  .fontLine-main {
+    height: 405px;
+    overflow: hidden;
+    background: white;
+  }
+
+  .impage-dimnesion-l {
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    height: 250px;
+    background-color: #fff;
+    background-repeat: no-repeat;
+  }
+
+  .chevronDivLeft {
+    position: relative;
+    height: 200px;
+    width: 5%;
+
+  }
+
+  .chevronDivRight {
+    position: relative;
+    height: 200px;
+    width: 7%;
+
+  }
+
+  .chevronRightArrow {
+    position: absolute;
+    top: 50%;
+  }
+
+  .chevronLeftArrow {
+    position: absolute;
+    top: 50%;
+  }
+
+  .frontline-text-footer {
+    font-size: 10px;
+    color: #706E6B;
+    line-height: 30px;
+  }
+
+  .frontline-text-footer-sec {
+    font-size: 12px;
+    color: #919191;
+    text-align: left;
+  }
+
+  .frontline-header-l {
+    font-size: 22px;
+    color: #080707;
+    letter-spacing: 0;
+    line-height: 30px;
+    font-weight: bold;
+  }
+
+  .frontline-subheader {
+    font-size: 12px;
+    color: #080707;
+    letter-spacing: 0;
+    line-height: 14px;
+  }
+
+  .paddingDiv {
+    padding-top: 5px;
+  }
+}
+
+@media (min-device-width: 1025px) {
+  .chevronDivLeft {
+    position: relative;
+    height: 304px;
+  }
+
+  .chevronDivRight {
+    position: relative;
+    height: 304px;
+  }
+
+  .chevronRightArrow {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    cursor: pointer;
+  }
+
+  .chevronLeftArrow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    cursor: pointer;
+  }
+
+  .largeDevicePading {
+    padding-top: 10px;
+  }
+}

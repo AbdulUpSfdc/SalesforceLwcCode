@@ -1,0 +1,50 @@
+<template>
+    <div class="slds-visual-picker slds-visual-picker_large" style="width: 350px;height: 200px;">
+    <input type="radio" id="visual-picker-91" value="visual-picker-91" name="example-unique-name-35" />           
+    <label for="visual-picker-91" class="border">
+    <lightning-card   variant="narrow" title={header} >             
+    <div class="slds-page-header slds-page-header_vertical slds-p-top_small">     
+    <div class="slds-page-header__controls"></div>
+    <template if:true={subHeader}>
+    <h6 style="width: 280px;">
+    {subHeader}
+    </h6>
+    </template>
+<template if:true={infolist}>
+<ul class="slds-page-header__detail-list">
+    <template  for:each={infolist} for:item="Bill">
+    <li class="slds-page-header__detail-item" key={Bill.name}>
+    <div class="slds-p-top_medium"></div>
+    <h3>
+    <div class="slds-text-title slds-truncate" title="Field 1">{Bill.name}</div>
+    due <b>{Bill.Date}</b>
+    </h3>
+    </li>
+    <li class="slds-page-header__detail-item" key={Bill.name}>
+        <div class="slds-p-top_medium"></div>
+        <h3><b>{Bill.amount}</b></h3>   
+        </li>
+        </template>
+    <br/>
+    <br/>
+    </ul>
+    <br/>
+    </template>
+    <div slot="footer">
+        <div class="hover slds-size_1-of-1 slds-text-align_center slds-border_top slds-p-top_medium" onclick={handleSelect}>
+            <h2 class="slds-text-heading_small" style="color: cornflowerblue;">Select</h2>
+            <template if:true={disable}>
+                <span class="slds-visual-picker__text"></span>
+             <span class="slds-icon_container slds-visual-picker__text-check ">
+                <svg class="slds-icon slds-icon-text-check slds-icon_x-small" aria-hidden="true">
+                <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                </svg>
+             </span>
+            </template>
+        </div>
+    </div>
+    </div>
+    </lightning-card>
+    </label>
+    </div>
+    </template>

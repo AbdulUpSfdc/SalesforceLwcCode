@@ -1,0 +1,168 @@
+:host {
+    display: block;
+     background: #1E5876;
+     height: auto;
+     color: #FFFFFF;
+     --sds-c-button-color-text: white;
+    --sds-c-button-color-background: #1E5876;
+}
+.content {
+  height: 15rem;
+  position:relative;
+}
+.trending-title {
+    opacity: 0.6;
+    font-weight: var(--lwc-fontWeightBold);
+    font-size: 2rem;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    line-height: 2.375rem
+}
+.trending-body-title {
+    font-weight: var(--lwc-fontWeightBold);
+    font-size: 1.25rem;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    line-height: 2.375rem;
+}
+.trending-body {
+    font-size: 0.875rem;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    line-height: 1.5rem;
+    min-height: 8.4em;
+    max-height: 8.4em;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+.trending-footer {
+    opacity: 0.6;
+    font-size: 0.75rem;
+    color: #FFFFFF;
+    text-align: left;
+    position: absolute; 
+    bottom: 0;
+}
+.trending-cspid {
+    opacity: 0.6;
+    font-size: 0.75rem;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    line-height: 2.375rem;
+    text-align: left;
+    position: absolute; 
+    bottom: 20;
+}
+.trending-icon {
+    opacity: 0.7;
+}
+.bold-items {
+  font-weight: var(--lwc-fontWeightBold);
+  display: inline-flex;
+}
+
+/* iPad */
+@media only screen and (min-device-width: 0px) and (max-device-width: 1024px) and (orientation:portrait)  {
+    .trending-title {
+      opacity: 0.6;
+      font-weight:bold;
+      font-size: 22px;
+      color: #FFFFFF;
+      letter-spacing: 0;
+      line-height: 30px;
+     
+  }
+  .trending-body-title {
+      font-weight:bold;
+      font-size: 16px;
+      color: #FFFFFF;
+      letter-spacing: 0;
+      line-height: 30px;
+      
+  }
+  .trending-body {
+      font-size: 12px;
+      color: #FFFFFF;
+      letter-spacing: 0;
+      line-height: 19px;
+      min-height: 55px;
+      max-height: 55px;
+      overflow:hidden;
+      text-overflow: ellipsis;
+     
+      
+  }
+  .trending-cspid {
+      opacity: 0.7;
+      font-size: 10px;
+      color: #FBFBFB;
+      letter-spacing: 0;
+      line-height: 30px;
+      text-align: left;
+      position: absolute; 
+      bottom: 20;
+      
+  }
+
+  .trending-footer {
+    font-size: 12px;
+    color: #FFFFFF;
+    text-align: left;
+    position: absolute; 
+    bottom: 0;
+  }
+
+  .content {
+    height: 160px;
+    position:relative;
+   }
+}
+@media only screen and (min-device-width: 0px) and (max-device-width: 1024px) and (orientation:landscape) {
+    .trending-title {
+        opacity: 0.6;
+        font-size: 22px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        line-height: 30px;
+        font-weight:bold;
+    }
+    .trending-body-title {
+        font-size: 16px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        line-height: 30px;
+        font-weight:bold;
+    }
+    .trending-body {
+        font-size: 12px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        line-height: 19px;
+        min-height: 55px;
+        max-height: 55px;
+        overflow:hidden;
+        text-overflow: ellipsis;
+        
+    }
+    .trending-cspid {
+        opacity: 0.7;
+        font-size: 10px;
+        color: #FBFBFB;
+        letter-spacing: 0;
+        line-height: 30px;
+        text-align: left;  
+        bottom: 20;
+    }
+  
+    .trending-footer {
+      font-size: 12px;
+      color: #FFFFFF;
+      text-align: left;
+      bottom: 0;
+    }
+  
+    .content {
+      height: 160px;
+     }
+
+}

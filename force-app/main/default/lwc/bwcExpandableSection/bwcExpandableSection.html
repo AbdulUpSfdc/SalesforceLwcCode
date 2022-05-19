@@ -1,0 +1,32 @@
+<template>
+
+    <div class="slds-section slds-is-open slds-grid slds-grid_vertical">
+
+        <h3 class={sectionClass}>
+
+            <div class="slds-section__title-action" role="button" aria-controls="contentSection">
+                <lightning-icon icon-name="utility:switch"
+                    class="slds-button__icon slds-button__icon_left slds-section__title-action-icon"
+                    size="x-small" onclick={handleExpandCollapseClick}>
+                </lightning-icon>
+
+                <template if:true={hasTitleString}>
+                    <span class="slds-truncate" title={title}>{title}</span>
+                </template>
+                <template if:false={hasTitleString}>
+                    <slot name="header" ></slot>
+                </template>
+
+                <div class="slds-grid slds-col_bump-left">
+                    <slot name="actions"></slot>
+                </div>
+            </div>
+
+        </h3>
+
+        <div aria-hidden="false" class="slds-section__content slds-is-relative slds-grow" id="contentSection">
+            <slot></slot>
+        </div>
+    </div>    
+
+</template>

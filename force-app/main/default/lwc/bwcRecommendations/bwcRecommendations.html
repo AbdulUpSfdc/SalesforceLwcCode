@@ -1,0 +1,58 @@
+<template>
+
+    <lightning-card title="Recommendations" icon-name="standard:education">
+
+        <span slot="actions">
+            <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh Recommendations" title="Refresh" onclick={handleRefresh} ></lightning-button-icon>
+
+            <lightning-button label={expandCollapseLabel}  class="slds-var-m-left_x-small" onclick={handleExpandCollapse}></lightning-button>
+        </span>
+
+        <div class="slds-grid slds-grid_vertical">
+
+            <lightning-spinner
+                if:true={isLoading}
+                alternative-text="Retrieving Recommendations data"
+            ></lightning-spinner>
+
+            <div class="slds-m-bottom_x-small slds-grid slds-grid_align-center">
+                <c-bwc-notifications></c-bwc-notifications>
+            </div>
+
+            <template if:true={bANRecommendationOffers}>
+                <template for:each={bANRecommendationOffers} for:item="banRecommend" >
+                    <div key={banRecommend.accountNumber} class="slds-var-m-around_medium">
+                        <div class="slds-text-heading_small slds-var-m-left_small">
+                            <strong>{banRecommend.accountTypelabel}</strong>
+                        </div>
+
+                        <div class="slds-var-m-around_small slds-box">
+                            BAN: {banRecommend.accountNumber}<br/>
+                            <template if:true={banRecommend.noOffers}>
+                                <div class="slds-var-m-bottom_x-small slds-grid slds-grid_align-center">
+                                    <c-bwc-error-report variant="icon" error={banRecommend.noOffers}></c-bwc-error-report>
+                                </div>
+                            </template>
+                            <template if:true={banRecommend.offers}>
+                                <template for:each={banRecommend.offers} for:item="offer" for:index="index">
+                                    <div key={offer.displayDescription}>
+
+                                        <c-bwc-offer
+                                            index={index}
+                                            show-more={showMoreOffers}
+                                            offer={offer}>
+                                        </c-bwc-offer>
+
+                                    </div>
+                                </template>
+                            </template>
+
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+
+    </lightning-card>
+
+</template>

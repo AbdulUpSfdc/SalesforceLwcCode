@@ -1,0 +1,4 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader">
+    <aura:attribute name="recordId" type="String" access="public" />
+    <c:bwcCustomerSearch caseId="{!v.recordId}" onrecordfound="{!c.handleRecordFound}"></c:bwcCustomerSearch>
+</aura:component>

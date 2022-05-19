@@ -1,0 +1,53 @@
+<template>
+    <lightning-layout multiple-rows="true"> 
+        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12" class="titleHeader">
+            <div style='padding: 1%;'><lightning-icon icon-name="standard:news" size="large"></lightning-icon>
+                <span> Today's News</span>
+            </div>
+        </lightning-layout-item> 
+       <lightning-layout-item class="assignedArticleContainer" size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+            <lightning:card>    
+                <template for:each={articles} for:item="article" for:index='index'> 
+                    <lightning-layout  key={article.compId} id={article.compId} onclick={handleClick} class="articleSection" multiple-rows="true">
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12" >
+                        <div class="assignedArticle-header slds-truncate" id={article.compId} onclick={handleClick}>{article.title}</div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="5" small-device-size="5" medium-device-size="5" large-device-size="5" >
+                            <div>Article Type:</div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="7" small-device-size="7" medium-device-size="7" large-device-size="7" >
+                            <div>{article.recordTypeName}</div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="5" small-device-size="5" medium-device-size="5" large-device-size="5" >
+                            <div>Status:</div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="7" small-device-size="7" medium-device-size="7" large-device-size="7" >
+                            <lightning-badge if:false={article.isRead} label="Unread" class="unread-badge">
+                            </lightning-badge>
+                            <lightning-badge if:true={article.isUrgent} label="Urgent" class="urgent-badge">
+                            </lightning-badge>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="5" small-device-size="5" medium-device-size="5" large-device-size="5" >
+                            <div>Summary:</div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="7" small-device-size="7" medium-device-size="7" large-device-size="7" class="slds-truncate" >
+                            <lightning-formatted-rich-text
+                            value={article.summary}
+                            ></lightning-formatted-rich-text>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </template> 
+            </lightning:card>      
+        </lightning-layout-item>
+        <template if:true={ismorethanfourArticles}>           
+            <lightning-layout-item class="slds-align_absolute-center" style='padding:5px;background-color:white;' size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+                <lightning-button style="display:grid;width:98%" label={btn_label} title={btn_label} onclick={handleMore}></lightning-button>
+            </lightning-layout-item> 
+        </template> 
+        <template if:false={hasArticlesLoaded}>           
+            <lightning-layout-item class="slds-align_absolute-center errorSection" style='padding:5px;background-color:white;' size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+                <h1 class="errorSection-header">No News items available to show.</h1> 
+            </lightning-layout-item> 
+        </template>   
+    </lightning-layout>
+</template>

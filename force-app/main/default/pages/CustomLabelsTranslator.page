@@ -1,0 +1,41 @@
+<apex:page docType="html-5.0"
+  controller="CustomLabelTranslatorController" 
+  showHeader="false" standardStylesheets="false" sidebar="false"
+  language="{!trgLang}"
+>
+
+  <form id="form" method="post" enctype="application/x-www-form-urlencoded">
+    <input type="hidden" id="LANG" name="LANG"></input>
+    <input type="hidden" id="labelsCsv" name="labelsCsv" ></input>
+  </form>
+
+  <div id="debugDiv"></div>
+  <script>
+    const lexOrigin = '{!lexOrigin}'; 
+ 
+    window.addEventListener("message", function (event) {
+      if ( event.origin === lexOrigin ) {
+        switch ( event.data.action ) {
+        case "reload":
+          const frm = document.getElementById( "form" );
+          const langInp = document.getElementById( "LANG" );
+          const dataInp = document.getElementById( "labelsCsv" );
+
+          dataInp.value = (event.data.labels) ? event.data.labels : "";
+          langInp.value = (event.data.lang) ? event.data.lang : "";
+          frm.submit();
+          break;
+        }
+      }
+    });
+
+    const translatedLabels = {
+      <apex:repeat value="{!labels}" var="lbl" id="labelsRepeat">
+      "{!JSINHTMLENCODE(lbl)}" : "{!JSINHTMLENCODE($Label[lbl])}",
+      </apex:repeat>
+    };
+
+    document.getElementById( "debugDiv" ).innerText = JSON.stringify( translatedLabels );  
+    window.parent.postMessage( translatedLabels, lexOrigin);
+ </script>
+</apex:page>

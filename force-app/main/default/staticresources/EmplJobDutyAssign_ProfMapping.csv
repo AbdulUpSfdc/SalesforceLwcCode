@@ -1,0 +1,2 @@
+Channel__c,ExternalProfile__c,Id,Name,Organization__c,PublicGroupId__c,PublicGroupName__c,SalesforceProfileId__c,SalesforceProfileName__c,Sub_Channel__c,UserNameSuffix__c,UserNameSufix__c,WFH__c
+Office of the President,OOPAdminProfile,ProfileMappingId1,MyLogin-OOPAdminProfile,OOP,,,,,Office of the President,,,FALSE

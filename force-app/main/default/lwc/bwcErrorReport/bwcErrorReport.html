@@ -1,0 +1,35 @@
+<template>
+
+    <template if:true={isToast}>
+        <div if:false={isDismissed} class="slds-notify_container slds-is-relative">
+
+            <div class="slds-notify slds-notify_toast slds-theme_error notify-div" role="status">
+                <span class="slds-assistive-text">Error</span>
+
+                <lightning-icon class="slds-m-right_small" icon-name="utility:error" size="small" variant="inverse" alternative-text="Error"></lightning-icon>
+
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small">{errorMessage}</h2>
+                </div>
+
+                <div if:true={dismissable} class="slds-notify__close">
+                    <lightning-button-icon icon-name="utility:close" size="large" variant="bare-inverse" tooltip="Close" alternative-text="Close"
+                        onclick={handleClose}></lightning-button-icon>
+                </div>
+
+            </div>
+
+        </div>
+    </template>
+
+    <template if:true={isIcon}>
+
+        <div class="slds-grid slds-grid_vertical-align-center">
+            <lightning-icon icon-name="utility:error" variant="error" size="x-small"></lightning-icon>
+            <span class="error-message slds-p-left_small slds-text-color_error">{errorMessage}</span>
+            <lightning-helptext if:true={internalError.details} class="slds-p-left_xx-small slds-p-bottom_xx-small" content={internalError.details}></lightning-helptext>
+        </div>
+
+    </template>
+
+</template>

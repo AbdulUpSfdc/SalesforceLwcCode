@@ -1,0 +1,57 @@
+<template>
+    
+    <template if:true={isOpen}>
+
+                <div id="modal-content">
+
+                    <lightning-spinner if:true={isBusy} variant="brand" size="large" alternative-text="Loading"></lightning-spinner>
+
+                    <c-bwc-error-report></c-bwc-error-report>
+
+                    <!-- Update Passcode -->
+                    <c-bwc-expandable-section title="Update Passcode">
+
+                        <div class="slds-grid slds-m-top_medium slds-grid_pull-padded-small">
+
+                            <div class="slds-size_1-of-2 slds-p-horizontal_small slds-grid slds-grid_vertical">
+
+                                <lightning-layout horizontal-align="spread" multiple-rows="">
+                                    <!-- New Passcode -->
+                                    <lightning-layout-item size="10" padding="horizontal-small">
+                                        <lightning-input data-name="newPasscode"
+                                                        label="New Passcode" 
+                                                        type="password" 
+                                                        onchange={handleNewPasscodeChange} 
+                                                        placeholder="4-8 digits"
+                                                        max-length="8"
+                                                        min-length="4"></lightning-input>
+                                    </lightning-layout-item>
+
+                                    <!-- Re-enter New Passcode -->
+                                    <lightning-layout-item size="10" padding="around-small">
+                                        <lightning-input data-name="reEnterNewPasscode"
+                                                        name="reEnterNewPasscode" 
+                                                        disabled="true" 
+                                                        label="Re-enter New Passcode"
+                                                        type="password" 
+                                                        onchange={handleReEnterNewPasscodeChange}
+                                                        max-length="8"></lightning-input>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item size="2" padding="around-small">
+                                        <span></span>
+                                    </lightning-layout-item>
+                                </lightning-layout>
+
+                            </div>
+
+                        </div>
+
+                    </c-bwc-expandable-section>
+
+                    <!-- Security Questions -->
+
+                </div>
+
+    </template>
+
+</template>

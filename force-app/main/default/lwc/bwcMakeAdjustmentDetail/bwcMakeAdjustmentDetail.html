@@ -1,0 +1,151 @@
+<template>
+    <div class="slds-section slds-is-open">
+
+        <!-- Goodwill -->
+        <div if:true={isGoodwill} class="slds-section__content slds-box" data-name="form">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+
+                    <!-- Adjustment Reason -->
+                    <lightning-combobox 
+                        required 
+                        class="slds-var-p-around_small"
+                        name="adjustmentReason" 
+                        label="Adjustment Reason" 
+                        placeholder="Select Reason"
+                        message-when-value-missing="Please select an Adjustment Reason."
+                        options={adjustmentReasonOptions}
+                        value={adjustmentReason}
+                        onchange={handleInputOnChange}>
+                    </lightning-combobox>
+
+                    <!-- How to Apply -->
+                    <lightning-combobox 
+                        required 
+                        class="slds-var-p-around_small"
+                        name="howToApply" 
+                        label="How to Apply" 
+                        message-when-value-missing="Please choose how to apply the adjustment."
+                        options={howToApplyOptions}
+                        value={howToApply}
+                        onchange={handleInputOnChange}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col">
+                    <!-- Adjustment Amount -->
+                    <lightning-input
+                        required 
+                        class="slds-var-p-around_small" 
+                        name="adjustmentAmount" 
+                        label="Adjustment Amount" 
+                        value={adjustmentAmount}
+                        pattern="^\$?(([1-9]\d{0,2}(,?\d{3})*)|0)?(\.\d{2})?$"
+                        message-when-pattern-mismatch="Please enter a valid amount."
+                        onchange={handleAdjustmentAmountChange}>
+                    </lightning-input>
+                </div>
+            </div>
+
+            <!-- Comments -->
+            <lightning-textarea
+                required
+                class="slds-var-p-around_small" 
+                name="comments" 
+                label="Comments" 
+                placeholder="Enter comments here..."
+                onchange={handleInputOnChange}>
+            </lightning-textarea>
+        </div>
+
+        <!-- Line Item -->
+        <div if:false={isGoodwill} class="slds-section__content slds-box" data-name="form">
+            <h1 class="slds-section__title slds-text-heading_small slds-p-bottom_xx-small">
+                <span title={title}>{title}</span>
+            </h1>
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    
+                    <!-- Service Product -->
+                    <div class="slds-var-p-around_small">
+                        <label class="slds-form-element__label">Service Product</label>
+                        <div class="slds-form-element__control">
+                            <span><strong>{serviceProduct}</strong></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Selected Charge Amount -->
+                    <lightning-input
+                        required 
+                        class="slds-var-p-around_small" 
+                        type="number" 
+                        data-id="chargeAmount" 
+                        name="chargeAmount" 
+                        label="Selected Charge Amount" 
+                        value={chargeAmount} 
+                        disabled=true
+                        formatter="currency" 
+                        step=".01">
+                    </lightning-input>
+                    
+                    <!-- Adjustment Amount -->
+                    <lightning-input
+                        required 
+                        class="slds-var-p-around_small" 
+                        data-id="adjustmentAmount"
+                        name="adjustmentAmount" 
+                        label="Adjustment Amount" 
+                        value={adjustmentAmount}
+                        type="number"
+                        formatter="currency"
+                        step=".01"
+                        onchange={handleAdjustmentAmountChange}>
+                    </lightning-input>
+
+                    <!-- Remove Entire Charge -->
+                    <lightning-input
+                        class="slds-var-p-around_small" 
+                        type="checkbox"
+                        data-id="removeEntireCharge"
+                        name="removeEntireCharge"
+                        label="Remove Entire Charge"
+                        onchange={handleRemoveEntireCharge}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col">
+                    
+                    <!-- Service Type -->
+                    <div class="slds-var-p-around_small">
+                        <label class="slds-form-element__label">Service Type</label>
+                        <div class="slds-form-element__control">
+                            <span><strong>{serviceTypeLabel}</strong></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Adjustment Reason -->
+                    <lightning-combobox 
+                        required 
+                        class="slds-var-p-around_small"
+                        data-id="adjustmentReason" 
+                        name="adjustmentReason" 
+                        label="Adjustment Reason" 
+                        placeholder="Select Reason"
+                        message-when-value-missing="Please select an Adjustment Reason."
+                        options={adjustmentReasonOptions}
+                        onchange={handleInputOnChange}>
+                    </lightning-combobox>
+                </div>
+            </div>
+
+            <!-- Comments -->
+            <lightning-textarea
+                required
+                class="slds-var-p-around_small" 
+                name="comments" 
+                label="Comments" 
+                placeholder="Enter comments here..."
+                onchange={handleInputOnChange}>
+            </lightning-textarea>
+        </div>
+
+    </div>
+</template>

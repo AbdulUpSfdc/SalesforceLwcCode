@@ -1,0 +1,95 @@
+<!-- sldsValidatorIgnore -->
+<template>
+
+    <c-bwc-wizard steps={wizardSteps} default-title="<b>Extended Payment Arrangement Details</b>" is-full-page is-quick-action onclose={handleWizardClose}>
+
+        <span slot="panel0">
+
+            <div class="slds-text-heading_small">
+                Amount Due Today: <span class="element-value">{amountDueToday}</span>
+            </div>
+
+            <div class="slds-text-heading_small section-header">
+                Payment Details
+            </div>
+
+            <div class="section-body">
+
+                <div class="slds-grid slds-var-m-bottom_medium">
+
+                    <c-bwc-form-element label="Status" class="slds-size_1-of-2">
+                        <span class="element-value">
+                            {extendedPa.status}
+                        </span>
+                    </c-bwc-form-element>
+        
+                    <c-bwc-form-element label="Balance on Start Date" class="slds-size_1-of-2">
+                        <lightning-formatted-number class="element-value" format-style="currency" currency-display-as="symbol"
+                            value={extendedPa.financeTotalAmount}></lightning-formatted-number>
+                    </c-bwc-form-element>
+        
+                </div>
+
+                <div class="slds-grid slds-var-m-bottom_medium">
+
+                    <c-bwc-form-element label="Start Date" class="slds-size_1-of-2">
+                        <lightning-formatted-date-time  class="element-value" year="numeric" month="2-digit" day="2-digit" time-zone="UTC" value={extendedPa.enrolledDate}
+                        ></lightning-formatted-date-time>
+                    </c-bwc-form-element>    
+        
+                    <c-bwc-form-element label="Initial Payment at Setup" class="slds-size_1-of-2">
+                        <lightning-formatted-number class="element-value" format-style="currency" currency-display-as="symbol"
+                            value={extendedPa.financeDownPayment}></lightning-formatted-number>
+                    </c-bwc-form-element>
+        
+                </div>
+
+                <div class="slds-grid slds-var-m-bottom_medium">
+
+                    <c-bwc-form-element label="Number of Fixed Payments" class="slds-size_1-of-2">
+                        <lightning-formatted-number class="element-value"
+                            value={extendedPa.installments}></lightning-formatted-number>
+                    </c-bwc-form-element>
+        
+                    <c-bwc-form-element label="Amount Paid to Date" class="slds-size_1-of-2">
+                        <span class="element-value">{amountPaidToDate}</span>
+                    </c-bwc-form-element>
+        
+                </div>
+
+                <div class="slds-grid slds-var-m-bottom_medium">
+
+                    <c-bwc-form-element class="slds-size_1-of-2">
+                    </c-bwc-form-element>
+        
+                    <c-bwc-form-element label="Amount Remaining" class="slds-size_1-of-2">
+                        <lightning-formatted-number class="element-value" format-style="currency" currency-display-as="symbol"
+                            value={extendedPa.financeRemainingAmount}></lightning-formatted-number>
+                    </c-bwc-form-element>
+        
+                </div>
+
+            </div>
+
+            <div class="slds-text-heading_small section-header">
+                Payment Arrangement &amp; Future Installment Details
+            </div>
+
+            <div class="section-body">
+
+                <lightning-datatable if:true={installmentRows}
+                    columns={installmentColumns}
+                    key-field="installmentNumber"
+                    data={installmentRows}
+                    hide-checkbox-column>
+                </lightning-datatable>
+
+            </div>
+
+            <c-bwc-read-panel title="Information" variant="info" text={label.information}></c-bwc-read-panel>
+
+        </span>
+
+    </c-bwc-wizard>
+
+</template>

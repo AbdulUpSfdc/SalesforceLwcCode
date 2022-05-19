@@ -1,0 +1,16 @@
+.slds-card__header{
+    margin: 0px;
+    background:rgb(243, 242, 242)
+}
+.spins::after {
+    position: absolute;
+    content: 'This could take a while......';
+    width: 100%;
+    text-align: center;
+    top: calc(50% + 3em);
+    font-weight: bold;
+}
+.slds-popover.slds-nubbin_left{
+    position: absolute;
+    bottom: 32px;
+}

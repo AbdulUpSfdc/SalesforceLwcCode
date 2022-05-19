@@ -1,0 +1,16 @@
+:host {
+    width: 100%;
+}
+
+.media-body {
+    flex-basis: auto;
+    flex-grow: 0;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.icon {
+    --sds-c-icon-color-foreground-default: var(--lwc-colorTextLink);
+}

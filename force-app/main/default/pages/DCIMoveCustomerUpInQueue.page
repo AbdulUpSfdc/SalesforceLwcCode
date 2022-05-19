@@ -1,0 +1,36 @@
+<apex:page id="DCIMoveCustomerUpInQueue" standardcontroller="RetailCheckinQueue__c" showQuickActionVfHeader="false">
+    <apex:slds />   
+    <apex:includeLightning />
+    <div id="AppContainer"></div>
+    
+    <div class="slds-modal slds-fade-in-open errorDiv slds-hide" id="toastDiv">   
+        <div class="demo-only" style="height: 4rem;">
+            <div class="slds-notify_container slds-is-relative slds-m-right_small slds-no-flex">
+                <div class="slds-notify slds-notify_toast slds-theme_error toastContainer" role="status">
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small toastTitle" id="toastBody"></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='/canvas/sdk/js/publisher.js'></script>
+    <script>
+        var refreshPublisher = function(event){
+            Sfdc.canvas.publisher.publish({ name : "publisher.close", payload : { refresh:"true" }});
+        };
+
+        $Lightning.use("c:DCICheckinContainerApp", function() {
+            $Lightning.createComponent(
+             "c:DCIChangeStatusConfirmation", {"recordId" : "{!RetailCheckinQueue__c.Id}", "actionType": "MoveUp"}, "AppContainer", function(cmp) { 
+
+                $A.eventService.addHandler({ 
+                    event: "c:CloseQA", 
+                    "handler" : refreshPublisher
+                });
+
+            });
+        });
+    </script>
+</apex:page>

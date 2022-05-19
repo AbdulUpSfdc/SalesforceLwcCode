@@ -1,0 +1,62 @@
+<template>
+    <!-- Spinner -->
+    <div if:true={showLoadingSpinner}>
+        <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+    </div>
+
+    <lightning-card title="Case Actions">
+
+        <template if:true={isAdmin}>
+            <div class="slds-p-horizontal_small">
+                <div class="slds-var-p-around_medium"  >
+                    <lightning-combobox if:true={isShowAll} name="Workgroup" label="Workgroup" value={selWorkgroup} placeholder="--None--" options={selectOptions}  ></lightning-combobox>
+                    
+                    <lightning-combobox if:true={isShowAll} name="User" label="User" value={seluserId} placeholder="--None--" options={selectOptUsers} onchange={onhandleChangeUser} ></lightning-combobox>
+                    <div if:true={isShowAll}><div if:true={isErrMsg} style="color:red">No Users exist</div></div>
+                </div>
+            </div>
+        </template>
+
+        <div slot="footer">
+           <div class="slds-align_absolute-center">
+
+                <lightning-button 
+                    if:false={isAdmin}
+                    variant="brand" 
+                    label="Link to Interaction" 
+                    title="Link to Interaction"  
+                    onclick={onClickLinktoInteraction}
+                ></lightning-button>
+
+                <lightning-button 
+                    class="slds-p-left_medium"
+                    if:false={isAdmin} 
+                    variant="brand"  
+                    label="Reassign" 
+                    title="Reassign"  
+                    disabled={cannotReassign}
+                    onclick={onReassign}  
+                ></lightning-button>
+
+                <lightning-button                    
+                    if:true={isAdmin}
+                    label="Cancel"
+                    title="Cancel"
+                    onclick={handleCancelReassign}
+                ></lightning-button>
+
+                
+                <lightning-button 
+                    class="slds-p-left_medium"
+                    if:true={isAdmin} 
+                    disabled={invalidSelection} 
+                    variant="brand"  
+                    label="Reassign" 
+                    title="Reassign"  
+                    onclick={saveRecords}  
+                ></lightning-button>
+                <!-- <lightning-button variant="brand" label="Reassign To Admin" title="Reassign To Admin" disabled="true" onclick={onReassignAdminOwner}  ></lightning-button> -->
+            </div>
+        </div>
+	</lightning-card>
+</template>

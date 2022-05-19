@@ -1,0 +1,223 @@
+<template>
+    
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading..." size="large" variant="brand"></lightning-spinner>
+    </template>
+    <div class="slds-var-m-top_x-large">
+        <c-bwc-notifications></c-bwc-notifications>
+        <c-bwc-error-reports></c-bwc-error-reports>
+    </div>
+    <template if:true={showIMEIScreen}>
+    <lightning-card>
+        <div style="width: 97%; margin:auto">
+        <!--TITLE-->
+        <h3 slot="title" class="slds-var-m-bottom_xx-large slds-var-m-top_xx-large">
+            <svg class="slds-icon slds-icon_small slds-icon-text-success" aria-hidden="true">
+                <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#phone_portrait"></use>
+            </svg>
+            <span class="slds-var-m-left_small " style="vertical-align: middle;"><strong>IMEI Search</strong></span>
+        </h3>
+        <div class="slds-grid">
+            <div class="slds-col slds-size_4-of-12 slds-var-m-top_xxx-small slds-var-m-right_medium">
+                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                    <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" aria-hidden="true">
+                        <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#search"></use>
+                    </svg>
+                    <input type="text" id="imei" placeholder="Enter IMEI" class="slds-input" value={imei} maxlength="15"   onchange={handleInputChange}/>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-12 slds-var-m-top_xxx-small">
+                <button class="slds-button slds-button_neutral slds-button_stretch"   onclick={handleSearch}>Search</button>
+            </div>
+            <div class="slds-col slds-size_1-of-12 slds-var-m-top_xxx-small slds-var-m-left_medium">
+                <button onclick={handleClear} class="slds-button slds-button_neutral slds-button_stretch">Clear</button>
+            </div>
+            <div class="slds-col slds-size_6-of-12">
+
+            </div>
+        </div>
+        <div class="slds-grid">
+            <div class="slds-col slds-size_12-of-12">
+                <div class="slds-text-heading_small slds-var-m-bottom_small slds-var-m-top_xx-large" style="text-align: left;margin-right:4%">
+                    <div class="slds-text-body_small">Note: For GSM Devices, the customer can enter *#06# and the IMEI Number will display on-screen. Depending on the device this may be done while
+                         the customer is on an active call. The IMEI can also be located on the device, underneath the battery.</div>
+            </div>
+            </div>
+        </div>
+        <template if:true={showTable}>
+
+            <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-12">
+                    <h3 class="slds-var-m-bottom_xx-small slds-var-m-top_xx-large">
+                        <span class="slds-var-m-left_small" style="vertical-align: middle;"><strong>Search Results</strong></span>
+                    </h3>
+                </div>
+                
+
+            </div>
+            <!-- Details Start Here-->
+            <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-1">
+                    <div class="slds-section slds-is-open">
+                        <h3 class="slds-section__title slds-theme_shade visualizer">
+                            <!--GREEN START-->
+                            <template if:true={showCheckToolTip}>
+                               <svg class="slds-icon slds-icon_small slds-icon_container slds-icon-standard-product-request svg-icon-medium" aria-hidden="true" title="GREEN" onmouseover={showToolTip} onmouseleave={hideToolTip}>
+                                    <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#check" title="GREEN"></use>
+                                </svg>
+                                    <div class={toolTipClass} role="tooltip" id="check" data-id="check-popover">
+                                        <div class="slds-popover__body toolTipBody">Nationwide <br/> LTE Coverage</div>
+                                     </div>
+                            </template>
+                            <!--GREEN END-->
+                            <!--RED START-->
+                            <template if:true={showCloseToolTip}>
+                                <svg class="slds-icon slds-icon_small slds-icon_container slds-icon-standard-incident svg-icon-medium" aria-hidden="true" title="RED" onmouseover={showToolTip} onmouseleave={hideToolTip}>
+                                    <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close" title="RED"></use>
+                                </svg>
+                                <div class={toolTipClass} role="tooltip" id="close" data-id="close-popover">
+                                    <div class="slds-popover__body toolTipBody">Unacceptable or <br/> No LTE Coverage</div>
+                                </div>
+                                
+                            </template>
+                            <!--RED END-->
+                            <!--YELLOW START-->
+                            <template if:true={showHelpToolTip}>
+                                <svg class="slds-icon slds-icon_small slds-icon_container slds-icon-standard-call svg-icon-medium" aria-hidden="true" title="YELLOW" onmouseover={showToolTip} onmouseleave={hideToolTip}>
+                                    <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#question_mark" title="YELLOW"></use>
+                                </svg>
+                                <div class={toolTipClass} role="tooltip" id="help" data-id="help-popover">
+                                    <div class="slds-popover__body toolTipBody">Some/Reasonable <br/> LTE Coverage in <br/> Many Places</div>
+                                </div>
+                            </template>
+                            <!--YELLOW END-->
+                        <span class="slds-truncate slds-p-horizontal_small" title={searchedImei}><strong>{searchedImei}</strong></span>
+                        </h3>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-1" style="border: 1px solid #8080802e; padding:1%">
+                    <div class="slds-grid">
+                        <!--LEFT COLUMS-->
+                        <div class="slds-col slds-size_1-of-4">
+                            <!--MAKE-->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Make</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-small">
+                                    <span><strong>{response.makeId}</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- MODEL -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Model</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-small">
+                                    <span><strong>{response.modelId}</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- Device Category -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Device Category</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-small">
+                                    <span><strong>{response.deviceCategoryId}</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- Black Listed ID -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Black Listed ID</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-small">
+                                    <span><strong>{response.blackListedIndicatorId}</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- Black Listed Date -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Black Listed Date</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-small">
+                                    <span><strong>{response.blackListStatusDateTime}</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- Certification State -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Certification State</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-small">
+                                    <span><strong>{response.certificationId}</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- Item ID -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Item ID</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-small">
+                                    <span><strong>{response.itemId}</strong></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--RIGHT COLUMNS-->
+                        <div class="slds-col slds-size_1-of-4">
+                            <!--Data-Only Indicator-->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Data-Only Indicator</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-small">
+                                    <span><strong>{response.dataOnlyIndicatorId}</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- Frequency -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">Frequency</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-small">
+                                    <span><strong>{response.frequencyId}</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- LTE Type -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">LTE Type</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-small">
+                                    <span><strong>{response.lteTypeId}</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- NFC Capability -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">NFC Capability</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-small">
+                                    <span><strong>{response.nfcCapabilityId}</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- UMTS Type -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">UMTS Type</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-small">
+                                    <span><strong>{response.umtsTypeId}</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- VoLTE Entitlement Protocol Support -->
+                            <div class="slds-var-p-around_small">
+                                <label class="slds-form-element__label">VoLTE Entitlement Protocol Support</label>
+                                <div class="slds-form-element__control slds-var-p-bottom_x-small">
+                                    <span><strong>{response.voLTEId}</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </template>
+    </div>
+    </lightning-card>
+    </template>
+    
+</template>

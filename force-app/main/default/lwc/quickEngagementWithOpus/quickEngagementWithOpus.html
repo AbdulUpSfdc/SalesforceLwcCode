@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="Quick Engagements" if:true={showAssistInOpusCmp}></br>
+        <div class="slds-clearfix">
+            <div class="slds-align_absolute-center">
+                <c-generic-lic-opus-button-lwc custom-css="fullWidthWithGrid" disabled={isDisable} variant="brand-outline" class="slds-m-around_x-small" label="Pay a bill"  record-id={recordId} lauch-intent="Bill Pay-Unverified" quick-sell=true onrecordclick={handleClick}></c-generic-lic-opus-button-lwc>                
+            </div>
+            <div class="slds-align_absolute-center buyButton">
+                <c-generic-lic-opus-button-lwc custom-css="fullWidthWithGrid" disabled={isDisable} variant="brand-outline" label="Buy an accessory" lauch-intent="Sell Item" record-id={recordId} quick-sell=true onrecordclick={handleClick}></c-generic-lic-opus-button-lwc>
+            </div>
+        </div>        
+</lightning-card>
+</template>

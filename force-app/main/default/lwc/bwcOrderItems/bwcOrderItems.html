@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title='Items Ordered/Shipped' icon-name="standard:fulfillment_order">
+        <lightning-datatable    
+            key-field="serialNumber"
+            data={items}
+            columns={orderItemsColumns}
+            hide-checkbox-column="true">
+        </lightning-datatable>
+    </lightning-card>
+    
+</template>

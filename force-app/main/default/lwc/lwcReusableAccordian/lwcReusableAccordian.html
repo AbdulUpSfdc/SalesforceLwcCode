@@ -1,0 +1,56 @@
+<template>
+    <div class="slds-box" style="background: white;">
+        <ul class="slds-accordion">
+            <li class="slds-accordion__list-item">
+            <section class="slds-accordion__section slds-is-open">
+                <div class="slds-accordion__summary">
+                <h2 class="slds-accordion__summary-heading">
+
+                    <div class="slds-grid slds-gutters" style="width: 100%;">
+                        <div class="slds-col slds-size_9-of-12">
+                            <button class="slds-button slds-button_reset slds-accordion__summary-action" aria-controls="referenceId-45" aria-expanded="true" title="Accordion summary">
+                    
+                                <template if:true={expandable}>
+                                    <template if:true={expanded}>
+                                        <lightning-icon icon-name="utility:chevrondown" name="activeAccordian" onclick={handleAccordianClick} size="xx-small"></lightning-icon>
+                                    </template>
+        
+                                    <template if:false={expanded}>
+                                        <lightning-icon icon-name="utility:chevronright" name="inactiveAccordian"  onclick={handleAccordianClick} size="xx-small"></lightning-icon>
+                                    </template>
+        
+                                    <span class="slds-accordion__summary-content" style="margin-left: 1rem;">{header}</span>
+                                </template>
+                                
+                                <template if:false={expandable}>
+                                    <span class="slds-accordion__summary-content" style="margin-left: 1rem;">{header}</span>
+                                </template>
+                                
+                            </button>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12"  style="float:right">
+                            <b> {rightColumnKeywords} </b>
+                        </div>
+                    </div>
+                           
+                </h2>
+                </div>
+                <div class="slds-accordion__content" id="referenceId-45" style="margin-left: 2rem;">
+                    <div class="slds-grid slds-gutters" style="width: 100%;">
+                        <div class="slds-col slds-size_9-of-12">
+                            <b> Estimated Delivery : </b> {subheader} <br/><br/>
+
+                            <template if:true={isShowDescription}>
+                                {description}
+                            </template>
+                        </div>
+                     </div>
+                    
+                    
+                </div>
+
+            </section>
+            </li>
+        </ul>
+    </div>
+</template>

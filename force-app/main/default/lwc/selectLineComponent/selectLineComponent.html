@@ -1,0 +1,76 @@
+<template>
+    <div class="slds-grid">
+        <div class="slds-size_4-of-12"></div>
+        <div class="slds-size_3-of-12 slds-box slds-box_x-small slds-theme_default">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_2-of-12">
+                    <lightning-input
+                        if:true={allowSelection}
+                        class="slds-p-left_small"
+                        type="checkbox"
+                        onchange={handleChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_8-of-12">
+                    <h2 class="slds-text-heading_medium"><b>{displayLabel}</b></h2>
+                    <label>{displayDescription}</label>
+                    <h2 class="slds-text-heading_medium"><b>{displaySubLabel}</b></h2>
+                    <br/>
+                    <div if:false={showDetails} class="slds-p-left_small">
+                        <lightning-icon
+                            icon-name="utility:chevronright"
+                            onclick={toggleIcon}
+                            size="x-small">
+                        </lightning-icon>
+                        <a onclick={toggleIcon}>Show Details</a>
+                    </div>
+                    <div if:true={showDetails} class="slds-p-left_small">
+                        <lightning-icon
+                            icon-name="utility:chevrondown"
+                            onclick={toggleIcon}
+                            size="x-small">
+                        </lightning-icon>
+                        <a onclick={toggleIcon}>Hide Details</a>
+                    </div>
+                    <div if:true={showDetails} class="slds-p-left_x-small">
+                        <div class="slds-box slds-box_x-small backgroundColor">
+                            <h2 class="slds-text-heading_x-small"><b>{highlightLabel}</b></h2>
+                            <h2 class="slds-text-heading_medium"><b>{highlightDetails}</b></h2>
+                        </div>
+                        <template iterator:it={lineItems}>
+                            <div key={it.value} 
+                                if:false={it.last}>
+                                <label>{it.value}</label>
+                            </div>
+                            <div key={it.value} 
+                                if:true={it.last} class="discountItem">
+                                <label>{it.value}</label>
+                            </div>
+                        </template>
+                        <br/>
+                        <label>{disclaimers}</label>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="slds-p-left_large">
+                <template iterator:it={linkList}>
+                    <a key={it.value.id} 
+                        if:false={it.last}
+                        data-target-id={it.value.id}
+                        onclick={handleSelectedLink}>
+                        {it.value.name}
+                    </a>
+                    <label key={it.value.id} if:false={it.last}> | </label>
+                    <a key={it.value.id} 
+                        if:true={it.last}
+                        data-target-id={it.value.id}
+                        onclick={handleSelectedLink}>
+                        {it.value.name}
+                    </a>
+                </template>
+            </div>
+        </div>
+        <div class="slds-size_4-of-12"></div>
+    </div>
+</template>

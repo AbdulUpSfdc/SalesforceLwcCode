@@ -1,0 +1,20 @@
+<template>
+    <div 
+        class="slds-box slds-theme_shade slds-box_x-small" 
+        style="background-color:rgba(88, 91, 95, 0.75); color:white">
+        <h1>Tools</h1>
+        <lightning-accordion allow-multiple-sections-open style="color: white !important;">
+            <lightning-accordion-section name="details" label="Details">
+            </lightning-accordion-section>
+        <lightning-accordion-section name="linkcenter" label="Link Center" >   
+                    <c-article-link-center></c-article-link-center>
+        </lightning-accordion-section>
+            <lightning-accordion-section name="trendingnow" label="Trending Now">
+            </lightning-accordion-section>
+            <lightning-accordion-section name="quicksetting" label="Quick Settings">
+            </lightning-accordion-section>
+            <lightning-accordion-section name="bookmarks" label="Book Marks">
+            </lightning-accordion-section>
+        </lightning-accordion>
+    </div>  
+</template>

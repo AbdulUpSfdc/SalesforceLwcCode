@@ -1,0 +1,42 @@
+<template>
+
+    <lightning-card title={cardTitle} icon-name="standard:user">
+
+        <div slot="actions">
+
+            <lightning-button label="Refresh" class="slds-m-right_x-small" onclick={handleRefresh}></lightning-button>
+            <lightning-button label="Add New" onclick={handleAddNew} disabled={isDisabledAddNew}></lightning-button>
+
+        </div>
+
+        <div class="slds-grid slds-grid_vertical table-container">
+
+            <lightning-spinner if:true={isLoading} alternative-text="Loading"></lightning-spinner>
+
+            <div class="slds-m-bottom_x-small slds-grid slds-grid_align-center">
+                <c-bwc-notifications></c-bwc-notifications>
+            </div>
+
+            <div if:true={showTable} class="slds-col">
+                <lightning-datatable
+                    columns={columns}
+                    data={tableData}
+                    key-field="slid"
+                    hide-checkbox-column
+                    onrowaction={handleRowAction}>
+                </lightning-datatable>
+            </div>
+
+        </div>
+
+    </lightning-card>
+
+    <c-bwc-step-up></c-bwc-step-up>
+
+    <!-- Use to add new -->
+    <c-bwc-user-association-add></c-bwc-user-association-add>
+
+    <!-- Use to confirm delete -->
+    <c-bwc-confirm></c-bwc-confirm>
+
+</template>

@@ -1,0 +1,41 @@
+<aura:component description="A modal footer with data-driven list of buttons, used by BWCPageHelper to create a modal.">
+    <aura:attribute name="isRendered" type="Boolean" />
+    <aura:attribute name="isBusy" type="Boolean" />
+    <aura:attribute name="modalBody" type="Aura.Component" />
+    <aura:attribute name="buttons" type="Object" />
+    <aura:attribute name="leftButtons" type="Object" access="private" />
+    <aura:attribute name="rightButtons" type="Object" access="private" />
+
+    <aura:handler name="render" value="{!this}" action="{!c.init}" />
+    <aura:handler name="change" value="{!v.buttons}" action="{!c.updateButtonLists}" />
+
+    <div class="slds-grid">
+        <div class="slds-grid slds-size_1-of-2">
+            <aura:iteration items="{!v.leftButtons}" var="button">
+                <aura:if isTrue="{!!button.hidden}">
+                    <lightning:button
+                        name="{!button.name}"
+                        label="{!button.label}"
+                        variant="{!button.variant ? button.variant : 'neutral'}"
+                        disabled="{!button.disabled || v.isBusy}"
+                        onclick="{!c.handleButtonClick}"
+                    ></lightning:button>
+                </aura:if>
+            </aura:iteration>
+        </div>
+
+        <div class="slds-grid slds-grid_align-end slds-size_1-of-2">
+            <aura:iteration items="{!v.rightButtons}" var="button">
+                <aura:if isTrue="{!!button.hidden}">
+                    <lightning:button
+                        name="{!button.name}"
+                        label="{!button.label}"
+                        variant="{!button.variant ? button.variant : 'neutral'}"
+                        disabled="{!button.disabled || v.isBusy}"
+                        onclick="{!c.handleButtonClick}"
+                    ></lightning:button>
+                </aura:if>
+            </aura:iteration>
+        </div>
+    </div>
+</aura:component>
